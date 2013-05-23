@@ -129,6 +129,12 @@ conf_files.each do |conf_file|
       :namespaces => node['dovecot']['namespaces'],
       :conf => node['dovecot']['conf']
     )
+    notifies :reload, 'service[dovecot]'
   end
+end
+
+service 'dovecot' do
+  supports :restart => true, :reload => true, :status => true
+  action [ :enable, :start ]
 end
 
