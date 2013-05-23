@@ -7,3 +7,4 @@ Gemfile.lock
 test/kitchen/.kitchen/
 .kitchen.local.yml
 Berksfile.lock
+.vagrant

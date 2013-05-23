@@ -73,6 +73,7 @@ when 'debian', 'ubuntu' then
     only_if do node['dovecot']['plugins'].include?('sieve') end
   end
 
+  # ldap
   package 'dovecot-ldap' do
     action :install
     only_if do
@@ -81,6 +82,7 @@ when 'debian', 'ubuntu' then
     end
   end
 
+  # sqlite
   package 'dovecot-sqlite' do
     action :install
     only_if do
