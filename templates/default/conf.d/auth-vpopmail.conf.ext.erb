@@ -2,16 +2,24 @@
 #
 # <doc/wiki/AuthDatabase.VPopMail.txt>
 
+<% if Dovecot::Auth.has_passdb?(@auth['vpopmail']) -%>
+<%=  Dovecot::Conf.authdb('passdb', @auth['vpopmail']['passdb']) %>
+<% else -%>
 passdb {
   driver = vpopmail
 
   # [cache_key=<key>] [webmail=<ip>]
   args =
 }
+<% end -%>
 
+<% if Dovecot::Auth.has_userdb?(@auth['vpopmail']) -%>
+<%=  Dovecot::Conf.authdb('userdb', @auth['vpopmail']['userdb']) %>
+<% else -%>
 userdb {
   driver = vpopmail
 
   # [quota_template=<template>] - %q expands to Maildir++ quota
   args = quota_template=quota_rule=*:backend=%q
 }
+<% end -%>

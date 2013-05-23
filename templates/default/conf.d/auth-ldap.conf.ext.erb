@@ -2,13 +2,20 @@
 #
 # <doc/wiki/AuthDatabase.LDAP.txt>
 
+<% if Dovecot::Auth.has_passdb?(@auth['ldap']) -%>
+<%=  Dovecot::Conf.authdb('passdb', @auth['ldap']['passdb']) %>
+<% else -%>
 passdb {
   driver = ldap
 
   # Path for LDAP configuration file, see example-config/dovecot-ldap.conf.ext
   args = /etc/dovecot/dovecot-ldap.conf.ext
 }
+<% end -%>
 
+<% if Dovecot::Auth.has_userdb?(@auth['ldap']) -%>
+<%=  Dovecot::Conf.authdb('userdb', @auth['ldap']['userdb']) %>
+<% else -%>
 # "prefetch" user database means that the passdb already provided the
 # needed information and there's no need to do a separate userdb lookup.
 # <doc/wiki/UserDatabase.Prefetch.txt>
@@ -28,3 +35,4 @@ userdb {
   #driver = static
   #args = uid=vmail gid=vmail home=/var/vmail/%u
 #}
+<% end -%>

@@ -5,6 +5,9 @@
 # The deny passdb should always be specified before others, so it gets
 # checked first.
 
+<% if Dovecot::Auth.has_passdb?(@auth['deny']) -%>
+<%=  Dovecot::Conf.authdb('passdb', @auth['deny']['passdb']) %>
+<% else -%>
 # Example deny passdb using passwd-file. You can use any passdb though.
 passdb {
   driver = passwd-file
@@ -13,3 +16,4 @@ passdb {
   # File contains a list of usernames, one per line
   args = /etc/dovecot/deny-users
 }
+<% end -%>

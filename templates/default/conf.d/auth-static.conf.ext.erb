@@ -8,6 +8,9 @@
 #  - authentication with SSL certificates
 #  - simple testing
 
+<% if Dovecot::Auth.has_passdb?(@auth['static']) -%>
+<%=  Dovecot::Conf.authdb('passdb', @auth['static']['passdb']) %>
+<% else -%>
 #passdb {
 #  driver = static
 #  args = proxy=y host=%1Mu.example.com nopassword=y
@@ -17,8 +20,13 @@
 #  driver = static
 #  args = password=test
 #}
+<% end -%>
 
+<% if Dovecot::Auth.has_userdb?(@auth['static']) -%>
+<%=  Dovecot::Conf.authdb('userdb', @auth['static']['userdb']) %>
+<% else -%>
 #userdb {
 #  driver = static
 #  args = uid=vmail gid=vmail home=/home/%u
 #}
+<% end -%>

@@ -15,24 +15,24 @@ default['dovecot']['auth']['checkpassword'] = nil
 # }
 
 default['dovecot']['auth']['system'] = {}
-default['dovecot']['auth']['system'] = {
-  'passdb' => [
-  {
-    'driver' => 'pam',
-    'args' => 'dovecot',
-  },
-  {
-    'driver' => 'passwd',
-    'args' => '',
-  },
-  {
-    'driver' => 'shadow',
-    'args' => '',
-  },
-  {
-    'driver' => 'bsdauth',
-    'args' => '',
-  },
-]
-}
+# default['dovecot']['auth']['system'] = {
+#   'passdb' => [
+#   {
+#     'driver' => 'pam',
+#     'args' => 'dovecot',
+#   },
+#   {
+#     'driver' => 'passwd',
+#     'args' => '',
+#   },
+#   {
+#     'driver' => 'shadow',
+#     'args' => '',
+#   },
+#   {
+#     'driver' => 'bsdauth',
+#     'args' => '',
+#   },
+# ]
+# }
 

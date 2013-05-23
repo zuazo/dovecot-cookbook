@@ -3,12 +3,20 @@
 # passwd-like file with specified location.
 # <doc/wiki/AuthDatabase.PasswdFile.txt>
 
+<% if Dovecot::Auth.has_passdb?(@auth['passwdfile']) -%>
+<%=  Dovecot::Conf.authdb('passdb', @auth['passwdfile']['passdb']) %>
+<% else -%>
 passdb {
   driver = passwd-file
   args = scheme=CRYPT username_format=%u /etc/dovecot/users
 }
+<% end -%>
 
+<% if Dovecot::Auth.has_userdb?(@auth['userwdfile']) -%>
+<%=  Dovecot::Conf.authdb('userdb', @auth['passwdfile']['userdb']) %>
+<% else -%>
 userdb {
   driver = passwd-file
   args = username_format=%u /etc/dovecot/users
 }
+<% end -%>
