@@ -16,7 +16,6 @@ default['dovecot']['services']['director'] = nil
 #       'port' => '5432',
 #   } },
 # ]
-
 default['dovecot']['services']['imap-login'] = nil
 # default['dovecot']['services']['imap-login'] = {
 #   'listeners' => [
@@ -32,8 +31,6 @@ default['dovecot']['services']['imap-login'] = nil
 #   # 'process_min_avail' => 0,
 #   # 'vsz_limit' => '64M',
 # }
-
-default['dovecot']['services']['imap-login'] = nil
 default['dovecot']['services']['pop3-login'] = nil
 default['dovecot']['services']['lmtp'] = nil
 default['dovecot']['services']['imap'] = nil

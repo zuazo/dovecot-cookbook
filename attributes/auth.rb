@@ -1,7 +1,5 @@
 
 default['dovecot']['auth'] = {}
-default['dovecot']['auth']['system'] = {}
-default['dovecot']['auth']['sql']['drivers'] = []
 
 default['dovecot']['auth']['checkpassword'] = nil
 # default['dovecot']['auth']['checkpassword'] = { # hash
@@ -13,7 +11,11 @@ default['dovecot']['auth']['checkpassword'] = nil
 #     'driver' => 'prefetch',
 #   },
 # }
-
+default['dovecot']['auth']['deny'] = nil
+default['dovecot']['auth']['ldap'] = nil
+default['dovecot']['auth']['master'] = nil
+default['dovecot']['auth']['passwdfile'] = nil
+default['dovecot']['auth']['sql']['drivers'] = []
 default['dovecot']['auth']['system'] = {}
 # default['dovecot']['auth']['system']['passdb'] = [ # array
 #   {
@@ -33,4 +35,5 @@ default['dovecot']['auth']['system'] = {}
 #     'args' => '',
 #   },
 # ]
+default['dovecot']['auth']['vpopmail'] = nil
 
