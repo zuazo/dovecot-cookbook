@@ -4,15 +4,26 @@ require 'erubis'
 module Dovecot
   module Conf
 
-    def self.value(v)
-      if v.kind_of?(TrueClass)
+    def self.value(v, default = nil)
+      if v.nil?
+        default.to_s
+      elsif v === true
         'yes'
-      elsif v.kind_of?(FalseClass)
+      elsif v === false
         'no'
       elsif v.kind_of?(Array)
         v.join(' ')
       else
         v.to_s
+      end
+    end
+
+    def self.attribute(conf, k, default = nil)
+      v = conf[k]
+      if v.nil?
+        "##{k} = #{value(default)}"
+      else
+        "#{k} = #{value(v)}"
       end
     end
 
