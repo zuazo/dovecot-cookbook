@@ -170,19 +170,19 @@
 # to make sure that users can't log in as daemons or other system users.
 # Note that denying root logins is hardcoded to dovecot binary and can't
 # be done even if first_valid_uid is set to 0.
-<%= Dovecot::Conf.attribute(@conf, 'first_valid_uid', '500') %>
-<%= Dovecot::Conf.attribute(@conf, 'last_valid_uid', '0') %>
+<%= Dovecot::Conf.attribute(@conf, 'first_valid_uid', 500) %>
+<%= Dovecot::Conf.attribute(@conf, 'last_valid_uid', 0) %>
 
 # Valid GID range for users, defaults to non-root/wheel. Users having
 # non-valid GID as primary group ID aren't allowed to log in. If user
 # belongs to supplementary groups with non-valid GIDs, those groups are
 # not set.
-<%= Dovecot::Conf.attribute(@conf, 'first_valid_gid', '1') %>
-<%= Dovecot::Conf.attribute(@conf, 'last_valid_gid', '0') %>
+<%= Dovecot::Conf.attribute(@conf, 'first_valid_gid', 1) %>
+<%= Dovecot::Conf.attribute(@conf, 'last_valid_gid', 0) %>
 
 # Maximum allowed length for mail keyword name. It's only forced when trying
 # to create new keywords.
-<%= Dovecot::Conf.attribute(@conf, 'mail_max_keyword_length', '50') %>
+<%= Dovecot::Conf.attribute(@conf, 'mail_max_keyword_length', 50) %>
 
 # ':' separated list of directories under which chrooting is allowed for mail
 # processes (ie. /var/mail will allow chrooting to /var/mail/foo/bar too).
@@ -304,7 +304,7 @@
 
 # If mbox size is smaller than this (e.g. 100k), don't write index files.
 # If an index file already exists it's still read, just not updated.
-<%= Dovecot::Conf.attribute(@conf, 'mbox_min_index_size', '0') %>
+<%= Dovecot::Conf.attribute(@conf, 'mbox_min_index_size', 0) %>
 
 ##
 ## mdbox-specific settings
@@ -315,7 +315,7 @@
 
 # Maximum dbox file age until it's rotated. Typically in days. Day begins
 # from midnight, so 1d = today, 2d = yesterday, etc. 0 = check disabled.
-<%= Dovecot::Conf.attribute(@conf, 'mdbox_rotate_interval', '0') %>
+<%= Dovecot::Conf.attribute(@conf, 'mdbox_rotate_interval', 0) %>
 
 # When creating new mdbox files, immediately preallocate their size to
 # mdbox_rotate_size. This setting currently works only in Linux with some

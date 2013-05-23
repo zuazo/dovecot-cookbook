@@ -35,7 +35,7 @@
 # How often to regenerate the SSL parameters file. Generation is quite CPU
 # intensive operation. The value is in hours, 0 disables regeneration
 # entirely.
-<%= Dovecot::Conf.attribute(@conf, 'ssl_parameters_regenerate', '168') %>
+<%= Dovecot::Conf.attribute(@conf, 'ssl_parameters_regenerate', 168) %>
 
 # SSL ciphers to use
 <%= Dovecot::Conf.attribute(@conf, 'ssl_cipher_list', 'ALL:!LOW:!SSLv2:!EXP:!aNULL') %>
