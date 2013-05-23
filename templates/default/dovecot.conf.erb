@@ -27,91 +27,47 @@ protocols = <%= Dovecot::Conf.protocols(@protocols) %>
 # "*" listens in all IPv4 interfaces, "::" listens in all IPv6 interfaces.
 # If you want to specify non-default ports or anything more complex,
 # edit conf.d/master.conf.
-<% if @conf['listen'] -%>
-listen = <%= @conf['listen'] %>
-<% else -%>
-#listen = *, ::
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'listen', '*, ::') %>
 
 # Base directory where to store runtime data.
-<% unless @conf['base_dir'].nil? -%>
-base_dir = <%= Dovecot::Conf.value(@conf['base_dir']) %>
-<% else -%>
-#base_dir = /var/run/dovecot/
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'base_dir', '/var/run/dovecot/') %>
 
 # Name of this instance. Used to prefix all Dovecot processes in ps output.
-<% unless @conf['instance_name'].nil? -%>
-instance_name = <%= Dovecot::Conf.value(@conf['instance_name']) %>
-<% else -%>
-#instance_name = dovecot
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'instance_name', 'dovecot') %>
 
 # Greeting message for clients.
-<% unless @conf['login_greeting'].nil? -%>
-login_greeting = <%= Dovecot::Conf.value(@conf['login_greeting']) %>
-<% else -%>
-#login_greeting = Dovecot ready.
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'login_greeting', 'Dovecot ready.') %>
 
 # Space separated list of trusted network ranges. Connections from these
 # IPs are allowed to override their IP addresses and ports (for logging and
 # for authentication checks). disable_plaintext_auth is also ignored for
 # these networks. Typically you'd specify your IMAP proxy servers here.
-<% unless @conf['login_trusted_networks'].nil? -%>
-login_trusted_networks = <%= Dovecot::Conf.value(@conf['login_trusted_networks']) %>
-<% else -%>
-#login_trusted_networks =
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'login_trusted_networks') %>
 
 # Space separated list of login access check sockets (e.g. tcpwrap)
-<% unless @conf['login_access_sockets'].nil? -%>
-login_access_sockets = <%= Dovecot::Conf.value(@conf['login_access_sockets']) %>
-<% else -%>
-#login_access_sockets = 
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'login_access_sockets') %>
 
 # Show more verbose process titles (in ps). Currently shows user name and
 # IP address. Useful for seeing who are actually using the IMAP processes
 # (eg. shared mailboxes or if same uid is used for multiple accounts).
-<% unless @conf['verbose_proctitle'].nil? -%>
-verbose_proctitle = <%= Dovecot::Conf.value(@conf['verbose_proctitle']) %>
-<% else -%>
-#verbose_proctitle = no
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'verbose_proctitle', false) %>
 
 # Should all processes be killed when Dovecot master process shuts down.
 # Setting this to "no" means that Dovecot can be upgraded without
 # forcing existing client connections to close (although that could also be
 # a problem if the upgrade is e.g. because of a security fix).
-<% unless @conf['shutdown_clients'].nil? -%>
-shutdown_clients = <%= Dovecot::Conf.value(@conf['shutdown_clients']) %>
-<% else -%>
-#shutdown_clients = yes
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'shutdown_clients', true) %>
 
 # If non-zero, run mail commands via this many connections to doveadm server,
 # instead of running them directly in the same process.
-<% unless @conf['doveadm_worker_count'].nil? -%>
-doveadm_worker_count = <%= Dovecot::Conf.value(@conf['doveadm_worker_count']) %>
-<% else -%>
-#doveadm_worker_count = 0
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'doveadm_worker_count', 0) %>
 # UNIX socket or host:port used for connecting to doveadm server
-<% unless @conf['doveadm_socket_path'].nil? -%>
-doveadm_socket_path = <%= Dovecot::Conf.value(@conf['doveadm_socket_path']) %>
-<% else -%>
-#doveadm_socket_path = doveadm-server
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'doveadm_socket_path', 'doveadm-server') %>
 
 # Space separated list of environment variables that are preserved on Dovecot
 # startup and passed down to all of its child processes. You can also give
 # key=value pairs to always set specific settings.
-<% unless @conf['import_environment'].nil? -%>
-import_environment = <%= Dovecot::Conf.value(@conf['import_environment']) %>
-<% else -%>
-#import_environment = TZ
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'import_environment', 'TZ') %>
 
 ##
 ## Dictionary server settings

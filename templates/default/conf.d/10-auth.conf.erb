@@ -6,173 +6,97 @@
 # SSL/TLS is used (LOGINDISABLED capability). Note that if the remote IP
 # matches the local IP (ie. you're connecting from the same computer), the
 # connection is considered secure and plaintext authentication is allowed.
-<% unless @conf['disable_plaintext_auth'].nil? -%>
-disable_plaintext_auth = <%= Dovecot::Conf.value(@conf['disable_plaintext_auth']) %>
-<% else -%>
-#disable_plaintext_auth = yes
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'disable_plaintext_auth', true) %>
 
 # Authentication cache size (e.g. 10M). 0 means it's disabled. Note that
 # bsdauth, PAM and vpopmail require cache_key to be set for caching to be used.
-<% unless @conf['auth_cache_size'].nil? -%>
-auth_cache_size = <%= Dovecot::Conf.value(@conf['auth_cache_size']) %>
-<% else -%>
-#auth_cache_size = 0
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_cache_size', 0) %>
 # Time to live for cached data. After TTL expires the cached record is no
 # longer used, *except* if the main database lookup returns internal failure.
 # We also try to handle password changes automatically: If user's previous
 # authentication was successful, but this one wasn't, the cache isn't used.
 # For now this works only with plaintext authentication.
-<% unless @conf['auth_cache_ttl'].nil? -%>
-auth_cache_ttl = <%= Dovecot::Conf.value(@conf['auth_cache_ttl']) %>
-<% else -%>
-#auth_cache_ttl = 1 hour
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_cache_ttl', '1 hour') %>
 # TTL for negative hits (user not found, password mismatch).
 # 0 disables caching them completely.
-<% unless @conf['auth_cache_negative_ttl'].nil? -%>
-auth_cache_negative_ttl = <%= Dovecot::Conf.value(@conf['auth_cache_negative_ttl']) %>
-<% else -%>
-#auth_cache_negative_ttl = 1 hour
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_cache_negative_ttl', '1 hour') %>
 
 # Space separated list of realms for SASL authentication mechanisms that need
 # them. You can leave it empty if you don't want to support multiple realms.
 # Many clients simply use the first one listed here, so keep the default realm
 # first.
-<% unless @conf['auth_realms'].nil? -%>
-auth_realms = <%= Dovecot::Conf.value(@conf['auth_realms']) %>
-<% else -%>
-#auth_realms =
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_realms') %>
 
 # Default realm/domain to use if none was specified. This is used for both
 # SASL realms and appending @domain to username in plaintext logins.
-<% unless @conf['auth_default_realm'].nil? -%>
-auth_default_realm = <%= Dovecot::Conf.value(@conf['auth_default_realm']) %>
-<% else -%>
-#auth_default_realm = 
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_default_realm') %>
 
 # List of allowed characters in username. If the user-given username contains
 # a character not listed in here, the login automatically fails. This is just
 # an extra check to make sure user can't exploit any potential quote escaping
 # vulnerabilities with SQL/LDAP databases. If you want to allow all characters,
 # set this value to empty.
-<% unless @conf['auth_username_chars'].nil? -%>
-auth_username_chars = <%= Dovecot::Conf.value(@conf['auth_username_chars']) %>
-<% else -%>
-#auth_username_chars = abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890.-_@
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_username_chars', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890.-_@') %>
 
 # Username character translations before it's looked up from databases. The
 # value contains series of from -> to characters. For example "#@/@" means
 # that '#' and '/' characters are translated to '@'.
-<% unless @conf['auth_username_translation'].nil? -%>
-auth_username_translation = <%= Dovecot::Conf.value(@conf['auth_username_translation']) %>
-<% else -%>
-#auth_username_translation =
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_username_translation') %>
 
 # Username formatting before it's looked up from databases. You can use
 # the standard variables here, eg. %Lu would lowercase the username, %n would
 # drop away the domain if it was given, or "%n-AT-%d" would change the '@' into
 # "-AT-". This translation is done after auth_username_translation changes.
-<% unless @conf['auth_username_format'].nil? -%>
-auth_username_format = <%= Dovecot::Conf.value(@conf['auth_username_format']) %>
-<% else -%>
-#auth_username_format =
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_username_format') %>
 
 # If you want to allow master users to log in by specifying the master
 # username within the normal username string (ie. not using SASL mechanism's
 # support for it), you can specify the separator character here. The format
 # is then <username><separator><master username>. UW-IMAP uses "*" as the
 # separator, so that could be a good choice.
-<% unless @conf['auth_master_user_separator'].nil? -%>
-auth_master_user_separator = <%= Dovecot::Conf.value(@conf['auth_master_user_separator']) %>
-<% else -%>
-#auth_master_user_separator =
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_master_user_separator') %>
 
 # Username to use for users logging in with ANONYMOUS SASL mechanism
-<% unless @conf['auth_anonymous_username'].nil? -%>
-auth_anonymous_username = <%= Dovecot::Conf.value(@conf['auth_anonymous_username']) %>
-<% else -%>
-#auth_anonymous_username = anonymous
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_anonymous_username', 'anonymous') %>
 
 # Maximum number of dovecot-auth worker processes. They're used to execute
 # blocking passdb and userdb queries (eg. MySQL and PAM). They're
 # automatically created and destroyed as needed.
-<% unless @conf['auth_worker_max_count'].nil? -%>
-auth_worker_max_count = <%= Dovecot::Conf.value(@conf['auth_worker_max_count']) %>
-<% else -%>
-#auth_worker_max_count = 30
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_worker_max_count', 30) %>
 
 # Host name to use in GSSAPI principal names. The default is to use the
 # name returned by gethostname(). Use "$ALL" (with quotes) to allow all keytab
 # entries.
-<% unless @conf['auth_gssapi_hostname'].nil? -%>
-auth_gssapi_hostname = <%= Dovecot::Conf.value(@conf['auth_gssapi_hostname']) %>
-<% else -%>
-#auth_gssapi_hostname =
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_gssapi_hostname') %>
 
 # Kerberos keytab to use for the GSSAPI mechanism. Will use the system
 # default (usually /etc/krb5.keytab) if not specified. You may need to change
 # the auth service to run as root to be able to read this file.
-<% unless @conf['auth_krb5_keytab'].nil? -%>
-auth_krb5_keytab = <%= Dovecot::Conf.value(@conf['auth_krb5_keytab']) %>
-<% else -%>
-#auth_krb5_keytab = 
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_krb5_keytab') %>
 
 # Do NTLM and GSS-SPNEGO authentication using Samba's winbind daemon and
 # ntlm_auth helper. <doc/wiki/Authentication/Mechanisms/Winbind.txt>
-<% unless @conf['auth_use_winbind'].nil? -%>
-auth_use_winbind = <%= Dovecot::Conf.value(@conf['auth_use_winbind']) %>
-<% else -%>
-#auth_use_winbind = no
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_use_winbind', false) %>
 
 # Path for Samba's ntlm_auth helper binary.
-<% unless @conf['auth_winbind_helper_path'].nil? -%>
-auth_winbind_helper_path = <%= Dovecot::Conf.value(@conf['auth_winbind_helper_path']) %>
-<% else -%>
-#auth_winbind_helper_path = /usr/bin/ntlm_auth
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_winbind_helper_path', '/usr/bin/ntlm_auth') %>
 
 # Time to delay before replying to failed authentications.
-<% unless @conf['auth_failure_delay'].nil? -%>
-auth_failure_delay = <%= Dovecot::Conf.value(@conf['auth_failure_delay']) %>
-<% else -%>
-#auth_failure_delay = 2 secs
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_failure_delay', '2 secs') %>
 
 # Require a valid SSL client certificate or the authentication fails.
-<% unless @conf['auth_ssl_require_client_cert'].nil? -%>
-auth_ssl_require_client_cert = <%= Dovecot::Conf.value(@conf['auth_ssl_require_client_cert']) %>
-<% else -%>
-#auth_ssl_require_client_cert = no
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_ssl_require_client_cert', false) %>
 
 # Take the username from client's SSL certificate, using 
 # X509_NAME_get_text_by_NID() which returns the subject's DN's
 # CommonName. 
-#auth_ssl_username_from_cert = no
+<%= Dovecot::Conf.attribute(@conf, 'auth_ssl_username_from_cert', false) %>
 
 # Space separated list of wanted authentication mechanisms:
 #   plain login digest-md5 cram-md5 ntlm rpa apop anonymous gssapi otp skey
 #   gss-spnego
 # NOTE: See also disable_plaintext_auth setting.
-<% unless @conf['auth_mechanisms'].nil? -%>
-auth_mechanisms = <%= Dovecot::Conf.value(@conf['auth_mechanisms']) %>
-<% else -%>
-#auth_mechanisms = plain
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_mechanisms', 'plain') %>
 
 ##
 ## Password and user databases

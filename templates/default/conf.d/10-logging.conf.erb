@@ -4,84 +4,44 @@
 
 # Log file to use for error messages. "syslog" logs to syslog,
 # /dev/stderr logs to stderr.
-<% unless @conf['log_path'].nil? -%>
-log_path = <%= Dovecot::Conf.value(@conf['log_path']) %>
-<% else -%>
-#log_path = syslog
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'log_path', 'syslog') %>
 
 # Log file to use for informational messages. Defaults to log_path.
-<% unless @conf['info_log_path'].nil? -%>
-info_log_path = <%= Dovecot::Conf.value(@conf['info_log_path']) %>
-<% else -%>
-#info_log_path = 
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'info_log_path') %>
 # Log file to use for debug messages. Defaults to info_log_path.
-<% unless @conf['debug_log_path'].nil? -%>
-debug_log_path = <%= Dovecot::Conf.value(@conf['debug_log_path']) %>
-<% else -%>
-#debug_log_path = 
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'debug_log_path') %>
 
 # Syslog facility to use if you're logging to syslog. Usually if you don't
 # want to use "mail", you'll use local0..local7. Also other standard
 # facilities are supported.
-<% unless @conf['syslog_facility'].nil? -%>
-syslog_facility = <%= Dovecot::Conf.value(@conf['syslog_facility']) %>
-<% else -%>
-#syslog_facility = mail
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'syslog_facility', 'mail') %>
 
 ##
 ## Logging verbosity and debugging.
 ##
 
 # Log unsuccessful authentication attempts and the reasons why they failed.
-<% unless @conf['auth_verbose'].nil? -%>
-auth_verbose = <%= Dovecot::Conf.value(@conf['auth_verbose']) %>
-<% else -%>
-#auth_verbose = no
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_verbose', false) %>
 
 # In case of password mismatches, log the attempted password. Valid values are
 # no, plain and sha1. sha1 can be useful for detecting brute force password
 # attempts vs. user simply trying the same password over and over again.
-<% unless @conf['auth_verbose_passwords'].nil? -%>
-auth_verbose_passwords = <%= Dovecot::Conf.value(@conf['auth_verbose_passwords']) %>
-<% else -%>
-#auth_verbose_passwords = no
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_verbose_passwords', false) %>
 
 # Even more verbose logging for debugging purposes. Shows for example SQL
 # queries.
-<% unless @conf['auth_debug'].nil? -%>
-auth_debug = <%= Dovecot::Conf.value(@conf['auth_debug']) %>
-<% else -%>
-#auth_debug = no
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_debug', false) %>
 
 # In case of password mismatches, log the passwords and used scheme so the
 # problem can be debugged. Enabling this also enables auth_debug.
-<% unless @conf['auth_debug_passwords'].nil? -%>
-auth_debug_passwords = <%= Dovecot::Conf.value(@conf['auth_debug_passwords']) %>
-<% else -%>
-#auth_debug_passwords = no
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'auth_debug_passwords', false) %>
 
 # Enable mail process debugging. This can help you figure out why Dovecot
 # isn't finding your mails.
-<% unless @conf['mail_debug'].nil? -%>
-mail_debug = <%= Dovecot::Conf.value(@conf['mail_debug']) %>
-<% else -%>
-#mail_debug = no
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'mail_debug', false) %>
 
 # Show protocol level SSL errors.
-<% unless @conf['verbose_ssl'].nil? -%>
-verbose_ssl = <%= Dovecot::Conf.value(@conf['verbose_ssl']) %>
-<% else -%>
-#verbose_ssl = no
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'verbose_ssl', false) %>
 
 <% if @plugins.has_key?('mail_log') and @plugins['mail_log'].kind_of?(Hash) -%>
 <%= Dovecot::Conf.plugin('mail_log', @plugins['mail_log']) %>
@@ -102,36 +62,20 @@ plugin {
 
 # Prefix for each line written to log file. % codes are in strftime(3)
 # format.
-<% unless @conf['log_timestamp'].nil? -%>
-log_timestamp = <%= Dovecot::Conf.value(@conf['log_timestamp']) %>
-<% else -%>
-#log_timestamp = "%b %d %H:%M:%S "
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'log_timestamp', '"%b %d %H:%M:%S "') %>
 
 # Space-separated list of elements we want to log. The elements which have
 # a non-empty variable value are joined together to form a comma-separated
 # string.
-<% unless @conf['login_log_format_elements'].nil? -%>
-login_log_format_elements = <%= Dovecot::Conf.value(@conf['login_log_format_elements']) %>
-<% else -%>
-#login_log_format_elements = user=<%= '<%' %>u> method=%m rip=%r lip=%l mpid=%e %c
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'login_log_format_elements', 'user=<%u> method=%m rip=%r lip=%l mpid=%e %c') %>
 
 # Login log format. %$ contains login_log_format_elements string, %s contains
 # the data we want to log.
-<% unless @conf['login_log_format'].nil? -%>
-login_log_format = <%= Dovecot::Conf.value(@conf['login_log_format']) %>
-<% else -%>
-#login_log_format = %$: %s
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'login_log_format', '%$: %s') %>
  
 # Log prefix for mail processes. See doc/wiki/Variables.txt for list of
 # possible variables you can use.
-<% unless @conf['mail_log_prefix'].nil? -%>
-mail_log_prefix = <%= Dovecot::Conf.value(@conf['mail_log_prefix']) %>
-<% else -%>
-#mail_log_prefix = "%s(%u): "
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'mail_log_prefix', '"%s(%u): "') %>
 
 # Format to use for logging mail deliveries. You can use variables:
 #  %$ - Delivery status message (e.g. "saved to INBOX")
@@ -140,8 +84,4 @@ mail_log_prefix = <%= Dovecot::Conf.value(@conf['mail_log_prefix']) %>
 #  %f - From address
 #  %p - Physical size
 #  %w - Virtual size
-<% unless @conf['deliver_log_format'].nil? -%>
-deliver_log_format = <%= Dovecot::Conf.value(@conf['deliver_log_format']) %>
-<% else -%>
-#deliver_log_format = msgid=%m: %$
-<% end -%>
+<%= Dovecot::Conf.attribute(@conf, 'deliver_log_format', 'msgid=%m: %$') %>
