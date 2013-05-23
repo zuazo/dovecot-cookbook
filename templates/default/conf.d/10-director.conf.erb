@@ -26,7 +26,7 @@
 <%= Dovecot::Conf.attribute(@conf, 'director_doveadm_port', 0) %>
 
 <% if @services['director'].kind_of?(Hash) and @services['director'].length > 0 -%>
-<%= Dovecot::Conf.service('director', @services['director']) %>
+<%=  Dovecot::Conf.service('director', @services['director']) %>
 <% else -%>
 # To enable director service, uncomment the modes and assign a port.
 service director {

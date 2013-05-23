@@ -79,18 +79,18 @@ module Dovecot
           service_proto = service.split(":")[0]
           service_name = service.split(":")[1]
   -%>
-  <%= service_proto %>_listener <%= service_name %> {
-  <%     values.each do |key, value|-%>
-    <%= key %> = <%= @Dovecot_Conf.value(value) %>
-  <%     end -%>
+  <%=     service_proto %>_listener <%= service_name %> {
+  <%        values.each do |key, value|-%>
+    <%=       key %> = <%= @Dovecot_Conf.value(value) %>
+  <%        end -%>
   }
   <%     end -%>
   <%   end -%>
   <% end -%>
   <% @conf.each do |key, value|
-      if key != "listeners"
+       if key != "listeners"
   -%>
-  <%= key %> = <%= @Dovecot_Conf.value(value) %>
+  <%=    key %> = <%= @Dovecot_Conf.value(value) %>
   <%   end -%>
   <% end -%>
 }'
