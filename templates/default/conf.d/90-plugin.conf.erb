@@ -6,6 +6,16 @@
 # settings take effect. See <doc/wiki/Plugins.txt> for list of plugins and
 # their configuration. Note that %variable expansion is done for all values.
 
+<% unknown_plugins = Dovecot::Plugins.list_unknown(@plugins)
+   if unknown_plugins.length > 0
+     unknown_plugins.each do |plugin|
+       if @plugins[plugin].kind_of?(Hash)
+   -%>
+<%=      Dovecot::Conf.plugin(plugin, @plugins[plugin]) %>
+<%     end
+     end
+   else -%>
 plugin {
   #setting_name = value
 }
+<% end -%>

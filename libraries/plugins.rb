@@ -9,5 +9,16 @@ module Dovecot
       false
     end
 
+    def self.list_unknown(plugins)
+      known_plugins = [
+        'mail_log',
+        'quota',
+        'acl',
+        'sieve'
+      ]
+
+      plugins.keys - known_plugins
+    end
+
   end
 end
