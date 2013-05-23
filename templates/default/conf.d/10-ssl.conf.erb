@@ -11,8 +11,20 @@
 # dropping root privileges, so keep the key file unreadable by anyone but
 # root. Included doc/mkcert.sh can be used to easily generate self-signed
 # certificate, just make sure to update the domains in dovecot-openssl.cnf
-<%= Dovecot::Conf.attribute(@conf, 'ssl_cert', '</etc/ssl/certs/dovecot.pem') %>
-<%= Dovecot::Conf.attribute(@conf, 'ssl_key', '</etc/ssl/private/dovecot.pem') %>
+<% case node['platform']
+    when 'redhat','centos','scientific','fedora','suse','amazon' then
+      ssl_cert = '</etc/pki/dovecot/certs/dovecot.pem'
+      ssl_key = '</etc/pki/dovecot/certs/dovecot.pem'
+      ca_pem = '</etc/pki/dovecot/certs/ca.pem'
+    # when 'debian', 'ubuntu' then
+    else
+      ssl_cert = '</etc/ssl/certs/dovecot.pem'
+      ssl_key = '</etc/ssl/private/dovecot.pem'
+      ca_pem = '</etc/ssl/certs/ca.pem'
+    end
+-%>
+<%= Dovecot::Conf.attribute(@conf, 'ssl_cert', ssl_cert) %>
+<%= Dovecot::Conf.attribute(@conf, 'ssl_key', ssl_key) %>
 
 # If key file is password protected, give the password here. Alternatively
 # give it when starting dovecot with -p parameter. Since this file is often
@@ -22,7 +34,7 @@
 
 # PEM encoded trusted certificate authority. Set this only if you intend to use
 # ssl_verify_client_cert=yes. The file should contain the CA certificate(s)
-# followed by the matching CRL(s). (e.g. ssl_ca = </etc/ssl/certs/ca.pem)
+# followed by the matching CRL(s). (e.g. ssl_ca = <%= ca_pem %>)
 <%= Dovecot::Conf.attribute(@conf, 'ssl_ca') %>
 
 # Request client to send a certificate. If you also want to require it, set

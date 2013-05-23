@@ -208,7 +208,14 @@
 <%= Dovecot::Conf.attribute(@conf, 'auth_socket_path', '/var/run/dovecot/auth-userdb') %>
 
 # Directory where to look up mail plugins.
-<%= Dovecot::Conf.attribute(@conf, 'mail_plugin_dir', '/usr/lib/dovecot/modules') %>
+<%= case node['platform']
+    when 'redhat','centos','scientific','fedora','suse','amazon' then
+      Dovecot::Conf.attribute(@conf, 'mail_plugin_dir', '/usr/lib/dovecot')
+    # when 'debian', 'ubuntu' then
+    else
+      Dovecot::Conf.attribute(@conf, 'mail_plugin_dir', '/usr/lib/dovecot/modules')
+    end
+%>
 
 # Space separated list of plugins to load for all services. Plugins specific to
 # IMAP, LDA, etc. are added to this list in their own .conf files.
