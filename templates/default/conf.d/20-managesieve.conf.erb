@@ -4,6 +4,9 @@
 
 # Service definitions
 
+<% if @services['managesieve-login'].kind_of?(Hash) and @services['managesieve-login'].length > 0 -%>
+<%=  Dovecot::Conf.service('managesieve-login', @services['managesieve-login']) %>
+<% else -%>
 service managesieve-login {
   #inet_listener sieve {
   #  port = 4190
@@ -24,14 +27,22 @@ service managesieve-login {
   # If you set service_count=0, you probably need to grow this.
   #vsz_limit = 64M
 }
+<% end -%>
 
+<% if @services['managesieve'].kind_of?(Hash) and @services['managesieve'].length > 0 -%>
+<%=  Dovecot::Conf.service('managesieve', @services['managesieve']) %>
+<% else -%>
 service managesieve {
   # Max. number of ManageSieve processes (connections)
   #process_count = 1024
 }
+<% end -%>
 
 # Service configuration
 
+<% if @protocols['sieve'].kind_of?(Hash) and @protocols['sieve'].length > 0 -%>
+<%=  Dovecot::Conf.protocol('sieve', @protocols['sieve']) %>
+<% else -%>
 protocol sieve {
   # Maximum ManageSieve command line length in bytes. ManageSieve usually does
   # not involve overly long command lines, so this setting will not normally
@@ -71,3 +82,4 @@ protocol sieve {
   # Refer to 90-sieve.conf for script quota configuration and configuration of 
   # Sieve execution limits. 
 }
+<% end -%>

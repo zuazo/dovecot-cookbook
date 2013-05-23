@@ -7,4 +7,5 @@ default['dovecot']['protocols']['lda'] = nil
 # }
 default['dovecot']['protocols']['imap'] = {}
 default['dovecot']['protocols']['lmtp'] = nil
+default['dovecot']['protocols']['sieve'] = nil
 
