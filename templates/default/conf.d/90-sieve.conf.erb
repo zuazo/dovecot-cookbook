@@ -5,10 +5,13 @@
 # Do not forget to enable the Sieve plugin in 15-lda.conf and 20-lmtp.conf
 # by adding it to the respective mail_plugins= settings.
 
+<% if @plugins.has_key?('sieve') and @plugins['sieve'].kind_of?(Hash) -%>
+<%=  Dovecot::Conf.plugin('sieve', @plugins['sieve']) %>
+<% else -%>
 plugin {
   # The path to the user's main active script. If ManageSieve is used, this the
   # location of the symbolic link controlled by ManageSieve.
-  sieve = ~/.dovecot.sieve
+  #sieve = ~/.dovecot.sieve
 
   # The default Sieve script when the user has none. This is a path to a global
   # sieve script file, which gets executed ONLY if user's private Sieve script
@@ -20,7 +23,7 @@ plugin {
 
   # Directory for :personal include scripts for the include extension. This
   # is also where the ManageSieve service stores the user's scripts.
-  sieve_dir = ~/sieve
+  #sieve_dir = ~/sieve
 
   # Directory for :global include scripts for the include extension. 
   #sieve_global_dir =
@@ -81,3 +84,4 @@ plugin {
   # (Currently only relevant for ManageSieve) 
   #sieve_quota_max_storage = 0
 }
+<% end -%>
