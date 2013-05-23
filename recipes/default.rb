@@ -122,6 +122,7 @@ conf_files.each do |conf_file|
     group node['dovecot']['group']
     mode '00640'
     variables(
+      :protocols => node['dovecot']['protocols'],
       :conf => node['dovecot']['conf']
     )
   end

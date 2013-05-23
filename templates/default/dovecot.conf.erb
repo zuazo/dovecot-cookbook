@@ -16,54 +16,102 @@
 # options. The paths listed here are for configure --prefix=/usr
 # --sysconfdir=/etc --localstatedir=/var
 
-# Enable installed protocols
-!include_try /usr/share/dovecot/protocols.d/*.protocol
+# Protocols we want to be serving.
+<% unless @protocols.nil? -%>
+protocols = <%= Dovecot::Conf.value(@protocols) %>
+<% else -%>
+#protocols = imap pop3 lmtp
+<% end -%>
 
 # A comma separated list of IPs or hosts where to listen in for connections. 
 # "*" listens in all IPv4 interfaces, "::" listens in all IPv6 interfaces.
 # If you want to specify non-default ports or anything more complex,
 # edit conf.d/master.conf.
+<% if @conf['listen'] -%>
+listen = <%= @conf['listen'] %>
+<% else -%>
 #listen = *, ::
+<% end -%>
 
 # Base directory where to store runtime data.
+<% unless @conf['base_dir'].nil? -%>
+base_dir = <%= Dovecot::Conf.value(@conf['base_dir']) %>
+<% else -%>
 #base_dir = /var/run/dovecot/
+<% end -%>
 
 # Name of this instance. Used to prefix all Dovecot processes in ps output.
+<% unless @conf['instance_name'].nil? -%>
+instance_name = <%= Dovecot::Conf.value(@conf['instance_name']) %>
+<% else -%>
 #instance_name = dovecot
+<% end -%>
 
 # Greeting message for clients.
+<% unless @conf['login_greeting'].nil? -%>
+login_greeting = <%= Dovecot::Conf.value(@conf['login_greeting']) %>
+<% else -%>
 #login_greeting = Dovecot ready.
+<% end -%>
 
 # Space separated list of trusted network ranges. Connections from these
 # IPs are allowed to override their IP addresses and ports (for logging and
 # for authentication checks). disable_plaintext_auth is also ignored for
 # these networks. Typically you'd specify your IMAP proxy servers here.
+<% unless @conf['login_trusted_networks'].nil? -%>
+login_trusted_networks = <%= Dovecot::Conf.value(@conf['login_trusted_networks']) %>
+<% else -%>
 #login_trusted_networks =
+<% end -%>
 
-# Sepace separated list of login access check sockets (e.g. tcpwrap)
+# Space separated list of login access check sockets (e.g. tcpwrap)
+<% unless @conf['login_access_sockets'].nil? -%>
+login_access_sockets = <%= Dovecot::Conf.value(@conf['login_access_sockets']) %>
+<% else -%>
 #login_access_sockets = 
+<% end -%>
 
 # Show more verbose process titles (in ps). Currently shows user name and
 # IP address. Useful for seeing who are actually using the IMAP processes
 # (eg. shared mailboxes or if same uid is used for multiple accounts).
+<% unless @conf['verbose_proctitle'].nil? -%>
+verbose_proctitle = <%= Dovecot::Conf.value(@conf['verbose_proctitle']) %>
+<% else -%>
 #verbose_proctitle = no
+<% end -%>
 
 # Should all processes be killed when Dovecot master process shuts down.
 # Setting this to "no" means that Dovecot can be upgraded without
 # forcing existing client connections to close (although that could also be
 # a problem if the upgrade is e.g. because of a security fix).
+<% unless @conf['shutdown_clients'].nil? -%>
+shutdown_clients = <%= Dovecot::Conf.value(@conf['shutdown_clients']) %>
+<% else -%>
 #shutdown_clients = yes
+<% end -%>
 
 # If non-zero, run mail commands via this many connections to doveadm server,
 # instead of running them directly in the same process.
+<% unless @conf['doveadm_worker_count'].nil? -%>
+doveadm_worker_count = <%= Dovecot::Conf.value(@conf['doveadm_worker_count']) %>
+<% else -%>
 #doveadm_worker_count = 0
+<% end -%>
 # UNIX socket or host:port used for connecting to doveadm server
+<% unless @conf['doveadm_socket_path'].nil? -%>
+doveadm_socket_path = <%= Dovecot::Conf.value(@conf['doveadm_socket_path']) %>
+<% else -%>
 #doveadm_socket_path = doveadm-server
+<% end -%>
 
 # Space separated list of environment variables that are preserved on Dovecot
 # startup and passed down to all of its child processes. You can also give
 # key=value pairs to always set specific settings.
+<% unless @conf['import_environment'].nil? -%>
+import_environment = <%= Dovecot::Conf.value(@conf['import_environment']) %>
+<% else -%>
 #import_environment = TZ
+<% end -%>
 
 ##
 ## Dictionary server settings
@@ -75,10 +123,18 @@
 # when the server is used. These can then be referenced using URIs in format
 # "proxy::<name>".
 
+<% if @conf['dict'].kind_of?(Hash) -%>
+dict {
+<%   @conf['dict'].each do |key, value| -%>
+  <%= key %> = <%= Dovecot::Conf.value(value) %>
+<%   end -%>
+}
+<% else -%>
 dict {
   #quota = mysql:/etc/dovecot/dovecot-dict-sql.conf.ext
   #expire = sqlite:/etc/dovecot/dovecot-dict-sql.conf.ext
 }
+<% end -%>
 
 # Most of the actual configuration gets included below. The filenames are
 # first sorted by their ASCII value and parsed in that order. The 00-prefixes
