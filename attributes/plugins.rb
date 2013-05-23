@@ -9,4 +9,5 @@ default['dovecot']['plugins']['mail_log'] = nil
 #   'mail_log_fields' => 'uid box msgid size'
 # }
 default['dovecot']['plugins']['acl'] = nil
+default['dovecot']['plugins']['quota'] = nil
 

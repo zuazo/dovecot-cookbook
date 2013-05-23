@@ -5,6 +5,9 @@
 # Note that you also have to enable quota plugin in mail_plugins setting.
 # <doc/wiki/Quota.txt>
 
+<% if @plugins.has_key?('quota') and @plugins['quota'].kind_of?(Hash) -%>
+<%=  Dovecot::Conf.plugin('quota', @plugins['quota']) %>
+<% else -%>
 ##
 ## Quota limits
 ##
@@ -73,3 +76,4 @@ plugin {
   #quota_rule = *:storage=102400
   #quota2_rule = *:storage=1048576
 }
+<% end -%>
