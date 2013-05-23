@@ -35,7 +35,7 @@ when 'redhat','centos','scientific','fedora','suse','amazon' then
     node['dovecot']['conf_files']['ldap']
 
   # sieve
-  if node['dovecot']['plugins'].include?('sieve')
+  if Dovecot::Plugins.required?('sieve', node['dovecot'])
     package 'dovecot-pigeonhole'
     conf_files += node['dovecot']['conf_files']['sieve']
   end
@@ -47,25 +47,25 @@ when 'debian', 'ubuntu' then
   package 'dovecot-gssapi'
 
   # imap
-  if node['dovecot']['protocols'].include?('imap')
+  if Dovecot::Protocols.enabled?('imap', node['dovecot']['protocols'])
     package 'dovecot-imapd'
     conf_files += node['dovecot']['conf_files']['imap']
   end
 
   # pop3
-  if node['dovecot']['protocols'].include?('pop3')
+  if Dovecot::Protocols.enabled?('pop3', node['dovecot']['protocols'])
     package 'dovecot-pop3d'
     conf_files += node['dovecot']['conf_files']['pop3']
   end
 
   # lmtp
-  if node['dovecot']['protocols'].include?('lmtp')
+  if Dovecot::Protocols.enabled?('lmtp', node['dovecot']['protocols'])
     package 'dovecot-lmtpd'
     conf_files += node['dovecot']['conf_files']['lmtp']
   end
 
   # sieve
-  if node['dovecot']['plugins'].include?('sieve')
+  if Dovecot::Plugins.required?('sieve', node['dovecot'])
     package 'dovecot-sieve'
     package 'dovecot-managesieved'
     conf_files += node['dovecot']['conf_files']['sieve']
@@ -125,6 +125,7 @@ conf_files.each do |conf_file|
       :auth => node['dovecot']['auth'],
       :protocols => node['dovecot']['protocols'],
       :services => node['dovecot']['services'],
+      :plugins => node['dovecot']['plugins'],
       :conf => node['dovecot']['conf']
     )
   end

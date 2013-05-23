@@ -16,6 +16,29 @@ module Dovecot
       end
     end
 
+    def self.protocols(conf)
+      Dovecot::Protocols.list(conf).join(' ')
+    end
+
+    def self.plugin(name, conf)
+
+      template =
+'plugin {
+  <% @conf.each do |key, value|
+       unless value.nil?
+  -%>
+  <%= key %> = <%= @Dovecot_Conf.value(value) %>
+  <%   end
+     end -%>
+}'
+
+      eruby = Erubis::Eruby.new(template)
+      eruby.evaluate(
+        :conf => conf,
+        :Dovecot_Conf => Dovecot::Conf
+      )
+    end
+
     def self.service(name, conf)
 
       template =

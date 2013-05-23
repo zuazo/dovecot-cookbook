@@ -1,3 +1,5 @@
 
-default['dovecot']['protocols'] = [ 'imap' ]
+default['dovecot']['protocols'] = {}
+
+default['dovecot']['protocols']['imap'] = {}
 
