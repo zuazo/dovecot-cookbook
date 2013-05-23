@@ -20,6 +20,7 @@ default['dovecot']['conf']['ldap']['debug_level'] = nil
 default['dovecot']['conf']['ldap']['auth_bind'] = nil
 default['dovecot']['conf']['ldap']['auth_bind_userdn'] = nil
 default['dovecot']['conf']['ldap']['ldap_version'] = nil
+default['dovecot']['conf']['ldap']['base'] = ''
 default['dovecot']['conf']['ldap']['deref'] = nil
 default['dovecot']['conf']['ldap']['scope'] = nil
 default['dovecot']['conf']['ldap']['user_attrs'] = nil

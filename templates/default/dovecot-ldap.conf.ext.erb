@@ -90,7 +90,7 @@
 
 # LDAP base. %variables can be used here.
 # For example: dc=mail, dc=example, dc=org
-base =
+<%= Dovecot::Conf.attribute(@conf['ldap'], 'base') %>
 
 # Dereference: never, searching, finding, always
 <%= Dovecot::Conf.attribute(@conf['ldap'], 'deref', 'never') %>
