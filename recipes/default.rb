@@ -21,70 +21,64 @@
 # packages
 #
 
+conf_files = node['dovecot']['conf_files']['core']
+
 case node['platform']
 when 'redhat','centos','scientific','fedora','suse','amazon' then
 
   # core, imap, pop3, lmtp, ldap, sqlite
-  package 'dovecot' do
-    action :install
-  end
+  package 'dovecot'
+  conf_files +=
+    node['dovecot']['conf_files']['imap'] +
+    node['dovecot']['conf_files']['pop3'] +
+    node['dovecot']['conf_files']['lmtp'] +
+    node['dovecot']['conf_files']['ldap']
 
   # sieve
-  package 'dovecot-pigeonhole' do
-    action :install
-    only_if do node['dovecot']['plugins'].include?('sieve') end
+  if node['dovecot']['plugins'].include?('sieve')
+    package 'dovecot-pigeonhole'
+    conf_files += node['dovecot']['conf_files']['sieve']
   end
 
 when 'debian', 'ubuntu' then
 
   # core
-  package 'dovecot-core' do
-    action :install
-  end
-  package 'dovecot-gssapi' do
-    action :install
-  end
+  package 'dovecot-core'
+  package 'dovecot-gssapi'
 
   # imap
-  package 'dovecot-imapd' do
-    action :install
-    only_if do node['dovecot']['protocols'].include?('imap') end
+  if node['dovecot']['protocols'].include?('imap')
+    package 'dovecot-imapd'
+    conf_files += node['dovecot']['conf_files']['imap']
   end
 
   # pop3
-  package 'dovecot-pop3d' do
-    action :install
-    only_if do node['dovecot']['protocols'].include?('pop3') end
+  if node['dovecot']['protocols'].include?('pop3')
+    package 'dovecot-pop3d'
+    conf_files += node['dovecot']['conf_files']['pop3']
   end
 
   # lmtp
-  package 'dovecot-lmtpd' do
-    action :install
-    only_if do node['dovecot']['protocols'].include?('lmtp') end
+  if node['dovecot']['protocols'].include?('lmtp')
+    package 'dovecot-lmtpd'
+    conf_files += node['dovecot']['conf_files']['lmtp']
   end
 
   # sieve
-  package 'dovecot-sieve' do
-    action :install
-    only_if do node['dovecot']['plugins'].include?('sieve') end
-  end
-  package 'dovecot-managesieved' do
-    action :install
-    only_if do node['dovecot']['plugins'].include?('sieve') end
+  if node['dovecot']['plugins'].include?('sieve')
+    package 'dovecot-sieve'
+    package 'dovecot-managesieved'
+    conf_files += node['dovecot']['conf_files']['sieve']
   end
 
   # ldap
-  package 'dovecot-ldap' do
-    action :install
-    only_if do
-      node['dovecot']['auth']['ldap'].kind_of?(Array) and
-      node['dovecot']['auth']['ldap'].length > 0
-    end
+  if node['dovecot']['auth']['ldap'].kind_of?(Array) and node['dovecot']['auth']['ldap'].length > 0
+    package 'dovecot-ldap'
+    conf_files += node['dovecot']['conf_files']['ldap']
   end
 
   # sqlite
   package 'dovecot-sqlite' do
-    action :install
     only_if do
       node['dovecot']['auth']['sql']['drivers'].kind_of?(Array) and
       node['dovecot']['auth']['sql']['drivers'].include?('sqlite')
@@ -97,7 +91,6 @@ else
 end
 
 package 'dovecot-mysql' do
-  action :install
   only_if do
     node['dovecot']['auth']['sql']['drivers'].kind_of?(Array) and
     node['dovecot']['auth']['sql']['drivers'].include?('mysql')
@@ -105,10 +98,32 @@ package 'dovecot-mysql' do
 end
 
 package 'dovecot-pgsql' do
-  action :install
   only_if do
     node['dovecot']['auth']['sql']['drivers'].kind_of?(Array) and
     node['dovecot']['auth']['sql']['drivers'].include?('pgsql')
+  end
+end
+
+#
+# config files
+#
+
+conf_files.each do |conf_file|
+  dir = ::File.dirname(conf_file)
+  directory dir do
+    owner 'root'
+    group node['dovecot']['group']
+    mode '00755'
+    only_if do dir != '.' end
+  end
+  template "#{node['dovecot']['conf_path']}/#{conf_file}" do
+    source "#{conf_file}.erb"
+    owner 'root'
+    group node['dovecot']['group']
+    mode '00640'
+    variables(
+      :conf => node['dovecot']['conf']
+    )
   end
 end
 
