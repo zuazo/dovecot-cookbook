@@ -124,6 +124,7 @@ conf_files.each do |conf_file|
     variables(
       :auth => node['dovecot']['auth'],
       :protocols => node['dovecot']['protocols'],
+      :services => node['dovecot']['services'],
       :conf => node['dovecot']['conf']
     )
   end

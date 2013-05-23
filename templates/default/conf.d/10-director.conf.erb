@@ -11,20 +11,39 @@
 # List of IPs or hostnames to all director servers, including ourself.
 # Ports can be specified as ip:port. The default port is the same as
 # what director service's inet_listener is using.
+<% unless @conf['director_servers'].nil? -%>
+director_servers = <%= Dovecot::Conf.value(@conf['director_servers']) %>
+<% else -%>
 #director_servers = 
+<% end -%>
 
 # List of IPs or hostnames to all backend mail servers. Ranges are allowed
 # too, like 10.0.0.10-10.0.0.30.
+<% unless @conf['director_mail_servers'].nil? -%>
+director_mail_servers = <%= Dovecot::Conf.value(@conf['director_mail_servers']) %>
+<% else -%>
 #director_mail_servers = 
+<% end -%>
 
 # How long to redirect users to a specific server after it no longer has
 # any connections.
+<% unless @conf['director_user_expire'].nil? -%>
+director_user_expire = <%= Dovecot::Conf.value(@conf['director_user_expire']) %>
+<% else -%>
 #director_user_expire = 15 min
+<% end -%>
 
 # TCP/IP port that accepts doveadm connections (instead of director connections)
 # If you enable this, you'll also need to add inet_listener for the port.
+<% unless @conf['director_doveadm_port'].nil? -%>
+director_doveadm_port = <%= Dovecot::Conf.value(@conf['director_doveadm_port']) %>
+<% else -%>
 #director_doveadm_port = 0
+<% end -%>
 
+<% if @services['director'].kind_of?(Hash) and @services['director'].length > 0 -%>
+<%= Dovecot::Conf.service('director', @services['director']) %>
+<% else -%>
 # To enable director service, uncomment the modes and assign a port.
 service director {
   unix_listener login/director {
@@ -40,6 +59,7 @@ service director {
     #port = 
   }
 }
+<% end -%>
 
 # Enable director for the wanted login services by telling them to
 # connect to director socket instead of the default login socket:
