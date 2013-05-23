@@ -2,6 +2,9 @@
 ## POP3 specific settings
 ##
 
+<% if @protocols['pop3'].kind_of?(Hash) and @protocols['pop3'].length > 0 -%>
+<%=  Dovecot::Conf.protocol('pop3', @protocols['pop3']) %>
+<% else -%>
 protocol pop3 {
   # Don't try to set mails non-recent or seen with POP3 sessions. This is
   # mostly intended to reduce disk I/O. With maildir it doesn't move files
@@ -84,3 +87,4 @@ protocol pop3 {
   # The list is space-separated.
   #pop3_client_workarounds = 
 }
+<% end -%>

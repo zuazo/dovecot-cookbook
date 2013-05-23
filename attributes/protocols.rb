@@ -8,4 +8,5 @@ default['dovecot']['protocols']['lda'] = nil
 default['dovecot']['protocols']['imap'] = {}
 default['dovecot']['protocols']['lmtp'] = nil
 default['dovecot']['protocols']['sieve'] = nil
+default['dovecot']['protocols']['pop3'] = nil
 
