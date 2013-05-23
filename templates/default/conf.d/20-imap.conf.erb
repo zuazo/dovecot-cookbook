@@ -2,6 +2,9 @@
 ## IMAP specific settings
 ##
 
+<% if @protocols['imap'].kind_of?(Hash) and @protocols['imap'].length > 0 -%>
+<%=  Dovecot::Conf.protocol('imap', @protocols['imap']) %>
+<% else -%>
 protocol imap {
   # Maximum IMAP command line length. Some clients generate very long command
   # lines with huge mailboxes, so you may need to raise this if you get
@@ -56,3 +59,4 @@ protocol imap {
   # The list is space-separated.
   #imap_client_workarounds = 
 }
+<% end -%>
