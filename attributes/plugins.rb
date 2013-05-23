@@ -1,0 +1,3 @@
+
+default['dovecot']['plugins'] = [ 'sieve' ]
+
