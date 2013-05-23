@@ -126,6 +126,7 @@ conf_files.each do |conf_file|
       :protocols => node['dovecot']['protocols'],
       :services => node['dovecot']['services'],
       :plugins => node['dovecot']['plugins'],
+      :namespaces => node['dovecot']['namespaces'],
       :conf => node['dovecot']['conf']
     )
   end

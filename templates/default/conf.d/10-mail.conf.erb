@@ -44,6 +44,11 @@
 # explicitly, ie. mail_location does nothing unless you have a namespace
 # without a location setting. Default namespace is simply done by having a
 # namespace with empty prefix.
+<% if @namespaces.kind_of?(Array) and @namespaces.length > 0 -%>
+<%   @namespaces.each do |ns| -%>
+<%=    Dovecot::Conf.namespace(ns) %>
+<%   end -%>
+<% else -%>
 #namespace {
   # Namespace type: private, shared or public
   #type = private
@@ -81,6 +86,7 @@
   # namespace handles them (empty prefix should always have this as "yes")
   #subscriptions = yes
 #}
+<% end -%>
 
 # Example shared namespace configuration
 #namespace {

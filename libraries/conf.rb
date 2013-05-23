@@ -50,6 +50,25 @@ module Dovecot
       )
     end
 
+    def self.namespace(ns)
+      template =
+'namespace <%= @ns["name"] %> {
+<%   @ns.each do |key, value|
+       if key != "name"
+  -%>
+  <%=    key %> = <%= @Dovecot_Conf.value(value) %>
+  <%   end
+     end
+-%>
+}'
+
+      eruby = Erubis::Eruby.new(template)
+      eruby.evaluate(
+        :ns => ns,
+        :Dovecot_Conf => Dovecot::Conf
+      )
+    end
+
     def self.service(name, conf)
 
       template =
