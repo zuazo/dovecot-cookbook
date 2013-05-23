@@ -1,4 +1,8 @@
+<% unless @conf['dict_sql']['connect'].nil? -%>
+connect = <%= Dovecot::Conf.value(@conf['dict_sql']['connect']) %>
+<% else -%>
 #connect = host=localhost dbname=mails user=testuser password=pass
+<% end -%>
 
 # CREATE TABLE quota (
 #   username varchar(100) not null,
@@ -7,6 +11,11 @@
 #   primary key (username)
 # );
 
+<% if @conf['dict_sql']['maps'].kind_of?(Array) -%>
+<%   @conf['dict_sql']['maps'].each do |map| -%>
+<%=    Dovecot::Conf.map(map) %>
+<%   end -%>
+<% else -%>
 map {
   pattern = priv/quota/storage
   table = quota
@@ -37,3 +46,4 @@ map {
     mailbox = $mailbox
   }
 }
+<% end -%>

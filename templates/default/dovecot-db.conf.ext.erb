@@ -2,6 +2,11 @@
 # to point to this file.
 # http://www.oracle.com/technology/documentation/berkeley-db/db/ref/env/db_config.html
 
+<% if @conf['db'].kind_of?(Hash) -%>
+<%   @conf['db'].sort.each do |k, v| -%>
+<%=    k %> <%= Dovecot::Conf.value(v) %>
+<%   end -%>
+<% else -%>
 # Maximum number of simultaneous transactions.
 set_tx_max 1000
 
@@ -9,3 +14,4 @@ set_tx_max 1000
 #set_lk_max_locks 1000
 #set_lk_max_lockers 1000
 #set_lk_max_objects 1000
+<% end -%>

@@ -147,6 +147,34 @@ module Dovecot
       )
     end
 
+    def self.map(map)
+
+    template =
+'map {
+<%     @map.sort.each do |k, v|
+         if v.kind_of?(Hash)
+-%>
+  <%=      k %> {
+<%
+           v.sort.each do |k2, v2|
+-%>
+    <%=      k2 %> = <%= @Dovecot_Conf.value(v2) %>
+<%         end -%>
+  }
+<%       else -%>
+  <%=      k %> = <%= @Dovecot_Conf.value(v) %>
+<%       end
+       end
+-%>
+}'
+
+      eruby = Erubis::Eruby.new(template)
+      eruby.evaluate(
+        :map => map,
+        :Dovecot_Conf => Dovecot::Conf
+      )
+    end
+
   end
 end
 
