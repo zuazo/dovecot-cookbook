@@ -6,7 +6,7 @@
 # checked first.
 
 <% if Dovecot::Auth.has_passdb?(@auth['deny']) -%>
-<%=  Dovecot::Conf.authdb('passdb', @auth['deny']['passdb']) %>
+<%=  Dovecot::Conf.authdb('passwd-file', 'passdb', @auth['deny']['passdb']) %>
 <% else -%>
 # Example deny passdb using passwd-file. You can use any passdb though.
 passdb {

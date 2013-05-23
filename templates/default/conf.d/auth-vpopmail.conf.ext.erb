@@ -3,7 +3,7 @@
 # <doc/wiki/AuthDatabase.VPopMail.txt>
 
 <% if Dovecot::Auth.has_passdb?(@auth['vpopmail']) -%>
-<%=  Dovecot::Conf.authdb('passdb', @auth['vpopmail']['passdb']) %>
+<%=  Dovecot::Conf.authdb('vpopmail', 'passdb', @auth['vpopmail']['passdb']) %>
 <% else -%>
 passdb {
   driver = vpopmail
@@ -14,7 +14,7 @@ passdb {
 <% end -%>
 
 <% if Dovecot::Auth.has_userdb?(@auth['vpopmail']) -%>
-<%=  Dovecot::Conf.authdb('userdb', @auth['vpopmail']['userdb']) %>
+<%=  Dovecot::Conf.authdb('vpopmail', 'userdb', @auth['vpopmail']['userdb']) %>
 <% else -%>
 userdb {
   driver = vpopmail

@@ -31,12 +31,15 @@ module Dovecot
       Dovecot::Protocols.list(conf).join(' ')
     end
 
-    def self.authdb(type, conf)
+    def self.authdb(driver, type, conf)
 
       template =
 '<% confs = [ @conf ].flatten
     confs.each do |conf| -%>
 <%=   @type %> {
+  <%  unless conf.has_key?("driver") -%>
+  driver = <%=   @driver %>
+  <%  end -%>
   <%  conf.each do |key, value|
         unless value.nil?
   -%>
@@ -48,6 +51,7 @@ module Dovecot
 
       eruby = Erubis::Eruby.new(template)
       eruby.evaluate(
+        :driver => driver,
         :type => type,
         :conf => conf,
         :Dovecot_Conf => Dovecot::Conf

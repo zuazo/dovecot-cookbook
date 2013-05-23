@@ -4,7 +4,7 @@
 # <doc/wiki/AuthDatabase.PasswdFile.txt>
 
 <% if Dovecot::Auth.has_passdb?(@auth['passwdfile']) -%>
-<%=  Dovecot::Conf.authdb('passdb', @auth['passwdfile']['passdb']) %>
+<%=  Dovecot::Conf.authdb('passwd-file', 'passdb', @auth['passwdfile']['passdb']) %>
 <% else -%>
 passdb {
   driver = passwd-file
@@ -13,7 +13,7 @@ passdb {
 <% end -%>
 
 <% if Dovecot::Auth.has_userdb?(@auth['userwdfile']) -%>
-<%=  Dovecot::Conf.authdb('userdb', @auth['passwdfile']['userdb']) %>
+<%=  Dovecot::Conf.authdb('passwd-file', 'userdb', @auth['passwdfile']['userdb']) %>
 <% else -%>
 userdb {
   driver = passwd-file

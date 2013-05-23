@@ -9,7 +9,7 @@
 #  - simple testing
 
 <% if Dovecot::Auth.has_passdb?(@auth['static']) -%>
-<%=  Dovecot::Conf.authdb('passdb', @auth['static']['passdb']) %>
+<%=  Dovecot::Conf.authdb('static', 'passdb', @auth['static']['passdb']) %>
 <% else -%>
 #passdb {
 #  driver = static
@@ -23,7 +23,7 @@
 <% end -%>
 
 <% if Dovecot::Auth.has_userdb?(@auth['static']) -%>
-<%=  Dovecot::Conf.authdb('userdb', @auth['static']['userdb']) %>
+<%=  Dovecot::Conf.authdb('static', 'userdb', @auth['static']['userdb']) %>
 <% else -%>
 #userdb {
 #  driver = static

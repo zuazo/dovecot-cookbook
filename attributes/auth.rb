@@ -4,7 +4,7 @@ default['dovecot']['auth']['system'] = {}
 default['dovecot']['auth']['sql']['drivers'] = []
 
 default['dovecot']['auth']['checkpassword'] = nil
-# default['dovecot']['auth']['checkpassword'] = {
+# default['dovecot']['auth']['checkpassword'] = { # hash
 #   'passdb' => {
 #     'driver' => 'checkpassword',
 #     'args' => '/usr/bin/checkpassword',
@@ -15,10 +15,9 @@ default['dovecot']['auth']['checkpassword'] = nil
 # }
 
 default['dovecot']['auth']['system'] = {}
-# default['dovecot']['auth']['system'] = {
-#   'passdb' => [
+# default['dovecot']['auth']['system']['passdb'] = [ # array
 #   {
-#     'driver' => 'pam',
+#     # without driver
 #     'args' => 'dovecot',
 #   },
 #   {
@@ -34,5 +33,4 @@ default['dovecot']['auth']['system'] = {}
 #     'args' => '',
 #   },
 # ]
-# }
 
