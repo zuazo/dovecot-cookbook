@@ -34,13 +34,16 @@ module Dovecot
     def self.authdb(type, conf)
 
       template =
-'<%= @type %> {
-  <% @conf.each do |key, value|
-       unless value.nil?
+'<% confs = [ @conf ].flatten
+    confs.each do |conf| -%>
+<%=   @type %> {
+  <%  conf.each do |key, value|
+        unless value.nil?
   -%>
-  <%=    key %> = <%= @Dovecot_Conf.value(value) %>
-  <%   end
-     end -%>
+  <%=     key %> = <%= @Dovecot_Conf.value(value) %>
+  <%    end
+      end
+    end -%>
 }'
 
       eruby = Erubis::Eruby.new(template)
