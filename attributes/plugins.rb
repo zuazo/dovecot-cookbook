@@ -1,5 +1,5 @@
 
-default['dovecot']['conf']['mail_plugins'] = [ 'sieve' ]
+default['dovecot']['conf']['mail_plugins'] = []
 
 default['dovecot']['plugins']['mail_log'] = nil
 # default['dovecot']['plugins']['mail_log'] = {
