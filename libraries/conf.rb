@@ -31,6 +31,26 @@ module Dovecot
       Dovecot::Protocols.list(conf).join(' ')
     end
 
+    def self.authdb(type, conf)
+
+      template =
+'<%= @type %> {
+  <% @conf.each do |key, value|
+       unless value.nil?
+  -%>
+  <%=    key %> = <%= @Dovecot_Conf.value(value) %>
+  <%   end
+     end -%>
+}'
+
+      eruby = Erubis::Eruby.new(template)
+      eruby.evaluate(
+        :type => type,
+        :conf => conf,
+        :Dovecot_Conf => Dovecot::Conf
+      )
+    end
+
     def self.plugin(name, conf)
 
       template =
@@ -38,7 +58,7 @@ module Dovecot
   <% @conf.each do |key, value|
        unless value.nil?
   -%>
-  <%= key %> = <%= @Dovecot_Conf.value(value) %>
+  <%=    key %> = <%= @Dovecot_Conf.value(value) %>
   <%   end
      end -%>
 }'
