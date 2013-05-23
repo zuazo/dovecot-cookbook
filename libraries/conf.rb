@@ -40,7 +40,7 @@ module Dovecot
   <%  unless conf.has_key?("driver") -%>
   driver = <%=   @driver %>
   <%  end -%>
-  <%  conf.each do |key, value|
+  <%  conf.sort.each do |key, value|
         unless value.nil?
   -%>
   <%=     key %> = <%= @Dovecot_Conf.value(value) %>
@@ -62,7 +62,7 @@ module Dovecot
 
       template =
 'plugin {
-  <% @conf.each do |key, value|
+  <% @conf.sort.each do |key, value|
        unless value.nil?
   -%>
   <%=    key %> = <%= @Dovecot_Conf.value(value) %>
@@ -80,7 +80,7 @@ module Dovecot
     def self.namespace(ns)
       template =
 'namespace <%= @ns["name"] %> {
-<%   @ns.each do |key, value|
+<%   @ns.sort.each do |key, value|
        if key != "name"
   -%>
   <%=    key %> = <%= @Dovecot_Conf.value(value) %>
@@ -100,7 +100,7 @@ module Dovecot
 
       template =
 'protocol <%= @name %> {
-  <% @conf.each do |key, value| -%>
+  <% @conf.sort.each do |key, value| -%>
   <%=  key %> = <%= @Dovecot_Conf.value(value) %>
   <% end -%>
 }'
@@ -119,19 +119,19 @@ module Dovecot
 'service <%= @name %> {
   <% if @conf["listeners"].kind_of?(Array)
       @conf["listeners"].each do |listener|
-        listener.each do |service, values|
+        listener.sort.each do |service, values|
           service_proto = service.split(":")[0]
           service_name = service.split(":")[1]
   -%>
   <%=     service_proto %>_listener <%= service_name %> {
-  <%        values.each do |key, value|-%>
+  <%        values.sort.each do |key, value|-%>
     <%=       key %> = <%= @Dovecot_Conf.value(value) %>
   <%        end -%>
   }
   <%     end -%>
   <%   end -%>
   <% end -%>
-  <% @conf.each do |key, value|
+  <% @conf.sort.each do |key, value|
        if key != "listeners"
   -%>
   <%=    key %> = <%= @Dovecot_Conf.value(value) %>

@@ -7,7 +7,7 @@ module Dovecot
 
     def self.list(protos)
       list = []
-      protos.each do |proto, conf|
+      protos.sort.each do |proto, conf|
         list.push(proto) if conf.kind_of?(Hash)
       end
       list

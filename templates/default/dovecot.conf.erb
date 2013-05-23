@@ -81,7 +81,7 @@ protocols = <%= Dovecot::Conf.protocols(@protocols) %>
 
 <% if @conf['dict'].kind_of?(Hash) -%>
 dict {
-<%   @conf['dict'].each do |key, value| -%>
+<%   @conf['dict'].sort.each do |key, value| -%>
   <%=  key %> = <%= Dovecot::Conf.value(value) %>
 <%   end -%>
 }
