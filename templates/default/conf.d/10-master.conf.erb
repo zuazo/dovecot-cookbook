@@ -1,19 +1,22 @@
-#default_process_limit = 100
-#default_client_limit = 1000
+<%= Dovecot::Conf.attribute(@conf, 'default_process_limit', 100) %>
+<%= Dovecot::Conf.attribute(@conf, 'default_client_limit', 1000) %>
 
 # Default VSZ (virtual memory size) limit for service processes. This is mainly
 # intended to catch and kill processes that leak memory before they eat up
 # everything.
-#default_vsz_limit = 256M
+<%= Dovecot::Conf.attribute(@conf, 'default_vsz_limit', '256M') %>
 
 # Login user is internally used by login processes. This is the most untrusted
 # user in Dovecot system. It shouldn't have access to anything at all.
-#default_login_user = dovenull
+<%= Dovecot::Conf.attribute(@conf, 'default_login_user', 'dovenull') %>
 
 # Internal user is used by unprivileged processes. It should be separate from
 # login user, so that login processes can't disturb other processes.
-#default_internal_user = dovecot
+<%= Dovecot::Conf.attribute(@conf, 'default_internal_user', 'dovecot') %>
 
+<% if @services['imap-login'].kind_of?(Hash) and @services['imap-login'].length > 0 -%>
+<%=  Dovecot::Conf.service('imap-login', @services['imap-login']) %>
+<% else -%>
 service imap-login {
   inet_listener imap {
     #port = 143
@@ -34,7 +37,11 @@ service imap-login {
   # If you set service_count=0, you probably need to grow this.
   #vsz_limit = 64M
 }
+<% end -%>
 
+<% if @services['pop3-login'].kind_of?(Hash) and @services['pop3-login'].length > 0 -%>
+<%=  Dovecot::Conf.service('pop3-login', @services['pop3-login']) %>
+<% else -%>
 service pop3-login {
   inet_listener pop3 {
     #port = 110
@@ -44,7 +51,11 @@ service pop3-login {
     #ssl = yes
   }
 }
+<% end -%>
 
+<% if @services['lmtp'].kind_of?(Hash) and @services['lmtp'].length > 0 -%>
+<%=  Dovecot::Conf.service('lmtp', @services['lmtp']) %>
+<% else -%>
 service lmtp {
   unix_listener lmtp {
     #mode = 0666
@@ -57,7 +68,11 @@ service lmtp {
     #port = 
   #}
 }
+<% end -%>
 
+<% if @services['imap'].kind_of?(Hash) and @services['imap'].length > 0 -%>
+<%=  Dovecot::Conf.service('imap', @services['imap']) %>
+<% else -%>
 service imap {
   # Most of the memory goes to mmap()ing files. You may need to increase this
   # limit if you have huge mailboxes.
@@ -66,12 +81,20 @@ service imap {
   # Max. number of IMAP processes (connections)
   #process_limit = 1024
 }
+<% end -%>
 
+<% if @services['pop3'].kind_of?(Hash) and @services['pop3'].length > 0 -%>
+<%=  Dovecot::Conf.service('pop3', @services['pop3']) %>
+<% else -%>
 service pop3 {
   # Max. number of POP3 processes (connections)
   #process_limit = 1024
 }
+<% end -%>
 
+<% if @services['auth'].kind_of?(Hash) and @services['auth'].length > 0 -%>
+<%=  Dovecot::Conf.service('auth', @services['auth']) %>
+<% else -%>
 service auth {
   # auth_socket_path points to this userdb socket by default. It's typically
   # used by dovecot-lda, doveadm, possibly imap process, etc. Its default
@@ -92,14 +115,22 @@ service auth {
   # Auth process is run as this user.
   #user = $default_internal_user
 }
+<% end -%>
 
+<% if @services['auth-worker'].kind_of?(Hash) and @services['auth-worker'].length > 0 -%>
+<%=  Dovecot::Conf.service('auth-worker', @services['auth-worker']) %>
+<% else -%>
 service auth-worker {
   # Auth worker process is run as root by default, so that it can access
   # /etc/shadow. If this isn't necessary, the user should be changed to
   # $default_internal_user.
   #user = root
 }
+<% end -%>
 
+<% if @services['dict'].kind_of?(Hash) and @services['dict'].length > 0 -%>
+<%=  Dovecot::Conf.service('dict', @services['dict']) %>
+<% else -%>
 service dict {
   # If dict proxy is used, mail processes should have access to its socket.
   # For example: mode=0660, group=vmail and global mail_access_groups=vmail
@@ -109,3 +140,4 @@ service dict {
     #group = 
   }
 }
+<% end -%>
