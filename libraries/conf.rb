@@ -69,6 +69,23 @@ module Dovecot
       )
     end
 
+    def self.protocol(name, conf)
+
+      template =
+'protocol <%= @name %> {
+  <% @conf.each do |key, value| -%>
+  <%=  key %> = <%= @Dovecot_Conf.value(value) %>
+  <% end -%>
+}'
+
+      eruby = Erubis::Eruby.new(template)
+      eruby.evaluate(
+        :name => name,
+        :conf => conf,
+        :Dovecot_Conf => Dovecot::Conf
+      )
+    end
+
     def self.service(name, conf)
 
       template =
