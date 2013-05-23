@@ -8,6 +8,9 @@
 # one file for each mailbox, eg. INBOX or sub.mailbox. cache_secs parameter
 # specifies how many seconds to wait between stat()ing dovecot-acl file
 # to see if it changed.
+<% if @plugins.has_key?('acl') and @plugins['acl'].kind_of?(Hash) -%>
+<%=  Dovecot::Conf.plugin('acl', @plugins['acl']) %>
+<% else -%>
 plugin {
   #acl = vfile:/etc/dovecot/global-acls:cache_secs=300
 }
@@ -17,3 +20,4 @@ plugin {
 plugin {
   #acl_shared_dict = file:/var/lib/dovecot/shared-mailboxes
 }
+<% end -%>
