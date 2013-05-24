@@ -114,9 +114,9 @@ end
 conf_files.each do |conf_file|
   template "#{node['dovecot']['conf_path']}/#{conf_file}" do
     source "#{conf_file}.erb"
-    owner 'root'
-    group node['dovecot']['group']
-    mode '00640'
+    owner node['dovecot']['conf_files_user']
+    group node['dovecot']['conf_files_group']
+    mode node['dovecot']['conf_files_mode']
     variables(
       :auth => node['dovecot']['auth'],
       :protocols => node['dovecot']['protocols'],

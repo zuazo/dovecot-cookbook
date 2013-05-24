@@ -1,5 +1,8 @@
 
 default['dovecot']['conf_path'] = '/etc/dovecot'
+default['dovecot']['conf_files_user'] = 'root'
+default['dovecot']['conf_files_group'] = node['dovecot']['group']
+default['dovecot']['conf_files_mode'] = '00644'
 
 default['dovecot']['conf_files']['core'] = [
   'conf.d/10-auth.conf',
