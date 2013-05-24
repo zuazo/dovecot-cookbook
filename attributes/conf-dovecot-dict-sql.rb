@@ -1,7 +1,7 @@
 
 default['dovecot']['conf']['dict_sql']['connect'] = nil
 # default['dovecot']['conf']['dict_sql']['connect'] = 'host=localhost dbname=mails user=testuser password=pass'
-default['dovecot']['conf']['dict_sql']['maps'] = nil
+# default['dovecot']['conf']['dict_sql']['maps'] = nil
 # default['dovecot']['conf']['dict_sql']['maps'] = [
 #   {
 #     'pattern' => 'priv/quota/storage',
