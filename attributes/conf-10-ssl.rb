@@ -1,4 +1,6 @@
 
+# conf.d/10-ssl.conf
+
 default['dovecot']['conf']['ssl'] = nil
 case node['platform']
   when 'redhat','centos','scientific','fedora','suse','amazon' then

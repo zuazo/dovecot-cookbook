@@ -1,4 +1,6 @@
 
+# conf.d/10-mail.conf
+
 default['dovecot']['conf']['mail_location'] = nil
 default['dovecot']['conf']['mail_uid'] = nil
 default['dovecot']['conf']['mail_gid'] = nil

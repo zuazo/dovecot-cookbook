@@ -1,4 +1,6 @@
 
+# dovecot-sql.conf.ext
+
 default['dovecot']['conf']['sql']['driver'] = nil
 default['dovecot']['conf']['sql']['connect'] = nil
 default['dovecot']['conf']['sql']['default_pass_scheme'] = nil

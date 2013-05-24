@@ -1,4 +1,6 @@
 
+# dovecot-ldap.conf.ext
+
 default['dovecot']['conf']['ldap']['hosts'] = nil
 default['dovecot']['conf']['ldap']['uris'] = nil
 default['dovecot']['conf']['ldap']['dn'] = nil

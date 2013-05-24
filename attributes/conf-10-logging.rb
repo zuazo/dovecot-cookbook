@@ -1,4 +1,6 @@
 
+# conf.d/10-logging.conf
+
 default['dovecot']['conf']['log_path'] = nil
 default['dovecot']['conf']['info_log_path'] = nil
 default['dovecot']['conf']['debug_log_path'] = nil

@@ -1,4 +1,6 @@
 
+# conf.d/10-auth.conf
+
 default['dovecot']['conf']['disable_plaintext_auth'] = nil
 default['dovecot']['conf']['auth_cache_size'] = nil
 default['dovecot']['conf']['auth_cache_ttl'] = nil
