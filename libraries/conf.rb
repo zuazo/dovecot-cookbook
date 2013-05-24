@@ -28,7 +28,9 @@ module Dovecot
     end
 
     def self.protocols(conf)
-      Dovecot::Protocols.list(conf).join(' ')
+      # dovecot: config: Fatal: Error in configuration file /etc/dovecot/dovecot.conf: protocols: Unknown protocol: lda
+      ignore_protos = [ 'lda' ]
+      (Dovecot::Protocols.list(conf) - ignore_protos).join(' ')
     end
 
     def self.authdb(driver, type, conf)
