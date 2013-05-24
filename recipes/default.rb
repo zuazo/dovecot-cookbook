@@ -79,10 +79,7 @@ when 'debian', 'ubuntu' then
 
   # sqlite
   package 'dovecot-sqlite' do
-    only_if do
-      node['dovecot']['auth']['sql']['drivers'].kind_of?(Array) and
-      node['dovecot']['auth']['sql']['drivers'].include?('sqlite')
-    end
+    only_if do node['dovecot']['conf']['sql']['driver'] == 'sqlite' end
   end
 
 else
@@ -91,17 +88,11 @@ else
 end
 
 package 'dovecot-mysql' do
-  only_if do
-    node['dovecot']['auth']['sql']['drivers'].kind_of?(Array) and
-    node['dovecot']['auth']['sql']['drivers'].include?('mysql')
-  end
+  only_if do node['dovecot']['conf']['sql']['driver'] == 'mysql' end
 end
 
 package 'dovecot-pgsql' do
-  only_if do
-    node['dovecot']['auth']['sql']['drivers'].kind_of?(Array) and
-    node['dovecot']['auth']['sql']['drivers'].include?('pgsql')
-  end
+  only_if do node['dovecot']['conf']['sql']['driver'] == 'pgsql' end
 end
 
 #

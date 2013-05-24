@@ -15,7 +15,7 @@ default['dovecot']['auth']['deny'] = nil
 default['dovecot']['auth']['ldap'] = nil
 default['dovecot']['auth']['master'] = nil
 default['dovecot']['auth']['passwdfile'] = nil
-default['dovecot']['auth']['sql']['drivers'] = []
+default['dovecot']['auth']['sql'] = nil
 default['dovecot']['auth']['system'] = {}
 # default['dovecot']['auth']['system']['passdb'] = [ # array
 #   {

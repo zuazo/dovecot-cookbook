@@ -45,11 +45,11 @@
 # Show protocol level SSL errors.
 <%= Dovecot::Conf.attribute(@conf, 'verbose_ssl', false) %>
 
+# mail_log plugin provides more event logging for mail processes.
 <% if @plugins.has_key?('mail_log') and @plugins['mail_log'].kind_of?(Hash) -%>
 <%=  Dovecot::Conf.plugin('mail_log', @plugins['mail_log']) %>
 <% else -%>
 plugin {
-  # mail_log plugin provides more event logging for mail processes.
   # Events to log. Also available: flag_change append
   #mail_log_events = delete undelete expunge copy mailbox_delete mailbox_rename
   # Available fields: uid, box, msgid, from, subject, size, vsize, flags

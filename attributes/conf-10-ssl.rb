@@ -1,4 +1,5 @@
 
+default['dovecot']['conf']['ssl'] = nil
 case node['platform']
   when 'redhat','centos','scientific','fedora','suse','amazon' then
     default['dovecot']['conf']['ssl_cert'] = '</etc/pki/dovecot/certs/dovecot.pem'
@@ -8,10 +9,6 @@ case node['platform']
     default['dovecot']['conf']['ssl_cert'] = '</etc/ssl/certs/dovecot.pem'
     default['dovecot']['conf']['ssl_key'] = '</etc/ssl/private/dovecot.pem'
 end
-
-default['dovecot']['conf']['ssl'] = nil
-default['dovecot']['conf']['ssl_cert'] = nil
-default['dovecot']['conf']['ssl_key'] = nil
 default['dovecot']['conf']['ssl_key_password'] = nil
 default['dovecot']['conf']['ssl_ca'] = nil
 default['dovecot']['conf']['ssl_verify_client_cert'] = nil
