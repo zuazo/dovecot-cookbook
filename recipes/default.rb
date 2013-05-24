@@ -96,10 +96,32 @@ package 'dovecot-pgsql' do
 end
 
 #
+# system users
+#
+
+user node['dovecot']['user'] do
+  comment 'Dovecot mail server'
+  home node['dovecot']['lib_path']
+  shell '/bin/false'
+  system true
+end
+
+group node['dovecot']['group'] do
+  members [ node['dovecot']['user'] ]
+  system true
+  append true
+end
+
+#
 # config files
 #
 
 # create the required directories
+directory node['dovecot']['lib_path'] do
+  owner node['dovecot']['conf_files_user']
+  group node['dovecot']['conf_files_group']
+  mode '00755'
+end
 conf_files_dirs = conf_files.map{ |f| ::File.dirname(f) }.uniq
 conf_files_dirs.each do |dir|
   directory dir do
