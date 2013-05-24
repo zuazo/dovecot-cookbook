@@ -99,14 +99,19 @@ end
 # config files
 #
 
-conf_files.each do |conf_file|
-  dir = ::File.dirname(conf_file)
+# create the required directories
+conf_files_dirs = conf_files.map{ |f| ::File.dirname(f) }.uniq
+conf_files_dirs.each do |dir|
   directory dir do
     owner 'root'
     group node['dovecot']['group']
     mode '00755'
     only_if do dir != '.' end
   end
+end
+
+# create the conf files
+conf_files.each do |conf_file|
   template "#{node['dovecot']['conf_path']}/#{conf_file}" do
     source "#{conf_file}.erb"
     owner 'root'
