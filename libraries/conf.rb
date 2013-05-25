@@ -37,7 +37,7 @@ module Dovecot
     def self.authdb(driver, type, conf)
 
       template =
-'<% confs = [ @conf ].flatten(1)
+'<% confs = @conf.kind_of?(Array)? @conf : [ @conf ]
     confs.each do |conf| -%>
 <%=   @type %> {
   <%  unless conf.has_key?("driver") -%>
@@ -121,7 +121,7 @@ module Dovecot
       template =
 'service <%= @name %> {
   <% if @conf["listeners"].kind_of?(Array) or @conf["listeners"].kind_of?(Hash)
-      listeners = [ @conf["listeners"] ].flatten(1)
+      listeners = @conf["listeners"].kind_of?(Array) ? @conf["listeners"] : [ @conf["listeners"] ]
       listeners.each do |listener|
         listener.sort.each do |service, values|
           service_proto = service.split(":")[0]
