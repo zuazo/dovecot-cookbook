@@ -8,7 +8,7 @@
 # by adding it to the respective mail_plugins= settings.
 
 <% if @plugins.has_key?('sieve') and @plugins['sieve'].kind_of?(Hash) -%>
-<%=  Dovecot::Conf.plugin('sieve', @plugins['sieve']) %>
+<%= Dovecot::Conf.plugin('sieve', @plugins['sieve']) %>
 <% else -%>
 plugin {
   # The path to the user's main active script. If ManageSieve is used, this the

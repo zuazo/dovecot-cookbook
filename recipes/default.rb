@@ -35,10 +35,10 @@ when 'redhat','centos','scientific','fedora','suse','amazon' then
     node['dovecot']['conf_files']['ldap']
 
   # sieve
-  if Dovecot::Plugins.required?('sieve', node['dovecot'])
-    package 'dovecot-pigeonhole'
-    conf_files += node['dovecot']['conf_files']['sieve']
+  package 'dovecot-pigeonhole' do
+    only_if do Dovecot::Plugins.required?('sieve', node['dovecot']) end
   end
+  conf_files += node['dovecot']['conf_files']['sieve']
 
 when 'debian', 'ubuntu' then
 
@@ -47,35 +47,37 @@ when 'debian', 'ubuntu' then
   package 'dovecot-gssapi'
 
   # imap
-  if Dovecot::Protocols.enabled?('imap', node['dovecot']['protocols'])
-    package 'dovecot-imapd'
-    conf_files += node['dovecot']['conf_files']['imap']
+  package 'dovecot-imapd' do
+    only_if do Dovecot::Protocols.enabled?('imap', node['dovecot']['protocols']) end
   end
+  conf_files += node['dovecot']['conf_files']['imap']
 
   # pop3
-  if Dovecot::Protocols.enabled?('pop3', node['dovecot']['protocols'])
-    package 'dovecot-pop3d'
-    conf_files += node['dovecot']['conf_files']['pop3']
+  package 'dovecot-pop3d' do
+    only_if do  Dovecot::Protocols.enabled?('pop3', node['dovecot']['protocols']) end
   end
+  conf_files += node['dovecot']['conf_files']['pop3']
 
   # lmtp
-  if Dovecot::Protocols.enabled?('lmtp', node['dovecot']['protocols'])
-    package 'dovecot-lmtpd'
-    conf_files += node['dovecot']['conf_files']['lmtp']
+  package 'dovecot-lmtpd' do
+    only_if do Dovecot::Protocols.enabled?('lmtp', node['dovecot']['protocols']) end
   end
+  conf_files += node['dovecot']['conf_files']['lmtp']
 
   # sieve
-  if Dovecot::Plugins.required?('sieve', node['dovecot'])
-    package 'dovecot-sieve'
-    package 'dovecot-managesieved'
-    conf_files += node['dovecot']['conf_files']['sieve']
+  package 'dovecot-sieve' do
+    only_if do Dovecot::Plugins.required?('sieve', node['dovecot']) end
   end
+  package 'dovecot-managesieved' do
+    only_if do Dovecot::Plugins.required?('sieve', node['dovecot']) end
+  end
+  conf_files += node['dovecot']['conf_files']['sieve']
 
   # ldap
-  if node['dovecot']['auth']['ldap'].kind_of?(Array) and node['dovecot']['auth']['ldap'].length > 0
-    package 'dovecot-ldap'
-    conf_files += node['dovecot']['conf_files']['ldap']
+  package 'dovecot-ldap' do
+    only_if do node['dovecot']['auth']['ldap'].kind_of?(Array) and node['dovecot']['auth']['ldap'].length > 0 end
   end
+  conf_files += node['dovecot']['conf_files']['ldap']
 
   # sqlite
   package 'dovecot-sqlite' do

@@ -43,7 +43,7 @@ module Dovecot
   <%  unless conf.has_key?("driver") -%>
   driver = <%=   @driver %>
   <%  end -%>
-  <%  conf.sort.each do |key, value|
+  <%  conf.to_hash.sort.each do |key, value|
         unless value.nil?
   -%>
   <%=     key %> = <%= @Dovecot_Conf.value(value) %>
@@ -65,7 +65,7 @@ module Dovecot
 
       template =
 'plugin {
-  <% @conf.sort.each do |key, value|
+  <% @conf.to_hash.sort.each do |key, value|
        unless value.nil?
   -%>
   <%=    key %> = <%= @Dovecot_Conf.value(value) %>
@@ -81,9 +81,10 @@ module Dovecot
     end
 
     def self.namespace(ns)
+
       template =
 'namespace <%= @ns["name"] %> {
-<%   @ns.sort.each do |key, value|
+<%   @ns.to_hash.sort.each do |key, value|
        if key != "name"
   -%>
   <%=    key %> = <%= @Dovecot_Conf.value(value) %>
@@ -103,7 +104,7 @@ module Dovecot
 
       template =
 'protocol <%= @name %> {
-  <% @conf.sort.each do |key, value| -%>
+  <% @conf.to_hash.sort.each do |key, value| -%>
   <%=  key %> = <%= @Dovecot_Conf.value(value) %>
   <% end -%>
 }'
@@ -123,19 +124,19 @@ module Dovecot
   <% if @conf["listeners"].kind_of?(Array) or @conf["listeners"].kind_of?(Hash)
       listeners = @conf["listeners"].kind_of?(Array) ? @conf["listeners"] : [ @conf["listeners"] ]
       listeners.each do |listener|
-        listener.sort.each do |service, values|
+        listener.to_hash.sort.each do |service, values|
           service_proto = service.split(":")[0]
           service_name = service.split(":")[1]
   -%>
   <%=     service_proto %>_listener <%= service_name %> {
-  <%        values.sort.each do |key, value|-%>
+  <%        values.to_hash.sort.each do |key, value|-%>
     <%=       key %> = <%= @Dovecot_Conf.value(value) %>
   <%        end -%>
   }
   <%     end -%>
   <%   end -%>
   <% end -%>
-  <% @conf.sort.each do |key, value|
+  <% @conf.to_hash.sort.each do |key, value|
        if key != "listeners"
   -%>
   <%=    key %> = <%= @Dovecot_Conf.value(value) %>
@@ -155,12 +156,12 @@ module Dovecot
 
     template =
 'map {
-<%     @map.sort.each do |k, v|
+<%     @map.sort.to_hash.each do |k, v|
          if v.kind_of?(Hash)
 -%>
   <%=      k %> {
 <%
-           v.sort.each do |k2, v2|
+           v.to_hash.sort.each do |k2, v2|
 -%>
     <%=      k2 %> = <%= @Dovecot_Conf.value(v2) %>
 <%         end -%>
