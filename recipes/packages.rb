@@ -24,7 +24,7 @@ when 'redhat','centos','scientific','fedora','suse','amazon' then
   package 'dovecot' do
     [ 'core', 'imap', 'pop3', 'lmtp', 'ldap' ].each do |conf_type|
       node['dovecot']['conf_files'][conf_type].each do |conf_file|
-        notifies :create, "template[#{conf_file}]"
+        notifies :create, "template[#{conf_file}]", :immediately
       end
     end
   end
@@ -33,7 +33,7 @@ when 'redhat','centos','scientific','fedora','suse','amazon' then
   package 'dovecot-pigeonhole' do
     only_if do Dovecot::Plugins.required?('sieve', node['dovecot']) end
     node['dovecot']['conf_files']['sieve'].each do |conf_file|
-      notifies :create, "template[#{conf_file}]"
+      notifies :create, "template[#{conf_file}]", :immediately
     end
   end
 
@@ -42,7 +42,7 @@ when 'debian', 'ubuntu' then
   # core
   package 'dovecot-core' do
     node['dovecot']['conf_files']['core'].each do |conf_file|
-      notifies :create, "template[#{conf_file}]"
+      notifies :create, "template[#{conf_file}]", :immediately
     end
   end
   package 'dovecot-gssapi'
@@ -51,7 +51,7 @@ when 'debian', 'ubuntu' then
   package 'dovecot-imapd' do
     only_if do Dovecot::Protocols.enabled?('imap', node['dovecot']['protocols']) end
     node['dovecot']['conf_files']['imap'].each do |conf_file|
-      notifies :create, "template[#{conf_file}]"
+      notifies :create, "template[#{conf_file}]", :immediately
     end
   end
 
@@ -59,7 +59,7 @@ when 'debian', 'ubuntu' then
   package 'dovecot-pop3d' do
     only_if do  Dovecot::Protocols.enabled?('pop3', node['dovecot']['protocols']) end
     node['dovecot']['conf_files']['pop3'].each do |conf_file|
-      notifies :create, "template[#{conf_file}]"
+      notifies :create, "template[#{conf_file}]", :immediately
     end
   end
 
@@ -67,7 +67,7 @@ when 'debian', 'ubuntu' then
   package 'dovecot-lmtpd' do
     only_if do Dovecot::Protocols.enabled?('lmtp', node['dovecot']['protocols']) end
     node['dovecot']['conf_files']['lmtp'].each do |conf_file|
-      notifies :create, "template[#{conf_file}]"
+      notifies :create, "template[#{conf_file}]", :immediately
     end
   end
 
@@ -75,7 +75,7 @@ when 'debian', 'ubuntu' then
   package 'dovecot-sieve' do
     only_if do Dovecot::Plugins.required?('sieve', node['dovecot']) end
     node['dovecot']['conf_files']['sieve'].each do |conf_file|
-      notifies :create, "template[#{conf_file}]"
+      notifies :create, "template[#{conf_file}]", :immediately
     end
   end
   package 'dovecot-managesieved' do
@@ -86,7 +86,7 @@ when 'debian', 'ubuntu' then
   package 'dovecot-ldap' do
     only_if do node['dovecot']['auth']['ldap'].kind_of?(Array) and node['dovecot']['auth']['ldap'].length > 0 end
     node['dovecot']['conf_files']['ldap'].each do |conf_file|
-      notifies :create, "template[#{conf_file}]"
+      notifies :create, "template[#{conf_file}]", :immediately
     end
   end
 
