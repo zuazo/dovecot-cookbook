@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: dovecot
-# Recipe:: default
+# Recipe:: service
 #
 # Copyright 2013, Onddo Labs, Sl.
 #
@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-include_recipe 'dovecot::user'
-include_recipe 'dovecot::conf_files'
-include_recipe 'dovecot::packages'
-include_recipe 'dovecot::service'
+service 'dovecot' do
+  supports :restart => true, :reload => true, :status => true
+  action [ :enable, :start ]
+end
 

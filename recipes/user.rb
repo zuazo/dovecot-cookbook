@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: dovecot
-# Recipe:: default
+# Recipe:: user
 #
 # Copyright 2013, Onddo Labs, Sl.
 #
@@ -17,8 +17,16 @@
 # limitations under the License.
 #
 
-include_recipe 'dovecot::user'
-include_recipe 'dovecot::conf_files'
-include_recipe 'dovecot::packages'
-include_recipe 'dovecot::service'
+user node['dovecot']['user'] do
+  comment 'Dovecot mail server'
+  home node['dovecot']['lib_path']
+  shell '/bin/false'
+  system true
+end
+
+group node['dovecot']['group'] do
+  members [ node['dovecot']['user'] ]
+  system true
+  append true
+end
 
