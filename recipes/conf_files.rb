@@ -53,10 +53,10 @@ node['dovecot']['conf_files'].each do |type, conf_files|
       group node['dovecot']['conf_files_group']
       mode node['dovecot']['conf_files_mode']
       variables(
-        :auth => node['dovecot']['auth'],
-        :protocols => node['dovecot']['protocols'],
-        :services => node['dovecot']['services'],
-        :plugins => node['dovecot']['plugins'],
+        :auth => node['dovecot']['auth'].to_hash,
+        :protocols => node['dovecot']['protocols'].to_hash,
+        :services => node['dovecot']['services'].to_hash,
+        :plugins => node['dovecot']['plugins'].to_hash,
         :namespaces => node['dovecot']['namespaces'],
         :conf => node['dovecot']['conf']
       )
