@@ -6,7 +6,10 @@ case node['platform']
   when 'redhat','centos','scientific','fedora','suse','amazon' then
     default['dovecot']['conf']['ssl_cert'] = '</etc/pki/dovecot/certs/dovecot.pem'
     default['dovecot']['conf']['ssl_key'] = '</etc/pki/dovecot/private/dovecot.pem'
-  # when 'debian', 'ubuntu' then
+  when 'debian'
+    default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/dovecot.pem'
+    default['dovecot']['conf']['ssl_key'] = '</etc/dovecot/private/dovecot.pem'
+  # when 'ubuntu'
   else
     default['dovecot']['conf']['ssl_cert'] = '</etc/ssl/certs/dovecot.pem'
     default['dovecot']['conf']['ssl_key'] = '</etc/ssl/private/dovecot.pem'
