@@ -38,6 +38,7 @@ default['dovecot']['services'] = {}
 # default['dovecot']['services']['auth'] = nil
 # default['dovecot']['services']['auth-worker'] = nil
 # default['dovecot']['services']['dict'] = nil
+# default['dovecot']['services']['tcpwrap'] = nil
 
 # default['dovecot']['services']['managesieve-login'] = nil
 # default['dovecot']['services']['managesieve'] = nil
