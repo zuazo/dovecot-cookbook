@@ -1,26 +1,28 @@
 ---
 driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: true
 
 platforms:
 - name: ubuntu-12.04
   driver_config:
-    box: canonical-ubuntu-12.04
-    box_url: http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box
-    require_chef_omnibus: true
-- name: ubuntu-10.04
+    box: opscode-ubuntu-12.04
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_chef-11.4.4.box
+- name: centos-6.4
   driver_config:
-    box: opscode-ubuntu-10.04
-    box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_chef-11.2.0.box
-- name: centos-6.3
+    box: opscode-centos-6.4
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_chef-11.4.4.box
+- name: debian-7.0-chef10
   driver_config:
-    box: opscode-centos-6.3
-    box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.3_chef-11.2.0.box
-- name: centos-5.8
+    box: debian-7.0.0-chef_10.26.0-1-amd64
+    box_url: https://onddo-vm.s3.amazonaws.com/vagrant/debian-7.0.0-chef_10.26.0-1-amd64.box
+- name: debian-7.0-chef11
   driver_config:
-    box: opscode-centos-5.8
-    box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-5.8_chef-11.2.0.box
+    box: debian-7.0.0-chef_11.4.4-2-amd64
+    box_url: https://onddo-vm.s3.amazonaws.com/vagrant/debian-7.0.0-chef_11.4.4-2-amd64.box
 
 suites:
 - name: default
-  run_list: ["recipe[dovecot]"]
+  run_list:
+    - recipe[dovecot]
   attributes: {}
