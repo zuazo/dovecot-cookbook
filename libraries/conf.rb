@@ -4,6 +4,14 @@ require 'erubis'
 module Dovecot
   module Conf
 
+    def self.name(str)
+      if str =~ /\s/
+        "\"#{str}\""
+      else
+        str
+      end
+    end
+
     def self.value(v, default = nil)
       if v.nil?
         default.to_s
@@ -39,7 +47,7 @@ module Dovecot
       template =
 '<% confs = @conf.kind_of?(Array)? @conf : [ @conf ]
     confs.each do |conf| -%>
-<%=   @type %> {
+<%=   @Dovecot_Conf.name(@type) %> {
   <%  unless conf.has_key?("driver") -%>
   driver = <%=   @driver %>
   <%  end -%>
@@ -83,14 +91,25 @@ module Dovecot
     def self.namespace(ns)
 
       template =
-'namespace <%= @ns["name"] %> {
-<%   @ns.sort.each do |key, value|
-       if key != "name"
+'namespace <%= @Dovecot_Conf.name(@ns["name"]) %> {
+  <% if @ns["mailboxes"].kind_of?(Array) or @ns["mailboxes"].kind_of?(Hash)
+       mailboxes = @ns["mailboxes"].kind_of?(Array) ? @ns["mailboxes"] : [ @ns["mailboxes"] ]
+       mailboxes.each do |mailbox|
+         mailbox.sort.each do |key, values|
   -%>
-  <%=    key %> = <%= @Dovecot_Conf.value(value) %>
-  <%   end
-     end
--%>
+  mailbox <%= @Dovecot_Conf.name(key) %> {
+  <%       values.sort.each do |key, value| -%>
+    <%=      key %> = <%= @Dovecot_Conf.value(value) %>
+  <%       end -%>
+  }
+  <%     end -%>
+  <%   end -%>
+  <% end -%>
+  <% @ns.sort.each do |key, value|
+       next if key == "mailboxes"
+  -%>
+  <%=  key %> = <%= @Dovecot_Conf.value(value) %>
+  <% end -%>
 }'
 
       eruby = Erubis::Eruby.new(template)
@@ -103,7 +122,7 @@ module Dovecot
     def self.protocol(name, conf)
 
       template =
-'protocol <%= @name %> {
+'protocol <%= @Dovecot_Conf.name(@name) %> {
   <% @conf.sort.each do |key, value| -%>
   <%=  key %> = <%= @Dovecot_Conf.value(value) %>
   <% end -%>
@@ -120,7 +139,7 @@ module Dovecot
     def self.service(name, conf)
 
       template =
-'service <%= @name %> {
+'service <%= @Dovecot_Conf.name(@name) %> {
   <% if @conf["listeners"].kind_of?(Array) or @conf["listeners"].kind_of?(Hash)
       listeners = @conf["listeners"].kind_of?(Array) ? @conf["listeners"] : [ @conf["listeners"] ]
       listeners.each do |listener|
@@ -128,7 +147,7 @@ module Dovecot
           service_proto = service.split(":")[0]
           service_name = service.split(":")[1]
   -%>
-  <%=     service_proto %>_listener <%= service_name %> {
+  <%=     service_proto %>_listener <%= @Dovecot_Conf.name(service_name) %> {
   <%        values.sort.each do |key, value|-%>
     <%=       key %> = <%= @Dovecot_Conf.value(value) %>
   <%        end -%>
@@ -137,10 +156,9 @@ module Dovecot
   <%   end -%>
   <% end -%>
   <% @conf.sort.each do |key, value|
-       if key != "listeners"
+       next if key == "listeners"
   -%>
-  <%=    key %> = <%= @Dovecot_Conf.value(value) %>
-  <%   end -%>
+  <%=  key %> = <%= @Dovecot_Conf.value(value) %>
   <% end -%>
 }'
 
@@ -159,7 +177,7 @@ module Dovecot
 <%     @map.sort.each do |k, v|
          if v.kind_of?(Hash)
 -%>
-  <%=      k %> {
+  <%=      @Dovecot_Conf.name(k) %> {
 <%
            v.sort.each do |k2, v2|
 -%>
