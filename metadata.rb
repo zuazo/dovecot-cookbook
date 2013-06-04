@@ -189,3 +189,91 @@ attribute 'dovecot/conf/mail_plugins',
   :required => 'optional',
   :default => []
 
+#
+# dovecot.conf
+#
+
+attribute 'dovecot/conf/listen',
+  :display_name => 'listen',
+  :description => 'A comma separated list of IPs or hosts where to listen in for connections.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/base_dir',
+  :display_name => 'dovecot base dir',
+  :description => 'Base directory where to store runtime data.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/instance_name',
+  :display_name => 'instance name',
+  :description => 'Name of this instance. Used to prefix all Dovecot processes in ps output.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/login_greeting',
+  :display_name => 'login greeting',
+  :description => 'Greeting message for clients.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/login_trusted_networks',
+  :display_name => 'login trusted networks',
+  :description => 'Space separated list of trusted network ranges.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/login_access_sockets',
+  :display_name => 'login access sockets',
+  :description => 'Space separated list of login access check sockets.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/verbose_proctitle',
+  :display_name => 'verbose proctitle',
+  :description => 'Show more verbose process titles (in ps).',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/shutdown_clients',
+  :display_name => 'shutdown clients',
+  :description => 'Should all processes be killed when Dovecot master process shuts down.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/doveadm_worker_count',
+  :display_name => 'doveadm worker count',
+  :description => 'If non-zero, run mail commands via this many connections to doveadm server.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/doveadm_socket_path',
+  :display_name => 'doveadm socket path',
+  :description => 'UNIX socket or host:port used for connecting to doveadm server.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/import_environment',
+  :display_name => 'import environment',
+  :description => 'Space separated list of environment variables that are preserved on Dovecot startup and his childs.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/dict',
+  :display_name => 'dict',
+  :description => 'Dictionary server settings as a hash.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
