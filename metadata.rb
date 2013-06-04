@@ -138,3 +138,54 @@ attribute 'dovecot/conf_files/ldap',
     'conf.d/auth-ldap.conf.ext',
   ]
 
+attribute 'dovecot/auth',
+  :display_name => 'dovecot auth',
+  :description => 'Dovecot Authentication Databases as a hash of hashes. Supported authdbs: checkpassword, deny, ldap, master, passwdfile, sql, system and vpopmail',
+  :type => 'string',
+  :required => 'optional',
+  :default => '{}'
+
+attribute 'dovecot/namespaces',
+  :display_name => 'dovecot namespaces',
+  :description => 'Dovecot Namespaces as an array of hashes',
+  :type => 'array',
+  :required => 'optional',
+  :default => []
+
+attribute 'dovecot/plugins',
+  :display_name => 'dovecot plugins',
+  :description => 'Dovecot Plugins configuration as a hash of hashes. Supported plugins: mail_log, acl and quota',
+  :type => 'string',
+  :required => 'optional',
+  :default => '{
+    "sieve" => {
+      "sieve" => "~/.dovecot.sieve",
+      "sieve_dir" => "~/sieve",
+    }
+  }'
+
+attribute 'dovecot/protocolos',
+  :display_name => 'dovecot protocols',
+  :description => 'Dovecot Protocols configuration as a hash of hashes. Supported protocols: lda, imap, lmtp, sieve and pop3',
+  :type => 'string',
+  :required => 'optional',
+  :default => '{}'
+
+attribute 'dovecot/services',
+  :display_name => 'dovecot services',
+  :description => 'Dovecot Services configuration as a hash of hashes. Supported services: director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login and managesieve',
+  :type => 'string',
+  :required => 'optional',
+  :default => '{}'
+
+grouping 'dovecot/conf',
+ :title => 'dovecot conf',
+ :description => 'Dovecot configuration values'
+
+attribute 'dovecot/conf/mail_plugins',
+  :display_name => 'dovecot mail plugins',
+  :description => 'Dovecot default enabled mail_plugins',
+  :type => 'array',
+  :required => 'optional',
+  :default => []
+
