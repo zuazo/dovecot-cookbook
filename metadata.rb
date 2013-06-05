@@ -1051,3 +1051,21 @@ attribute 'dovecot/lda_mailbox_autosubscribe',
   :required => 'optional',
   :default => 'nil'
 
+#
+# conf.d/20-lmtp.conf
+#
+
+attribute 'dovecot/lmtp_proxy',
+  :display_name => 'lmtp proxy',
+  :description => 'Support proxying to other LMTP/SMTP servers by performing passdb lookups.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/lmtp_save_to_detail_mailbox',
+  :display_name => 'lmtp save to detail mailbox',
+  :description => 'hen recipient address includes the detail (e.g. user+detail), try to save the mail to the detail mailbox.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
