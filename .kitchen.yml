@@ -26,3 +26,7 @@ suites:
   run_list:
     - recipe[dovecot_test]
   attributes: {}
+- name: attributes
+  run_list:
+    - recipe[dovecot_test::attributes]
+  attributes: {}
