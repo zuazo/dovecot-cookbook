@@ -1,5 +1,5 @@
 
-# conf.d/15-tcpwrapper.conf
+# conf.d/10-tcpwrapper.conf
 
 default['dovecot']['conf']['login_access_sockets'] = nil
 
