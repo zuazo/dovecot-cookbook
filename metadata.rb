@@ -959,3 +959,84 @@ attribute 'dovecot/ssl_cipher_list',
   :required => 'optional',
   :default => 'nil'
 
+#
+# conf.d/15-lda.conf
+#
+
+attribute 'dovecot/postmaster_address',
+  :display_name => 'postmaster address',
+  :description => 'Address to use when sending rejection mails.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/hostname',
+  :display_name => 'hostname',
+  :description => 'Hostname to use in various parts of sent mails, eg. in Message-Id.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/quota_full_tempfail',
+  :display_name => 'quota full tempfail',
+  :description => 'If user is over quota, return with temporary failure instead of bouncing the mail.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/sendmail_path',
+  :display_name => 'sendmail path',
+  :description => 'Binary to use for sending mails.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/submission_host',
+  :display_name => 'submission host',
+  :description => 'If non-empty, send mails via this SMTP host[:port] instead of sendmail.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/rejection_subject',
+  :display_name => 'rejection subject',
+  :description => 'Subject: header to use for rejection mails.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/rejection_reason',
+  :display_name => 'rejection reason',
+  :description => 'Human readable error message for rejection mails.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/recipient_delimiter',
+  :display_name => 'recipient delimiter',
+  :description => 'Delimiter character between local-part and detail in email address.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/lda_original_recipient_header',
+  :display_name => 'lda original recipient header',
+  :description => 'Header where the original recipient address (SMTP\'s RCPT TO: address) is taken from if not available elsewhere.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/lda_mailbox_autocreate',
+  :display_name => 'lda mailbox autocreate',
+  :description => 'Should saving a mail to a nonexistent mailbox automatically create it?',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/lda_mailbox_autosubscribe',
+  :display_name => 'lda mailbox autosubscribe',
+  :description => 'Should automatically created mailboxes be also automatically subscribed?',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
