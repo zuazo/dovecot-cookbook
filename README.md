@@ -1337,7 +1337,7 @@ node.default['dovecot']['services']['imap-login'] = {
 
 ## Complete Example
 
-This is a complete recipe example for installing and configuring Dovecot 2 to work with PostfixAdmin MySQL tables:
+This is a complete recipe example for installing and configuring Dovecot 2 to work with PostfixAdmin MySQL tables, including IMAP service:
 
 ```ruby
 
@@ -1384,6 +1384,7 @@ node.default['dovecot']['conf']['lda_mailbox_autosubscribe'] = true
 node.default['dovecot']['protocols']['lda']['mail_plugins'] = [ '$mail_plugins', 'sieve' ]
 
 # 20-imap.conf
+# We want IMAP enabled with the default configuration
 node.default['dovecot']['protocols']['imap'] = {}
 
 # 90-sieve.conf
