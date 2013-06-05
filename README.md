@@ -1135,6 +1135,336 @@ Installs the required packages. Used by default recipe.
 
 Configures the Dovecot service. Used by default recipe.
 
+Usage Examples
+==============
+
+You can simply include the default recipe in your *Run List* or include it from a recipe:
+
+```ruby
+# from a recipe
+include_recipe 'dovecot'
+```
+
+## Authentication Databases Examples
+
+Authentication database attributes, inside passdb or usedb hash values, can contain both arrays or hashes.
+
+```ruby
+node.default['dovecot']['auth']['checkpassword'] = { # hash
+  'passdb' => {
+    'driver' => 'checkpassword',
+    'args' => '/usr/bin/checkpassword',
+  },
+  'userdb' => {
+    'driver' => 'prefetch',
+  },
+}
+```
+
+```ruby
+node.default['dovecot']['auth']['system']['passdb'] = [ # array
+  {
+    # without driver
+    'args' => 'dovecot',
+  },
+  {
+    'driver' => 'passwd',
+    'args' => '',
+  },
+  {
+    'driver' => 'shadow',
+    'args' => '',
+  },
+  {
+    'driver' => 'bsdauth',
+    'args' => '',
+  },
+]
+```
+
+## Dictionary Quota SQL Example
+
+```ruby
+node.default['dovecot']['conf']['dict_sql']['maps'] = [
+  {
+    'pattern' => 'priv/quota/storage',
+    'table' => 'quota',
+    'username_field' => 'username',
+    'value_field' => 'bytes',
+  },
+  {
+    'pattern' => 'priv/quota/messages',
+    'table' => 'quota',
+    'username_field' => 'username',
+    'value_field' => 'messages',
+  },
+  {
+    'pattern' => 'shared/expire/$user/$mailbox',
+    'table' => 'expires',
+    'value_field' => 'expire_stamp',
+    'fields' => {
+      'username' => '$user',
+      'mailbox' => '$mailbox',
+    },
+  },
+]
+```
+
+## Namespaces Example
+
+The `['namespaces']` attribute is an array, which could conaint both array or hash values.
+
+```ruby
+node.default['dovecot']['namespaces'] = [
+  {
+    'separator' => '/',
+    'prefix' => '"#mbox/"',
+    'location' => 'mbox:~/mail:INBOX=/var/mail/%u',
+    'inbox' => true,
+    'hidden' => true,
+    'list' => false,
+  }, {
+    'separator' => '/',
+    'prefix' => '',
+    'location' => 'maildir:~/Maildir',
+  }, {
+    'name' => 'inbox',
+    'separator' => '/',
+    'prefix' => '',
+    'inbox' => true,
+    'mailboxes' => {
+      'Drafts' => {
+        'special_use' => '\Drafts',
+      },
+      'Junk' => {
+        'special_use' => '\Junk',
+      },
+      'Trash' => {
+        'special_use' => '\Trash',
+      },
+      'Sent' => {
+        'special_use' => '\Sent',
+      },
+      'Sent Messages' => {
+        'special_use' => '\Sent',
+      },
+      'virtual/All' => {
+        'special_use' => '\All',
+      },
+      'virtual/Flagged' => {
+        'special_use' => '\All',
+      },
+    },
+  },
+]
+```
+
+## Plugins Examples
+
+Plugin attribute values should be of type hash.
+
+### Mail Log Plugin Example
+
+```ruby
+node.default['dovecot']['plugins']['mail_log'] = {
+  'mail_log_events' => 'delete undelete expunge copy mailbox_delete mailbox_rename',
+  'mail_log_fields' => 'uid box msgid size'
+}
+```
+
+### Sieve Plugin Example
+
+```ruby
+node.default['dovecot']['plugins']['sieve'] = {
+  'sieve' => '~/.dovecot.sieve',
+  'sieve_dir' => '~/sieve',
+}
+```
+
+## Protocols Example
+
+Protocol attribute values should be of type hash.
+
+```ruby
+node.default['dovecot']['protocols']['lda'] = {
+  'mail_plugins' => [ '$mail_plugins' ],
+}
+```
+
+## Service Examples
+
+The `['services']` attribute is a hash. Each service attribute should be a hash. But the `['listeners']` subkey could contain both a hash and an array.
+
+Inside this `listeners` key, you should name each listener with the format *PROTOCOL:NAME*. Allowed protocols are `fifo`, `unix` and `inet`.
+
+### Director Service Example
+
+```ruby
+node.default['dovecot']['services']['director']['listeners'] = [
+  { 'unix:login/director' => {
+      'mode' => '0666',
+  } },
+  { 'fifo:login/proxy-notify' => {
+      'mode' => '0666',
+  } },
+  { 'unix:director-userdb' => {
+      'mode' => '0666',
+   } },
+  { 'inet' => {
+      'port' => '5432',
+  } },
+]
+```
+
+### Imap-login Service Example
+
+```ruby
+node.default['dovecot']['services']['imap-login'] = {
+  'listeners' => [
+    { 'inet:imap' => {
+     'port' => 143,
+    } },
+    { 'inet:imaps' => {
+      'port' => 993,
+      'ssl' => true,
+    } },
+  ],
+  'service_count' => 1,
+  'process_min_avail' => 0,
+  'vsz_limit' => '64M',
+}
+```
+
+## Complete Example
+
+This is a complete recipe example for installing and configuring Dovecot 2 to work with PostfixAdmin MySQL tables:
+
+```ruby
+
+node.default['dovecot']['conf_files_group'] = 'vmail'
+
+node.default['dovecot']['conf']['disable_plaintext_auth'] = false
+node.default['dovecot']['conf_files_mode'] = '00640'
+
+# 10-logging.conf
+node.default['dovecot']['conf']['log_path'] = 'syslog'
+node.default['dovecot']['conf']['syslog_facility'] = 'mail'
+node.default['dovecot']['conf']['log_timestamp'] = '"%Y-%m-%d %H:%M:%S"'
+
+# 10-mail.conf
+node.default['dovecot']['conf']['mail_location'] = 'maildir:~/Maildir'
+node.default['dovecot']['conf']['mail_privileged_group'] = 'mail'
+
+# 10-master.conf
+node.default['dovecot']['services']['auth']['listeners'] = [
+  # auth_socket_path points to this userdb socket by default. It's typically
+  # used by dovecot-lda, doveadm, possibly imap process, etc. Its default
+  # permissions make it readable only by root, but you may need to relax these
+  # permissions. Users that have access to this socket are able to get a list
+  # of all usernames and get results of everyone's userdb lookups.
+  { 'unix:auth-userdb' => {
+    'mode' => '0600',
+    'user' => 'vmail',
+    'group' => 'vmail',
+  } },
+  # Postfix smtp-auth
+  { 'unix:/var/spool/postfix/private/auth' => {
+    'mode' => '0666',
+    'user' => 'postfix',
+    'group' => 'postfix',
+  } },
+]
+
+# 15-lda.conf
+node.default['dovecot']['conf']['postmaster_address'] = 'postmaster@mycompany.org' # TODO: Change this to fit your server
+node.default['dovecot']['conf']['hostname'] = 'mail.mycompany.org' # TODO: Change this to fit your server
+node.default['dovecot']['conf']['lda_mailbox_autocreate'] = true
+node.default['dovecot']['conf']['lda_mailbox_autosubscribe'] = true
+# We want sieve enabled
+node.default['dovecot']['protocols']['lda']['mail_plugins'] = [ '$mail_plugins', 'sieve' ]
+
+# 20-imap.conf
+node.default['dovecot']['protocols']['imap'] = {}
+
+# 90-sieve.conf
+node.default['dovecot']['plugins']['sieve']['sieve'] = '~/.dovecot.sieve'
+node.default['dovecot']['plugins']['sieve']['sieve_dir'] = '~/sieve'
+node.default['dovecot']['plugins']['sieve']['sieve_global_path'] = "#{node['dovecot']['conf_path']}/sieve/default.sieve"
+
+# auth-sql.conf.ext
+node.default['dovecot']['auth']['sql']['passdb']['args'] = '/etc/dovecot/dovecot-sql.conf.ext'
+node.default['dovecot']['auth']['sql']['userdb']['args'] = '/etc/dovecot/dovecot-sql.conf.ext'
+
+# auth-static.conf.ext
+node.default['dovecot']['auth']['static']['userdb']['args'] = [
+  'uid=vmail',
+  'gid=vmail',
+  'home=/var/vmail/%d/%n',
+  'allow_all_users=yes',
+]
+
+# auth-system.conf.ext
+node.default['dovecot']['auth']['system'] = {}
+
+# dovecot-sql.conf.ext
+# We want to enable MySQL driver
+node.default['dovecot']['conf']['sql']['driver'] = 'mysql'
+node.default['dovecot']['conf']['sql']['connect'] = [
+  'host=localhost',
+  'dbname=postfix',
+  'user=postfix',
+  'password=postfix_pass', # TODO: change this, please
+]
+# md5crypt encryption method
+node.default['dovecot']['conf']['sql']['default_pass_scheme'] = 'MD5-CRYPT'
+node.default['dovecot']['conf']['sql']['password_query'] = [
+  'SELECT username AS user, password',
+  'FROM mailbox',
+  "WHERE username = '%u' AND active = '1'",
+]
+node.default['dovecot']['conf']['sql']['user_query'] = [
+  'SELECT',
+    'username AS user,',
+    'password,',
+    '5000 as uid,',
+    '5000 as gid,',
+    "concat('/var/vmail/', maildir) AS home,",
+    "concat('maildir:/var/vmail/', maildir) AS mail",
+  'FROM mailbox',
+  "WHERE username = '%u' AND active = '1'",
+]
+
+node.default['dovecot']['conf']['sql']['iterate_query'] = [
+  'SELECT username AS user',
+  "FROM mailbox WHERE active = '1'",
+]
+
+include_recipe 'dovecot'
+
+# Compile sieve scripts
+
+# this should go after installing dovecot, sievec is required
+execute 'sievec sieve_global_path' do
+  command "sievec '#{node['dovecot']['conf_path']}/sieve/default.sieve'"
+  action :nothing
+end
+directory ::File.dirname("#{node['dovecot']['conf_path']}/sieve/default.sieve") do
+  owner 'root'
+  group 'root'
+  mode '00755'
+  recursive true
+  not_if do ::File.exists?(::File.dirname("#{node['dovecot']['conf_path']}/sieve/default.sieve")) end
+end
+# This will be the default sieve script:
+template node['dovecot']['plugins']['sieve']['sieve_global_path'] do
+  source 'default.sieve.erb'
+  owner 'root'
+  group 'root'
+  mode '00644'
+  notifies :run, 'execute[sievec sieve_global_path]'
+end
+```
+
 Testing
 =======
 
