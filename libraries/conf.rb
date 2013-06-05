@@ -57,8 +57,9 @@ module Dovecot
   <%=     key %> = <%= @Dovecot_Conf.value(value) %>
   <%    end
       end
-    end -%>
-}'
+  -%>
+}
+<% end -%>'
 
       eruby = Erubis::Eruby.new(template)
       eruby.evaluate(
