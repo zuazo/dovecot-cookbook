@@ -1149,6 +1149,8 @@ include_recipe 'dovecot'
 
 Authentication database attributes, inside passdb or usedb hash values, can contain both arrays or hashes.
 
+Supported auths are the following: `checkpassword`, `deny`, `ldap`, `master`, `passwdfile`, `sql`, `system` and `vpopmail`.
+
 ```ruby
 node.default['dovecot']['auth']['checkpassword'] = { # hash
   'passdb' => {
@@ -1263,6 +1265,8 @@ node.default['dovecot']['namespaces'] = [
 
 Plugin attribute values should be of type hash.
 
+Supported plugins are the following: `mail_log`, `acl` and `quota`.
+
 ### Mail Log Plugin Example
 
 ```ruby
@@ -1285,6 +1289,8 @@ node.default['dovecot']['plugins']['sieve'] = {
 
 Protocol attribute values should be of type hash.
 
+Supported protocols are the following: `lda`, `imap`, `lmtp`, `sieve` and `pop3`.
+
 ```ruby
 node.default['dovecot']['protocols']['lda'] = {
   'mail_plugins' => [ '$mail_plugins' ],
@@ -1296,6 +1302,8 @@ node.default['dovecot']['protocols']['lda'] = {
 The `['services']` attribute is a hash. Each service attribute should be a hash. But the `['listeners']` subkey could contain both a hash and an array.
 
 Inside this `listeners` key, you should name each listener with the format *PROTOCOL:NAME*. Allowed protocols are `fifo`, `unix` and `inet`.
+
+Supported services are the following: `director`, `imap-login`, `pop3-login`, `lmtp`, `imap`, `pop3`, `auth`, `auth-worker`, `dict`, `tcpwrap`, `managesieve-login` and `managesieve`.
 
 ### Director Service Example
 
