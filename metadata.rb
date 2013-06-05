@@ -853,3 +853,42 @@ attribute 'dovecot/mail_attachment_hash',
   :required => 'optional',
   :default => 'nil'
 
+#
+# conf.d/10-master.conf
+#
+
+attribute 'dovecot/default_process_limit',
+  :display_name => 'default process limit',
+  :description => 'Default process limit.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/default_client_limit',
+  :display_name => 'default client limit',
+  :description => 'Default client limit.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/default_vsz_limit',
+  :display_name => 'default vsz limit',
+  :description => 'Default VSZ (virtual memory size) limit for service processes.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/default_login_user',
+  :display_name => 'default login user',
+  :description => 'Login user is internally used by login processes.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/default_internal_user',
+  :display_name => 'default internal user',
+  :description => 'Internal user is used by unprivileged processes.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
