@@ -559,294 +559,294 @@ attribute 'dovecot/conf/deliver_log_format',
 # conf.d/10-mail.conf
 #
 
-attribute 'dovecot/mail_location',
+attribute 'dovecot/conf/mail_location',
   :display_name => 'mail location',
   :description => 'Location for user\'s mailboxes.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_uid',
+attribute 'dovecot/conf/mail_uid',
   :display_name => 'mail uid',
   :description => 'System user used to access mails.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_gid',
+attribute 'dovecot/conf/mail_gid',
   :display_name => 'mail gid',
   :description => 'System group used to access mails.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_privileged_group',
+attribute 'dovecot/conf/mail_privileged_group',
   :display_name => 'mail privileged group',
   :description => 'Group to enable temporarily for privileged operations.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_access_groups',
+attribute 'dovecot/conf/mail_access_groups',
   :display_name => 'mail access groups',
   :description => 'Grant access to these supplementary groups for mail processes.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_full_filesystem_access',
+attribute 'dovecot/conf/mail_full_filesystem_access',
   :display_name => 'mail full filesystem access',
   :description => 'Allow full filesystem access to clients.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mmap_disable',
+attribute 'dovecot/conf/mmap_disable',
   :display_name => 'mmap disable',
   :description => 'Don\'t use mmap() at all.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/dotlock_use_excl',
+attribute 'dovecot/conf/dotlock_use_excl',
   :display_name => 'dotlock use excl',
   :description => 'Rely on O_EXCL to work when creating dotlock files.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_fsync',
+attribute 'dovecot/conf/mail_fsync',
   :display_name => 'mail fsync',
   :description => 'When to use fsync() or fdatasync() calls: optimized, always or never',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_nfs_storage',
+attribute 'dovecot/conf/mail_nfs_storage',
   :display_name => 'mail nfs storage',
   :description => 'Mail storage exists in NFS.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_nfs_index',
+attribute 'dovecot/conf/mail_nfs_index',
   :display_name => 'mail nfs index',
   :description => 'Mail index files also exist in NFS.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/lock_method',
+attribute 'dovecot/conf/lock_method',
   :display_name => 'lock method',
   :description => 'Locking method for index files: fcntl, flock or dotlock.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_temp_dir',
+attribute 'dovecot/conf/mail_temp_dir',
   :display_name => 'mail temp dir',
   :description => 'Directory in which LDA/LMTP temporarily stores incoming mails >128 kB.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/first_valid_uid',
+attribute 'dovecot/conf/first_valid_uid',
   :display_name => 'first valid uid',
   :description => 'Valid UID range for users, defaults to 500 and above.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/last_valid_uid',
+attribute 'dovecot/conf/last_valid_uid',
   :display_name => 'last valid uid',
   :description => 'Valid UID range for users, defaults to 500 and above.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/first_valid_gid',
+attribute 'dovecot/conf/first_valid_gid',
   :display_name => 'first valid gid',
   :description => 'Valid GID range for users, defaults to non-root/wheel.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/last_valid_gid',
+attribute 'dovecot/conf/last_valid_gid',
   :display_name => 'last valid gid',
   :description => 'Valid GID range for users, defaults to non-root/wheel.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_max_keyword_length',
+attribute 'dovecot/conf/mail_max_keyword_length',
   :display_name => 'mail max keyword length',
   :description => 'Maximum allowed length for mail keyword name.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/valid_chroot_dirs',
+attribute 'dovecot/conf/valid_chroot_dirs',
   :display_name => 'valid chroot dirs',
   :description => '\':\' separated list of directories under which chrooting is allowed for mail processes.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_chroot',
+attribute 'dovecot/conf/mail_chroot',
   :display_name => 'mail chroot',
   :description => 'Default chroot directory for mail processes.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/auth_socket_path',
+attribute 'dovecot/conf/auth_socket_path',
   :display_name => 'auth socket path',
   :description => 'UNIX socket path to master authentication server to find users.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_plugin_dir',
+attribute 'dovecot/conf/mail_plugin_dir',
   :display_name => 'mail plugin dir',
   :description => 'Directory where to look up mail plugins.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_cache_min_mail_count',
+attribute 'dovecot/conf/mail_cache_min_mail_count',
   :display_name => 'mail cache min mail count',
   :description => 'The minimum number of mails in a mailbox before updates are done to cache file.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mailbox_idle_check_interval',
+attribute 'dovecot/conf/mailbox_idle_check_interval',
   :display_name => 'mailbox idle check interval',
   :description => 'When IDLE command is running, mailbox is checked once in a while to see if there are any new mails or other changes.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_save_crlf',
+attribute 'dovecot/conf/mail_save_crlf',
   :display_name => 'mail save crlf',
   :description => 'Save mails with CR+LF instead of plain LF.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/maildir_stat_dirs',
+attribute 'dovecot/conf/maildir_stat_dirs',
   :display_name => 'maildir stat dirs',
   :description => 'By default LIST command returns all entries in maildir beginning with a dot.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/maildir_copy_with_hardlinks',
+attribute 'dovecot/conf/maildir_copy_with_hardlinks',
   :display_name => 'maildir copy with hardlinks',
   :description => 'When copying a message, do it with hard links whenever possible.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/maildir_very_dirty_syncs',
+attribute 'dovecot/conf/maildir_very_dirty_syncs',
   :display_name => 'maildir very dirty syncs',
   :description => 'Assume Dovecot is the only MUA accessing Maildir.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mbox_read_locks',
+attribute 'dovecot/conf/mbox_read_locks',
   :display_name => 'mbox read locks',
   :description => 'Which read locking methods to use for locking mbox: dotlock, dotlock_try, fcntl, flock or lockfyy',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mbox_write_locks',
+attribute 'dovecot/conf/mbox_write_locks',
   :display_name => 'mbox write locks',
   :description => 'Which write locking methods to use for locking mbox: dotlock, dotlock_try, fcntl, flock or lockfyy',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mbox_lock_timeout',
+attribute 'dovecot/conf/mbox_lock_timeout',
   :display_name => 'mbox lock timeout',
   :description => 'Maximum time to wait for lock (all of them) before aborting.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mbox_dotlock_change_timeout',
+attribute 'dovecot/conf/mbox_dotlock_change_timeout',
   :display_name => 'mbox dotlock change timeout',
   :description => 'If dotlock exists but the mailbox isn\'t modified in any way, override the lock file after this much time.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mbox_dirty_syncs',
+attribute 'dovecot/conf/mbox_dirty_syncs',
   :display_name => 'mbox dirty syncs',
   :description => 'When mbox changes unexpectedly simply read the new mails but still safely fallbacks to re-reading the whole mbox file whenever something in mbox isn\'t how it\'s expected to be.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mbox_very_dirty_syncs',
+attribute 'dovecot/conf/mbox_very_dirty_syncs',
   :display_name => 'mbox very dirty syncs',
   :description => 'Like mbox_dirty_syncs, but don\'t do full syncs even with SELECT, EXAMINE, EXPUNGE or CHECK commands.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mbox_lazy_writes',
+attribute 'dovecot/conf/mbox_lazy_writes',
   :display_name => 'mbox lazy writes',
   :description => 'Delay writing mbox headers until doing a full write sync (EXPUNGE and CHECK commands and when closing the mailbox).',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mbox_min_index_size',
+attribute 'dovecot/conf/mbox_min_index_size',
   :display_name => 'mbox min index size',
   :description => 'If mbox size is smaller than this (e.g. 100k), don\'t write index files.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mdbox_rotate_size',
+attribute 'dovecot/conf/mdbox_rotate_size',
   :display_name => 'mdbox rotate size',
   :description => 'Maximum dbox file size until it\'s rotated.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mdbox_rotate_interval',
+attribute 'dovecot/conf/mdbox_rotate_interval',
   :display_name => 'mdbox rotate interval',
   :description => 'Maximum dbox file age until it\'s rotated.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mdbox_preallocate_space',
+attribute 'dovecot/conf/mdbox_preallocate_space',
   :display_name => 'mdbox preallocate space',
   :description => 'When creating new mdbox files, immediately preallocate their size to mdbox_rotate_size.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_attachment_min_size',
+attribute 'dovecot/conf/mail_attachment_min_size',
   :display_name => 'mail attachment min size',
   :description => 'Attachments smaller than this aren\'t saved externally.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_attachment_fs',
+attribute 'dovecot/conf/mail_attachment_fs',
   :display_name => 'mail attachment fs',
   :description => 'Filesystem backend to use for saving attachments: posix, sis posix or sis-queue posix.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/mail_attachment_hash',
+attribute 'dovecot/conf/mail_attachment_hash',
   :display_name => 'mail attachment hash',
   :description => 'Hash format to use in attachment filenames.',
   :type => 'string',
@@ -857,35 +857,35 @@ attribute 'dovecot/mail_attachment_hash',
 # conf.d/10-master.conf
 #
 
-attribute 'dovecot/default_process_limit',
+attribute 'dovecot/conf/default_process_limit',
   :display_name => 'default process limit',
   :description => 'Default process limit.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/default_client_limit',
+attribute 'dovecot/conf/default_client_limit',
   :display_name => 'default client limit',
   :description => 'Default client limit.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/default_vsz_limit',
+attribute 'dovecot/conf/default_vsz_limit',
   :display_name => 'default vsz limit',
   :description => 'Default VSZ (virtual memory size) limit for service processes.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/default_login_user',
+attribute 'dovecot/conf/default_login_user',
   :display_name => 'default login user',
   :description => 'Login user is internally used by login processes.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/default_internal_user',
+attribute 'dovecot/conf/default_internal_user',
   :display_name => 'default internal user',
   :description => 'Internal user is used by unprivileged processes.',
   :type => 'string',
@@ -896,63 +896,63 @@ attribute 'dovecot/default_internal_user',
 # conf.d/10-ssl.conf
 #
 
-attribute 'dovecot/ssl',
+attribute 'dovecot/conf/ssl',
   :display_name => 'ssl',
   :description => 'SSL/TLS support: true or false',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/ssl_cert',
+attribute 'dovecot/conf/ssl_cert',
   :display_name => 'ssl cert',
   :description => 'PEM encoded X.509 SSL/TLS certificate.',
   :calculated => true,
   :type => 'string',
   :required => 'optional'
 
-attribute 'dovecot/ssl_key',
+attribute 'dovecot/conf/ssl_key',
   :display_name => 'ssl key',
   :description => 'PEM encoded X.509 SSL/TLS private key.',
   :calculated => true,
   :type => 'string',
   :required => 'optional'
 
-attribute 'dovecot/ssl_key_password',
+attribute 'dovecot/conf/ssl_key_password',
   :display_name => 'ssl key password',
   :description => 'If key file is password protected, give the password here.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/ssl_ca',
+attribute 'dovecot/conf/ssl_ca',
   :display_name => 'ssl ca',
   :description => 'PEM encoded trusted certificate authority.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/ssl_verify_client_cert',
+attribute 'dovecot/conf/ssl_verify_client_cert',
   :display_name => 'ssl verify client cert',
   :description => 'Request client to send a certificate.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/ssl_cert_username_field',
+attribute 'dovecot/conf/ssl_cert_username_field',
   :display_name => 'ssl cert username field',
   :description => 'Which field from certificate to use for username.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/ssl_parameters_regenerate',
+attribute 'dovecot/conf/ssl_parameters_regenerate',
   :display_name => 'ssl parameters regenerate',
   :description => 'How often to regenerate the SSL parameters file.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/ssl_cipher_list',
+attribute 'dovecot/conf/ssl_cipher_list',
   :display_name => 'ssl cipher list',
   :description => 'SSL ciphers to use',
   :type => 'string',
@@ -963,7 +963,7 @@ attribute 'dovecot/ssl_cipher_list',
 # conf.d/10-tcpwrapper.conf
 #
 
-attribute 'dovecot/login_access_sockets',
+attribute 'dovecot/conf/login_access_sockets',
   :display_name => 'login access sockets',
   :description => 'login access sockets',
   :type => 'string',
@@ -974,77 +974,77 @@ attribute 'dovecot/login_access_sockets',
 # conf.d/15-lda.conf
 #
 
-attribute 'dovecot/postmaster_address',
+attribute 'dovecot/conf/postmaster_address',
   :display_name => 'postmaster address',
   :description => 'Address to use when sending rejection mails.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/hostname',
+attribute 'dovecot/conf/hostname',
   :display_name => 'hostname',
   :description => 'Hostname to use in various parts of sent mails, eg. in Message-Id.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/quota_full_tempfail',
+attribute 'dovecot/conf/quota_full_tempfail',
   :display_name => 'quota full tempfail',
   :description => 'If user is over quota, return with temporary failure instead of bouncing the mail.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/sendmail_path',
+attribute 'dovecot/conf/sendmail_path',
   :display_name => 'sendmail path',
   :description => 'Binary to use for sending mails.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/submission_host',
+attribute 'dovecot/conf/submission_host',
   :display_name => 'submission host',
   :description => 'If non-empty, send mails via this SMTP host[:port] instead of sendmail.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/rejection_subject',
+attribute 'dovecot/conf/rejection_subject',
   :display_name => 'rejection subject',
   :description => 'Subject: header to use for rejection mails.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/rejection_reason',
+attribute 'dovecot/conf/rejection_reason',
   :display_name => 'rejection reason',
   :description => 'Human readable error message for rejection mails.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/recipient_delimiter',
+attribute 'dovecot/conf/recipient_delimiter',
   :display_name => 'recipient delimiter',
   :description => 'Delimiter character between local-part and detail in email address.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/lda_original_recipient_header',
+attribute 'dovecot/conf/lda_original_recipient_header',
   :display_name => 'lda original recipient header',
   :description => 'Header where the original recipient address (SMTP\'s RCPT TO: address) is taken from if not available elsewhere.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/lda_mailbox_autocreate',
+attribute 'dovecot/conf/lda_mailbox_autocreate',
   :display_name => 'lda mailbox autocreate',
   :description => 'Should saving a mail to a nonexistent mailbox automatically create it?',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/lda_mailbox_autosubscribe',
+attribute 'dovecot/conf/lda_mailbox_autosubscribe',
   :display_name => 'lda mailbox autosubscribe',
   :description => 'Should automatically created mailboxes be also automatically subscribed?',
   :type => 'string',
@@ -1055,16 +1055,320 @@ attribute 'dovecot/lda_mailbox_autosubscribe',
 # conf.d/20-lmtp.conf
 #
 
-attribute 'dovecot/lmtp_proxy',
+attribute 'dovecot/conf/lmtp_proxy',
   :display_name => 'lmtp proxy',
   :description => 'Support proxying to other LMTP/SMTP servers by performing passdb lookups.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
-attribute 'dovecot/lmtp_save_to_detail_mailbox',
+attribute 'dovecot/conf/lmtp_save_to_detail_mailbox',
   :display_name => 'lmtp save to detail mailbox',
-  :description => 'hen recipient address includes the detail (e.g. user+detail), try to save the mail to the detail mailbox.',
+  :description => 'When recipient address includes the detail (e.g. user+detail), try to save the mail to the detail mailbox.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+#
+# dovecot-db.conf.ext
+#
+
+attribute 'dovecot/conf/db',
+  :display_name => 'berkeley db',
+  :description => 'DB_CONFIG for Berkeley DB as a hash.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+#
+# conf-dovecot-dict-sql.rb
+#
+
+grouping 'dovecot/conf/dict_sql',
+ :title => 'dict sql config',
+ :description => 'Dovecot dict sql configuration'
+
+attribute 'dovecot/conf/dict_sql/connect',
+  :display_name => 'dict sql connect',
+  :description => 'Dict sql connect configuration as a string or an array.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/dict_sql/maps',
+  :display_name => 'dict sql maps',
+  :description => 'Dict sql database tables maps.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+#
+# dovecot-ldap.conf.ext
+#
+
+grouping 'dovecot/conf/ldap',
+ :title => 'ldap config',
+ :description => 'Dovecot LDAP Authentication Database configuration'
+
+attribute 'dovecot/conf/ldap/hosts',
+  :display_name => 'ldap hosts',
+  :description => 'Space separated list or array of LDAP hosts to use.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/uris',
+  :display_name => 'ldap uris',
+  :description => 'LDAP URIs to use.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/dn',
+  :display_name => 'ldap dn',
+  :description => 'Distinguished Name, the username used to login to the LDAP server.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/dnpass',
+  :display_name => 'ldap dnpass',
+  :description => 'Password for LDAP server, if dn is specified.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/sasl_bind',
+  :display_name => 'ldap sasl bind',
+  :description => 'Use SASL binding instead of the simple binding.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/sasl_mech',
+  :display_name => 'ldap sasl mech',
+  :description => 'SASL mechanism name to use.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/sasl_realm',
+  :display_name => 'ldap sasl realm',
+  :description => 'SASL realm to use.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/sasl_authz_id',
+  :display_name => 'ldap sasl authz id',
+  :description => 'SASL authorization ID, ie. the dnpass is for this "master user", but the dn is still the logged in user.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/tls',
+  :display_name => 'ldap tls',
+  :description => 'Use TLS to connect to the LDAP server.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/tls_ca_cert_file',
+  :display_name => 'ldap tls ca cert file',
+  :description => 'TLS options, currently supported only with OpenLDAP.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/tls_ca_cert_file',
+  :display_name => 'ldap tls ca cert file',
+  :description => 'TLS options, currently supported only with OpenLDAP.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/tls_ca_cert_dir',
+  :display_name => 'ldap tls ca cert dir',
+  :description => 'TLS options, currently supported only with OpenLDAP.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/tls_cipher_suite',
+  :display_name => 'ldap tls cipher suite',
+  :description => 'TLS options, currently supported only with OpenLDAP.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/tls_cert_file',
+  :display_name => 'ldap tls cert file',
+  :description => 'TLS cert/key is used only if LDAP server requires a client certificate.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/tls_key_file',
+  :display_name => 'ldap tls key file',
+  :description => 'TLS cert/key is used only if LDAP server requires a client certificate.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/tls_require_cert',
+  :display_name => 'ldap tls require cert',
+  :description => 'Valid values: never, hard, demand, allow, try',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/ldaprc_path',
+  :display_name => 'ldap ldaprc path',
+  :description => 'Use the given ldaprc path.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/debug_level',
+  :display_name => 'ldap debug level',
+  :description => 'LDAP library debug level as specified by LDAP_DEBUG_* in ldap_log.h.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/auth_bind',
+  :display_name => 'ldap auth bind',
+  :description => 'Use authentication binding for verifying password\'s validity.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/auth_bind_userdn',
+  :display_name => 'ldap auth bind userdn',
+  :description => 'If authentication binding is used, you can save one LDAP request per login if user\'s DN can be specified with a common template.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/ldap_version',
+  :display_name => 'ldap ldap version',
+  :description => 'LDAP protocol version to use. Likely 2 or 3.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/base',
+  :display_name => 'ldap base',
+  :description => 'LDAP base. %variables can be used here.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/deref',
+  :display_name => 'ldap deref',
+  :description => 'Dereference: never, searching, finding or always.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/scope',
+  :display_name => 'ldap scope',
+  :description => 'Search scope: base, onelevel or subtree.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/user_attrs',
+  :display_name => 'ldap user attrs',
+  :description => 'User attributes are given in LDAP-name=dovecot-internal-name list.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/user_filter',
+  :display_name => 'ldap user filter',
+  :description => 'Filter for user lookup.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/pass_attrs',
+  :display_name => 'ldap pass attrs',
+  :description => 'Password checking attributes.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/pass_filter',
+  :display_name => 'ldap pass filter',
+  :description => 'Filter for password lookups.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/iterate_attrs',
+  :display_name => 'ldap iterate attrs',
+  :description => 'Attributes to get a list of all users',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/iterate_filter',
+  :display_name => 'ldap iterate filter',
+  :description => 'Filter to get a list of all users',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/ldap/default_pass_scheme',
+  :display_name => 'ldap default pass scheme',
+  :description => 'Default password scheme. "{scheme}" before password overrides this.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+#
+# dovecot-sql.conf.ext
+#
+
+attribute 'dovecot/conf/sql/driver',
+  :display_name => 'sql driver',
+  :description => 'Database driver: mysql, pgsql or sqlite.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/sql/connect',
+  :display_name => 'sql connect',
+  :description => 'Database connection string or array. This is driver-specific setting.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/sql/default_pass_scheme',
+  :display_name => 'sql default pass scheme',
+  :description => 'Default password scheme.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/sql/password_query',
+  :display_name => 'sql password query',
+  :description => 'passdb query to retrieve the password.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/sql/user_query',
+  :display_name => 'sql user query',
+  :description => 'userdb query to retrieve the user information.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/sql/iterate_query',
+  :display_name => 'sql iterate query',
+  :description => 'Query to get a list of all usernames.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
