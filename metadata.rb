@@ -11,6 +11,10 @@ supports 'debian', '>= 7.0'
 supports 'ubuntu', '>= 12.04'
 
 recipe 'dovecot::default', 'Installs and configures Dovecot.'
+recipe 'dovecot::user', 'Creates the dovecot system user.'
+recipe 'dovecot::conf_files', 'Generates all the configuration files.'
+recipe 'dovecot::packages', 'Installs the required packages.'
+recipe 'dovecot::service', 'Configures the Dovecot service.'
 
 attribute 'dovecot/user',
   :display_name => 'dovecot user',
