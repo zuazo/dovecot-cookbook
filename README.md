@@ -23,6 +23,8 @@ Let me know if you use it successfully on any other platform.
 Attributes
 ==========
 
+To see a more complete description of the attributes, go to the [Dovecot wiki2 configuration section](http://wiki2.dovecot.org/#Dovecot_configuration) or read the comments in the templates or generated configuration files.
+
 <table>
   <tr>
     <th>Attribute</th>
