@@ -25,9 +25,9 @@ Attributes
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['user']</code></td>
@@ -168,9 +168,9 @@ Attributes
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['listen']</code></td>
@@ -240,9 +240,9 @@ Attributes
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['disable_plaintext_auth']</code></td>
@@ -347,9 +347,9 @@ Attributes
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['director_servers']</code></td>
@@ -379,9 +379,9 @@ Attributes
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['log_path']</code></td>
@@ -466,9 +466,9 @@ Attributes
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['mail_location']</code></td>
@@ -688,9 +688,9 @@ Attributes
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['default_process_limit']</code></td>
@@ -725,9 +725,9 @@ Attributes
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['ssl']</code></td>
@@ -784,9 +784,9 @@ Also used by LMTP.
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['postmaster_address']</code></td>
@@ -851,9 +851,9 @@ Also used by LMTP.
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['lmtp_proxy']</code></td>
@@ -873,9 +873,9 @@ Also used by LMTP.
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['db']</code></td>
@@ -890,9 +890,9 @@ Also used by LMTP.
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['dict_sql']['connect']</code></td>
@@ -912,9 +912,9 @@ Also used by LMTP.
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['ldap']['hosts']</code></td>
@@ -1074,9 +1074,9 @@ Also used by LMTP.
 
 <table>
   <tr>
-    <td>Attribute</td>
-    <td>Description</td>
-    <td>Default</td>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['sql']['driver']</code></td>
