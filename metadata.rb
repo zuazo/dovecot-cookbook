@@ -400,3 +400,35 @@ attribute 'dovecot/conf/auth_failure_delay',
   :required => 'optional',
   :default => 'nil'
 
+#
+# conf.d/10-director.conf
+#
+
+attribute 'dovecot/conf/director_servers',
+  :display_name => 'director servers',
+  :description => 'List of IPs or hostnames to all director servers, including ourself (as a string or as an array). Ports can be specified as ip:port. The default port is the same as what director service\'s inet_listener is using.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/director_mail_servers',
+  :display_name => 'director mail servers',
+  :description => 'List of IPs or hostnames to all backend mail servers. Ranges are allowed too, like 10.0.0.10-10.0.0.30.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/director_user_expire',
+  :display_name => 'director_user_expire',
+  :description => 'How long to redirect users to a specific server after it no longer has any connections.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/director_doveadm_port',
+  :display_name => 'director doveadm port',
+  :description => 'TCP/IP port that accepts doveadm connections (instead of director connections). If you enable this, you\'ll also need to add inet_listener for the port.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
