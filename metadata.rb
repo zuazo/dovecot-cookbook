@@ -432,3 +432,112 @@ attribute 'dovecot/conf/director_doveadm_port',
   :required => 'optional',
   :default => 'nil'
 
+#
+# conf.d/10-logging.conf
+#
+
+attribute 'dovecot/conf/log_path',
+  :display_name => 'path',
+  :description => 'Log file to use for error messages. "syslog" logs to syslog, /dev/stderr logs to stderr.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/info_log_path',
+  :display_name => 'info log path',
+  :description => 'Log file to use for informational messages. Defaults to log_path.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/debug_log_path',
+  :display_name => 'debug log path',
+  :description => 'Log file to use for debug messages. Defaults to info_log_path.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/syslog_facility',
+  :display_name => 'syslog facility',
+  :description => 'Syslog facility to use if you\'re logging to syslog. Usually if you don\'t want to use "mail", you\'ll use local0..local7. Also other standard facilities are supported.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_verbose',
+  :display_name => 'auth verbose',
+  :description => 'Log unsuccessful authentication attempts and the reasons why they failed.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_verbose_passwords',
+  :display_name => 'auth verbose passwords',
+  :description => 'In case of password mismatches, log the attempted password. Valid values are no, plain and sha1. sha1 can be useful for detecting brute force password attempts vs. user simply trying the same password over and over again.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_debug',
+  :display_name => 'auth debug',
+  :description => 'Even more verbose logging for debugging purposes. Shows for example SQL queries.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_debug_passwords',
+  :display_name => 'auth debug passwords',
+  :description => 'In case of password mismatches, log the passwords and used scheme so the problem can be debugged. Enabling this also enables auth_debug.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/mail_debug',
+  :display_name => 'mail debug',
+  :description => 'Enable mail process debugging. This can help you figure out why Dovecot isn\'t finding your mails.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/verbose_ssl',
+  :display_name => 'verbose ssl',
+  :description => 'Show protocol level SSL errors.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/log_timestamp',
+  :display_name => 'log timestamp',
+  :description => 'Prefix for each line written to log file. % codes are in strftime(3) format.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/login_log_format_elements',
+  :display_name => 'login log format elements',
+  :description => 'Space-separated list of elements we want to log. The elements which have a non-empty variable value are joined together to form a comma-separated string.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/login_log_format',
+  :display_name => 'login log format',
+  :description => 'Login log format. %$ contains login_log_format_elements string, %s contains the data we want to log.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/mail_log_prefix',
+  :display_name => 'mail log prefix',
+  :description => 'Log prefix for mail processes. See doc/wiki/Variables.txt for list of possible variables you can use.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/deliver_log_format',
+  :display_name => 'deliver log format',
+  :description => 'Format to use for logging mail deliveries. You can use variables: %$ - Delivery status message (e.g. "saved to INBOX"), %m - Message-ID, %s - Subject, %f - From address, %p - Physical size, %w - Virtual size',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
