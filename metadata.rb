@@ -892,3 +892,70 @@ attribute 'dovecot/default_internal_user',
   :required => 'optional',
   :default => 'nil'
 
+#
+# conf.d/10-ssl.conf
+#
+
+attribute 'dovecot/ssl',
+  :display_name => 'ssl',
+  :description => 'SSL/TLS support: true or false',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/ssl_cert',
+  :display_name => 'ssl cert',
+  :description => 'PEM encoded X.509 SSL/TLS certificate.',
+  :calculated => true,
+  :type => 'string',
+  :required => 'optional'
+
+attribute 'dovecot/ssl_key',
+  :display_name => 'ssl key',
+  :description => 'PEM encoded X.509 SSL/TLS private key.',
+  :calculated => true,
+  :type => 'string',
+  :required => 'optional'
+
+attribute 'dovecot/ssl_key_password',
+  :display_name => 'ssl key password',
+  :description => 'If key file is password protected, give the password here.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/ssl_ca',
+  :display_name => 'ssl ca',
+  :description => 'PEM encoded trusted certificate authority.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/ssl_verify_client_cert',
+  :display_name => 'ssl verify client cert',
+  :description => 'Request client to send a certificate.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/ssl_cert_username_field',
+  :display_name => 'ssl cert username field',
+  :description => 'Which field from certificate to use for username.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/ssl_parameters_regenerate',
+  :display_name => 'ssl parameters regenerate',
+  :description => 'How often to regenerate the SSL parameters file.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/ssl_cipher_list',
+  :display_name => 'ssl cipher list',
+  :description => 'SSL ciphers to use',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
