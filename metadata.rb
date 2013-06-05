@@ -277,3 +277,126 @@ attribute 'dovecot/conf/dict',
   :required => 'optional',
   :default => 'nil'
 
+#
+# conf.d/10-auth.conf
+#
+
+attribute 'dovecot/conf/disable_plaintext_auth',
+  :display_name => 'disable plaintext auth',
+  :description => 'Disable LOGIN command and all other plaintext authentications unless SSL/TLS is used.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_cache_size',
+  :display_name => 'auth cache size',
+  :description => 'Authentication cache size (e.g. 10M). 0 means it\'s disabled.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_cache_ttl',
+  :display_name => 'auth cache ttl',
+  :description => 'Time to live for cached data.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_cache_negative_ttl',
+  :display_name => 'auth cache negative ttl',
+  :description => 'TTL for negative hits (user not found, password mismatch).',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_realms',
+  :display_name => 'disable plaintext auth',
+  :description => 'Space separated list (or array) of realms for SASL authentication mechanisms that need them.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_default_realm',
+  :display_name => 'auth default realm',
+  :description => 'Default realm/domain to use if none was specified.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_username_chars',
+  :display_name => 'auth username chars',
+  :description => 'List of allowed characters in username.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_username_translation',
+  :display_name => 'auth username translation',
+  :description => 'Username character translations before it\'s looked up from databases.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_username_format',
+  :display_name => 'auth username format',
+  :description => 'Username formatting before it\'s looked up from databases.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_master_user_separator',
+  :display_name => 'auth master user separator',
+  :description => 'If you want to allow master users to log in by specifying the master username within the normal username string, you can specify the separator character here (format: <username><separator><master username>).',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_anonymous_username',
+  :display_name => 'auth anonymous username',
+  :description => 'Username to use for users logging in with ANONYMOUS SASL mechanism',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_worker_max_count',
+  :display_name => 'auth worker max count',
+  :description => 'Maximum number of dovecot-auth worker processes.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_gssapi_hostname',
+  :display_name => 'auth gssapi hostname',
+  :description => 'Host name to use in GSSAPI principal names.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_krb5_keytab',
+  :display_name => 'auth krb5 keytab',
+  :description => 'Kerberos keytab to use for the GSSAPI mechanism.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_use_winbind',
+  :display_name => 'auth use winbind',
+  :description => 'Do NTLM and GSS-SPNEGO authentication using Samba\'s winbind daemon and ntlm_auth helper.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_winbind_helper_path',
+  :display_name => 'auth winbind helper path',
+  :description => 'Path for Samba\'s ntlm_auth helper binary.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_failure_delay',
+  :display_name => 'auth failure delay',
+  :description => 'Time to delay before replying to failed authentications.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
