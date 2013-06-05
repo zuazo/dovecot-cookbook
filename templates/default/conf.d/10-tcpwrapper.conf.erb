@@ -5,7 +5,7 @@
 # service name for hosts.{allow|deny} are those defined as
 # inet_listener in master.conf
 #
-<%= Dovecot::Conf.attribute(@conf, 'login_access_sockets', 'tcpwrap') %>
+#login_access_sockets = tcpwrap
 #
 <% if @services['tcpwrap'].kind_of?(Hash) and @services['tcpwrap'].length > 0 -%>
 <%=  Dovecot::Conf.service('tcpwrap', @services['tcpwrap']) %>

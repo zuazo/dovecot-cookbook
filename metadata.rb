@@ -966,17 +966,6 @@ attribute 'dovecot/conf/ssl_cipher_list',
   :default => 'nil'
 
 #
-# conf.d/10-tcpwrapper.conf
-#
-
-attribute 'dovecot/conf/login_access_sockets',
-  :display_name => 'login access sockets',
-  :description => 'login access sockets',
-  :type => 'string',
-  :required => 'optional',
-  :default => 'nil'
-
-#
 # conf.d/15-lda.conf
 #
 
