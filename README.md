@@ -867,7 +867,7 @@ Also used by LMTP.
   </tr>
 </table>
 
-## DB_CONFIG attributes for Berkeley DB
+## Berkeley DB DB_CONFIG attributes
 
 * Configuration file: `dovecot-db.conf.ext`.
 
