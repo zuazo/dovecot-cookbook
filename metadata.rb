@@ -353,7 +353,7 @@ attribute 'dovecot/conf/auth_master_user_separator',
 
 attribute 'dovecot/conf/auth_anonymous_username',
   :display_name => 'auth anonymous username',
-  :description => 'Username to use for users logging in with ANONYMOUS SASL mechanism',
+  :description => 'Username to use for users logging in with ANONYMOUS SASL mechanism.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
@@ -400,20 +400,34 @@ attribute 'dovecot/conf/auth_failure_delay',
   :required => 'optional',
   :default => 'nil'
 
+attribute 'dovecot/conf/auth_ssl_require_client_cert',
+  :display_name => 'auth ssl require client cert',
+  :description => 'Take the username from client\'s SSL certificate, using X509_NAME_get_text_by_NID() which returns the subject\'s DN\'s CommonName.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/conf/auth_mechanisms',
+  :display_name => 'auth mechanisms',
+  :description => 'Space separated list of wanted authentication mechanisms: plain, login, digest-md5, cram-md5, ntlm, rpa, apop, anonymous, gssapi, otp, skey, gss-spnego',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'plain'
+
 #
 # conf.d/10-director.conf
 #
 
 attribute 'dovecot/conf/director_servers',
   :display_name => 'director servers',
-  :description => 'List of IPs or hostnames to all director servers, including ourself (as a string or as an array). Ports can be specified as ip:port. The default port is the same as what director service\'s inet_listener is using.',
+  :description => 'List of IPs or hostnames to all director servers, including ourself (as a string or as an array).',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
 attribute 'dovecot/conf/director_mail_servers',
   :display_name => 'director mail servers',
-  :description => 'List of IPs or hostnames to all backend mail servers. Ranges are allowed too, like 10.0.0.10-10.0.0.30.',
+  :description => 'List of IPs or hostnames to all backend mail servers.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
@@ -427,7 +441,7 @@ attribute 'dovecot/conf/director_user_expire',
 
 attribute 'dovecot/conf/director_doveadm_port',
   :display_name => 'director doveadm port',
-  :description => 'TCP/IP port that accepts doveadm connections (instead of director connections). If you enable this, you\'ll also need to add inet_listener for the port.',
+  :description => 'TCP/IP port that accepts doveadm connections (instead of director connections).',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
@@ -459,7 +473,7 @@ attribute 'dovecot/conf/debug_log_path',
 
 attribute 'dovecot/conf/syslog_facility',
   :display_name => 'syslog facility',
-  :description => 'Syslog facility to use if you\'re logging to syslog. Usually if you don\'t want to use "mail", you\'ll use local0..local7. Also other standard facilities are supported.',
+  :description => 'Syslog facility to use if you\'re logging to syslog.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
@@ -473,28 +487,28 @@ attribute 'dovecot/conf/auth_verbose',
 
 attribute 'dovecot/conf/auth_verbose_passwords',
   :display_name => 'auth verbose passwords',
-  :description => 'In case of password mismatches, log the attempted password. Valid values are no, plain and sha1. sha1 can be useful for detecting brute force password attempts vs. user simply trying the same password over and over again.',
+  :description => 'In case of password mismatches, log the attempted password.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
 attribute 'dovecot/conf/auth_debug',
   :display_name => 'auth debug',
-  :description => 'Even more verbose logging for debugging purposes. Shows for example SQL queries.',
+  :description => 'Even more verbose logging for debugging purposes.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
 attribute 'dovecot/conf/auth_debug_passwords',
   :display_name => 'auth debug passwords',
-  :description => 'In case of password mismatches, log the passwords and used scheme so the problem can be debugged. Enabling this also enables auth_debug.',
+  :description => 'In case of password mismatches, log the passwords and used scheme so the problem can be debugged.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
 attribute 'dovecot/conf/mail_debug',
   :display_name => 'mail debug',
-  :description => 'Enable mail process debugging. This can help you figure out why Dovecot isn\'t finding your mails.',
+  :description => 'Enable mail process debugging.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
@@ -508,35 +522,333 @@ attribute 'dovecot/conf/verbose_ssl',
 
 attribute 'dovecot/conf/log_timestamp',
   :display_name => 'log timestamp',
-  :description => 'Prefix for each line written to log file. % codes are in strftime(3) format.',
+  :description => 'Prefix for each line written to log file.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
 attribute 'dovecot/conf/login_log_format_elements',
   :display_name => 'login log format elements',
-  :description => 'Space-separated list of elements we want to log. The elements which have a non-empty variable value are joined together to form a comma-separated string.',
+  :description => 'Space-separated list (or array) of elements we want to log.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
 attribute 'dovecot/conf/login_log_format',
   :display_name => 'login log format',
-  :description => 'Login log format. %$ contains login_log_format_elements string, %s contains the data we want to log.',
+  :description => 'Login log format.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
 attribute 'dovecot/conf/mail_log_prefix',
   :display_name => 'mail log prefix',
-  :description => 'Log prefix for mail processes. See doc/wiki/Variables.txt for list of possible variables you can use.',
+  :description => 'Log prefix for mail processes.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
 
 attribute 'dovecot/conf/deliver_log_format',
   :display_name => 'deliver log format',
-  :description => 'Format to use for logging mail deliveries. You can use variables: %$ - Delivery status message (e.g. "saved to INBOX"), %m - Message-ID, %s - Subject, %f - From address, %p - Physical size, %w - Virtual size',
+  :description => 'Format to use for logging mail deliveries.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+#
+# conf.d/10-mail.conf
+#
+
+attribute 'dovecot/mail_location',
+  :display_name => 'mail location',
+  :description => 'Location for user\'s mailboxes.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_uid',
+  :display_name => 'mail uid',
+  :description => 'System user used to access mails.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_gid',
+  :display_name => 'mail gid',
+  :description => 'System group used to access mails.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_privileged_group',
+  :display_name => 'mail privileged group',
+  :description => 'Group to enable temporarily for privileged operations.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_access_groups',
+  :display_name => 'mail access groups',
+  :description => 'Grant access to these supplementary groups for mail processes.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_full_filesystem_access',
+  :display_name => 'mail full filesystem access',
+  :description => 'Allow full filesystem access to clients.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mmap_disable',
+  :display_name => 'mmap disable',
+  :description => 'Don\'t use mmap() at all.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/dotlock_use_excl',
+  :display_name => 'dotlock use excl',
+  :description => 'Rely on O_EXCL to work when creating dotlock files.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_fsync',
+  :display_name => 'mail fsync',
+  :description => 'When to use fsync() or fdatasync() calls: optimized, always or never',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_nfs_storage',
+  :display_name => 'mail nfs storage',
+  :description => 'Mail storage exists in NFS.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_nfs_index',
+  :display_name => 'mail nfs index',
+  :description => 'Mail index files also exist in NFS.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/lock_method',
+  :display_name => 'lock method',
+  :description => 'Locking method for index files: fcntl, flock or dotlock.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_temp_dir',
+  :display_name => 'mail temp dir',
+  :description => 'Directory in which LDA/LMTP temporarily stores incoming mails >128 kB.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/first_valid_uid',
+  :display_name => 'first valid uid',
+  :description => 'Valid UID range for users, defaults to 500 and above.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/last_valid_uid',
+  :display_name => 'last valid uid',
+  :description => 'Valid UID range for users, defaults to 500 and above.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/first_valid_gid',
+  :display_name => 'first valid gid',
+  :description => 'Valid GID range for users, defaults to non-root/wheel.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/last_valid_gid',
+  :display_name => 'last valid gid',
+  :description => 'Valid GID range for users, defaults to non-root/wheel.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_max_keyword_length',
+  :display_name => 'mail max keyword length',
+  :description => 'Maximum allowed length for mail keyword name.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/valid_chroot_dirs',
+  :display_name => 'valid chroot dirs',
+  :description => '\':\' separated list of directories under which chrooting is allowed for mail processes.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_chroot',
+  :display_name => 'mail chroot',
+  :description => 'Default chroot directory for mail processes.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/auth_socket_path',
+  :display_name => 'auth socket path',
+  :description => 'UNIX socket path to master authentication server to find users.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_plugin_dir',
+  :display_name => 'mail plugin dir',
+  :description => 'Directory where to look up mail plugins.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_cache_min_mail_count',
+  :display_name => 'mail cache min mail count',
+  :description => 'The minimum number of mails in a mailbox before updates are done to cache file.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mailbox_idle_check_interval',
+  :display_name => 'mailbox idle check interval',
+  :description => 'When IDLE command is running, mailbox is checked once in a while to see if there are any new mails or other changes.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_save_crlf',
+  :display_name => 'mail save crlf',
+  :description => 'Save mails with CR+LF instead of plain LF.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/maildir_stat_dirs',
+  :display_name => 'maildir stat dirs',
+  :description => 'By default LIST command returns all entries in maildir beginning with a dot.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/maildir_copy_with_hardlinks',
+  :display_name => 'maildir copy with hardlinks',
+  :description => 'When copying a message, do it with hard links whenever possible.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/maildir_very_dirty_syncs',
+  :display_name => 'maildir very dirty syncs',
+  :description => 'Assume Dovecot is the only MUA accessing Maildir.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mbox_read_locks',
+  :display_name => 'mbox read locks',
+  :description => 'Which read locking methods to use for locking mbox: dotlock, dotlock_try, fcntl, flock or lockfyy',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mbox_write_locks',
+  :display_name => 'mbox write locks',
+  :description => 'Which write locking methods to use for locking mbox: dotlock, dotlock_try, fcntl, flock or lockfyy',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mbox_lock_timeout',
+  :display_name => 'mbox lock timeout',
+  :description => 'Maximum time to wait for lock (all of them) before aborting.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mbox_dotlock_change_timeout',
+  :display_name => 'mbox dotlock change timeout',
+  :description => 'If dotlock exists but the mailbox isn\'t modified in any way, override the lock file after this much time.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mbox_dirty_syncs',
+  :display_name => 'mbox dirty syncs',
+  :description => 'When mbox changes unexpectedly simply read the new mails but still safely fallbacks to re-reading the whole mbox file whenever something in mbox isn\'t how it\'s expected to be.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mbox_very_dirty_syncs',
+  :display_name => 'mbox very dirty syncs',
+  :description => 'Like mbox_dirty_syncs, but don\'t do full syncs even with SELECT, EXAMINE, EXPUNGE or CHECK commands.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mbox_lazy_writes',
+  :display_name => 'mbox lazy writes',
+  :description => 'Delay writing mbox headers until doing a full write sync (EXPUNGE and CHECK commands and when closing the mailbox).',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mbox_min_index_size',
+  :display_name => 'mbox min index size',
+  :description => 'If mbox size is smaller than this (e.g. 100k), don\'t write index files.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mdbox_rotate_size',
+  :display_name => 'mdbox rotate size',
+  :description => 'Maximum dbox file size until it\'s rotated.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mdbox_rotate_interval',
+  :display_name => 'mdbox rotate interval',
+  :description => 'Maximum dbox file age until it\'s rotated.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mdbox_preallocate_space',
+  :display_name => 'mdbox preallocate space',
+  :description => 'When creating new mdbox files, immediately preallocate their size to mdbox_rotate_size.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_attachment_min_size',
+  :display_name => 'mail attachment min size',
+  :description => 'Attachments smaller than this aren\'t saved externally.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_attachment_fs',
+  :display_name => 'mail attachment fs',
+  :description => 'Filesystem backend to use for saving attachments: posix, sis posix or sis-queue posix.',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
+attribute 'dovecot/mail_attachment_hash',
+  :display_name => 'mail attachment hash',
+  :description => 'Hash format to use in attachment filenames.',
   :type => 'string',
   :required => 'optional',
   :default => 'nil'
