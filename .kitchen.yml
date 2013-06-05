@@ -24,5 +24,5 @@ platforms:
 suites:
 - name: default
   run_list:
-    - recipe[dovecot]
+    - recipe[dovecot_test]
   attributes: {}
