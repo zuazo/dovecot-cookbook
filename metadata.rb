@@ -418,7 +418,7 @@ attribute 'dovecot/conf/auth_mechanisms',
   :description => 'Space separated list of wanted authentication mechanisms: plain, login, digest-md5, cram-md5, ntlm, rpa, apop, anonymous, gssapi, otp, skey, gss-spnego',
   :type => 'string',
   :required => 'optional',
-  :default => 'plain'
+  :default => '"plain"'
 
 #
 # conf.d/10-director.conf
