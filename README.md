@@ -160,6 +160,18 @@ Attributes
     <td>Dovecot default enabled mail_plugins.</td>
     <td><code>[]</code></td>
   </tr>
+</table>
+
+## Main configuration attributes
+
+* Configuration file: `dovecot.conf`.
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
+  </tr>
   <tr>
     <td><code>node['dovecot']['conf']['listen']</code></td>
     <td>A comma separated list of IPs or hosts where to listen in for connections.</td>
@@ -187,7 +199,7 @@ Attributes
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['login_access_sockets']</code></td>
-    <td>login access sockets</td>
+    <td>Space separated list of login access check sockets.</td>
     <td><em>nil</em></td>
   </tr>
   <tr>
@@ -219,6 +231,18 @@ Attributes
     <td><code>node['dovecot']['conf']['dict']</code></td>
     <td>Dictionary server settings as a hash.</td>
     <td><em>nil</em></td>
+  </tr>
+</table>
+
+## Authentication processes attributes
+
+* Configuration file: `conf.d/10-auth.conf`.
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['disable_plaintext_auth']</code></td>
@@ -315,6 +339,18 @@ Attributes
     <td>Space separated list of wanted authentication mechanisms: plain, login, digest-md5, cram-md5, ntlm, rpa, apop, anonymous, gssapi, otp, skey, gss-spnego</td>
     <td><code>"plain"</code></td>
   </tr>
+</table>
+
+## Director-specific attributes
+
+* Configuration file: `conf.d/10-director.conf`.
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
+  </tr>
   <tr>
     <td><code>node['dovecot']['conf']['director_servers']</code></td>
     <td>List of IPs or hostnames to all director servers, including ourself (as a string or as an array).</td>
@@ -334,6 +370,18 @@ Attributes
     <td><code>node['dovecot']['conf']['director_doveadm_port']</code></td>
     <td>TCP/IP port that accepts doveadm connections (instead of director connections).</td>
     <td><em>nil</em></td>
+  </tr>
+</table>
+
+## Log destination attributes
+
+* Configuration file: `conf.d/10-logging.conf`.
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['log_path']</code></td>
@@ -409,6 +457,18 @@ Attributes
     <td><code>node['dovecot']['conf']['deliver_log_format']</code></td>
     <td>Format to use for logging mail deliveries.</td>
     <td><em>nil</em></td>
+  </tr>
+</table>
+
+## Mailbox locations and namespaces attributes
+
+* Configuration file: `conf.d/10-mail.conf`.
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['mail_location']</code></td>
@@ -620,6 +680,18 @@ Attributes
     <td>Hash format to use in attachment filenames.</td>
     <td><em>nil</em></td>
   </tr>
+</table>
+
+## Master configuration file attributes
+
+* Configuration file: `conf.d/10-master.conf`.
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
+  </tr>
   <tr>
     <td><code>node['dovecot']['conf']['default_process_limit']</code></td>
     <td>Default process limit.</td>
@@ -644,6 +716,18 @@ Attributes
     <td><code>node['dovecot']['conf']['default_internal_user']</code></td>
     <td>Internal user is used by unprivileged processes.</td>
     <td><em>nil</em></td>
+  </tr>
+</table>
+
+## SSL attributes
+
+* Configuration file: `conf.d/10-ssl.conf`.
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['ssl']</code></td>
@@ -689,6 +773,20 @@ Attributes
     <td><code>node['dovecot']['conf']['ssl_cipher_list']</code></td>
     <td>SSL ciphers to use</td>
     <td><em>nil</em></td>
+  </tr>
+</table>
+
+## LDA specific attributes
+
+Also used by LMTP.
+
+* Configuration files: `conf.d/15-lda.conf`.
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['postmaster_address']</code></td>
@@ -745,6 +843,18 @@ Attributes
     <td>Should automatically created mailboxes be also automatically subscribed?</td>
     <td><em>nil</em></td>
   </tr>
+</table>
+
+## LMTP specific attributes
+
+* Configuration file: `conf.d/20-lmtp.conf`
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
+  </tr>
   <tr>
     <td><code>node['dovecot']['conf']['lmtp_proxy']</code></td>
     <td>Support proxying to other LMTP/SMTP servers by performing passdb lookups.</td>
@@ -755,10 +865,34 @@ Attributes
     <td>When recipient address includes the detail (e.g. user+detail), try to save the mail to the detail mailbox.</td>
     <td><em>nil</em></td>
   </tr>
+</table>
+
+## DB_CONFIG attributes for Berkeley DB
+
+* Configuration file: `dovecot-db.conf.ext`.
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
+  </tr>
   <tr>
     <td><code>node['dovecot']['conf']['db']</code></td>
     <td>DB_CONFIG for Berkeley DB as a hash.</td>
     <td><em>nil</em></td>
+  </tr>
+</table>
+
+## Dictionary quota SQL attributes
+
+* Configuration files: `dovecot-dict-sql.conf.ext`.
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['dict_sql']['connect']</code></td>
@@ -769,6 +903,18 @@ Attributes
     <td><code>node['dovecot']['conf']['dict_sql']['maps']</code></td>
     <td>Dict sql database tables maps.</td>
     <td><em>nil</em></td>
+  </tr>
+</table>
+
+## LDAP authentication attributes
+
+* Condiguration files: `dovecot-ldap.conf.ext`.
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['ldap']['hosts']</code></td>
@@ -919,6 +1065,18 @@ Attributes
     <td><code>node['dovecot']['conf']['ldap']['default_pass_scheme']</code></td>
     <td>Default password scheme. "{scheme}" before password overrides this.</td>
     <td><em>nil</em></td>
+  </tr>
+</table>
+
+## SQL authentication attributes
+
+* Configuration file: `dovecot-sql.conf.ext`.
+
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['sql']['driver']</code></td>
