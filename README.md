@@ -16,7 +16,7 @@ This cookbook has been tested on the following platforms:
 
 Let me know if you use it successfully on any other platform.
 
-## Applications
+## Applications:
 
 * **Dovecot >= 2**: requires this version of dovecot to be available by the distribution's package manager.
 
