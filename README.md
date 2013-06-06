@@ -1138,11 +1138,37 @@ Configures the Dovecot service. Used by the default recipe.
 Usage Examples
 ==============
 
-You can simply include the default recipe in your *Run List* or include it from a recipe:
+## Including in a Cookbook Recipe
+
+You can simply include it in a recipe:
 
 ```ruby
 # from a recipe
 include_recipe 'dovecot'
+```
+
+Don't forget to include the `dovecot` cookbook as a dependency in the metadata.
+
+```ruby
+# metadata.rb
+[...]
+
+depends 'dovecot'
+```
+
+## Including in the Run List
+
+Another alternative is to include the default recipe in your Run List.
+
+```json
+{
+  "name": "mail.onddo.com",
+  [...]
+  "run_list": [
+    [...]
+    "recipe[dovecot]"
+  ]
+}
 ```
 
 ## Authentication Database Examples
