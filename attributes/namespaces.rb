@@ -1,3 +1,3 @@
 
-default['dovecot']['namespaces'] = [
+default['dovecot']['namespaces'] = []
 
