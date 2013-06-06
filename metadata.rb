@@ -21,14 +21,14 @@ attribute 'dovecot/user',
   :description => 'Dovector system user. Should no be changed.',
   :type => 'string',
   :required => 'optional',
-  :default => 'dovecot'
+  :default => '"dovecot"'
 
 attribute 'dovecot/group',
   :display_name => 'dovecot group',
   :description => 'Dovector system group. Should no be changed.',
   :type => 'string',
   :required => 'optional',
-  :default => 'dovecot'
+  :default => '"dovecot"'
 
 attribute 'dovecot/lib_path',
   :display_name => 'dovecot library path',
@@ -42,14 +42,14 @@ attribute 'dovecot/conf_path',
   :description => 'Dovector configruration files path. Should no be changed.',
   :type => 'string',
   :required => 'optional',
-  :default => '/etc/dovecot'
+  :default => '"/etc/dovecot"'
 
 attribute 'dovecot/conf_files_user',
   :display_name => 'dovecot configuration files user',
   :description => 'System user owner of configuration files.',
   :type => 'string',
   :required => 'optional',
-  :default => 'root'
+  :default => '"root"'
 
 attribute 'dovecot/conf_files_group',
   :display_name => 'dovecot configuration files group',

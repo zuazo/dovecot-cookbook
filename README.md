@@ -1,14 +1,14 @@
 Description
 ===========
 
-Installs and configures Dovecot.
+Installs and configures [Dovecot](http://www.dovecot.org/), open source IMAP and POP3 email server.
 
 Requirements
 ============
 
 ## Platform:
 
-The following platforms has been tested:
+This cookbook has been tested on the following platforms:
 
 * Centos >= 6.0
 * Debian >= 7.0
@@ -18,12 +18,12 @@ Let me know if you use it successfully on any other platform.
 
 ## Applications
 
-* **Dovecot >= 2**: requires this version of dovecot to be available by the distribution package manager.
+* **Dovecot >= 2**: requires this version of dovecot to be available by the distribution's package manager.
 
 Attributes
 ==========
 
-To see a more complete description of the attributes, go to the [Dovecot wiki2 configuration section](http://wiki2.dovecot.org/#Dovecot_configuration) or read the comments in the templates or generated configuration files.
+To see a more complete description of the attributes, go to the [Dovecot wiki2 configuration section](http://wiki2.dovecot.org/#Dovecot_configuration) or read the comments in the templates and generated configuration files.
 
 <table>
   <tr>
@@ -34,12 +34,12 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   <tr>
     <td><code>node['dovecot']['user']</code></td>
     <td>Dovector system user. Should no be changed.</td>
-    <td><code>dovecot</code></td>
+    <td><code>"dovecot"</code></td>
   </tr>
   <tr>
     <td><code>node['dovecot']['group']</code></td>
     <td>Dovector system group. Should no be changed.</td>
-    <td><code>dovecot</code></td>
+    <td><code>"dovecot"</code></td>
   </tr>
   <tr>
     <td><code>node['dovecot']['lib_path']</code></td>
@@ -49,12 +49,12 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   <tr>
     <td><code>node['dovecot']['conf_path']</code></td>
     <td>Dovector configruration files path. Should no be changed.</td>
-    <td><code>/etc/dovecot</code></td>
+    <td><code>"/etc/dovecot"</code></td>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf_files_user']</code></td>
     <td>System user owner of configuration files.</td>
-    <td><code>root</code></td>
+    <td><code>"root"</code></td>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf_files_group']</code></td>
@@ -1121,19 +1121,19 @@ Installs and configures Dovecot.
 
 ## dovecot::user
 
-Creates the dovecot system user. Used by default recipe.
+Creates the dovecot system user. Used by the default recipe.
 
 ## dovecot::conf_files
 
-Generates all the configuration files. Used by default recipe.
+Generates all the configuration files. Used by the default recipe.
 
 ## dovecot::packages
 
-Installs the required packages. Used by default recipe.
+Installs the required packages. Used by the default recipe.
 
 ## dovecot::service
 
-Configures the Dovecot service. Used by default recipe.
+Configures the Dovecot service. Used by the default recipe.
 
 Usage Examples
 ==============
@@ -1145,15 +1145,15 @@ You can simply include the default recipe in your *Run List* or include it from 
 include_recipe 'dovecot'
 ```
 
-## Authentication Databases Examples
+## Authentication Database Examples
 
 Authentication database attributes, inside passdb or usedb hash values, can contain both arrays or hashes.
 
 Supported auths are the following: `checkpassword`, `deny`, `ldap`, `master`, `passwdfile`, `sql`, `system` and `vpopmail`.
 
 ```ruby
-node.default['dovecot']['auth']['checkpassword'] = { # hash
-  'passdb' => {
+node.default['dovecot']['auth']['checkpassword'] = {
+  'passdb' => { # hash
     'driver' => 'checkpassword',
     'args' => '/usr/bin/checkpassword',
   },
@@ -1229,7 +1229,7 @@ node.default['dovecot']['namespaces'] = [
     'separator' => '/',
     'prefix' => '',
     'location' => 'maildir:~/Maildir',
-  }, {
+  }, { # this requires Dovecot >= 2.1
     'name' => 'inbox',
     'separator' => '/',
     'prefix' => '',
@@ -1488,6 +1488,8 @@ Testing
 
 ```bash
 $ kitchen test
+$ kitchen verify
+[...]
 ```
 
 Contributing
