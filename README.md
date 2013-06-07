@@ -10,7 +10,7 @@ Requirements
 
 This cookbook has been tested on the following platforms:
 
-* Centos >= 6.0
+* CentOS >= 6.0
 * Debian >= 7.0
 * Ubuntu >= 12.04
 
@@ -129,17 +129,17 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
   <tr>
     <td><code>node['dovecot']['auth']</code></td>
-    <td>Dovecot Authentication Databases as a hash of hashes. Supported authdbs: checkpassword, deny, ldap, master, passwdfile, sql, system and vpopmail.</td>
+    <td>Dovecot Authentication Databases as a hash of hashes (<a href="#authentication-database-examples">see the examples below</a>). Supported authdbs: checkpassword, deny, ldap, master, passwdfile, sql, system and vpopmail.</td>
     <td><code>{}</code></td>
   </tr>
   <tr>
     <td><code>node['dovecot']['namespaces']</code></td>
-    <td>Dovecot Namespaces as an array of hashes.</td>
+    <td>Dovecot Namespaces as an array of hashes (<a href="#namespaces-example">see the example below</a>).</td>
     <td><code>[]</code></td>
   </tr>
   <tr>
     <td><code>node['dovecot']['plugins']</code></td>
-    <td>Dovecot Plugins configuration as a hash of hashes. Supported plugins: mail_log, acl and quota.</td>
+    <td>Dovecot Plugins configuration as a hash of hashes (<a href="#plugins-examples">see the examples below</a>). Supported plugins: mail_log, acl and quota.</td>
     <td><code>{<br/>
       &nbsp;&nbsp;"sieve" => {<br/>
       &nbsp;&nbsp;&nbsp;&nbsp;"sieve" => "~/.dovecot.sieve",<br/>
@@ -149,12 +149,12 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
   <tr>
     <td><code>node['dovecot']['protocolos']</code></td>
-    <td>Dovecot Protocols configuration as a hash of hashes. Supported protocols: lda, imap, lmtp, sieve and pop3.</td>
+    <td>Dovecot Protocols configuration as a hash of hashes (<a href="#protocols-example">see the example below</a>). Supported protocols: lda, imap, lmtp, sieve and pop3.</td>
     <td><code>{}</code></td>
   </tr>
   <tr>
     <td><code>node['dovecot']['services']</code></td>
-    <td>Dovecot Services configuration as a hash of hashes. Supported services: director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login and managesieve.</td>
+    <td>Dovecot Services configuration as a hash of hashes (<a href="#service-examples">see the examples below</a>). Supported services: director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login and managesieve.</td>
     <td><code>{}</code></td>
   </tr>
   <tr>
@@ -903,7 +903,7 @@ Also used by LMTP.
   </tr>
   <tr>
     <td><code>node['dovecot']['conf']['dict_sql']['maps']</code></td>
-    <td>Dict sql database tables maps.</td>
+    <td>Dict sql database tables maps (<a href="#dictionary-quota-sql-example">see the example below</a>).</td>
     <td><em>nil</em></td>
   </tr>
 </table>
