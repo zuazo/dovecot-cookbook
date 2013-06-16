@@ -1500,6 +1500,8 @@ template node['dovecot']['plugins']['sieve']['sieve_global_path'] do
 end
 ```
 
+If you want a more complete example, you can look at the [postfix-dovecot](https://github.com/onddo/postfix-dovecot-cookbook) recipe.
+
 Testing
 =======
 
