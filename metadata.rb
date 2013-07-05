@@ -170,7 +170,7 @@ attribute 'dovecot/plugins',
     }
   }'
 
-attribute 'dovecot/protocolos',
+attribute 'dovecot/protocols',
   :display_name => 'dovecot protocols',
   :description => 'Dovecot Protocols configuration as a hash of hashes. Supported protocols: lda, imap, lmtp, sieve and pop3.',
   :type => 'string',
