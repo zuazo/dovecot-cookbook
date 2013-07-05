@@ -148,7 +148,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     }</code></td>
   </tr>
   <tr>
-    <td><code>node['dovecot']['protocolos']</code></td>
+    <td><code>node['dovecot']['protocols']</code></td>
     <td>Dovecot Protocols configuration as a hash of hashes (<a href="#protocols-example">see the example below</a>). Supported protocols: lda, imap, lmtp, sieve and pop3.</td>
     <td><code>{}</code></td>
   </tr>
