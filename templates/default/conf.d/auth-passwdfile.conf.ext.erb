@@ -14,7 +14,7 @@ passdb {
 }
 <% end -%>
 
-<% if Dovecot::Auth.has_userdb?(@auth['userwdfile']) -%>
+<% if Dovecot::Auth.has_userdb?(@auth['passwdfile']) -%>
 <%=  Dovecot::Conf.authdb('passwd-file', 'userdb', @auth['passwdfile']['userdb']) %>
 <% else -%>
 userdb {
