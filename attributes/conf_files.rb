@@ -28,6 +28,7 @@ default['dovecot']['conf_files']['core'] = [
   'conf.d/auth-vpopmail.conf.ext',
   'dovecot.conf',
   'dovecot-db.conf.ext',
+  'dovecot-dict-auth.conf.ext',
   'dovecot-dict-sql.conf.ext',
   'dovecot-sql.conf.ext',
 ]
