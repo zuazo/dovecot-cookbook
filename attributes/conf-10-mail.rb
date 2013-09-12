@@ -23,6 +23,7 @@ default['dovecot']['conf']['valid_chroot_dirs'] = nil
 default['dovecot']['conf']['mail_chroot'] = nil
 default['dovecot']['conf']['auth_socket_path'] = nil
 default['dovecot']['conf']['mail_plugin_dir'] = nil
+default['dovecot']['conf']['mailbox_list_index'] = nil
 default['dovecot']['conf']['mail_cache_min_mail_count'] = nil
 default['dovecot']['conf']['mailbox_idle_check_interval'] = nil
 default['dovecot']['conf']['mail_save_crlf'] = nil
