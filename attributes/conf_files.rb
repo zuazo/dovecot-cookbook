@@ -19,6 +19,7 @@ default['dovecot']['conf_files']['core'] = [
   'conf.d/90-quota.conf',
   'conf.d/auth-checkpassword.conf.ext',
   'conf.d/auth-deny.conf.ext',
+  'conf.d/auth-dict.conf.ext',
   'conf.d/auth-master.conf.ext',
   'conf.d/auth-passwdfile.conf.ext',
   'conf.d/auth-sql.conf.ext',
@@ -27,6 +28,7 @@ default['dovecot']['conf_files']['core'] = [
   'conf.d/auth-vpopmail.conf.ext',
   'dovecot.conf',
   'dovecot-db.conf.ext',
+  'dovecot-dict-auth.conf.ext',
   'dovecot-dict-sql.conf.ext',
   'dovecot-sql.conf.ext',
 ]
