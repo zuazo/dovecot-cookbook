@@ -1,7 +1,7 @@
 
 # dovecot-dict-auth.conf.ext
 
-default['dovecot']['conf']['dict_auth']['uri'] = ''
+default['dovecot']['conf']['dict_auth']['uri'] = nil
 default['dovecot']['conf']['dict_auth']['password_key'] = nil
 default['dovecot']['conf']['dict_auth']['user_key'] = nil
 default['dovecot']['conf']['dict_auth']['value_format'] = nil
