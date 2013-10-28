@@ -1530,6 +1530,13 @@ Contributing
 5. Run the tests, ensuring they all pass
 6. Submit a Pull Request using Github
 
+Contributors
+============
+
+* [Andreas Lappe](https://github.com/alappe)
+* [Trond Arve Nordheim](https://github.com/tanordheim)
+* [Johan Svensson](https://github.com/loxley)
+
 
 License and Author
 =====================
