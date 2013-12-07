@@ -12,6 +12,7 @@ This cookbook has been tested on the following platforms:
 
 * CentOS >= 6.0
 * Debian >= 7.0
+* Fedora >= 18.0
 * Ubuntu >= 12.04
 
 Let me know if you use it successfully on any other platform.

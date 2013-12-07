@@ -8,6 +8,7 @@ version          '0.2.1' # WiP
 
 supports 'centos', '>= 6.0'
 supports 'debian', '>= 7.0'
+supports 'fedora', '>= 18.0'
 supports 'ubuntu', '>= 12.04'
 
 depends 'ohai'

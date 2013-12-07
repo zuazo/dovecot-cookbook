@@ -16,6 +16,14 @@ platforms:
   driver_config:
     box: debian-7.2
     box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.2.0_chef-provisionerless.box
+- name: fedora-18
+  driver_config:
+    box: fedora-18
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_fedora-18_chef-provisionerless.box
+- name: fedora-19
+  driver_config:
+    box: fedora-19
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_fedora-19_chef-provisionerless.box
 
 suites:
 - name: default
