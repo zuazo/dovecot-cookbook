@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: dovecot
-# Recipe:: default
+# Recipe:: ohai_plugin
 #
 # Copyright 2013, Onddo Labs, Sl.
 #
@@ -17,9 +17,20 @@
 # limitations under the License.
 #
 
-include_recipe 'dovecot::ohai_plugin'
-include_recipe 'dovecot::user'
-include_recipe 'dovecot::conf_files'
-include_recipe 'dovecot::packages'
-include_recipe 'dovecot::service'
+ohai 'reload_dovecot' do
+  plugin 'dovecot'
+  action :nothing
+end
 
+template "#{node['ohai']['plugin_path']}/dovecot.rb" do
+  source 'ohai_plugins/dovecot.rb.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  variables(
+    :enable_build_options => node['dovecot']['ohai_plugin']['build-options']
+  )
+  notifies :reload, 'ohai[reload_dovecot]', :immediately
+end
+
+include_recipe 'ohai::default'

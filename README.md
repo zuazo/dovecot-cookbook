@@ -16,6 +16,10 @@ This cookbook has been tested on the following platforms:
 
 Let me know if you use it successfully on any other platform.
 
+## Cookbooks:
+
+* ohai
+
 ## Applications:
 
 * **Dovecot >= 2**: requires this version of dovecot to be available by the distribution's package manager.
@@ -161,6 +165,11 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     <td><code>node['dovecot']['conf']['mail_plugins']</code></td>
     <td>Dovecot default enabled mail_plugins.</td>
     <td><code>[]</code></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['ohai_plugin']['build-options']</code></td>
+    <td>Whether to enable reading build options inside ohai plugin. Can be disabled to be lighter.</td>
+    <td><code>true</code></td>
   </tr>
 </table>
 
@@ -1127,6 +1136,10 @@ Creates the dovecot system user. Used by the default recipe.
 
 Generates all the configuration files. Used by the default recipe.
 
+## dovecot::ohai_plugin
+
+Provides an Ohai plugin for reading dovecot install information.
+
 ## dovecot::packages
 
 Installs the required packages. Used by the default recipe.
@@ -1134,6 +1147,67 @@ Installs the required packages. Used by the default recipe.
 ## dovecot::service
 
 Configures the Dovecot service. Used by the default recipe.
+
+Ohai Plugin
+===========
+
+The `ohai_plugin` recipe installs an Ohai plugin. It will be installed and activated automatically.
+
+It will set the following attributes:
+
+* `node['dovecot']['version']`: version of Dovecot.
+* `node['dovecot']['build-options']`: some Dovecot build options.
+ * `node['dovecot']['build-options']['mail-storages']`
+ * `node['dovecot']['build-options']['sql-driver-plugins']` or `node['dovecot']['build-options']['sql-drivers']`
+ * `node['dovecot']['build-options']['passdb']`
+ * `node['dovecot']['build-options']['userdb']`
+
+This is an output example:
+
+```json
+"dovecot": {
+  "version": "2.0.19",
+  "build-options": {
+    "ioloop": "epoll",
+    "notify": "inotify",
+    "ipv6": true,
+    "openssl": true,
+    "io_block_size": "8192",
+    "mail-storages": [
+      "shared",
+      "mdbox",
+      "sdbox",
+      "maildir",
+      "mbox",
+      "cydir",
+      "raw"
+    ],
+    "sql-driver-plugins": [
+      "mysql",
+      "postgresql",
+      "sqlite"
+    ],
+    "passdb": [
+      "checkpassword",
+      "ldap",
+      "pam",
+      "passwd",
+      "passwd-file",
+      "shadow",
+      "sql"
+    ],
+    "userdb": [
+      "checkpassword",
+      "ldap(plugin)",
+      "nss",
+      "passwd",
+      "prefetch",
+      "passwd-file",
+      "sql"
+    ]
+  }
+}
+```
 
 Usage Examples
 ==============

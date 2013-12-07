@@ -34,7 +34,10 @@ when 'redhat','centos','scientific','fedora','suse','amazon' then
       end
     end
   end
-  package 'dovecot' do action :nothing end
+  package 'dovecot' do
+    action :nothing
+    notifies :reload, 'ohai[reload_dovecot]', :immediately
+  end
 
   # sieve
   ruby_block 'package-dovecot-sieve' do
@@ -45,7 +48,12 @@ when 'redhat','centos','scientific','fedora','suse','amazon' then
       notifies :create, "template[#{conf_file}]", :immediately
     end
   end
-  package 'dovecot-pigeonhole' do action :nothing end
+  package 'dovecot-pigeonhole' do
+    action :nothing
+    if node['dovecot']['ohai_plugin']['build-options']
+      notifies :reload, 'ohai[reload_dovecot]', :immediately
+    end
+  end
 
 when 'debian', 'ubuntu' then
 
@@ -58,8 +66,16 @@ when 'debian', 'ubuntu' then
       notifies :create, "template[#{conf_file}]", :immediately
     end
   end
-  package 'dovecot-core' do action :nothing end
-  package 'dovecot-gssapi' do action :nothing end
+  package 'dovecot-core' do
+    action :nothing
+    notifies :reload, 'ohai[reload_dovecot]', :immediately
+  end
+  package 'dovecot-gssapi' do
+    action :nothing
+    if node['dovecot']['ohai_plugin']['build-options']
+      notifies :reload, 'ohai[reload_dovecot]', :immediately
+    end
+  end
 
   # imap
   ruby_block 'package-dovecot-imap' do
@@ -70,7 +86,12 @@ when 'debian', 'ubuntu' then
       notifies :create, "template[#{conf_file}]", :immediately
     end
   end
-  package 'dovecot-imapd' do action :nothing end
+  package 'dovecot-imapd' do
+    action :nothing
+    if node['dovecot']['ohai_plugin']['build-options']
+      notifies :reload, 'ohai[reload_dovecot]', :immediately
+    end
+  end
 
   # pop3
   ruby_block 'package-dovecot-pop3d' do
@@ -81,7 +102,12 @@ when 'debian', 'ubuntu' then
       notifies :create, "template[#{conf_file}]", :immediately
     end
   end
-  package 'dovecot-pop3d' do action :nothing end
+  package 'dovecot-pop3d' do
+    action :nothing
+    if node['dovecot']['ohai_plugin']['build-options']
+      notifies :reload, 'ohai[reload_dovecot]', :immediately
+    end
+  end
 
   # lmtp
   ruby_block 'package-dovecot-lmtpd' do
@@ -92,7 +118,12 @@ when 'debian', 'ubuntu' then
       notifies :create, "template[#{conf_file}]", :immediately
     end
   end
-  package 'dovecot-lmtpd' do action :nothing end
+  package 'dovecot-lmtpd' do
+    action :nothing
+    if node['dovecot']['ohai_plugin']['build-options']
+      notifies :reload, 'ohai[reload_dovecot]', :immediately
+    end
+  end
 
   # sieve
   ruby_block 'package-dovecot-sieve' do
@@ -104,8 +135,18 @@ when 'debian', 'ubuntu' then
       notifies :create, "template[#{conf_file}]", :immediately
     end
   end
-  package 'dovecot-sieve' do action :nothing end
-  package 'dovecot-managesieved' do action :nothing end
+  package 'dovecot-sieve' do
+    action :nothing
+    if node['dovecot']['ohai_plugin']['build-options']
+      notifies :reload, 'ohai[reload_dovecot]', :immediately
+    end
+  end
+  package 'dovecot-managesieved' do
+    action :nothing
+    if node['dovecot']['ohai_plugin']['build-options']
+      notifies :reload, 'ohai[reload_dovecot]', :immediately
+    end
+  end
 
   # ldap
   ruby_block 'package-dovecot-ldap' do
@@ -116,7 +157,12 @@ when 'debian', 'ubuntu' then
       notifies :create, "template[#{conf_file}]", :immediately
     end
   end
-  package 'dovecot-ldap' do action :nothing end
+  package 'dovecot-ldap' do
+    action :nothing
+    if node['dovecot']['ohai_plugin']['build-options']
+      notifies :reload, 'ohai[reload_dovecot]', :immediately
+    end
+  end
 
   # sqlite
   ruby_block 'package-dovecot-sqlite' do
@@ -124,7 +170,12 @@ when 'debian', 'ubuntu' then
     only_if do node['dovecot']['conf']['sql']['driver'] == 'sqlite' end
     notifies :install, 'package[dovecot-sqlite]', :immediately
   end
-  package 'dovecot-sqlite' do action :nothing end
+  package 'dovecot-sqlite' do
+    action :nothing
+    if node['dovecot']['ohai_plugin']['build-options']
+      notifies :reload, 'ohai[reload_dovecot]', :immediately
+    end
+  end
 
 else
   Chef::Application.fatal!("Unsupported platform: #{node['platform']}");
@@ -135,12 +186,22 @@ ruby_block 'package-dovecot-mysql' do
   only_if do node['dovecot']['conf']['sql']['driver'] == 'mysql' end
   notifies :install, 'package[dovecot-mysql]', :immediately
 end
-package 'dovecot-mysql' do action :nothing end
+package 'dovecot-mysql' do
+  action :nothing
+  if node['dovecot']['ohai_plugin']['build-options']
+    notifies :reload, 'ohai[reload_dovecot]', :immediately
+  end
+end
 
 ruby_block 'package-dovecot-pgsql' do
   block {}
   only_if do node['dovecot']['conf']['sql']['driver'] == 'pgsql' end
   notifies :install, 'package[dovecot-pgsql]', :immediately
 end
-package 'dovecot-pgsql' do action :nothing end
+package 'dovecot-pgsql' do
+  action :nothing
+  if node['dovecot']['ohai_plugin']['build-options']
+    notifies :reload, 'ohai[reload_dovecot]', :immediately
+  end
+end
 

@@ -10,9 +10,12 @@ supports 'centos', '>= 6.0'
 supports 'debian', '>= 7.0'
 supports 'ubuntu', '>= 12.04'
 
+depends 'ohai'
+
 recipe 'dovecot::default', 'Installs and configures Dovecot.'
 recipe 'dovecot::user', 'Creates the dovecot system user.'
 recipe 'dovecot::conf_files', 'Generates all the configuration files.'
+recipe 'dovecot::ohai_plugin', 'Provides an Ohai plugin for reading dovecot install information.'
 recipe 'dovecot::packages', 'Installs the required packages.'
 recipe 'dovecot::service', 'Configures the Dovecot service.'
 
@@ -194,6 +197,14 @@ attribute 'dovecot/conf/mail_plugins',
   :type => 'array',
   :required => 'optional',
   :default => []
+
+attribute 'dovecot/ohai_plugin/build-options',
+  :display_name => 'dovecot ohai plugin build options',
+  :description => 'Whether to enable reading build options inside ohai plugin. Can be disabled to be lighter.',
+  :type => 'string',
+  :required => 'optional',
+  :choice => [ 'true', 'false' ],
+  :default => 'true'
 
 #
 # dovecot.conf

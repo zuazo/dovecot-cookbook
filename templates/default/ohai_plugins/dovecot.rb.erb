@@ -1,0 +1,59 @@
+#
+# Author:: Xabier de Zuazo (<xabier@onddo.com>)
+#
+# Copyright 2013, Onddo Labs, Sl.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+provides 'dovecot'
+provides 'dovecot/version'
+def build_option_key(str)
+  str.downcase.gsub(' ', '-')
+end
+
+def parse_build_options_hash(build_options)
+  Hash[build_options.split(/ +/).map { |value|
+    value.index('=').nil? ? [ value, true ] : value.split('=', 2)
+  }]
+end
+
+def parse_build_options_array(build_options)
+  build_options.split(/ +/)
+end
+
+dovecot Mash.new unless dovecot
+dovecot['version'] = nil unless dovecot['version']
+
+status, stdout, stderr = run_command(:no_status_check => true, :command => 'dovecot --version')
+dovecot['version'] = stdout.split("\n")[0] if status === 0
+
+<% if @enable_build_options -%>
+
+provides 'dovecot/build-options'
+
+dovecot['build-options'] = {} unless dovecot['build-options']
+
+status, stdout, stderr = run_command(:no_status_check => true, :command => 'dovecot --build-options')
+if status == 0
+  stdout.split("\n").each do |line|
+    case line
+    when /^Build options: *(.+)/
+      dovecot['build-options'].merge!(parse_build_options_hash($1))
+    when /^([^:]+): *(.+)/
+      dovecot['build-options'][build_option_key($1)] = parse_build_options_array($2)
+    end
+  end
+end
+
+<% end -%>
