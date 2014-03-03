@@ -143,3 +143,7 @@ service dict {
   }
 }
 <% end -%>
+
+<% if @services['anvil'].kind_of?(Hash) and @services['anvil'].length > 0 -%>
+<%=  Dovecot::Conf.service('anvil', @services['anvil']) %>
+<% end -%>
