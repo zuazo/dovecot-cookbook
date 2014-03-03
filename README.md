@@ -159,7 +159,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
   <tr>
     <td><code>node['dovecot']['services']</code></td>
-    <td>Dovecot Services configuration as a hash of hashes (<a href="#service-examples">see the examples below</a>). Supported services: director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login and managesieve.</td>
+    <td>Dovecot Services configuration as a hash of hashes (<a href="#service-examples">see the examples below</a>). Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login and managesieve.</td>
     <td><code>{}</code></td>
   </tr>
   <tr>
@@ -1404,7 +1404,7 @@ The `['services']` attribute is a hash. Each service attribute should be a hash.
 
 Inside this `listeners` key, you should name each listener with the format *PROTOCOL:NAME*. Allowed protocols are `fifo`, `unix` and `inet`.
 
-Supported services are the following: `director`, `imap-login`, `pop3-login`, `lmtp`, `imap`, `pop3`, `auth`, `auth-worker`, `dict`, `tcpwrap`, `managesieve-login` and `managesieve`.
+Supported services are the following: `anvil`, `director`, `imap-login`, `pop3-login`, `lmtp`, `imap`, `pop3`, `auth`, `auth-worker`, `dict`, `tcpwrap`, `managesieve-login` and `managesieve`.
 
 ### Director Service Example
 
