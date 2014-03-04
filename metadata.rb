@@ -183,7 +183,7 @@ attribute 'dovecot/protocols',
 
 attribute 'dovecot/services',
   :display_name => 'dovecot services',
-  :description => 'Dovecot Services configuration as a hash of hashes. Supported services: director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login and managesieve.',
+  :description => 'Dovecot Services configuration as a hash of hashes. Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login and managesieve.',
   :type => 'string',
   :required => 'optional',
   :default => '{}'
