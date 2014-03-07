@@ -151,7 +151,7 @@ when 'debian', 'ubuntu' then
   # ldap
   ruby_block 'package-dovecot-ldap' do
     block {}
-    only_if do node['dovecot']['auth']['ldap'].kind_of?(Array) and node['dovecot']['auth']['ldap'].length > 0 end
+    only_if do node['dovecot']['auth']['ldap'].kind_of?(Hash) and node['dovecot']['auth']['ldap'].length > 0 end
     notifies :install, 'package[dovecot-ldap]', :immediately
     node['dovecot']['conf_files']['ldap'].each do |conf_file|
       notifies :create, "template[#{conf_file}]", :immediately
