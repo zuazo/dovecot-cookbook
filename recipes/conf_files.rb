@@ -47,11 +47,19 @@ end
 node['dovecot']['conf_files'].each do |type, conf_files|
   conf_files.each do |conf_file|
     template conf_file do
+      # calculate file mode function
+      def get_conf_file_mode(conf_file)
+        node['dovecot']['sensitive_files'].each do |file_glob|
+          return node['dovecot']['sensitive_files_mode'] if ::File.fnmatch?(file_glob, conf_file, ::File::FNM_PATHNAME)
+        end
+        node['dovecot']['conf_files_mode']
+      end
+
       path "#{node['dovecot']['conf_path']}/#{conf_file}"
       source "#{conf_file}.erb"
       owner node['dovecot']['conf_files_user']
       group node['dovecot']['conf_files_group']
-      mode node['dovecot']['conf_files_mode']
+      mode get_conf_file_mode(conf_file)
       variables(
         :auth => node['dovecot']['auth'].to_hash,
         :protocols => node['dovecot']['protocols'].to_hash,

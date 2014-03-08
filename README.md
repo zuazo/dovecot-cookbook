@@ -72,6 +72,16 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     <td><code>00644</code></td>
   </tr>
   <tr>
+    <td><code>node['dovecot']['sensitive_files']</code></td>
+    <td>An array of dovecot sensitive configuration files. Each array item can be a glob expression or a fixed file name. These file names should be relative to <code>node["dovecot"]["conf_path"]</code> directory. Example: <code>[ "dovecot-sql.conf.ext", "*-auth.conf.ext", "conf.d/auth-supersecret.conf.ext" ]</code></td>
+    <td><code>[ "*.conf.ext" ]</code></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['sensitive_files_mode']</code></td>
+    <td>Configuration files system file mode bits for sensitve files.</td>
+    <td><code>00640</code></td>
+  </tr>
+  <tr>
     <td><code>node['dovecot']['conf_files']['core']</code></td>
     <td>Dovecot core configuration files list.</td>
     <td><code>[<br/>

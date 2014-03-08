@@ -69,6 +69,22 @@ attribute 'dovecot/conf_files_mode',
   :required => 'optional',
   :default => '00644'
 
+attribute 'dovecot/sensitive_files',
+  :display_name => 'dovecot sensitve files',
+  :description => 'An array of dovecot sensitive configuration files. Each array item can be a glob expression or a fixed file name. This file names should be relative to node["dovecot"]["conf_path"] directory. Example: [ "dovecot-sql.conf.ext", "*-auth.conf.ext", "conf.d/auth-supersecret.conf.ext" ]',
+  :type => 'array',
+  :required => 'optional',
+  :default => [
+    '*.conf.ext',
+  ]
+
+attribute 'dovecot/sensitive_files_mode',
+  :display_name => 'dovecot sensitve files mode',
+  :description => 'Configuration files system file mode bits for sensitve files.',
+  :type => 'string',
+  :required => 'optional',
+  :default => '00640'
+
 attribute 'dovecot/conf_files/core',
   :display_name => 'dovecot core configuration files',
   :description => 'Dovecot core configuration files list.',

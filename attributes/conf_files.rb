@@ -4,6 +4,11 @@ default['dovecot']['conf_files_user'] = 'root'
 default['dovecot']['conf_files_group'] = node['dovecot']['group']
 default['dovecot']['conf_files_mode'] = '00644'
 
+default['dovecot']['sensitive_files'] = [
+  '*.conf.ext',
+]
+default['dovecot']['sensitive_files_mode'] = '00640'
+
 default['dovecot']['conf_files']['core'] = [
   'conf.d/10-auth.conf',
   'conf.d/10-director.conf',

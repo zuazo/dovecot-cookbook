@@ -8,3 +8,11 @@
   doveconf > /dev/null
 }
 
+@test "ordinary files should have the correct mode" {
+  ! stat -c '%a' /etc/dovecot/*.conf.ext | grep -v -qwF 640
+}
+
+@test "sensitive files should have restricted mode" {
+  ! stat -c '%a' /etc/dovecot/conf.d/* | grep -v -qwF 644
+}
+
