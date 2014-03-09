@@ -3,8 +3,22 @@
 
 source 'https://rubygems.org'
 
-gem 'vagrant' , :git => 'git://github.com/mitchellh/vagrant.git', :branch => 'v1.3.5'
-gem 'berkshelf', '>= 1.4.0'
-gem 'test-kitchen', '>= 1.0.0'
-gem 'kitchen-vagrant', '~> 0.10'
+gem 'berkshelf', '~> 2.0'
 
+group :lint do
+  gem 'foodcritic', '~> 3.0'
+end
+
+group :kitchen_common do
+  gem 'test-kitchen', '~> 1.2'
+end
+
+group :kitchen_vagrant do
+  gem 'vagrant' , :git => 'git://github.com/mitchellh/vagrant.git', :branch => 'v1.3.5'
+  gem 'kitchen-vagrant', '~> 0.10'
+end
+
+group :kitchen_cloud do
+  gem 'kitchen-digitalocean', '~> 0.5'
+  gem 'kitchen-ec2', '~> 0.8'
+end

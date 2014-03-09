@@ -1593,15 +1593,42 @@ Testing
 ## Requirements
 
 * `vagrant`
-* `berkshelf` >= `1.4.0`
-* `test-kitchen` >= `1.0.0.alpha`
-* `kitchen-vagrant` >= `0.10.0`
+* `berkshelf` >= `2.0`
+* `test-kitchen` >= `1.2`
+* `kitchen-vagrant` >= `0.10`
 
 ## Running the tests
 
 ```bash
 $ kitchen test
 $ kitchen verify
+[...]
+```
+
+### Running the tests in the cloud
+
+#### Requirements:
+
+* `kitchen-vagrant` >= `0.10`
+* `kitchen-digitalocean` >= `0.5`
+* `kitchen-ec2` >= `0.8`
+
+You can run the tests in the cloud instead of using vagrant. First, you must set the following environment variables:
+
+* `AWS_ACCESS_KEY_ID`
+* `AWS_SECRET_ACCESS_KEY`
+* `AWS_KEYPAIR_NAME`: EC2 SSH public key name.
+* `EC2_SSH_KEY_PATH`: EC2 SSH private key full path.
+* `DIGITAL_OCEAN_CLIENT_ID`
+* `DIGITAL_OCEAN_API_KEY`
+* `DIGITAL_OCEAN_SSH_KEY_IDS`: DigitalOcean SSH numeric key IDs.
+* `DIGITAL_OCEAN_SSH_KEY_PATH`: DigitalOcean SSH private key full path.
+
+Then, you must configure test-kitchen to use `.kitchen.cloud.yml` configuration file:
+
+```
+$ export KITCHEN_LOCAL_YAML=".kitchen.cloud.yml"
+$ kitchen list
 [...]
 ```
 
