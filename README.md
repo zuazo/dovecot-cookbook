@@ -14,6 +14,7 @@ This cookbook has been tested on the following platforms:
 * Debian >= 7.0
 * Fedora >= 18.0
 * Ubuntu >= 12.04
+* Amazon
 
 Let me know if you use it successfully on any other platform.
 
