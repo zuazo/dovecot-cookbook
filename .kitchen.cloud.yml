@@ -5,7 +5,8 @@ driver_config:
   aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
   aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
   aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
-  forward_agent: true
+  ssh:
+    forward_agent: true
 
 provisioner:
   name: chef_zero
@@ -41,9 +42,16 @@ platforms:
   run_list:
   - recipe[apt]
 
-- name: amazon-2013.09
+- name: amazon-2011.02.1
   driver_plugin: ec2
   driver_config:
-    image_id: ami-3be4bc52
+    image_id: ami-221fec4b
+    username: ec2-user
+    ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+
+- name: amazon-2013.09.3
+  driver_plugin: ec2
+  driver_config:
+    image_id: ami-1ba18d72
     username: ec2-user
     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
