@@ -1643,21 +1643,18 @@ Contributing
 5. Run the tests, ensuring they all pass
 6. Submit a Pull Request using Github
 
-Contributors
-============
-
-* [Andreas Lappe](https://github.com/alappe)
-* [Trond Arve Nordheim](https://github.com/tanordheim)
-* [Johan Svensson](https://github.com/loxley)
-
-
 License and Author
 =====================
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
-| **Author:**          | Xabier de Zuazo (<xabier@onddo.com>)
-| **Copyright:**       | Copyright (c) 2013 Onddo Labs, SL. (www.onddo.com)
+| **Author:**          | [Xabier de Zuazo](https://github.com/zuazo) (<xabier@onddo.com>)
+| **Contributor:**     | [Andreas Lappe](https://github.com/alappe)
+| **Contributor:**     | [Trond Arve Nordheim](https://github.com/tanordheim)
+| **Contributor:**     | [Johan Svensson](https://github.com/loxley)
+| **Contributor:**     | [Arnold Krille](https://github.com/kampfschlaefer)
+| **Contributor:**     | [claudex](https://github.com/claudex)
+| **Copyright:**       | Copyright (c) 2013-2014, Onddo Labs, SL. (www.onddo.com)
 | **License:**         | Apache License, Version 2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
