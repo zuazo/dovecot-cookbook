@@ -20,7 +20,9 @@ platforms:
     flavor_id: 63
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+<% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+<% end %>
 
 - name: fedora-19
   driver_plugin: digitalocean
@@ -29,7 +31,9 @@ platforms:
     flavor_id: 63
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+<% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+<% end %>
 
 - name: ubuntu-1204
   driver_plugin: digitalocean
@@ -38,7 +42,9 @@ platforms:
     flavor_id: 63
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+<% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+<% end %>
   run_list:
   - recipe[apt]
 
@@ -49,7 +55,9 @@ platforms:
     flavor_id: 63
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+<% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+<% end %>
   run_list:
   - recipe[apt]
 
@@ -58,11 +66,15 @@ platforms:
   driver_config:
     image_id: ami-221fec4b
     username: ec2-user
+<% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+<% end %>
 
 - name: amazon-2013.09.3
   driver_plugin: ec2
   driver_config:
     image_id: ami-1ba18d72
     username: ec2-user
+<% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+<% end %>
