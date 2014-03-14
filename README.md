@@ -1618,12 +1618,12 @@ You can run the tests in the cloud instead of using vagrant. First, you must set
 
 * `AWS_ACCESS_KEY_ID`
 * `AWS_SECRET_ACCESS_KEY`
-* `AWS_KEYPAIR_NAME`: EC2 SSH public key name.
-* `EC2_SSH_KEY_PATH`: EC2 SSH private key full path.
+* `AWS_KEYPAIR_NAME`: EC2 SSH public key name. This is the name used in Amazon EC2 Console's Key Pars section.
+* `EC2_SSH_KEY_PATH`: EC2 SSH private key local full path.
 * `DIGITAL_OCEAN_CLIENT_ID`
 * `DIGITAL_OCEAN_API_KEY`
 * `DIGITAL_OCEAN_SSH_KEY_IDS`: DigitalOcean SSH numeric key IDs.
-* `DIGITAL_OCEAN_SSH_KEY_PATH`: DigitalOcean SSH private key full path.
+* `DIGITAL_OCEAN_SSH_KEY_PATH`: DigitalOcean SSH private key local full path.
 
 Then, you must configure test-kitchen to use `.kitchen.cloud.yml` configuration file:
 
