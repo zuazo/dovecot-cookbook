@@ -42,6 +42,17 @@ platforms:
   run_list:
   - recipe[apt]
 
+- name: ubuntu-1310
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 1505699
+    flavor_id: 63
+    region_id: 4
+    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+  run_list:
+  - recipe[apt]
+
 - name: amazon-2011.02.1
   driver_plugin: ec2
   driver_config:
