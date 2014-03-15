@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of dovecot.
 
+## 0.3.1:
+
+* Fixed Ubuntu-13.10 support
+* README: some env variables description improved
+* Avoid using EC2_SSH_KEY_PATH when there is an SSH Agent
+* kitchen.yml format updated, removed driver_config key
+
 ## 0.3.0:
 
 * Added Dovecot Ohai Plugin
