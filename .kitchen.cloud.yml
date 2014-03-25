@@ -64,16 +64,18 @@ platforms:
 - name: amazon-2011.02.1
   driver_plugin: ec2
   driver_config:
-    image_id: ami-221fec4b
+    image_id: ami-8e1fece7
+    flavor_id: t1.micro
     username: ec2-user
 <% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
 <% end %>
 
-- name: amazon-2013.09.3
+- name: amazon-2013.09.2
   driver_plugin: ec2
   driver_config:
-    image_id: ami-1ba18d72
+    image_id: ami-bba18dd2
+    flavor_id: t1.micro
     username: ec2-user
 <% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
