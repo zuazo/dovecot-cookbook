@@ -17,7 +17,7 @@ platforms:
   driver_plugin: digitalocean
   driver_config:
     image_id: 562354
-    flavor_id: 63
+    flavor_id: 66
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
 <% if ENV['SSH_AGENT_PID'].nil? %>
@@ -28,7 +28,7 @@ platforms:
   driver_plugin: digitalocean
   driver_config:
     image_id: 696598
-    flavor_id: 63
+    flavor_id: 66
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
 <% if ENV['SSH_AGENT_PID'].nil? %>
@@ -39,7 +39,7 @@ platforms:
   driver_plugin: digitalocean
   driver_config:
     image_id: 1505447
-    flavor_id: 63
+    flavor_id: 66
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
 <% if ENV['SSH_AGENT_PID'].nil? %>
@@ -52,7 +52,7 @@ platforms:
   driver_plugin: digitalocean
   driver_config:
     image_id: 1505699
-    flavor_id: 63
+    flavor_id: 66
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
 <% if ENV['SSH_AGENT_PID'].nil? %>
