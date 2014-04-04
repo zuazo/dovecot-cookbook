@@ -3,7 +3,7 @@ driver:
   name: vagrant
 
 provisioner:
-  require_chef_omnibus: latest
+  require_chef_omnibus: true
 
 platforms:
 - name: ubuntu-12.04
