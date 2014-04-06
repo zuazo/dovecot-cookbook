@@ -39,22 +39,22 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
   <tr>
     <td><code>node['dovecot']['user']</code></td>
-    <td>Dovector system user. Should no be changed.</td>
+    <td>Dovecot system user. Should no be changed.</td>
     <td><code>"dovecot"</code></td>
   </tr>
   <tr>
     <td><code>node['dovecot']['group']</code></td>
-    <td>Dovector system group. Should no be changed.</td>
+    <td>Dovecot system group. Should no be changed.</td>
     <td><code>"dovecot"</code></td>
   </tr>
   <tr>
     <td><code>node['dovecot']['lib_path']</code></td>
-    <td>Dovector library path. Should no be changed.</td>
+    <td>Dovecot library path. Should no be changed.</td>
     <td><em>calculated</em></td>
   </tr>
   <tr>
     <td><code>node['dovecot']['conf_path']</code></td>
-    <td>Dovector configruration files path. Should no be changed.</td>
+    <td>Dovecot configuration files path. Should no be changed.</td>
     <td><code>"/etc/dovecot"</code></td>
   </tr>
   <tr>

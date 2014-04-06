@@ -23,28 +23,28 @@ recipe 'dovecot::service', 'Configures the Dovecot service.'
 
 attribute 'dovecot/user',
   :display_name => 'dovecot user',
-  :description => 'Dovector system user. Should no be changed.',
+  :description => 'Dovecot system user. Should no be changed.',
   :type => 'string',
   :required => 'optional',
   :default => '"dovecot"'
 
 attribute 'dovecot/group',
   :display_name => 'dovecot group',
-  :description => 'Dovector system group. Should no be changed.',
+  :description => 'Dovecot system group. Should no be changed.',
   :type => 'string',
   :required => 'optional',
   :default => '"dovecot"'
 
 attribute 'dovecot/lib_path',
   :display_name => 'dovecot library path',
-  :description => 'Dovector library path. Should no be changed.',
+  :description => 'Dovecot library path. Should no be changed.',
   :calculated => true,
   :type => 'string',
   :required => 'optional'
 
 attribute 'dovecot/conf_path',
   :display_name => 'dovecot configuration path',
-  :description => 'Dovector configruration files path. Should no be changed.',
+  :description => 'Dovecot configruration files path. Should no be changed.',
   :type => 'string',
   :required => 'optional',
   :default => '"/etc/dovecot"'
