@@ -38,6 +38,11 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     <th>Default</th>
   </tr>
   <tr>
+    <td><code>node['dovecot']['install_from']</code></td>
+    <td>Determines how Dovecot is installed from. Only `package` is supported for now.</td>
+    <td><code>"package"</code></td>
+  </tr>
+  <tr>
     <td><code>node['dovecot']['user']</code></td>
     <td>Dovecot system user. Should no be changed.</td>
     <td><code>"dovecot"</code></td>
@@ -1152,9 +1157,9 @@ Generates all the configuration files. Used by the default recipe.
 
 Provides an Ohai plugin for reading dovecot install information.
 
-## dovecot::packages
+## dovecot::from_package
 
-Installs the required packages. Used by the default recipe.
+Installs the required packages. Used by the default recipe if `node['dovecot']['install_from]` is `package`.
 
 ## dovecot::service
 

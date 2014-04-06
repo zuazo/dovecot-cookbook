@@ -21,6 +21,13 @@ recipe 'dovecot::ohai_plugin', 'Provides an Ohai plugin for reading dovecot inst
 recipe 'dovecot::packages', 'Installs the required packages.'
 recipe 'dovecot::service', 'Configures the Dovecot service.'
 
+attribute 'dovecot/install_from',
+  :display_name => 'dovecot install method',
+  :description => 'Determines how Dovecot is installed from. Only `package` is supported for now.',
+  :type => 'string',
+  :required => 'optional',
+  :default => '"package"'
+
 attribute 'dovecot/user',
   :display_name => 'dovecot user',
   :description => 'Dovecot system user. Should no be changed.',
