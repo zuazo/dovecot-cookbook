@@ -1,3 +1,4 @@
+default['dovecot']['install_from'] = 'package'
 
 default['dovecot']['user'] = 'dovecot'
 default['dovecot']['group'] = node['dovecot']['user']
