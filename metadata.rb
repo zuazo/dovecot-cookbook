@@ -18,7 +18,8 @@ recipe 'dovecot::default', 'Installs and configures Dovecot.'
 recipe 'dovecot::user', 'Creates the dovecot system user.'
 recipe 'dovecot::conf_files', 'Generates all the configuration files.'
 recipe 'dovecot::ohai_plugin', 'Provides an Ohai plugin for reading dovecot install information.'
-recipe 'dovecot::packages', 'Installs the required packages.'
+recipe 'dovecot::packages', 'This recipe will be deprecated in future versions.'
+recipe 'dovecot::from_package', 'Installs the required packages.'
 recipe 'dovecot::service', 'Configures the Dovecot service.'
 
 attribute 'dovecot/install_from',
