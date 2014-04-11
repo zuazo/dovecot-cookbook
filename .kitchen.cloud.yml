@@ -27,7 +27,7 @@ platforms:
 - name: fedora-19
   driver_plugin: digitalocean
   driver_config:
-    image_id: 696598
+    image_id: 3102879
     flavor_id: 66
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
@@ -35,10 +35,23 @@ platforms:
     ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
 <% end %>
 
+- name: debian-7
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 3102387
+    flavor_id: 66
+    region_id: 4
+    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+<% if ENV['SSH_AGENT_PID'].nil? %>
+    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+<% end %>
+  run_list:
+  - recipe[apt]
+
 - name: ubuntu-1204
   driver_plugin: digitalocean
   driver_config:
-    image_id: 1505447
+    image_id: 3101045
     flavor_id: 66
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
@@ -51,7 +64,7 @@ platforms:
 - name: ubuntu-1310
   driver_plugin: digitalocean
   driver_config:
-    image_id: 1505699
+    image_id: 3101918
     flavor_id: 66
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
