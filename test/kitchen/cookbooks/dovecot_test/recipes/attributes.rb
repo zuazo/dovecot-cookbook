@@ -134,6 +134,7 @@ node.default['dovecot']['plugins']['sieve'] = {
 
 # protocols.rb
 
+node.default['dovecot']['protocols']['imap'] = {}
 node.default['dovecot']['protocols']['lda'] = {
   'mail_plugins' => [ '$mail_plugins' ],
 }
