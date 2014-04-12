@@ -184,51 +184,6 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     <td><code>[]</code></td>
   </tr>
   <tr>
-    <td><code>node['dovecot']['packages']['core']</code></td>
-    <td>Dovecot core package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['imap']</code></td>
-    <td>Dovecot IMAP package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['pop3']</code></td>
-    <td>Dovecot POP3 package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['lmtp']</code></td>
-    <td>Dovecot LMTP package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['sieve']</code></td>
-    <td>Dovecot Sieve package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['ldap']</code></td>
-    <td>Dovecot LDAP package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['sqlite']</code></td>
-    <td>Dovecot SQLite package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['mysql']</code></td>
-    <td>Dovecot MySQL package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['pgsql']</code></td>
-    <td>Dovecot PostgreSQL package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
     <td><code>node['dovecot']['ohai_plugin']['build-options']</code></td>
     <td>Whether to enable reading build options inside ohai plugin. Can be disabled to be lighter.</td>
     <td><code>true</code></td>
@@ -1183,6 +1138,64 @@ Also used by LMTP.
   </tr>
 </table>
 
+## Distribution packages names attributes
+
+These attributes below contain the default required distribution packages for the supported platforms. But you are free to create your own to support other platforms. Keep in mind that all are put inside a subkey (`type`). This `node['dovecot']['packages'][type]` attribute is then used together with the `node['dovecot']['conf_files'][type]` attribute to generate the configuration files. 
+
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['core']</code></td>
+    <td>Dovecot core package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['imap']</code></td>
+    <td>Dovecot IMAP package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['pop3']</code></td>
+    <td>Dovecot POP3 package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['lmtp']</code></td>
+    <td>Dovecot LMTP package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['sieve']</code></td>
+    <td>Dovecot Sieve package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['ldap']</code></td>
+    <td>Dovecot LDAP package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['sqlite']</code></td>
+    <td>Dovecot SQLite package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['mysql']</code></td>
+    <td>Dovecot MySQL package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['pgsql']</code></td>
+    <td>Dovecot PostgreSQL package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+</table>
+
 Recipes
 =======
 
@@ -1447,7 +1460,7 @@ node.default['dovecot']['plugins']['sieve'] = {
 }
 ```
 
-## Protocols Example
+## Protocols Examples
 
 Protocol attribute values should be of type hash.
 
@@ -1457,6 +1470,12 @@ Supported protocols are the following: `lda`, `imap`, `lmtp`, `sieve` and `pop3`
 node.default['dovecot']['protocols']['lda'] = {
   'mail_plugins' => [ '$mail_plugins' ],
 }
+```
+
+To enable the IMAP protocol without additional settings:
+
+```ruby
+node.default['dovecot']['protocols']['imap'] = {}
 ```
 
 ## Service Examples
@@ -1704,18 +1723,19 @@ License and Author
 | **Contributor:**     | [Johan Svensson](https://github.com/loxley)
 | **Contributor:**     | [Arnold Krille](https://github.com/kampfschlaefer)
 | **Contributor:**     | [claudex](https://github.com/claudex)
+| **Contributor:**     | [Jordi Llonch](https://github.com/llonchj)
 | **Copyright:**       | Copyright (c) 2013-2014, Onddo Labs, SL. (www.onddo.com)
 | **License:**         | Apache License, Version 2.0
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+        http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
 
