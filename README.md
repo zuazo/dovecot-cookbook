@@ -184,6 +184,51 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     <td><code>[]</code></td>
   </tr>
   <tr>
+    <td><code>node['dovecot']['packages']['core']</code></td>
+    <td>Dovecot core package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['imap']</code></td>
+    <td>Dovecot IMAP package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['pop3']</code></td>
+    <td>Dovecot POP3 package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['lmtp']</code></td>
+    <td>Dovecot LMTP package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['sieve']</code></td>
+    <td>Dovecot Sieve package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['ldap']</code></td>
+    <td>Dovecot LDAP package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['sqlite']</code></td>
+    <td>Dovecot SQLite package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['mysql']</code></td>
+    <td>Dovecot MySQL package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['packages']['pgsql']</code></td>
+    <td>Dovecot PostgreSQL package names array.</td>
+    <td><em>calculated</em></td>
+  </tr>
+  <tr>
     <td><code>node['dovecot']['ohai_plugin']['build-options']</code></td>
     <td>Whether to enable reading build options inside ohai plugin. Can be disabled to be lighter.</td>
     <td><code>true</code></td>

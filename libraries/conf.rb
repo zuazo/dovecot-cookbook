@@ -199,6 +199,31 @@ module Dovecot
       )
     end
 
+    def self.require?(req, conf)
+      case req
+      when 'core'
+        true
+      when 'imap'
+        Dovecot::Protocols.enabled?('imap', conf['protocols'])
+      when 'pop3'
+        Dovecot::Protocols.enabled?('pop3', conf['protocols'])
+      when 'lmtp'
+        Dovecot::Protocols.enabled?('lmtp', conf['protocols'])
+      when 'sieve'
+        Dovecot::Plugins.required?('sieve', conf)
+      when 'ldap'
+        conf['auth']['ldap'].kind_of?(Hash) and conf['auth']['ldap'].length > 0
+      when 'sqlite'
+        conf['conf']['sql']['driver'] == 'sqlite'
+      when 'mysql'
+        conf['conf']['sql']['driver'] == 'mysql'
+      when 'pgsql'
+        conf['conf']['sql']['driver'] == 'pgsql'
+      else
+        raise "Unknown configuration requirement: #{req.inspect}"
+      end
+    end
+
   end
 end
 

@@ -224,6 +224,73 @@ attribute 'dovecot/conf/mail_plugins',
   :required => 'optional',
   :default => []
 
+grouping 'dovecot/packages',
+ :title => 'dovecot packages',
+ :description => 'Dovecot packages'
+
+attribute 'dovecot/packages/core',
+  :display_name => 'dovecot core packages',
+  :description => 'Dovecot core package names array.',
+  :type => 'array',
+  :required => 'optional',
+  :calculated => true
+
+attribute 'dovecot/packages/imap',
+  :display_name => 'dovecot imap packages',
+  :description => 'Dovecot IMAP package names array.',
+  :type => 'array',
+  :required => 'optional',
+  :calculated => true
+
+attribute 'dovecot/packages/pop3',
+  :display_name => 'dovecot pop3 packages',
+  :description => 'Dovecot POP3 package names array.',
+  :type => 'array',
+  :required => 'optional',
+  :calculated => true
+
+attribute 'dovecot/packages/lmtp',
+  :display_name => 'dovecot lmtp packages',
+  :description => 'Dovecot LMTP package names array.',
+  :type => 'array',
+  :required => 'optional',
+  :calculated => true
+
+attribute 'dovecot/packages/sieve',
+  :display_name => 'dovecot sieve packages',
+  :description => 'Dovecot Sieve package names array.',
+  :type => 'array',
+  :required => 'optional',
+  :calculated => true
+
+attribute 'dovecot/packages/ldap',
+  :display_name => 'dovecot ldap packages',
+  :description => 'Dovecot LDAP package names array.',
+  :type => 'array',
+  :required => 'optional',
+  :calculated => true
+
+attribute 'dovecot/packages/sqlite',
+  :display_name => 'dovecot sqlite packages',
+  :description => 'Dovecot SQLite package names array.',
+  :type => 'array',
+  :required => 'optional',
+  :calculated => true
+
+attribute 'dovecot/packages/mysql',
+  :display_name => 'dovecot mysql packages',
+  :description => 'Dovecot MySQL package names array.',
+  :type => 'array',
+  :required => 'optional',
+  :calculated => true
+
+attribute 'dovecot/packages/pgsql',
+  :display_name => 'dovecot pgsql packages',
+  :description => 'Dovecot PostgreSQL package names array.',
+  :type => 'array',
+  :required => 'optional',
+  :calculated => true
+
 attribute 'dovecot/ohai_plugin/build-options',
   :display_name => 'dovecot ohai plugin build options',
   :description => 'Whether to enable reading build options inside ohai plugin. Can be disabled to be lighter.',

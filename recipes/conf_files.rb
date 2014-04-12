@@ -26,17 +26,16 @@ directory node['dovecot']['lib_path'] do
   group node['dovecot']['conf_files_group']
   mode '00755'
 end
-conf_files_dirs = []
-node['dovecot']['conf_files'].each do |conf_type, conf_files|
-  conf_files_dirs += conf_files.map{ |f| ::File.dirname(f) }.uniq
-end
-conf_files_dirs.uniq!
+conf_files_dirs = node['dovecot']['conf_files'].values.reduce([]) do |r, conf_files|
+  r += conf_files.map { |f| ::File.dirname(f) }
+end.uniq
 conf_files_dirs.each do |dir|
-  directory dir do
+  directory ::File.join(node['dovecot']['conf_path'], dir) do
+    recursive true
     owner 'root'
     group node['dovecot']['group']
     mode '00755'
-    only_if do dir != '.' end
+    only_if { dir != '.' }
   end
 end
 
@@ -55,7 +54,7 @@ node['dovecot']['conf_files'].each do |type, conf_files|
         node['dovecot']['conf_files_mode']
       end
 
-      path "#{node['dovecot']['conf_path']}/#{conf_file}"
+      path ::File.join(node['dovecot']['conf_path'], conf_file)
       source "#{conf_file}.erb"
       owner node['dovecot']['conf_files_user']
       group node['dovecot']['conf_files_group']
@@ -68,9 +67,9 @@ node['dovecot']['conf_files'].each do |type, conf_files|
         :namespaces => node['dovecot']['namespaces'],
         :conf => node['dovecot']['conf']
       )
+      only_if { Dovecot::Conf.require?(type, node['dovecot']) }
       notifies :reload, 'service[dovecot]'
-      action :nothing
-    end
-  end
-end
+    end # template conf_file
+  end # conf_files.each
+end # node['dovecot']['conf_files'].each
 
