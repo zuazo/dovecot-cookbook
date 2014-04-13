@@ -17,13 +17,19 @@
 # limitations under the License.
 #
 
+def ohai7?
+  Gem::Requirement.new('>= 7').satisfied_by?(Gem::Version.new(Ohai::VERSION))
+end
+
+source_dir = ohai7? ? 'ohai7_plugins' : 'ohai_plugins'
+
 ohai 'reload_dovecot' do
   plugin 'dovecot'
   action :nothing
 end
 
 template "#{node['ohai']['plugin_path']}/dovecot.rb" do
-  source 'ohai_plugins/dovecot.rb.erb'
+  source "#{source_dir}/dovecot.rb.erb"
   owner 'root'
   group 'root'
   mode '0755'

@@ -170,6 +170,4 @@ node.default['dovecot']['services']['imap-login'] = {
   'vsz_limit' => '64M',
 }
 
-
-include_recipe 'dovecot'
-
+include_recipe 'dovecot_test::default'
