@@ -4,7 +4,7 @@ maintainer_email 'team@onddo.com'
 license          'Apache 2.0'
 description      'Installs and configures Dovecot, open source IMAP and POP3 email server.'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.3.2' # WiP
+version          '1.0.0'
 
 supports 'centos', '>= 6.0'
 supports 'debian', '>= 7.0'

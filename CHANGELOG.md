@@ -2,6 +2,20 @@
 
 This file is used to list changes made in each version of dovecot.
 
+## 1.0.0:
+
+* `kitchen.cloud.yml`:
+ * Use `t1.micro-ebs` instances on EC2
+ * Use 512MB instances on DigitalOcean
+ * `require_chef_omnibus` `true` instead of `latest`
+ * Some images updated
+* README: fixed some typos ([issue #7](https://github.com/onddo/dovecot-cookbook/pull/7), thanks [Jordi Llonch](https://github.com/llonchj))
+* Added `from_package` recipe, `packages` recipe marked for future deprecation ([issue #8](https://github.com/onddo/dovecot-cookbook/pull/8), thanks [Jordi Llonch](https://github.com/llonchj))
+* Added integration tests for IMAP protocol
+* Package installation and template generation logic standardized using a `Dovecot::Conf#require?` method ([issue #9](https://github.com/onddo/dovecot-cookbook/pull/9), thanks [Jordi Llonch](https://github.com/llonchj) for the help)
+ * ***Note:*** This change is ***huge***, but it is supposed to be backwards compatible
+* Added Ohai 7 plugins support ([issue #10](https://github.com/onddo/dovecot-cookbook/pull/10))
+
 ## 0.3.1:
 
 * Fixed Ubuntu-13.10 support
