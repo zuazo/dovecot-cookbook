@@ -1,5 +1,6 @@
 Description
 ===========
+[![Cookbook Version](https://img.shields.io/cookbook/v/dovecot.svg)](https://community.opscode.com/cookbooks/dovecot
 
 Installs and configures [Dovecot](http://www.dovecot.org/), open source IMAP and POP3 email server.
 
