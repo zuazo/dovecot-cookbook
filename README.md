@@ -896,6 +896,26 @@ Also used by LMTP.
   </tr>
 </table>
 
+## Maximum number of connections/IP address
+
+* Configuration files:
+  * `conf.d/20-imap.conf`
+  * `conf.d/20-managesieve.conf`
+  * `conf.d/20-pop3.conf`
+
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Default</th>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['mail_max_userip_connections']</code></td>
+    <td>Used to limit the number of connections allowed from the same IP address. Inserted into multiple configuration files (imap, pop3, managesieve)</td>
+    <td><em>nil</em></td>
+  </tr>
+</table>
+
 ## Berkeley DB DB_CONFIG attributes
 
 * Configuration file: `dovecot-db.conf.ext`.
