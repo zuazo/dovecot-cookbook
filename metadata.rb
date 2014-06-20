@@ -1168,6 +1168,17 @@ attribute 'dovecot/conf/lmtp_save_to_detail_mailbox',
   :required => 'optional',
   :default => 'nil'
 
+# conf.d/20-imap.conf
+# conf.d/20-managesieve.conf
+# conf.d/20-pop3.conf
+
+attribute 'dovecot/conf/mail_max_userip_connections',
+  :display_name => 'Maximum number of open connections for each IP address',
+  :description => 'Used to limit the number of connections allowed from the same IP address. Inserted into multiple configuration files (imap, pop3, managesieve)',
+  :type => 'string',
+  :required => 'optional',
+  :default => 'nil'
+
 #
 # dovecot-db.conf.ext
 #
