@@ -9,7 +9,14 @@ case node['platform']
   when 'debian'
     default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/dovecot.pem'
     default['dovecot']['conf']['ssl_key'] = '</etc/dovecot/private/dovecot.pem'
-  # when 'ubuntu'
+  when 'ubuntu'
+    if node['platform_version'].to_f >= 14.04
+      default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/dovecot.pem'
+      default['dovecot']['conf']['ssl_key'] = '</etc/dovecot/private/dovecot.pem'
+    else
+      default['dovecot']['conf']['ssl_cert'] = '</etc/ssl/certs/dovecot.pem'
+      default['dovecot']['conf']['ssl_key'] = '</etc/ssl/private/dovecot.pem'
+    end
   else
     default['dovecot']['conf']['ssl_cert'] = '</etc/ssl/certs/dovecot.pem'
     default['dovecot']['conf']['ssl_key'] = '</etc/ssl/private/dovecot.pem'
