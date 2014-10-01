@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of dovecot.
 
+## 1.0.1:
+
+* README: Added Cookbook badge
+* Fixed Ubuntu 14.04 support
+* Added TODO file
+
 ## 1.0.0:
 
 * `kitchen.cloud.yml`:
