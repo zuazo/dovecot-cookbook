@@ -1,3 +1,4 @@
+# encoding: UTF-8
 
 # dovecot-ldap.conf.ext
 
@@ -33,4 +34,3 @@ default['dovecot']['conf']['ldap']['pass_filter'] = nil
 default['dovecot']['conf']['ldap']['iterate_attrs'] = nil
 default['dovecot']['conf']['ldap']['iterate_filter'] = nil
 default['dovecot']['conf']['ldap']['default_pass_scheme'] = nil
-

@@ -1,26 +1,20 @@
+# encoding: UTF-8
 
 require 'erubis'
 
 module Dovecot
+  # Helper module to generate configuration structures
   module Conf
-
     def self.name(str)
-      if str =~ /\s/
-        "\"#{str}\""
-      else
-        str
-      end
+      str =~ /\s/ ? "\"#{str}\"" : str
     end
 
     def self.value(v, default = nil)
-      if v.nil?
-        default.to_s
-      elsif v === true
-        'yes'
-      elsif v === false
-        'no'
-      elsif v.kind_of?(Array)
-        v.join(' ')
+      case v
+      when nil then default.to_s
+      when true then 'yes'
+      when false then 'no'
+      when Array then v.join(' ')
       else
         v.to_s
       end
@@ -28,202 +22,63 @@ module Dovecot
 
     def self.attribute(conf, k, default = nil)
       v = conf[k]
-      if v.nil?
-        "##{k} = #{value(default)}"
-      else
-        "#{k} = #{value(v)}"
-      end
+      v.nil? ? "##{k} = #{value(default)}" : "#{k} = #{value(v)}"
+    end
+
+    def self.evaluate_template(template, context)
+      context = context.merge(dovecot_conf: Dovecot::Conf)
+      eruby = Erubis::Eruby.new(template)
+      eruby.evaluate(context)
     end
 
     def self.protocols(conf)
-      # dovecot: config: Fatal: Error in configuration file /etc/dovecot/dovecot.conf: protocols: Unknown protocol: lda
-      ignore_protos = [ 'lda' ]
+      # dovecot: config: Fatal: Error in configuration file
+      # /etc/dovecot/dovecot.conf: protocols: Unknown protocol: lda
+      ignore_protos = %w(lda)
       protos = Dovecot::Protocols.list(conf) - ignore_protos
       protos.empty? ? 'none' : protos.join(' ')
     end
 
     def self.authdb(driver, type, conf)
-
-      template =
-'<% confs = @conf.kind_of?(Array)? @conf : [ @conf ]
-    confs.each do |conf| -%>
-<%=   @Dovecot_Conf.name(@type) %> {
-  <%  unless conf.has_key?("driver") -%>
-  driver = <%=   @driver %>
-  <%  end -%>
-  <%  conf.sort.each do |key, value|
-        unless value.nil?
-  -%>
-  <%=     key %> = <%= @Dovecot_Conf.value(value) %>
-  <%    end
-      end
-  -%>
-}
-<% end -%>'
-
-      eruby = Erubis::Eruby.new(template)
-      eruby.evaluate(
-        :driver => driver,
-        :type => type,
-        :conf => conf,
-        :Dovecot_Conf => Dovecot::Conf
-      )
+      template = Dovecot::Conf::Templates::AUTHDB
+      evaluate_template(template, driver: driver, type: type, conf: conf)
     end
 
-    def self.plugin(name, conf)
-
-      template =
-'plugin {
-  <% @conf.sort.each do |key, value|
-       unless value.nil?
-  -%>
-  <%=    key %> = <%= @Dovecot_Conf.value(value) %>
-  <%   end
-     end -%>
-}'
-
-      eruby = Erubis::Eruby.new(template)
-      eruby.evaluate(
-        :conf => conf,
-        :Dovecot_Conf => Dovecot::Conf
-      )
+    def self.plugin(_name, conf)
+      template = Dovecot::Conf::Templates::PLUGIN
+      evaluate_template(template, conf: conf)
     end
 
     def self.namespace(ns)
-
-      template =
-'namespace <%= @Dovecot_Conf.name(@ns["name"]) %> {
-  <% if @ns["mailboxes"].kind_of?(Array) or @ns["mailboxes"].kind_of?(Hash)
-       mailboxes = @ns["mailboxes"].kind_of?(Array) ? @ns["mailboxes"] : [ @ns["mailboxes"] ]
-       mailboxes.each do |mailbox|
-         mailbox.sort.each do |key, values|
-  -%>
-  mailbox <%= @Dovecot_Conf.name(key) %> {
-  <%       values.sort.each do |key, value| -%>
-    <%=      key %> = <%= @Dovecot_Conf.value(value) %>
-  <%       end -%>
-  }
-  <%     end -%>
-  <%   end -%>
-  <% end -%>
-  <% @ns.sort.each do |key, value|
-       next if key == "mailboxes"
-  -%>
-  <%=  key %> = <%= @Dovecot_Conf.value(value) %>
-  <% end -%>
-}'
-
-      eruby = Erubis::Eruby.new(template)
-      eruby.evaluate(
-        :ns => ns,
-        :Dovecot_Conf => Dovecot::Conf
-      )
+      template = Dovecot::Conf::Templates::NAMESPACE
+      evaluate_template(template, ns: ns)
     end
 
     def self.protocol(name, conf)
-
-      template =
-'protocol <%= @Dovecot_Conf.name(@name) %> {
-  <% @conf.sort.each do |key, value| -%>
-  <%=  key %> = <%= @Dovecot_Conf.value(value) %>
-  <% end -%>
-}'
-
-      eruby = Erubis::Eruby.new(template)
-      eruby.evaluate(
-        :name => name,
-        :conf => conf,
-        :Dovecot_Conf => Dovecot::Conf
-      )
+      template = Dovecot::Conf::Templates::PROTOCOL
+      evaluate_template(template, name: name, conf: conf)
     end
 
     def self.service(name, conf)
-
-      template =
-'service <%= @Dovecot_Conf.name(@name) %> {
-  <% if @conf["listeners"].kind_of?(Array) or @conf["listeners"].kind_of?(Hash)
-      listeners = @conf["listeners"].kind_of?(Array) ? @conf["listeners"] : [ @conf["listeners"] ]
-      listeners.each do |listener|
-        listener.sort.each do |service, values|
-          service_proto = service.split(":")[0]
-          service_name = service.split(":")[1]
-  -%>
-  <%=     service_proto %>_listener <%= @Dovecot_Conf.name(service_name) %> {
-  <%        values.sort.each do |key, value|-%>
-    <%=       key %> = <%= @Dovecot_Conf.value(value) %>
-  <%        end -%>
-  }
-  <%     end -%>
-  <%   end -%>
-  <% end -%>
-  <% @conf.sort.each do |key, value|
-       next if key == "listeners"
-  -%>
-  <%=  key %> = <%= @Dovecot_Conf.value(value) %>
-  <% end -%>
-}'
-
-      eruby = Erubis::Eruby.new(template)
-      eruby.evaluate(
-        :name => name,
-        :conf => conf,
-        :Dovecot_Conf => Dovecot::Conf
-      )
+      template = Dovecot::Conf::Templates::SERVICE
+      evaluate_template(template, name: name, conf: conf)
     end
 
     def self.map(map)
-
-    template =
-'map {
-<%     @map.sort.each do |k, v|
-         if v.kind_of?(Hash)
--%>
-  <%=      @Dovecot_Conf.name(k) %> {
-<%
-           v.sort.each do |k2, v2|
--%>
-    <%=      k2 %> = <%= @Dovecot_Conf.value(v2) %>
-<%         end -%>
-  }
-<%       else -%>
-  <%=      k %> = <%= @Dovecot_Conf.value(v) %>
-<%       end
-       end
--%>
-}'
-
-      eruby = Erubis::Eruby.new(template)
-      eruby.evaluate(
-        :map => map,
-        :Dovecot_Conf => Dovecot::Conf
-      )
+      template = Dovecot::Conf::Templates::MAP
+      evaluate_template(template, map: map)
     end
 
     def self.require?(req, conf)
       case req
-      when 'core'
-        true
-      when 'imap'
-        Dovecot::Protocols.enabled?('imap', conf['protocols'])
-      when 'pop3'
-        Dovecot::Protocols.enabled?('pop3', conf['protocols'])
-      when 'lmtp'
-        Dovecot::Protocols.enabled?('lmtp', conf['protocols'])
-      when 'sieve'
-        Dovecot::Plugins.required?('sieve', conf)
-      when 'ldap'
-        conf['auth']['ldap'].kind_of?(Hash) and conf['auth']['ldap'].length > 0
-      when 'sqlite'
-        conf['conf']['sql']['driver'] == 'sqlite'
-      when 'mysql'
-        conf['conf']['sql']['driver'] == 'mysql'
-      when 'pgsql'
-        conf['conf']['sql']['driver'] == 'pgsql'
+      when 'core' then true
+      when 'imap', 'pop3', 'lmtp' then Conf::Require.protocol?(req, conf)
+      when 'sieve' then Conf::Require.plugin?('sieve', conf)
+      when 'ldap' then Conf::Require.ldap?(conf)
+      when 'sqlite', 'mysql', 'pgsql' then Conf::Require.db?(req, conf)
       else
-        raise "Unknown configuration requirement: #{req.inspect}"
+        fail "Unknown configuration requirement: #{req.inspect}"
       end
     end
-
   end
 end
-

@@ -4,7 +4,7 @@
 #
 # <doc/wiki/AuthDatabase.Dict.txt>
 
-<% if Dovecot::Auth.has_passdb?(@auth['dict']) -%>
+<% if Dovecot::Auth.passdb?(@auth['dict']) -%>
 <%=  Dovecot::Conf.authdb('dict', 'passdb', @auth['dict']['passdb']) %>
 <% else -%>
 passdb {
@@ -16,7 +16,7 @@ passdb {
 }
 <% end -%>
 
-<% if Dovecot::Auth.has_userdb?(@auth['dict']) -%>
+<% if Dovecot::Auth.userdb?(@auth['dict']) -%>
 <%=  Dovecot::Conf.authdb('dict', 'userdb', @auth['dict']['userdb']) %>
 <% else -%>
 userdb {

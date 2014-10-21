@@ -5,7 +5,7 @@
 # passwd-like file with specified location.
 # <doc/wiki/AuthDatabase.PasswdFile.txt>
 
-<% if Dovecot::Auth.has_passdb?(@auth['passwdfile']) -%>
+<% if Dovecot::Auth.passdb?(@auth['passwdfile']) -%>
 <%=  Dovecot::Conf.authdb('passwd-file', 'passdb', @auth['passwdfile']['passdb']) %>
 <% else -%>
 passdb {
@@ -14,7 +14,7 @@ passdb {
 }
 <% end -%>
 
-<% if Dovecot::Auth.has_userdb?(@auth['passwdfile']) -%>
+<% if Dovecot::Auth.userdb?(@auth['passwdfile']) -%>
 <%=  Dovecot::Conf.authdb('passwd-file', 'userdb', @auth['passwdfile']['userdb']) %>
 <% else -%>
 userdb {

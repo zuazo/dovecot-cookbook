@@ -9,7 +9,7 @@
 # PAM is typically used with either userdb passwd or userdb static.
 # REMEMBER: You'll need /etc/pam.d/dovecot file created for PAM
 # authentication to actually work. <doc/wiki/PasswordDatabase.PAM.txt>
-<% if Dovecot::Auth.has_passdb?(@auth['system']) -%>
+<% if Dovecot::Auth.passdb?(@auth['system']) -%>
 <%=  Dovecot::Conf.authdb('pam', 'passdb', @auth['system']['passdb']) %>
 <% else -%>
 passdb {
@@ -52,7 +52,7 @@ passdb {
 
 # System users (NSS, /etc/passwd, or similiar). In many systems nowadays this
 # uses Name Service Switch, which is configured in /etc/nsswitch.conf.
-<% if Dovecot::Auth.has_userdb?(@auth['system']) -%>
+<% if Dovecot::Auth.userdb?(@auth['system']) -%>
 <%=  Dovecot::Conf.authdb('passwd', 'userdb', @auth['system']['userdb']) %>
 <% else -%>
 userdb {

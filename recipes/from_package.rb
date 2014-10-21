@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: dovecot
 # Recipe:: from_package
@@ -17,24 +18,21 @@
 # limitations under the License.
 #
 
-#
-# from_packages
-#
-
 node['dovecot']['packages'].each do |type, pkgs|
-  if pkgs.kind_of?(String)
-    pkgs = [ pkgs ]
-  elsif not pkgs.kind_of?(Array)
-    Chef::Application.fatal!("`node['dovecot']['packages']['#{type}']` should contain an array of packages. You passed: #{pkgs.inspect}")
+  if pkgs.is_a?(String)
+    pkgs = [pkgs]
+  elsif !pkgs.is_a?(Array)
+    fail "`node['dovecot']['packages']['#{type}']` should contain an array of "\
+         "packages. You passed: #{pkgs.inspect}"
   end
 
   pkgs.each do |pkg|
-    package pkg do
+    package "(#{type}) #{pkg}" do
+      package_name pkg
       only_if { Dovecot::Conf.require?(type, node['dovecot']) }
-      if type == 'core' or node['dovecot']['ohai_plugin']['build-options']
+      if type == 'core' || node['dovecot']['ohai_plugin']['build-options']
         notifies :reload, 'ohai[reload_dovecot]', :immediately
       end
     end # package
   end # pkg.each
 end # node['dovecot']['packages'].each
-

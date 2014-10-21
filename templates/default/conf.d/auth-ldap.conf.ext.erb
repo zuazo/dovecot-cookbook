@@ -4,7 +4,7 @@
 #
 # <doc/wiki/AuthDatabase.LDAP.txt>
 
-<% if Dovecot::Auth.has_passdb?(@auth['ldap']) -%>
+<% if Dovecot::Auth.passdb?(@auth['ldap']) -%>
 <%=  Dovecot::Conf.authdb('ldap', 'passdb', @auth['ldap']['passdb']) %>
 <% else -%>
 passdb {
@@ -15,7 +15,7 @@ passdb {
 }
 <% end -%>
 
-<% if Dovecot::Auth.has_userdb?(@auth['ldap']) -%>
+<% if Dovecot::Auth.userdb?(@auth['ldap']) -%>
 <%=  Dovecot::Conf.authdb('ldap', 'userdb', @auth['ldap']['userdb']) %>
 <% else -%>
 # "prefetch" user database means that the passdb already provided the

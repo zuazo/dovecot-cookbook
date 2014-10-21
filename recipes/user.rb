@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: dovecot
 # Recipe:: user
@@ -25,8 +26,7 @@ user node['dovecot']['user'] do
 end
 
 group node['dovecot']['group'] do
-  members [ node['dovecot']['user'] ]
+  members [node['dovecot']['user']]
   system true
   append true
 end
-

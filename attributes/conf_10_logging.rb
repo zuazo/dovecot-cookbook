@@ -1,3 +1,4 @@
+# encoding: UTF-8
 
 # conf.d/10-logging.conf
 
@@ -16,4 +17,3 @@ default['dovecot']['conf']['login_log_format_elements'] = nil
 default['dovecot']['conf']['login_log_format'] = nil
 default['dovecot']['conf']['mail_log_prefix'] = nil
 default['dovecot']['conf']['deliver_log_format'] = nil
-

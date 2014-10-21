@@ -1,3 +1,4 @@
+# encoding: UTF-8
 
 # conf.d/10-auth.conf
 
@@ -20,4 +21,3 @@ default['dovecot']['conf']['auth_winbind_helper_path'] = nil
 default['dovecot']['conf']['auth_failure_delay'] = nil
 default['dovecot']['conf']['auth_ssl_require_client_cert'] = nil
 default['dovecot']['conf']['auth_mechanisms'] = 'plain'
-

@@ -10,7 +10,7 @@
 #  - authentication with SSL certificates
 #  - simple testing
 
-<% if Dovecot::Auth.has_passdb?(@auth['static']) -%>
+<% if Dovecot::Auth.passdb?(@auth['static']) -%>
 <%=  Dovecot::Conf.authdb('static', 'passdb', @auth['static']['passdb']) %>
 <% else -%>
 #passdb {
@@ -24,7 +24,7 @@
 #}
 <% end -%>
 
-<% if Dovecot::Auth.has_userdb?(@auth['static']) -%>
+<% if Dovecot::Auth.userdb?(@auth['static']) -%>
 <%=  Dovecot::Conf.authdb('static', 'userdb', @auth['static']['userdb']) %>
 <% else -%>
 #userdb {

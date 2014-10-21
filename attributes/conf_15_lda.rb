@@ -1,3 +1,4 @@
+# encoding: UTF-8
 
 # conf.d/15-lda.conf
 
@@ -12,4 +13,3 @@ default['dovecot']['conf']['recipient_delimiter'] = nil
 default['dovecot']['conf']['lda_original_recipient_header'] = nil
 default['dovecot']['conf']['lda_mailbox_autocreate'] = nil
 default['dovecot']['conf']['lda_mailbox_autosubscribe'] = nil
-

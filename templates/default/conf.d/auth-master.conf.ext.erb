@@ -6,7 +6,7 @@
 # of "master users", who can log in as anyone else.
 # <doc/wiki/Authentication.MasterUsers.txt>
 
-<% if Dovecot::Auth.has_passdb?(@auth['master']) -%>
+<% if Dovecot::Auth.passdb?(@auth['master']) -%>
 <%=  Dovecot::Conf.authdb('passwd-file', 'passdb', @auth['master']['passdb']) %>
 <% else -%>
 # Example master user passdb using passwd-file. You can use any passdb though.

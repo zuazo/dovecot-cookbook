@@ -1,3 +1,4 @@
+# encoding: UTF-8
 
 # dovecot.conf
 
@@ -13,4 +14,3 @@ default['dovecot']['conf']['doveadm_worker_count'] = nil
 default['dovecot']['conf']['doveadm_socket_path'] = nil
 default['dovecot']['conf']['import_environment'] = nil
 default['dovecot']['conf']['dict'] = nil
-

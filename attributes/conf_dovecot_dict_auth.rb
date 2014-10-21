@@ -1,3 +1,4 @@
+# encoding: UTF-8
 
 # dovecot-dict-auth.conf.ext
 

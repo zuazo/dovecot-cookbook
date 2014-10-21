@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -14,7 +15,8 @@ group :kitchen_common do
 end
 
 group :kitchen_vagrant do
-  gem 'vagrant' , :git => 'git://github.com/mitchellh/vagrant.git', :branch => 'v1.3.5'
+  gem 'vagrant',
+      git: 'git://github.com/mitchellh/vagrant.git', branch: 'v1.3.5'
   gem 'kitchen-vagrant', '~> 0.10'
 end
 

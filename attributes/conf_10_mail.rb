@@ -1,3 +1,4 @@
+# encoding: UTF-8
 
 # conf.d/10-mail.conf
 
@@ -44,4 +45,3 @@ default['dovecot']['conf']['mdbox_preallocate_space'] = nil
 default['dovecot']['conf']['mail_attachment_min_size'] = nil
 default['dovecot']['conf']['mail_attachment_fs'] = nil
 default['dovecot']['conf']['mail_attachment_hash'] = nil
-

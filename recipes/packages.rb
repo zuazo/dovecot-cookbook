@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: dovecot
 # Recipe:: packages
@@ -17,7 +18,8 @@
 # limitations under the License.
 #
 
-log "dovecot deprecation warn" do
-  message "The recipe 'dovecot::packages' will be deprecated in a future version. Please use 'dovecot::from_package' instead"
+log 'dovecot deprecation warn' do
+  message "The recipe 'dovecot::packages' will be deprecated in a future "\
+          "version. Please use 'dovecot::from_package' instead"
   level :info
 end

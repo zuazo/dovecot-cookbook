@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: dovecot_test
 # Recipe:: default
@@ -21,11 +22,12 @@ include_recipe 'dovecot'
 
 ruby_block 'ohai plugin tests' do
   block do
-    unless node['dovecot']['version'].kind_of?(String)
-      raise 'Ohai plugin cannot get dovecot version.'
+    unless node['dovecot']['version'].is_a?(String)
+      fail 'Ohai plugin cannot get dovecot version.'
     end
-    unless node['dovecot']['build-options'].kind_of?(Hash) and node['dovecot']['build-options'].length > 0
-      raise 'Ohai plugin cannot get dovecot build options.'
+    unless node['dovecot']['build-options'].is_a?(Hash) &&
+           node['dovecot']['build-options'].length > 0
+      fail 'Ohai plugin cannot get dovecot build options.'
     end
   end
 end

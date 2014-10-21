@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: dovecot
 # Recipe:: service
@@ -18,10 +19,10 @@
 #
 
 service 'dovecot' do
-  supports :restart => true, :reload => true, :status => true
-  if node['platform'] == 'ubuntu' and Gem::Version.new(node['platform_version']) >= Gem::Version.new('13.10')
+  supports restart: true, reload: true, status: true
+  if node['platform'] == 'ubuntu' &&
+     Gem::Version.new(node['platform_version']) >= Gem::Version.new('13.10')
     provider Chef::Provider::Service::Upstart
   end
-  action [ :enable, :start ]
+  action [:enable, :start]
 end
-

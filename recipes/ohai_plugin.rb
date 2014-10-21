@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: dovecot
 # Recipe:: ohai_plugin
@@ -34,7 +35,7 @@ template "#{node['ohai']['plugin_path']}/dovecot.rb" do
   group 'root'
   mode '0755'
   variables(
-    :enable_build_options => node['dovecot']['ohai_plugin']['build-options']
+    enable_build_options: node['dovecot']['ohai_plugin']['build-options']
   )
   notifies :reload, 'ohai[reload_dovecot]', :immediately
 end
