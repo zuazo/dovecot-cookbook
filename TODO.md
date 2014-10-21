@@ -20,5 +20,5 @@ data. Ignoring command 'provides dovecot/build-options
 * [x] Add Guarfile.
 * [ ] Homogenize license headers.
 * [ ] Use markdown tables.
-* [ ] Update kitchen.yml files.
+* [x] Update kitchen.yml files.
 * [ ] Move test/kitchen/cookbooks to test/cookbooks.
