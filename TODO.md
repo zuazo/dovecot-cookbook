@@ -21,4 +21,4 @@ data. Ignoring command 'provides dovecot/build-options
 * [ ] Homogenize license headers.
 * [ ] Use markdown tables.
 * [x] Update kitchen.yml files.
-* [ ] Move test/kitchen/cookbooks to test/cookbooks.
+* [x] Move test/kitchen/cookbooks to test/cookbooks.
