@@ -44,7 +44,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
   <tr>
     <td><code>node['dovecot']['install_from']</code></td>
-    <td>Determines how Dovecot is installed from. Only `package` is supported for now.</td>
+    <td>Determines how Dovecot is installed from. Only <code>"package"</code> is supported for now.</td>
     <td><code>"package"</code></td>
   </tr>
   <tr>
