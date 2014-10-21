@@ -4,23 +4,35 @@
 
 source 'https://rubygems.org'
 
-gem 'berkshelf', '~> 2.0'
-
-group :lint do
-  gem 'foodcritic', '~> 3.0'
+group :test do
+  gem 'rake'
+  gem 'berkshelf', '~> 3.1'
 end
 
-group :kitchen_common do
+group :style do
+  gem 'foodcritic', '~> 4.0'
+  gem 'rubocop', '~> 0.24'
+end
+
+group :unit do
+  gem 'chefspec', '~> 4.0'
+end
+
+group :integration do
+  gem 'vagrant-wrapper', '~> 1.2'
   gem 'test-kitchen', '~> 1.2'
-end
-
-group :kitchen_vagrant do
-  gem 'vagrant',
-      git: 'git://github.com/mitchellh/vagrant.git', branch: 'v1.3.5'
   gem 'kitchen-vagrant', '~> 0.10'
 end
 
-group :kitchen_cloud do
-  gem 'kitchen-digitalocean', '~> 0.5'
+group :integration, :integration_cloud do
   gem 'kitchen-ec2', '~> 0.8'
+  gem 'kitchen-digitalocean', '~> 0.8'
+end
+
+group :guard do
+  gem 'guard', '~> 2.6'
+  gem 'guard-foodcritic', '~> 1.0'
+  gem 'guard-rubocop', '~> 1.1'
+  gem 'guard-rspec', '~> 4.3'
+  gem 'guard-kitchen', '~> 0.0'
 end
