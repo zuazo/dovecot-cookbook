@@ -37,7 +37,7 @@ end
 
 namespace :travis do
   desc 'Run tests on Travis'
-  task ci: %w(style)
+  task ci: %w(style unit)
 end
 
-task default: %w(style integration)
+task default: %w(style unit integration)
