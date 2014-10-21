@@ -9,11 +9,11 @@ module Dovecot
     end
 
     def self.passdb?(auth)
-      authdb?('passdb')
+      authdb?('passdb', auth)
     end
 
     def self.userdb?(auth)
-      authdb?('userdb')
+      authdb?('userdb', auth)
     end
   end
 end
