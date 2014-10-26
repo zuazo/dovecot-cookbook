@@ -69,7 +69,7 @@ node['dovecot']['conf_files'].each do |type, conf_files|
         namespaces: node['dovecot']['namespaces'],
         conf: node['dovecot']['conf']
       )
-      only_if { Dovecot::Conf.require?(type, node['dovecot']) }
+      action Dovecot::Conf.require?(type, node['dovecot']) ? :create : :delete
       notifies :reload, 'service[dovecot]'
     end # template conf_file
   end # conf_files.each
