@@ -20,6 +20,7 @@ Ohai.plugin(:Dovecot) do
   ENABLE_BUILD_OPTIONS = <%= @enable_build_options.eql?(true).to_s %>
 
   provides 'dovecot', 'dovecot/version'
+  provides 'dovecot/build-options' if ENABLE_BUILD_OPTIONS
 
   def init_dovecot
     dovecot Mash.new
