@@ -23,6 +23,8 @@ require 'chefspec'
 require 'chefspec/berkshelf'
 require 'should_not/rspec'
 
+require 'support/conf_requirements'
+
 RSpec.configure do |config|
   # Prohibit using the should syntax
   config.expect_with :rspec do |spec|

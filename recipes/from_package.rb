@@ -18,6 +18,9 @@
 # limitations under the License.
 #
 
+# Already included in ::default recipe, required for ChefSpec tests
+include_recipe 'dovecot::ohai_plugin'
+
 node['dovecot']['packages'].each do |type, pkgs|
   if pkgs.is_a?(String)
     pkgs = [pkgs]

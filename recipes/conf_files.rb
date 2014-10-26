@@ -74,3 +74,6 @@ node['dovecot']['conf_files'].each do |type, conf_files|
     end # template conf_file
   end # conf_files.each
 end # node['dovecot']['conf_files'].each
+
+# Already included in ::default recipe, required for ChefSpec tests
+include_recipe 'dovecot::service'

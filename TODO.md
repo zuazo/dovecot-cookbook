@@ -2,7 +2,7 @@ TODO
 ====
 
 * [ ] Add unit tests for libraries.
-* [ ] Add ChefSpec tests.
+* [x] Add ChefSpec tests.
 * [ ] Add Serverspec tests.
 * [x] Fix foodcritic offenses.
 * [x] Fix RuboCop offenses.
@@ -16,9 +16,10 @@ WARN: [UNSUPPORTED OPERATION] 'provides' is no longer supported in a
 data. Ignoring command 'provides dovecot/build-options
 ```
 * [ ] Split README file.
-* [ ] Update Vagrantfile.
+* [x] Update Vagrantfile.
 * [x] Add Guarfile.
 * [ ] Homogenize license headers.
 * [ ] Use markdown tables.
 * [x] Update kitchen.yml files.
 * [x] Move test/kitchen/cookbooks to test/cookbooks.
+* [ ] Integrate with `ssl_certificate` cookbook?
