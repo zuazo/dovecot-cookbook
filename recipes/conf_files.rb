@@ -33,7 +33,7 @@ conf_files_dirs.each do |dir|
   directory "#{node['dovecot']['conf_path']}/#{dir}" do
     name ::File.join(node['dovecot']['conf_path'], dir)
     recursive true
-    owner 'root'
+    owner node['dovecot']['conf_files_user']
     group node['dovecot']['group']
     mode '00755'
     only_if { dir != '.' }
