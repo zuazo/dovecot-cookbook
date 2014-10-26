@@ -156,3 +156,5 @@ node.default['dovecot']['services']['imap-login'] =
   }
 
 include_recipe 'dovecot_test::default'
+
+package 'lsof' # required for integration tests

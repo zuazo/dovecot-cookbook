@@ -3,7 +3,7 @@ TODO
 
 * [ ] Add unit tests for libraries.
 * [x] Add ChefSpec tests.
-* [ ] Add Serverspec tests.
+* [x] Add Serverspec tests.
 * [x] Fix foodcritic offenses.
 * [x] Fix RuboCop offenses.
 * [x] Integrate with travis-ci.
