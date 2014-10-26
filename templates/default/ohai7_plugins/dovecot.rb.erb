@@ -64,7 +64,6 @@ Ohai.plugin(:Dovecot) do
     collect_version(stdout) if status === 0
 
     if ENABLE_BUILD_OPTIONS
-      provides 'dovecot/build-options'
       status, stdout, stderr = run_command(:no_status_check => true, :command => 'dovecot --build-options')
       collect_build_options(stdout) if status === 0
     end
