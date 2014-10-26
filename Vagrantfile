@@ -42,8 +42,8 @@ Vagrant.configure('2') do |config|
   # pop3, pop3s, imap, imaps
   config.vm.network :forwarded_port, guest: 110, host: 8110, auto_correct: true
   config.vm.network :forwarded_port, guest: 995, host: 8995, auto_correct: true
-  config.vm.network :forwarded_port, guest: 993, host: 8993, auto_correct: true
   config.vm.network :forwarded_port, guest: 143, host: 8143, auto_correct: true
+  config.vm.network :forwarded_port, guest: 993, host: 8993, auto_correct: true
 
   # The time in seconds that Vagrant will wait for the machine to boot and be
   # accessible.
