@@ -22,6 +22,10 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'libraries'))
 require 'chefspec'
 require 'chefspec/berkshelf'
 require 'should_not/rspec'
+if ENV['TRAVIS'] && RUBY_VERSION >= '2.0'
+  require 'coveralls'
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+end
 
 require 'support/conf_requirements'
 
@@ -46,4 +50,4 @@ RSpec.configure do |config|
   config.version = '12.04'
 end
 
-# at_exit { ChefSpec::Coverage.report! } # still in beta
+at_exit { ChefSpec::Coverage.report! }

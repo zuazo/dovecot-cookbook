@@ -37,3 +37,7 @@ group :guard do
   gem 'guard-rspec', '~> 4.3'
   gem 'guard-kitchen', '~> 0.0'
 end
+
+group :travis do
+  gem 'coveralls', '~> 0.7', require: false
+end
