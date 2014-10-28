@@ -19,13 +19,18 @@
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'libraries'))
 
+require 'simplecov'
+if ENV['TRAVIS'] && RUBY_VERSION >= '2.0'
+  require 'coveralls'
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+end
+SimpleCov.start do
+  add_filter '/spec/'
+end
+
 require 'chefspec'
 require 'chefspec/berkshelf'
 require 'should_not/rspec'
-if ENV['TRAVIS'] && RUBY_VERSION >= '2.0'
-  require 'coveralls'
-  Coveralls.wear!
-end
 
 require 'support/conf_requirements'
 
