@@ -24,9 +24,7 @@ if ENV['TRAVIS'] && RUBY_VERSION >= '2.0'
   require 'coveralls'
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 end
-SimpleCov.start do
-  add_filter '/spec/'
-end
+SimpleCov.start
 
 require 'chefspec'
 require 'chefspec/berkshelf'
