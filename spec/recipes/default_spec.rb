@@ -39,12 +39,8 @@ describe 'dovecot::default' do
   xcontext 'with install from source (not yet implemented)' do
     before { node.set['dovecot']['install_from'] = 'source' }
 
-    it 'includes dovecot::from_source recipe' do
-      expect(chef_run).to include_recipe('dovecot::from_source')
-    end
+    it 'includes dovecot::from_source recipe'
 
-    it 'does not include dovecot::from_source recipe' do
-      expect(chef_run).to_not include_recipe('dovecot::from_package')
-    end
+    it 'does not include dovecot::from_source recipe'
   end # context with install from source
 end
