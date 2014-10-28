@@ -19,7 +19,8 @@ data. Ignoring command 'provides dovecot/build-options
 * [x] Update Vagrantfile.
 * [x] Add Guarfile.
 * [x] Homogenize license headers.
-* [ ] Use markdown tables.
+* [ ] Use markdown tables in the README.
+* [ ] Use single quotes in README examples.
 * [x] Update kitchen.yml files.
 * [x] Move test/kitchen/cookbooks to test/cookbooks.
 * [ ] Install from sources.
