@@ -22,6 +22,11 @@ require 'spec_helper'
 describe 'dovecot::ohai_plugin' do
   let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
+  it 'creates ohai reload resource' do
+    resource = chef_run.ohai('reload_dovecot')
+    expect(resource).to do_nothing
+  end
+
   it 'installs dovecot plugin' do
     expect(chef_run).to create_template('/etc/chef/ohai_plugins/dovecot.rb')
       .with_owner('root')

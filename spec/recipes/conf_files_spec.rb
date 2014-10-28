@@ -55,6 +55,10 @@ describe 'dovecot::conf_files' do
       .with_mode('00755')
   end
 
+  it 'avoids the creation of /etc/dovecot/. (with dot) directory' do
+    expect(chef_run).to_not create_directory('/etc/dovecot/.')
+  end
+
   shared_examples 'a template' do
     it 'creates the template' do
       expect(chef_run).to create_template("(#{type}) #{template}")

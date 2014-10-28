@@ -70,6 +70,10 @@ describe 'dovecot::from_package' do
     it 'does not fail' do
       expect { chef_run }.to_not raise_error
     end
+
+    it 'installs the package' do
+      expect(chef_run).to install_package('(core) my_package')
+    end
   end
 
   context 'when node[dovecot][packages][type] is a string' do
@@ -77,6 +81,10 @@ describe 'dovecot::from_package' do
 
     it 'does not fail' do
       expect { chef_run }.to_not raise_error
+    end
+
+    it 'installs the package' do
+      expect(chef_run).to install_package('(core) my_package')
     end
   end
 
