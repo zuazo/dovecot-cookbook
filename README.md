@@ -195,7 +195,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
 </table>
 
-## Main configuration attributes
+## Main Configuration Attributes
 
 * Configuration file: `dovecot.conf`.
 
@@ -267,7 +267,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
 </table>
 
-## Authentication processes attributes
+## Authentication Processes Attributes
 
 * Configuration file: `conf.d/10-auth.conf`.
 
@@ -374,7 +374,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
 </table>
 
-## Director-specific attributes
+## Director-specific Attributes
 
 * Configuration file: `conf.d/10-director.conf`.
 
@@ -406,7 +406,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
 </table>
 
-## Log destination attributes
+## Log Destination Attributes
 
 * Configuration file: `conf.d/10-logging.conf`.
 
@@ -493,7 +493,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
 </table>
 
-## Mailbox locations and namespaces attributes
+## Mailbox Locations and Namespaces Attributes
 
 * Configuration file: `conf.d/10-mail.conf`.
 
@@ -715,7 +715,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
 </table>
 
-## Master configuration file attributes
+## Master Configuration File Attributes
 
 * Configuration file: `conf.d/10-master.conf`.
 
@@ -752,7 +752,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
 </table>
 
-## SSL attributes
+## SSL Attributes
 
 * Configuration file: `conf.d/10-ssl.conf`.
 
@@ -809,7 +809,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   </tr>
 </table>
 
-## LDA specific attributes
+## LDA Specific Attributes
 
 Also used by LMTP.
 
@@ -878,7 +878,7 @@ Also used by LMTP.
   </tr>
 </table>
 
-## LMTP specific attributes
+## LMTP Specific Attributes
 
 * Configuration file: `conf.d/20-lmtp.conf`
 
@@ -900,7 +900,7 @@ Also used by LMTP.
   </tr>
 </table>
 
-## Berkeley DB DB_CONFIG attributes
+## Berkeley DB DB_CONFIG Attributes
 
 * Configuration file: `dovecot-db.conf.ext`.
 
@@ -917,7 +917,7 @@ Also used by LMTP.
   </tr>
 </table>
 
-## Dictionary quota SQL attributes
+## Dictionary Quota SQL Attributes
 
 * Configuration files: `dovecot-dict-sql.conf.ext`.
 
@@ -939,7 +939,7 @@ Also used by LMTP.
   </tr>
 </table>
 
-## LDAP authentication attributes
+## LDAP Authentication Attributes
 
 * Condiguration files: `dovecot-ldap.conf.ext`.
 
@@ -1101,7 +1101,7 @@ Also used by LMTP.
   </tr>
 </table>
 
-## SQL authentication attributes
+## SQL Authentication Attributes
 
 * Configuration file: `dovecot-sql.conf.ext`.
 
@@ -1143,7 +1143,7 @@ Also used by LMTP.
   </tr>
 </table>
 
-## Distribution packages names attributes
+## Distribution Packages Names Attributes
 
 These attributes below contain the default required distribution packages for the supported platforms. But you are free to create your own to support other platforms. Keep in mind that all are put inside a subkey (`type`). This `node['dovecot']['packages'][type]` attribute is then used together with the `node['dovecot']['conf_files'][type]` attribute to generate the configuration files. 
 
