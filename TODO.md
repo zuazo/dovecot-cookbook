@@ -15,7 +15,7 @@ WARN: [UNSUPPORTED OPERATION] 'provides' is no longer supported in a
 'collect_data' context. Please specify 'provides' before collecting plugin
 data. Ignoring command 'provides dovecot/build-options
 ```
-* [ ] Split README file.
+* [x] Split README file.
 * [x] Update Vagrantfile.
 * [x] Add Guarfile.
 * [x] Homogenize license headers.

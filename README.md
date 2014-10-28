@@ -10,23 +10,23 @@ Installs and configures [Dovecot](http://www.dovecot.org/), open source IMAP and
 Requirements
 ============
 
-## Platform:
+## Supported Platforms
 
 This cookbook has been tested on the following platforms:
 
-* CentOS >= 6.0
-* Debian >= 7.0
-* Fedora >= 18.0
-* Ubuntu >= 12.04
+* CentOS `>= 6.0`
+* Debian `>= 7.0`
+* Fedora `>= 18.0`
+* Ubuntu `>= 12.04`
 * Amazon
 
 Let me know if you use it successfully on any other platform.
 
-## Cookbooks:
+## Required Cookbooks
 
-* ohai
+* [ohai](https://supermarket.getchef.com/cookbooks/ohai)
 
-## Applications:
+## Required Applications
 
 * **Dovecot >= 2**: requires this version of dovecot to be available by the distribution's package manager.
 * Ruby `>= 1.9.3`
@@ -1665,59 +1665,22 @@ If you want a more complete example, you can look at the [postfix-dovecot](https
 Testing
 =======
 
-## Requirements
-
-* `vagrant`
-* `berkshelf` >= `2.0`
-* `test-kitchen` >= `1.2`
-* `kitchen-vagrant` >= `0.10`
-
-## Running the tests
-
-```bash
-$ kitchen test
-$ kitchen verify
-[...]
-```
-
-### Running the tests in the cloud
-
-#### Requirements:
-
-* `kitchen-vagrant` >= `0.10`
-* `kitchen-digitalocean` >= `0.5`
-* `kitchen-ec2` >= `0.8`
-
-You can run the tests in the cloud instead of using vagrant. First, you must set the following environment variables:
-
-* `AWS_ACCESS_KEY_ID`
-* `AWS_SECRET_ACCESS_KEY`
-* `AWS_KEYPAIR_NAME`: EC2 SSH public key name. This is the name used in Amazon EC2 Console's Key Pars section.
-* `EC2_SSH_KEY_PATH`: EC2 SSH private key local full path. Only when you are not using an SSH Agent.
-* `DIGITALOCEAN_ACCESS_TOKEN`
-* `DIGITALOCEAN_SSH_KEY_IDS`: DigitalOcean SSH numeric key IDs.
-* `DIGITALOCEAN_SSH_KEY_PATH`: DigitalOcean SSH private key local full path. Only when you are not using an SSH Agent.
-
-Then, you must configure test-kitchen to use `.kitchen.cloud.yml` configuration file:
-
-```
-$ export KITCHEN_LOCAL_YAML=".kitchen.cloud.yml"
-$ kitchen list
-[...]
-```
+See [TESTING.md](https://github.com/onddo/dovecot-cookbook/blob/master/TESTING.md).
 
 Contributing
 ============
 
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write you change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+Please do not hesitate to [open an issue](https://github.com/onddo/dovecot-cookbook/issues/new) with any questions or problems.
+
+See [CONTRIBUTING.md](https://github.com/onddo/dovecot-cookbook/blob/master/CONTRIBUTING.md).
+
+TODO
+====
+
+See [TODO.md](https://github.com/onddo/dovecot-cookbook/blob/master/TODO.md).
 
 License and Author
-=====================
+==================
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
@@ -1742,4 +1705,3 @@ License and Author
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
