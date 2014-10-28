@@ -38,8 +38,8 @@ module Dovecot
           node.set['dovecot']['protocols'][type] = 'disabled'
         when 'sieve' then node.set['dovecot']['conf']['mail_plugins'] = []
         when 'ldap' then node.set['dovecot']['auth']['ldap'] = 'disabled'
-        when 'sqlite', 'mysql', 'pgsql'
-          node.set['dovecot']['conf']['sql']['driver'] = 'disabled'
+          # when 'sqlite', 'mysql', 'pgsql'
+          # node.set['dovecot']['conf']['sql']['driver'] = 'disabled'
         end
       end
     end

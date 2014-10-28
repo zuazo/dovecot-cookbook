@@ -54,7 +54,7 @@ describe 'dovecot::user' do
       end
 
       it 'has /usr/libexec/dovecot as home' do
-        create_user(user).with_home('/usr/libexec/dovecot')
+        expect(chef_run).to create_user(user).with_home('/usr/libexec/dovecot')
       end
     end # context in CentOS
 
