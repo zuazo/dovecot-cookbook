@@ -7,6 +7,7 @@ Testing
 * `foodcritic`
 * `rubocop`
 * `berkshelf`
+* `simplecov`
 * `should_not`
 * `chefspec`
 * `test-kitchen`
