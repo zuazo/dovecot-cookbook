@@ -30,5 +30,6 @@ else
     add_group 'RSpec' do |src|
       %r{/spec/(unit|functional|integration|libraries)}.match(src.filename)
     end
+    add_group 'RSpec Support', '/spec/support'
   end
 end
