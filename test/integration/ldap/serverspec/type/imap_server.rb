@@ -32,7 +32,7 @@ module Serverspec
       end
 
       def to_s
-        %Q(IMAP "imap://#{@host}")
+        %(IMAP "imap://#{@host}")
       end
 
       protected
@@ -79,9 +79,7 @@ end
 include Serverspec::Type
 
 RSpec::Matchers.define :connect do
-  match do |subject|
-    subject.connects?
-  end
+  match(&:connects?)
 end
 
 RSpec::Matchers.define :authenticate do |user, pass, auth_type = 'PLAIN'|

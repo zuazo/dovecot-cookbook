@@ -24,7 +24,7 @@ module Dovecot
   module Auth
     def self.authdb?(type, auth)
       auth.is_a?(Hash) && auth.length > 0 &&
-       (auth[type].is_a?(Hash) || auth[type].is_a?(Array))
+        (auth[type].is_a?(Hash) || auth[type].is_a?(Array))
     end
 
     def self.passdb?(auth)

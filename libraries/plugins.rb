@@ -24,7 +24,7 @@ module Dovecot
   module Plugins
     def self.require_plugin?(plugin, conf)
       conf.key?('mail_plugins') &&
-      conf['mail_plugins'].include?(plugin)
+        conf['mail_plugins'].include?(plugin)
     end
 
     def self.required?(plugin, attrs)

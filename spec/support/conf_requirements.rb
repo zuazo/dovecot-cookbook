@@ -21,25 +21,53 @@ module Dovecot
   module Conf
     # Helper module to force some requirements
     module Requirements
+      def self.enable_protocol(node, proto)
+        node.set['dovecot']['protocols'][proto] = Mash.new
+      end
+
+      def self.disable_protocol(node, proto)
+        node.set['dovecot']['protocols'][proto] = 'disabled'
+      end
+
+      def self.enable_sieve(node)
+        node.set['dovecot']['conf']['mail_plugins'] = %w(sieve)
+      end
+
+      def self.disable_sieve(node)
+        node.set['dovecot']['conf']['mail_plugins'] = %w()
+      end
+
+      def self.enable_ldap(node)
+        node.set['dovecot']['conf']['ldap']['auth_bind'] = true
+      end
+
+      def self.disable_ldap(node)
+        node.set['dovecot']['conf']['ldap']['auth_bind'] = 'disabled'
+      end
+
+      def self.enable_driver(node, driver)
+        node.set['dovecot']['conf']['sql']['driver'] = driver
+      end
+
+      # def self.disable_driver(node)
+      #   node.set['dovecot']['conf']['sql']['driver'] = 'disabled'
+      # end
+
       def self.set(type, node)
         case type
-        when 'imap', 'pop3', 'lmtp'
-          node.set['dovecot']['protocols'][type] = Mash.new
-        when 'sieve' then node.set['dovecot']['conf']['mail_plugins'] = [type]
-        when 'ldap' then node.set['dovecot']['conf']['ldap']['auth_bind'] = true
-        when 'sqlite', 'mysql', 'pgsql'
-          node.set['dovecot']['conf']['sql']['driver'] = type
+        when 'imap', 'pop3', 'lmtp' then enable_protocol(node, type)
+        when 'sieve' then enable_sieve(node)
+        when 'ldap' then enable_ldap(node)
+        when 'sqlite', 'mysql', 'pgsql' then enable_driver(node, type)
         end
       end
 
       def self.unset(type, node)
         case type
-        when 'imap', 'pop3', 'lmtp'
-          node.set['dovecot']['protocols'][type] = 'disabled'
-        when 'sieve' then node.set['dovecot']['conf']['mail_plugins'] = []
-        when 'ldap' then node.set['dovecot']['conf']['ldap']['auth_bind'] = nil
-          # when 'sqlite', 'mysql', 'pgsql'
-          # node.set['dovecot']['conf']['sql']['driver'] = 'disabled'
+        when 'imap', 'pop3', 'lmtp' then disable_protocol(node, type)
+        when 'sieve' then disable_sieve(node)
+        when 'ldap' then disable_ldap(node)
+          # when 'sqlite', 'mysql', 'pgsql' then disable_driver(node)
         end
       end
     end

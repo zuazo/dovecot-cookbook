@@ -54,7 +54,5 @@ describe 'dovecot::service' do
           .with_provider(Chef::Provider::Service::Upstart)
       end
     end # context with Ubuntu 13.10
-
   end # context the dovecot service
-
 end

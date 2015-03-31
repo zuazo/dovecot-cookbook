@@ -57,7 +57,6 @@ describe 'dovecot::user' do
         expect(chef_run).to create_user(user).with_home('/usr/libexec/dovecot')
       end
     end # context in CentOS
-
   end # describe the dovecot user
 
   it 'creates the dovecot group' do
@@ -81,5 +80,4 @@ describe 'dovecot::user' do
       end
     end # describe users
   end # describe the dovecot group
-
 end
