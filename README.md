@@ -1529,7 +1529,112 @@ node.default['dovecot']['services']['imap-login'] = {
 }
 ```
 
-## Complete Example
+## LDAP Example
+
+This is a recipe example to integrate Dovecot with [OpenLDAP](http://www.openldap.org/). The following cookbooks are used:
+
+* [`openldap`](https://supermarket.chef.io/cookbooks/openldap)
+* [`ldap`](https://supermarket.chef.io/cookbooks/ldap)
+
+```ruby
+# Function to generate the passwords in LDAP format
+def generate_ldap_password(password, salt = '12345')
+  require 'digest'
+  require 'base64'
+  digest = Digest::SHA1.digest(password + salt)
+  '{SSHA}' + Base64.encode64(digest + salt).chomp
+end
+recipe = self
+
+# Create LDAP credentials
+ldap_password = 'secretsauce'
+ldap_credentials = {
+  'bind_dn' => "cn=#{node['openldap']['cn']},#{node['openldap']['basedn']}",
+  'password' => ldap_password
+}
+
+# Configure OpenLDAP server
+node.default['openldap']['tls_enabled'] = false
+node.default['openldap']['rootpw'] = generate_ldap_password(ldap_password)
+node.default['openldap']['loglevel'] = 'any'
+
+include_recipe 'openldap::server'
+
+# Create some LDAP entries as an example
+
+include_recipe 'ldap'
+
+ldap_entry node['openldap']['basedn'] do
+  attributes objectClass: %w(top dcObject organization),
+             o: 'myorg',
+             dc: 'myorg',
+             description: 'My organization'
+  credentials ldap_credentials
+end
+
+ldap_entry "ou=accounts,#{node['openldap']['basedn']}" do
+  attributes objectClass: %w(top organizationalUnit),
+             ou: 'accounts',
+             description: 'Dovecot email accounts'
+  credentials ldap_credentials
+end
+
+ldap_entry "cn=dovecot,ou=accounts,#{node['openldap']['basedn']}" do
+  attributes objectClass: %w(top person),
+             cn: 'dovecot',
+             sn: 'dovecot'
+  credentials ldap_credentials
+end
+
+# Create an email account
+
+email_account = {
+  cn: 'Ole Wobble Olson',
+  sn: 'Olson',
+  uid: 'wobble',
+  uidNumber: '1002', # should be an string for ldap_entry
+  gidNumber: '100',
+  homeDirectory: '/home/wobble',
+  userPassword: recipe.generate_ldap_password('w0bbl3_p4ss')
+}
+
+ldap_entry "uid=wobble,ou=accounts,#{node['openldap']['basedn']}" do
+  attributes email_account.merge(objectClass: %w(top person posixAccount))
+  credentials ldap_credentials
+end
+
+# Create home directory for the email account
+directory email_account[:homeDirectory] do
+  owner email_account[:uidNumber].to_i # should be an integer for directory
+  group email_account[:gidNumber].to_i
+end
+
+# Dovecot IMAP configuration
+node.default['dovecot']['conf']['mail_location'] = 'maildir:~/Maildir'
+node.default['dovecot']['protocols']['imap'] = {}
+node.default['dovecot']['services']['imap-login'] =
+  {
+    'listeners' =>
+      [
+        { 'inet:imap' => { 'port' => 143 } },
+        { 'inet:imaps' => { 'port' => 993, 'ssl' => true } }
+      ],
+    'service_count' => 1,
+    'process_min_avail' => 0,
+    'vsz_limit' => '64M'
+  }
+
+# Dovecot LDAP configuration
+node.default['dovecot']['conf']['ldap']['auth_bind'] = true
+node.default['dovecot']['conf']['ldap']['hosts'] = %w(localhost)
+node.default['dovecot']['conf']['ldap']['dn'] = ldap_credentials['bind_dn']
+node.default['dovecot']['conf']['ldap']['dnpass'] = ldap_credentials['password']
+node.default['dovecot']['conf']['ldap']['base'] = node['openldap']['basedn']
+
+include_recipe 'dovecot'
+```
+
+## A Complete Example
 
 This is a complete recipe example for installing and configuring Dovecot 2 to work with PostfixAdmin MySQL tables, including IMAP service:
 

@@ -19,6 +19,7 @@
 # limitations under the License.
 #
 
+# Function to generate the passwords in LDAP format
 def generate_ldap_password(password, salt = '12345')
   require 'digest'
   require 'base64'
@@ -27,17 +28,22 @@ def generate_ldap_password(password, salt = '12345')
 end
 recipe = self
 
+# Create LDAP credentials
 ldap_password = 'secretsauce'
 ldap_credentials = {
   'bind_dn' => "cn=#{node['openldap']['cn']},#{node['openldap']['basedn']}",
   'password' => ldap_password
 }
 
+# Configure OpenLDAP server
 node.default['openldap']['tls_enabled'] = false
 node.default['openldap']['rootpw'] = generate_ldap_password(ldap_password)
 node.default['openldap']['loglevel'] = 'any'
 
 include_recipe 'openldap::server'
+
+# Create some LDAP entries as an example
+
 include_recipe 'ldap'
 
 ldap_entry node['openldap']['basedn'] do
@@ -62,6 +68,8 @@ ldap_entry "cn=dovecot,ou=accounts,#{node['openldap']['basedn']}" do
   credentials ldap_credentials
 end
 
+# Create an email account
+
 email_account = {
   cn: 'Ole Wobble Olson',
   sn: 'Olson',
@@ -77,7 +85,7 @@ ldap_entry "uid=wobble,ou=accounts,#{node['openldap']['basedn']}" do
   credentials ldap_credentials
 end
 
-# Create email account home directory
+# Create home directory for the email account
 directory email_account[:homeDirectory] do
   owner email_account[:uidNumber].to_i # should be an integer for directory
   group email_account[:gidNumber].to_i
