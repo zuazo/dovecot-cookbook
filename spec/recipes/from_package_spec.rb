@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -150,7 +150,7 @@ describe 'dovecot::from_package' do
     end
 
     it 'installs dovecot package' do
-      expect(chef_run).to install_package('dovecot')
+      expect(chef_run).to install_package('(core) dovecot')
     end
 
     {
@@ -181,7 +181,7 @@ describe 'dovecot::from_package' do
     before { node.automatic['platform'] = 'arch' }
 
     it 'installs dovecot package' do
-      expect(chef_run).to install_package('dovecot')
+      expect(chef_run).to install_package('(core) dovecot')
     end
 
     {
