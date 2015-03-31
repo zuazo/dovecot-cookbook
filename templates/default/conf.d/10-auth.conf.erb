@@ -122,7 +122,7 @@
 
 <%= '#' unless @auth['system'].kind_of?(Hash) %>!include auth-system.conf.ext
 <%= '#' unless @auth['sql'].kind_of?(Hash) %>!include auth-sql.conf.ext
-<%= '#' unless @auth['ldap'].kind_of?(Hash) %>!include auth-ldap.conf.ext
+<%= '#' unless Dovecot::Conf::Require.ldap?(@conf) %>!include auth-ldap.conf.ext
 <%= '#' unless @auth['passwdfile'].kind_of?(Hash) %>!include auth-passwdfile.conf.ext
 <%= '#' unless @auth['checkpassword'].kind_of?(Hash) %>!include auth-checkpassword.conf.ext
 <%= '#' unless @auth['vpopmail'].kind_of?(Hash) %>!include auth-vpopmail.conf.ext

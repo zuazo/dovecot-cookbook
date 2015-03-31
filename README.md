@@ -1691,7 +1691,7 @@ License and Author
 | **Contributor:**     | [Arnold Krille](https://github.com/kampfschlaefer)
 | **Contributor:**     | [claudex](https://github.com/claudex)
 | **Contributor:**     | [Jordi Llonch](https://github.com/llonchj)
-| **Copyright:**       | Copyright (c) 2013-2014, Onddo Labs, SL. (www.onddo.com)
+| **Copyright:**       | Copyright (c) 2013-2015, Onddo Labs, SL. (www.onddo.com)
 | **License:**         | Apache License, Version 2.0
 
     Licensed under the Apache License, Version 2.0 (the "License");

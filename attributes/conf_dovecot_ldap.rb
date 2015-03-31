@@ -3,7 +3,7 @@
 # Cookbook Name:: dovecot
 # Attributes:: conf_dovecot_ldap
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,7 +47,6 @@ default['dovecot']['conf']['ldap']['deref'] = nil
 default['dovecot']['conf']['ldap']['scope'] = nil
 default['dovecot']['conf']['ldap']['user_attrs'] = nil
 default['dovecot']['conf']['ldap']['user_filter'] = nil
-default['dovecot']['conf']['ldap']['pass_attrs'] = nil
 default['dovecot']['conf']['ldap']['pass_attrs'] = nil
 default['dovecot']['conf']['ldap']['pass_filter'] = nil
 default['dovecot']['conf']['ldap']['iterate_attrs'] = nil

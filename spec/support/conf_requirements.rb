@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ module Dovecot
         when 'imap', 'pop3', 'lmtp'
           node.set['dovecot']['protocols'][type] = Mash.new
         when 'sieve' then node.set['dovecot']['conf']['mail_plugins'] = [type]
-        when 'ldap' then node.set['dovecot']['auth']['ldap'] = Mash.new(a: 1)
+        when 'ldap' then node.set['dovecot']['conf']['ldap']['auth_bind'] = true
         when 'sqlite', 'mysql', 'pgsql'
           node.set['dovecot']['conf']['sql']['driver'] = type
         end
@@ -37,7 +37,7 @@ module Dovecot
         when 'imap', 'pop3', 'lmtp'
           node.set['dovecot']['protocols'][type] = 'disabled'
         when 'sieve' then node.set['dovecot']['conf']['mail_plugins'] = []
-        when 'ldap' then node.set['dovecot']['auth']['ldap'] = 'disabled'
+        when 'ldap' then node.set['dovecot']['conf']['ldap']['auth_bind'] = nil
           # when 'sqlite', 'mysql', 'pgsql'
           # node.set['dovecot']['conf']['sql']['driver'] = 'disabled'
         end

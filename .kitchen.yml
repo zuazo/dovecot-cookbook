@@ -27,6 +27,9 @@ suites:
 - name: default
   run_list:
   - recipe[dovecot_test]
+- name: ldap
+  run_list:
+  - recipe[dovecot_test::ldap]
 - name: attributes
   run_list:
   - recipe[dovecot_test::attributes]

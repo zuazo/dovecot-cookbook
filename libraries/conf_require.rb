@@ -3,7 +3,7 @@
 # Cookbook Name:: dovecot
 # Library:: conf_require
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,20 +25,20 @@ module Dovecot
   module Conf
     # Helper module to check configuration requirements
     module Require
-      def self.protocol?(proto, conf)
-        Dovecot::Protocols.enabled?(proto, conf['protocols'])
+      def self.protocol?(proto, gconf)
+        Dovecot::Protocols.enabled?(proto, gconf['protocols'])
       end
 
-      def self.plugin?(plugin, conf)
-        Dovecot::Plugins.required?(plugin, conf)
+      def self.plugin?(plugin, gconf)
+        Dovecot::Plugins.required?(plugin, gconf)
       end
 
       def self.ldap?(conf)
-        conf['auth']['ldap'].is_a?(Hash) && conf['auth']['ldap'].length > 0
+        [true, false].include?(conf['ldap']['auth_bind'])
       end
 
       def self.db?(db, conf)
-        conf['conf']['sql']['driver'] == db
+        conf['sql']['driver'] == db
       end
     end
   end

@@ -1,8 +1,7 @@
 # encoding: UTF-8
 #
-# Cookbook Name:: dovecot_test
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,16 +17,8 @@
 # limitations under the License.
 #
 
-name 'dovecot_test'
-maintainer 'Onddo Labs, Sl.'
-maintainer_email 'team@onddo.com'
-license 'Apache 2.0'
-description 'Installs/Configures dovecot_test'
-description 'This cookbook is used with test-kitchen to test the parent, '\
-            'dovecot cookbook'
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '0.1.0'
+require 'spec_helper'
 
-depends 'dovecot'
-depends 'ldap', '~> 1.0'
-depends 'openldap', '~> 2.1'
+describe process('dovecot') do
+  it { should be_running }
+end

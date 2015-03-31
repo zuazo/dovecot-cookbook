@@ -3,7 +3,7 @@
 # Cookbook Name:: dovecot
 # Library:: conf
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2013-2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -93,8 +93,8 @@ module Dovecot
       when 'core' then true
       when 'imap', 'pop3', 'lmtp' then Conf::Require.protocol?(req, conf)
       when 'sieve' then Conf::Require.plugin?('sieve', conf)
-      when 'ldap' then Conf::Require.ldap?(conf)
-      when 'sqlite', 'mysql', 'pgsql' then Conf::Require.db?(req, conf)
+      when 'ldap' then Conf::Require.ldap?(conf['conf'])
+      when 'sqlite', 'mysql', 'pgsql' then Conf::Require.db?(req, conf['conf'])
       else
         fail "Unknown configuration requirement: #{req.inspect}"
       end
