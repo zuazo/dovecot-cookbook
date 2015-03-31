@@ -15,19 +15,26 @@ platforms:
   run_list: ["recipe[apt]"]
 - name: ubuntu-14.04
   run_list: ["recipe[apt]"]
-- name: debian-7.6
+- name: ubuntu-14.10
   run_list: ["recipe[apt]"]
-- name: centos-6.5
+- name: debian-7.8
+  run_list: ["recipe[apt]"]
+- name: centos-6.6
 - name: centos-7.0
-- name: fedora-18
-- name: fedora-19
 - name: fedora-20
+- name: fedora-21
 
 suites:
 - name: default
   run_list:
   - recipe[dovecot_test]
 - name: ldap
+  excludes:
+  # openldap cookbook does not work
+  - centos-6.6
+  - centos-7.0
+  - fedora-20
+  - fedora-21
   run_list:
   - recipe[dovecot_test::ldap]
 - name: attributes
