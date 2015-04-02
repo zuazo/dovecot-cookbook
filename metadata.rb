@@ -385,7 +385,9 @@ attribute 'dovecot/conf/login_access_sockets',
 
 attribute 'dovecot/conf/auth_proxy_self',
           display_name: 'auth proxy self',
-          description: 'With proxy_maybe=yes if proxy destination matches any of these IPs, don\'t do proxying.',
+          description:
+            'With proxy_maybe=yes if proxy destination matches any of these '\
+            'IPs, don\'t do proxying.',
           type: 'string',
           required: 'optional',
           default: 'nil'
