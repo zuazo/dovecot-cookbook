@@ -236,6 +236,11 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     <td><em>nil</em></td>
   </tr>
   <tr>
+    <td><code>node['dovecot']['conf']['auth_proxy_self']</code></td>
+    <td>With proxy_maybe=yes if proxy destination matches any of these IPs, don't do proxying.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
     <td><code>node['dovecot']['conf']['verbose_proctitle']</code></td>
     <td>Show more verbose process titles (in ps).</td>
     <td><em>nil</em></td>
@@ -404,6 +409,11 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     <td>TCP/IP port that accepts doveadm connections (instead of director connections).</td>
     <td><em>nil</em></td>
   </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['director_username_hash']</code></td>
+    <td>How the username is translated before being hashed.</td>
+    <td><em>nil</em></td>
+  </tr>
 </table>
 
 ## Log Destination Attributes
@@ -509,6 +519,11 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     <td><em>nil</em></td>
   </tr>
   <tr>
+    <td><code>node['dovecot']['conf']['mail_shared_explicit_inbox']</code></td>
+    <td>Should shared INBOX be visible as "shared/user" or "shared/user/INBOX"?</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
     <td><code>node['dovecot']['conf']['mail_uid']</code></td>
     <td>System user used to access mails.</td>
     <td><em>nil</em></td>
@@ -531,6 +546,11 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   <tr>
     <td><code>node['dovecot']['conf']['mail_full_filesystem_access']</code></td>
     <td>Allow full filesystem access to clients.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['mail_attribute_dict']</code></td>
+    <td>Dictionary for key=value mailbox attributes. Currently used by URLAUTH.</td>
     <td><em>nil</em></td>
   </tr>
   <tr>
@@ -629,6 +649,16 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     <td><em>nil</em></td>
   </tr>
   <tr>
+    <td><code>node['dovecot']['conf']['mail_prefetch_count']</code></td>
+    <td>Max number of mails to keep open and prefetch to memory.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['mail_temp_scan_interval']</code></td>
+    <td>How often to scan for stale temporary files and delete them (0 = never).</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
     <td><code>node['dovecot']['conf']['maildir_stat_dirs']</code></td>
     <td>By default LIST command returns all entries in maildir beginning with a dot.</td>
     <td><em>nil</em></td>
@@ -641,6 +671,16 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   <tr>
     <td><code>node['dovecot']['conf']['maildir_very_dirty_syncs']</code></td>
     <td>Assume Dovecot is the only MUA accessing Maildir.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['maildir_broken_filename_sizes']</code></td>
+    <td>If enabled, Dovecot doesn't use the S=<size> in the Maildir filenames for getting the mail's physical size, except when recalculating Maildir++ quota.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['maildir_empty_new']</code></td>
+    <td>Always move mails from new/ directory to cur/, even when the \Recent flags aren't being reset.</td>
     <td><em>nil</em></td>
   </tr>
   <tr>
@@ -684,6 +724,11 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     <td><em>nil</em></td>
   </tr>
   <tr>
+    <td><code>node['dovecot']['conf']['mbox_md5']</code></td>
+    <td>Mail header selection algorithm to use for MD5 POP3 UIDLs when pop3_uidl_format=%m.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
     <td><code>node['dovecot']['conf']['mdbox_rotate_size']</code></td>
     <td>Maximum dbox file size until it's rotated.</td>
     <td><em>nil</em></td>
@@ -696,6 +741,11 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
   <tr>
     <td><code>node['dovecot']['conf']['mdbox_preallocate_space']</code></td>
     <td>When creating new mdbox files, immediately preallocate their size to mdbox_rotate_size.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['mail_attachment_dir']</code></td>
+    <td>Directory root where to store mail attachments. Disabled, if empty.</td>
     <td><em>nil</em></td>
   </tr>
   <tr>
@@ -788,6 +838,21 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     <td><em>nil</em></td>
   </tr>
   <tr>
+    <td><code>node['dovecot']['conf']['ssl_require_crl']</code></td>
+    <td>Require that CRL check succeeds for client certificates.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['ssl_client_ca_dir']</code></td>
+    <td>Directory for trusted SSL CA certificates. These are used only when Dovecot needs to act as an SSL client.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['ssl_client_ca_file']</code></td>
+    <td>File for trusted SSL CA certificates. These are used only when Dovecot needs to act as an SSL client.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
     <td><code>node['dovecot']['conf']['ssl_verify_client_cert']</code></td>
     <td>Request client to send a certificate.</td>
     <td><em>nil</em></td>
@@ -803,8 +868,33 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
     <td><em>nil</em></td>
   </tr>
   <tr>
+    <td><code>node['dovecot']['conf']['ssl_dh_parameters_length']</code></td>
+    <td>DH parameters length to use.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['ssl_protocols']</code></td>
+    <td>SSL protocols to use.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
     <td><code>node['dovecot']['conf']['ssl_cipher_list']</code></td>
     <td>SSL ciphers to use</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['ssl_prefer_server_ciphers']</code></td>
+    <td>Prefer the server's order of ciphers over client's.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['ssl_crypto_device']</code></td>
+    <td>SSL crypto device to use, for valid values run <code>$ openssl engine</code>.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['ssl_options']</code></td>
+    <td>SSL extra options. Currently supported options are: <code>'no_compression'</code></td>
     <td><em>nil</em></td>
   </tr>
 </table>
@@ -896,6 +986,11 @@ Also used by LMTP.
   <tr>
     <td><code>node['dovecot']['conf']['lmtp_save_to_detail_mailbox']</code></td>
     <td>When recipient address includes the detail (e.g. user+detail), try to save the mail to the detail mailbox.</td>
+    <td><em>nil</em></td>
+  </tr>
+  <tr>
+    <td><code>node['dovecot']['conf']['lmtp_rcpt_check_quota']</code></td>
+    <td>Verify quota before replying to RCPT TO. This adds a small overhead.</td>
     <td><em>nil</em></td>
   </tr>
 </table>

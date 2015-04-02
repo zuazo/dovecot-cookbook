@@ -3,7 +3,7 @@
 # Cookbook Name:: dovecot
 # Attributes:: conf_10_director
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,3 +25,4 @@ default['dovecot']['conf']['director_servers'] = nil
 default['dovecot']['conf']['director_mail_servers'] = nil
 default['dovecot']['conf']['director_user_expire'] = nil
 default['dovecot']['conf']['director_doveadm_port'] = nil
+default['dovecot']['conf']['director_username_hash'] = nil

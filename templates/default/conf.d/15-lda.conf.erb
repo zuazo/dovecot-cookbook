@@ -5,11 +5,11 @@
 ##
 
 # Address to use when sending rejection mails.
-# Default is postmaster@<your domain>.
+# Default is postmaster@<your domain>. %d expands to recipient domain.
 <%= Dovecot::Conf.attribute(@conf, 'postmaster_address') %>
 
-# Hostname to use in various parts of sent mails, eg. in Message-Id.
-# Default is the system's real hostname.
+# Hostname to use in various parts of sent mails (e.g. in Message-Id) and
+# in LMTP replies. Default is the system's real hostname@domain.
 <%= Dovecot::Conf.attribute(@conf, 'hostname') %>
 
 # If user is over quota, return with temporary failure instead of

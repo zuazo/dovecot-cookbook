@@ -3,7 +3,7 @@
 # Cookbook Name:: dovecot
 # Attributes:: conf_10_ssl
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,7 +44,15 @@ else
 end
 default['dovecot']['conf']['ssl_key_password'] = nil
 default['dovecot']['conf']['ssl_ca'] = nil
+default['dovecot']['conf']['ssl_require_crl'] = nil
+default['dovecot']['conf']['ssl_client_ca_dir'] = nil
+default['dovecot']['conf']['ssl_client_ca_file'] = nil
 default['dovecot']['conf']['ssl_verify_client_cert'] = nil
 default['dovecot']['conf']['ssl_cert_username_field'] = nil
 default['dovecot']['conf']['ssl_parameters_regenerate'] = nil
+default['dovecot']['conf']['ssl_dh_parameters_length'] = nil
+default['dovecot']['conf']['ssl_protocols'] = nil
 default['dovecot']['conf']['ssl_cipher_list'] = nil
+default['dovecot']['conf']['ssl_prefer_server_ciphers'] = nil
+default['dovecot']['conf']['ssl_crypto_device'] = nil
+default['dovecot']['conf']['ssl_options'] = nil

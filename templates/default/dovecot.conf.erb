@@ -11,6 +11,10 @@
 # and tabs are ignored. If you want to use either of these explicitly, put the
 # value inside quotes, eg.: key = "# char and trailing whitespace  "
 
+# Most (but not all) settings can be overridden by different protocols and/or
+# source/destination IPs by placing the settings inside sections, for example:
+# protocol imap { }, local 127.0.0.1 { }, remote 10.0.0.0/8 { }
+
 # Default values are shown for each setting, it's not required to uncomment
 # those. These are exceptions to this though: No sections (e.g. namespace {})
 # or plugin settings are added by default, they're listed only as examples.
@@ -34,7 +38,10 @@ protocols = <%= Dovecot::Conf.protocols(@protocols) %>
 # Base directory where to store runtime data.
 <%= Dovecot::Conf.attribute(@conf, 'base_dir', '/var/run/dovecot/') %>
 
-# Name of this instance. Used to prefix all Dovecot processes in ps output.
+# Name of this instance. In multi-instance setup doveadm and other commands
+# can use -i <instance_name> to select which instance is used (an alternative
+# to -c <config_path>). The instance name is also added to Dovecot processes
+# in ps output.
 <%= Dovecot::Conf.attribute(@conf, 'instance_name', 'dovecot') %>
 
 # Greeting message for clients.
@@ -48,6 +55,11 @@ protocols = <%= Dovecot::Conf.protocols(@protocols) %>
 
 # Space separated list of login access check sockets (e.g. tcpwrap)
 <%= Dovecot::Conf.attribute(@conf, 'login_access_sockets') %>
+
+# With proxy_maybe=yes if proxy destination matches any of these IPs, don't do
+# proxying. This isn't necessary normally, but may be useful if the destination
+# IP is e.g. a load balancer's IP.
+<%= Dovecot::Conf.attribute(@conf, 'auth_proxy_self') %>
 
 # Show more verbose process titles (in ps). Currently shows user name and
 # IP address. Useful for seeing who are actually using the IMAP processes

@@ -5,11 +5,13 @@
 # service name for hosts.{allow|deny} are those defined as
 # inet_listener in master.conf
 #
-#login_access_sockets = tcpwrap
-#
 <% if @services['tcpwrap'].kind_of?(Hash) and @services['tcpwrap'].length > 0 -%>
+login_access_sockets = tcpwrap
+
 <%=  Dovecot::Conf.service('tcpwrap', @services['tcpwrap']) %>
 <% else -%>
+#login_access_sockets = tcpwrap
+#
 #service tcpwrap {
 #  unix_listener login/tcpwrap {
 #    group = $default_login_user

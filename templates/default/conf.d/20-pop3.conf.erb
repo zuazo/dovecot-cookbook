@@ -21,7 +21,7 @@ protocol pop3 {
   # If mail has X-UIDL header, use it as the mail's UIDL.
   #pop3_reuse_xuidl = no
 
-  # Keep the mailbox locked for the entire POP3 session.
+  # Allow only one POP3 session to run simultaneously for the same user.
   #pop3_lock_session = no
 
   # POP3 requires message sizes to be listed as if they had CR+LF linefeeds.
@@ -58,6 +58,18 @@ protocol pop3 {
   # Permanently save UIDLs sent to POP3 clients, so pop3_uidl_format changes
   # won't change those UIDLs. Currently this works only with Maildir.
   #pop3_save_uidl = no
+
+  # What to do about duplicate UIDLs if they exist?
+  #   allow: Show duplicates to clients.
+  #   rename: Append a temporary -2, -3, etc. counter after the UIDL.
+  #pop3_uidl_duplicates = allow
+
+  # This option changes POP3 behavior so that it's not possible to actually
+  # delete mails via POP3, only hide them from future POP3 sessions. The mails
+  # will still be counted towards user's quota until actually deleted via IMAP.
+  # Use e.g. "$POP3Deleted" as the value (it will be visible as IMAP keyword).
+  # Make sure you can legally archive mails before enabling this setting.
+  #pop3_deleted_flag =
 
   # POP3 logout format string:
   #  %i - total number of bytes read from client

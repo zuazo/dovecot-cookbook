@@ -2,7 +2,7 @@
 #
 # Cookbook Name:: dovecot
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2013-2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -383,6 +383,13 @@ attribute 'dovecot/conf/login_access_sockets',
           required: 'optional',
           default: 'nil'
 
+attribute 'dovecot/conf/auth_proxy_self',
+          display_name: 'auth proxy self',
+          description: 'With proxy_maybe=yes if proxy destination matches any of these IPs, don\'t do proxying.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
 attribute 'dovecot/conf/verbose_proctitle',
           display_name: 'verbose proctitle',
           description: 'Show more verbose process titles (in ps).',
@@ -627,6 +634,14 @@ attribute 'dovecot/conf/director_doveadm_port',
           required: 'optional',
           default: 'nil'
 
+attribute 'dovecot/conf/director_username_hash',
+          display_name: 'director username hash',
+          description:
+            'How the username is translated before being hashed.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
 # conf.d/10-logging.conf
 
 attribute 'dovecot/conf/log_path',
@@ -753,6 +768,15 @@ attribute 'dovecot/conf/mail_location',
           required: 'optional',
           default: 'nil'
 
+attribute 'dovecot/conf/mail_shared_explicit_inbox',
+          display_name: 'mail shared explicit inbox',
+          description:
+            'Should shared INBOX be visible as "shared/user" or '\
+            '"shared/user/INBOX"?',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
 attribute 'dovecot/conf/mail_uid',
           display_name: 'mail uid',
           description: 'System user used to access mails.',
@@ -785,6 +809,15 @@ attribute 'dovecot/conf/mail_access_groups',
 attribute 'dovecot/conf/mail_full_filesystem_access',
           display_name: 'mail full filesystem access',
           description: 'Allow full filesystem access to clients.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/mail_attribute_dict',
+          display_name: 'mail attribute dict',
+          description:
+            'Dictionary for key=value mailbox attributes. Currently used by '\
+            'URLAUTH.',
           type: 'string',
           required: 'optional',
           default: 'nil'
@@ -934,6 +967,23 @@ attribute 'dovecot/conf/mail_save_crlf',
           required: 'optional',
           default: 'nil'
 
+attribute 'dovecot/conf/mail_prefetch_count',
+          display_name: 'mail prefetch count',
+          description:
+            'Max number of mails to keep open and prefetch to memory.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/mail_temp_scan_interval',
+          display_name: 'mail temp scan interval',
+          description:
+            'How often to scan for stale temporary files and delete them '\
+            '(0 = never).',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
 attribute 'dovecot/conf/maildir_stat_dirs',
           display_name: 'maildir stat dirs',
           description:
@@ -954,6 +1004,25 @@ attribute 'dovecot/conf/maildir_copy_with_hardlinks',
 attribute 'dovecot/conf/maildir_very_dirty_syncs',
           display_name: 'maildir very dirty syncs',
           description: 'Assume Dovecot is the only MUA accessing Maildir.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/maildir_broken_filename_sizes',
+          display_name: 'maildir broken filename sizes',
+          description:
+            'If enabled, Dovecot doesn\'t use the S=<size> in the Maildir '\
+            'filenames for getting the mail\'s physical size, except when '\
+            'recalculating Maildir++ quota.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/maildir_empty_new',
+          display_name: 'maildir empty new',
+          description:
+            'Always move mails from new/ directory to cur/, even when the '\
+            '\Recent flags aren\'t being reset.',
           type: 'string',
           required: 'optional',
           default: 'nil'
@@ -1030,6 +1099,15 @@ attribute 'dovecot/conf/mbox_min_index_size',
           required: 'optional',
           default: 'nil'
 
+attribute 'dovecot/conf/mbox_md5',
+          display_name: 'mbox md5',
+          description:
+            'Mail header selection algorithm to use for MD5 POP3 UIDLs when '\
+            'pop3_uidl_format=%m.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
 attribute 'dovecot/conf/mdbox_rotate_size',
           display_name: 'mdbox rotate size',
           description: 'Maximum dbox file size until it\'s rotated.',
@@ -1049,6 +1127,15 @@ attribute 'dovecot/conf/mdbox_preallocate_space',
           description:
             'When creating new mdbox files, immediately preallocate their '\
             'size to mdbox_rotate_size.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/mail_attachment_dir',
+          display_name: 'mail attachment dir',
+          description:
+            'Directory root where to store mail attachments. Disabled, if '\
+            'empty.',
           type: 'string',
           required: 'optional',
           default: 'nil'
@@ -1153,6 +1240,32 @@ attribute 'dovecot/conf/ssl_ca',
           required: 'optional',
           default: 'nil'
 
+attribute 'dovecot/conf/ssl_require_crl',
+          display_name: 'ssl require crl',
+          description:
+            'Require that CRL check succeeds for client certificates.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/ssl_client_ca_dir',
+          display_name: 'ssl client ca dir',
+          description:
+            'Directory for trusted SSL CA certificates. These are used only '\
+            'when Dovecot needs to act as an SSL client..',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/ssl_client_ca_file',
+          display_name: 'ssl client ca file',
+          description:
+            'File for trusted SSL CA certificates. These are used only when '\
+            'Dovecot needs to act as an SSL client.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
 attribute 'dovecot/conf/ssl_verify_client_cert',
           display_name: 'ssl verify client cert',
           description: 'Request client to send a certificate.',
@@ -1174,9 +1287,48 @@ attribute 'dovecot/conf/ssl_parameters_regenerate',
           required: 'optional',
           default: 'nil'
 
+attribute 'dovecot/conf/ssl_dh_parameters_length',
+          display_name: 'ssl dh parameters length',
+          description: 'DH parameters length to use.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/ssl_protocols',
+          display_name: 'ssl protocols',
+          description: 'SSL protocols to use.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
 attribute 'dovecot/conf/ssl_cipher_list',
           display_name: 'ssl cipher list',
           description: 'SSL ciphers to use',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/ssl_prefer_server_ciphers',
+          display_name: 'ssl prefer server ciphers',
+          description: 'Prefer the server\'s order of ciphers over client\'s.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/ssl_options',
+          display_name: 'ssl options',
+          description:
+            'SSL extra options. Currently supported options are: '\
+            'no_compression',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/ssl_crypto_device',
+          display_name: 'ssl crypto device',
+          description:
+            'SSL crypto device to use, for valid values run '\
+            '"$ openssl engine".',
           type: 'string',
           required: 'optional',
           default: 'nil'
@@ -1290,6 +1442,15 @@ attribute 'dovecot/conf/lmtp_save_to_detail_mailbox',
           description:
             'When recipient address includes the detail (e.g. user+detail), '\
             'try to save the mail to the detail mailbox.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/lmtp_rcpt_check_quota',
+          display_name: 'lmtp rcpt check quota',
+          description:
+            'Verify quota before replying to RCPT TO. This adds a small '\
+            'overhead.',
           type: 'string',
           required: 'optional',
           default: 'nil'

@@ -12,6 +12,9 @@
 # lda_mailbox_autocreate settings.
 <%= Dovecot::Conf.attribute(@conf, 'lmtp_save_to_detail_mailbox', false) %>
 
+# Verify quota before replying to RCPT TO. This adds a small overhead.
+<%= Dovecot::Conf.attribute(@conf, 'lmtp_rcpt_check_quota', false) %>
+
 <% if @protocols['lmtp'].kind_of?(Hash) and @protocols['lmtp'].length > 0 -%>
 <%=  Dovecot::Conf.protocol('lmtp', @protocols['lmtp']) %>
 <% else -%>

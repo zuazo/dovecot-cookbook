@@ -37,7 +37,7 @@ service imap-login {
   #process_min_avail = 0
 
   # If you set service_count=0, you probably need to grow this.
-  #vsz_limit = 64M
+  #vsz_limit = $default_vsz_limit
 }
 <% end -%>
 
@@ -78,7 +78,7 @@ service lmtp {
 service imap {
   # Most of the memory goes to mmap()ing files. You may need to increase this
   # limit if you have huge mailboxes.
-  #vsz_limit = 256M
+  #vsz_limit = $default_vsz_limit
 
   # Max. number of IMAP processes (connections)
   #process_limit = 1024
@@ -98,13 +98,20 @@ service pop3 {
 <%=  Dovecot::Conf.service('auth', @services['auth']) %>
 <% else -%>
 service auth {
-  # auth_socket_path points to this userdb socket by default. It's typically
-  # used by dovecot-lda, doveadm, possibly imap process, etc. Its default
-  # permissions make it readable only by root, but you may need to relax these
-  # permissions. Users that have access to this socket are able to get a list
-  # of all usernames and get results of everyone's userdb lookups.
+  # used by dovecot-lda, doveadm, possibly imap process, etc. Users that have
+  # full permissions to this socket are able to get a list of all usernames and
+  # get the results of everyone's userdb lookups.
+  #
+  # The default 0666 mode allows anyone to connect to the socket, but the
+  # userdb lookups will succeed only if the userdb returns an "uid" field that
+  # matches the caller process's UID. Also if caller's uid or gid matches the
+  # socket's uid or gid the lookup succeeds. Anything else causes a failure.
+  #
+  # To give the caller full permissions to lookup all users, set the mode to
+  # something else than 0666 and Dovecot lets the kernel enforce the
+  # permissions (e.g. 0777 allows everyone full permissions).
   unix_listener auth-userdb {
-    #mode = 0600
+    #mode = 0666
     #user = 
     #group = 
   }

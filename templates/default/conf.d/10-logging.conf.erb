@@ -28,6 +28,7 @@
 # In case of password mismatches, log the attempted password. Valid values are
 # no, plain and sha1. sha1 can be useful for detecting brute force password
 # attempts vs. user simply trying the same password over and over again.
+# You can also truncate the value to n chars by appending ":n" (e.g. sha1:6).
 <%= Dovecot::Conf.attribute(@conf, 'auth_verbose_passwords', false) %>
 
 # Even more verbose logging for debugging purposes. Shows for example SQL
@@ -71,7 +72,7 @@ plugin {
 # string.
 <%= Dovecot::Conf.attribute(@conf, 'login_log_format_elements', 'user=<%u> method=%m rip=%r lip=%l mpid=%e %c') %>
 
-# Login log format. %$ contains login_log_format_elements string, %s contains
+# Login log format. %s contains login_log_format_elements string, %$ contains
 # the data we want to log.
 <%= Dovecot::Conf.attribute(@conf, 'login_log_format', '%$: %s') %>
  
