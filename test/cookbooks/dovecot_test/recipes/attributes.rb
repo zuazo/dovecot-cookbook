@@ -3,7 +3,7 @@
 # Cookbook Name:: dovecot_test
 # Recipe:: attributes
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2013-2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -141,9 +141,12 @@ node.default['dovecot']['services']['director']['listeners'] =
   [
     { 'unix:login/director' => { 'mode' => '0666' } },
     { 'fifo:login/proxy-notify' => { 'mode' => '0666' } },
-    { 'unix:director-userdb' => { 'mode' => '0666' } },
-    { 'inet' => { 'port' => '5432' } }
+    { 'unix:director-userdb' => { 'mode' => '0666' } }
   ]
+if node['platform'] != 'centos' # Avoid SELinux error in CentOS
+  node.default['dovecot']['services']['director']['listeners'][0]['inet'] =
+    { 'port' => '5432' }
+end
 node.default['dovecot']['services']['imap-login'] =
   {
     'listeners' =>
