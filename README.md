@@ -7,6 +7,57 @@ Description
 
 Installs and configures [Dovecot](http://www.dovecot.org/), open source IMAP and POP3 email server.
 
+Table of Contents
+=================
+
+* [Description](#description)
+* [Requirements](#requirements)
+  * [Supported Platforms](#supported-platforms)
+  * [Required Cookbooks](#required-cookbooks)
+  * [Required Applications](#required-applications)
+* [Attributes](#attributes)
+  * [Main Configuration Attributes](#main-configuration-attributes)
+  * [Authentication Processes Attributes](#authentication-processes-attributes)
+  * [Director-specific Attributes](#director-specific-attributes)
+  * [Log Destination Attributes](#log-destination-attributes)
+  * [Mailbox Locations and Namespaces Attributes](#mailbox-locations-and-namespaces-attributes)
+  * [Master Configuration File Attributes](#master-configuration-file-attributes)
+  * [SSL Attributes](#ssl-attributes)
+  * [LDA Specific Attributes](#lda-specific-attributes)
+  * [LMTP Specific Attributes](#lmtp-specific-attributes)
+  * [Berkeley DB DB_CONFIG Attributes](#berkeley-db-db_config-attributes)
+  * [Dictionary Quota SQL Attributes](#dictionary-quota-sql-attributes)
+  * [LDAP Authentication Attributes](#ldap-authentication-attributes)
+  * [SQL Authentication Attributes](#sql-authentication-attributes)
+  * [Distribution Packages Names Attributes](#distribution-packages-names-attributes)
+* [Recipes](#recipes)
+  * [dovecot::default](#dovecotdefault)
+  * [dovecot::user](#dovecotuser)
+  * [dovecot::conf_files](#dovecotconf_files)
+  * [dovecot::ohai_plugin](#dovecotohai_plugin)
+  * [dovecot::from_package](#dovecotfrom_package)
+  * [dovecot::service](#dovecotservice)
+* [Ohai Plugin](#ohai-plugin)
+* [Usage Examples](#usage-examples)
+  * [Including in a Cookbook Recipe](#including-in-a-cookbook-recipe)
+  * [Including in the Run List](#including-in-the-run-list)
+  * [Authentication Database Examples](#authentication-database-examples)
+  * [Dictionary Quota SQL Example](#dictionary-quota-sql-example)
+  * [Namespaces Example](#namespaces-example)
+  * [Plugins Examples](#plugins-examples)
+    * [Mail Log Plugin Example](#mail-log-plugin-example)
+    * [Sieve Plugin Example](#sieve-plugin-example)
+  * [Protocols Examples](#protocols-examples)
+  * [Service Examples](#service-examples)
+    * [Director Service Example](#director-service-example)
+    * [Imap-login Service Example](#imap-login-service-example)
+  * [LDAP Example](#ldap-example)
+  * [A Complete Example](#a-complete-example)
+* [Testing](#testing)
+* [Contributing](#contributing)
+* [TODO](#todo)
+* [License and Author](#license-and-author)
+
 Requirements
 ============
 
