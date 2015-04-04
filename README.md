@@ -1,6 +1,6 @@
 Description
 ===========
-[![Cookbook Version](https://img.shields.io/cookbook/v/dovecot.svg?style=flat)](https://supermarket.getchef.com/cookbooks/dovecot)
+[![Cookbook Version](https://img.shields.io/cookbook/v/dovecot.svg?style=flat)](https://supermarket.chef.io/cookbooks/dovecot)
 [![Dependency Status](http://img.shields.io/gemnasium/onddo/dovecot-cookbook.svg?style=flat)](https://gemnasium.com/onddo/dovecot-cookbook)
 [![Code Climate](http://img.shields.io/codeclimate/github/onddo/dovecot-cookbook.svg?style=flat)](https://codeclimate.com/github/onddo/dovecot-cookbook)
 [![Build Status](http://img.shields.io/travis/onddo/dovecot-cookbook.svg?style=flat)](https://travis-ci.org/onddo/dovecot-cookbook)
@@ -75,7 +75,7 @@ Let me know if you use it successfully on any other platform.
 
 ## Required Cookbooks
 
-* [ohai](https://supermarket.getchef.com/cookbooks/ohai)
+* [ohai](https://supermarket.chef.io/cookbooks/ohai)
 
 ## Required Applications
 
