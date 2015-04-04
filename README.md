@@ -1463,9 +1463,8 @@ Another alternative is to include the default recipe in your Run List.
 ```json
 {
   "name": "mail.onddo.com",
-  [...]
+  "[...]": "[...]",
   "run_list": [
-    [...]
     "recipe[dovecot]"
   ]
 }
