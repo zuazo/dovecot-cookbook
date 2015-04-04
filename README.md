@@ -1451,7 +1451,7 @@ Don't forget to include the `dovecot` cookbook as a dependency in the metadata.
 
 ```ruby
 # metadata.rb
-[...]
+# [...]
 
 depends 'dovecot'
 ```
@@ -1478,64 +1478,67 @@ Authentication database attributes, inside passdb or usedb hash values, can cont
 Supported auths are the following: `checkpassword`, `deny`, `ldap`, `master`, `passwdfile`, `sql`, `system` and `vpopmail`.
 
 ```ruby
-node.default['dovecot']['auth']['checkpassword'] = {
-  'passdb' => { # hash
-    'driver' => 'checkpassword',
-    'args' => '/usr/bin/checkpassword'
-  },
-  'userdb' => {
-    'driver' => 'prefetch'
+node.default['dovecot']['auth']['checkpassword'] =
+  {
+    'passdb' => { # hash
+      'driver' => 'checkpassword',
+      'args' => '/usr/bin/checkpassword'
+    },
+    'userdb' => {
+      'driver' => 'prefetch'
+    }
   }
-}
 ```
 
 ```ruby
-node.default['dovecot']['auth']['system']['passdb'] = [ # array
-  {
-    # without driver
-    'args' => 'dovecot'
-  },
-  {
-    'driver' => 'passwd',
-    'args' => ''
-  },
-  {
-    'driver' => 'shadow',
-    'args' => ''
-  },
-  {
-    'driver' => 'bsdauth',
-    'args' => ''
-  }
-]
+node.default['dovecot']['auth']['system']['passdb'] =
+  [ # array
+    {
+      # without driver
+      'args' => 'dovecot'
+    },
+    {
+      'driver' => 'passwd',
+      'args' => ''
+    },
+    {
+      'driver' => 'shadow',
+      'args' => ''
+    },
+    {
+      'driver' => 'bsdauth',
+      'args' => ''
+    }
+  ]
 ```
 
 ## Dictionary Quota SQL Example
 
 ```ruby
-node.default['dovecot']['conf']['dict_sql']['maps'] = [
-  {
-    'pattern' => 'priv/quota/storage',
-    'table' => 'quota',
-    'username_field' => 'username',
-    'value_field' => 'bytes'
-  },
-  {
-    'pattern' => 'priv/quota/messages',
-    'table' => 'quota',
-    'username_field' => 'username',
-    'value_field' => 'messages'
-  },
-  {
-    'pattern' => 'shared/expire/$user/$mailbox',
-    'table' => 'expires',
-    'value_field' => 'expire_stamp',
-    'fields' => {
-      'username' => '$user',
-      'mailbox' => '$mailbox'
+node.default['dovecot']['conf']['dict_sql']['maps'] =
+  [
+    {
+      'pattern' => 'priv/quota/storage',
+      'table' => 'quota',
+      'username_field' => 'username',
+      'value_field' => 'bytes'
+    },
+    {
+      'pattern' => 'priv/quota/messages',
+      'table' => 'quota',
+      'username_field' => 'username',
+      'value_field' => 'messages'
+    },
+    {
+      'pattern' => 'shared/expire/$user/$mailbox',
+      'table' => 'expires',
+      'value_field' => 'expire_stamp',
+      'fields' => {
+        'username' => '$user',
+        'mailbox' => '$mailbox'
+      }
     }
-  }
-]
+  ]
 ```
 
 ## Namespaces Example
@@ -1597,7 +1600,8 @@ Supported plugins are the following: `mail_log`, `acl` and `quota`.
 
 ```ruby
 node.default['dovecot']['plugins']['mail_log'] = {
-  'mail_log_events' => 'delete undelete expunge copy mailbox_delete mailbox_rename',
+  'mail_log_events' =>
+    'delete undelete expunge copy mailbox_delete mailbox_rename',
   'mail_log_fields' => 'uid box msgid size'
 }
 ```
@@ -1641,18 +1645,10 @@ Supported services are the following: `anvil`, `director`, `imap-login`, `pop3-l
 
 ```ruby
 node.default['dovecot']['services']['director']['listeners'] = [
-  { 'unix:login/director' => {
-      'mode' => '0666'
-  } },
-  { 'fifo:login/proxy-notify' => {
-      'mode' => '0666'
-  } },
-  { 'unix:director-userdb' => {
-      'mode' => '0666'
-   } },
-  { 'inet' => {
-      'port' => '5432'
-  } }
+  { 'unix:login/director' => { 'mode' => '0666' } },
+  { 'fifo:login/proxy-notify' => { 'mode' => '0666' } },
+  { 'unix:director-userdb' => { 'mode' => '0666' } },
+  { 'inet' => { 'port' => '5432' } }
 ]
 ```
 
@@ -1661,13 +1657,8 @@ node.default['dovecot']['services']['director']['listeners'] = [
 ```ruby
 node.default['dovecot']['services']['imap-login'] = {
   'listeners' => [
-    { 'inet:imap' => {
-     'port' => 143
-    } },
-    { 'inet:imaps' => {
-      'port' => 993,
-      'ssl' => true
-    } },
+    { 'inet:imap' => { 'port' => 143 } },
+    { 'inet:imaps' => { 'port' => 993, 'ssl' => true } }
   ],
   'service_count' => 1,
   'process_min_avail' => 0,
@@ -1821,12 +1812,16 @@ node.default['dovecot']['services']['auth']['listeners'] = [
 ]
 
 # 15-lda.conf
-node.default['dovecot']['conf']['postmaster_address'] = 'postmaster@mycompany.org' # TODO: Change this to fit your server
-node.default['dovecot']['conf']['hostname'] = 'mail.mycompany.org' # TODO: Change this to fit your server
+# TODO: Change this to fit your server:
+node.default['dovecot']['conf']['postmaster_address'] =
+  'postmaster@mycompany.org'
+# TODO: Change this to fit your server:
+node.default['dovecot']['conf']['hostname'] = 'mail.mycompany.org'
 node.default['dovecot']['conf']['lda_mailbox_autocreate'] = true
 node.default['dovecot']['conf']['lda_mailbox_autosubscribe'] = true
 # We want sieve enabled
-node.default['dovecot']['protocols']['lda']['mail_plugins'] = %w($mail_plugins sieve)
+node.default['dovecot']['protocols']['lda']['mail_plugins'] =
+  %w($mail_plugins sieve)
 
 # 20-imap.conf
 # We want IMAP enabled with the default configuration
@@ -1835,11 +1830,14 @@ node.default['dovecot']['protocols']['imap'] = {}
 # 90-sieve.conf
 node.default['dovecot']['plugins']['sieve']['sieve'] = '~/.dovecot.sieve'
 node.default['dovecot']['plugins']['sieve']['sieve_dir'] = '~/sieve'
-node.default['dovecot']['plugins']['sieve']['sieve_global_path'] = "#{node['dovecot']['conf_path']}/sieve/default.sieve"
+node.default['dovecot']['plugins']['sieve']['sieve_global_path'] =
+  "#{node['dovecot']['conf_path']}/sieve/default.sieve"
 
 # auth-sql.conf.ext
-node.default['dovecot']['auth']['sql']['passdb']['args'] = '/etc/dovecot/dovecot-sql.conf.ext'
-node.default['dovecot']['auth']['sql']['userdb']['args'] = '/etc/dovecot/dovecot-sql.conf.ext'
+node.default['dovecot']['auth']['sql']['passdb']['args'] =
+  '/etc/dovecot/dovecot-sql.conf.ext'
+node.default['dovecot']['auth']['sql']['userdb']['args'] =
+  '/etc/dovecot/dovecot-sql.conf.ext'
 
 # auth-static.conf.ext
 node.default['dovecot']['auth']['static']['userdb']['args'] = %w(
@@ -1871,12 +1869,12 @@ node.default['dovecot']['conf']['sql']['password_query'] = [
 ]
 node.default['dovecot']['conf']['sql']['user_query'] = [
   'SELECT',
-    'username AS user,',
-    'password,',
-    '5000 as uid,',
-    '5000 as gid,',
-    "concat('/var/vmail/', maildir) AS home,",
-    "concat('maildir:/var/vmail/', maildir) AS mail",
+  '  username AS user,',
+  '  password,',
+  '  5000 as uid,',
+  '  5000 as gid,',
+  "  concat('/var/vmail/', maildir) AS home,",
+  "  concat('maildir:/var/vmail/', maildir) AS mail",
   'FROM mailbox',
   "WHERE username = '%u' AND active = '1'"
 ]
@@ -1891,16 +1889,17 @@ include_recipe 'dovecot'
 # Compile sieve scripts
 
 # this should go after installing dovecot, sievec is required
+sieve_global_path = "#{node['dovecot']['conf_path']}/sieve/default.sieve"
 execute 'sievec sieve_global_path' do
-  command "sievec '#{node['dovecot']['conf_path']}/sieve/default.sieve'"
+  command "sievec '#{sieve_global_path}'"
   action :nothing
 end
-directory ::File.dirname("#{node['dovecot']['conf_path']}/sieve/default.sieve") do
+directory ::File.dirname(sieve_global_path) do
   owner 'root'
   group 'root'
   mode '00755'
   recursive true
-  not_if { ::File.exist?(::File.dirname("#{node['dovecot']['conf_path']}/sieve/default.sieve")) }
+  not_if { ::File.exist?(::File.dirname(sieve_global_path)) }
 end
 # This will be the default sieve script:
 template node['dovecot']['plugins']['sieve']['sieve_global_path'] do
