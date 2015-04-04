@@ -2,6 +2,28 @@
 
 This file is used to list changes made in each version of `dovecot` cookbook.
 
+## v2.1.0 (2015-04-04)
+
+* Improve LDAP support, including integration tests ([issue #12](https://github.com/onddo/dovecot-cookbook/issues/12), thanks [Dr. Ogg](https://github.com/neallawson) for reporting).
+* Update all configuration files to Dovecot `2.2.16`.
+* Update RuboCop to `0.29.1` (new offenses fixed).
+
+* Tests:
+ * Update kitchen.yml file.
+ * Some small unit tests fixes.
+ * Integration tests fix: disable director port binding in CentOS due to SELinux.
+ * Complete the unit test coverage (100%).
+ * Integrate tests with coveralls.io and simplecov.
+ * Gemfile:
+  * Use foodcritic and RuboCop fixed versions.
+  * Update vagrant-wrapper to version `2`.
+  * Add ohai `< 8` for ruby `< 2`.
+ * travis.yml: Use the new build environment.
+
+* Documentation:
+ * README: Add a TOC.
+ * Update Chef links to point to *chef.io*.
+
 ## v2.0.0 (2014-10-28)
 
 * Requires Ruby `>= 1.9.3` (**breaking change**).
