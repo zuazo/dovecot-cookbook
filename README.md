@@ -1087,7 +1087,7 @@ Also used by LMTP.
 
 ## LDAP Authentication Attributes
 
-* Condiguration files: `dovecot-ldap.conf.ext`.
+* Configuration files: `dovecot-ldap.conf.ext`.
 
 <table>
   <tr>
@@ -1540,7 +1540,7 @@ node.default['dovecot']['conf']['dict_sql']['maps'] = [
 
 ## Namespaces Example
 
-The `['namespaces']` attribute is an array, which could conaint both array or hash values.
+The `['namespaces']` attribute is an array, which could contain both array or hash values.
 
 ```ruby
 node.default['dovecot']['namespaces'] = [
