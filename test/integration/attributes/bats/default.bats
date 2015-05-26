@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-@test "dovecot is runing" {
+@test "dovecot is running" {
   ps axu | grep -q 'doveco[t]'
 }
 
