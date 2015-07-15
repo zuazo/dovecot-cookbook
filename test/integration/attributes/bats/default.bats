@@ -1,9 +1,5 @@
 #!/usr/bin/env bats
 
-@test "dovecot is runing" {
-  ps axu | grep -q 'doveco[t]'
-}
-
 @test "doveconf runs without errors" {
   doveconf > /dev/null
 }
