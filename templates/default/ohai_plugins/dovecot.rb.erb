@@ -35,7 +35,7 @@ end
 dovecot Mash.new unless dovecot
 dovecot['version'] = nil unless dovecot['version']
 
-status, stdout, stderr = run_command(:no_status_check => true, :command => 'dovecot --version')
+status, stdout, stderr = run_command(no_status_check: true, command: 'dovecot --version')
 dovecot['version'] = stdout.split("\n")[0] if status === 0
 
 <% if @enable_build_options -%>
@@ -44,7 +44,7 @@ provides 'dovecot/build-options'
 
 dovecot['build-options'] = {} unless dovecot['build-options']
 
-status, stdout, stderr = run_command(:no_status_check => true, :command => 'dovecot --build-options')
+status, stdout, stderr = run_command(no_status_check: true, command: 'dovecot --build-options')
 if status == 0
   stdout.split("\n").each do |line|
     case line
