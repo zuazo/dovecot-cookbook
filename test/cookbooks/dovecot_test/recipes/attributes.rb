@@ -159,6 +159,4 @@ node.default['dovecot']['services']['imap-login'] =
     'vsz_limit' => '64M'
   }
 
-include_recipe 'dovecot_test::default'
-
-package 'lsof' # required for integration tests
+include_recipe 'dovecot_test'

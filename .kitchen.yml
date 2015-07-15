@@ -31,7 +31,9 @@ suites:
 - name: ldap
   excludes:
   # openldap cookbook does not work
+  - centos-6
   - centos-6.6
+  - centos-7
   - centos-7.0
   - fedora-20
   - fedora-21

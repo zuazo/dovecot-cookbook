@@ -1,8 +1,48 @@
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1
-sudo: false
-bundler_args: --without integration integration_cloud guard
+- 1.9.3
+- 2.0.0
+- 2.1
+
+env:
+  global:
+  - KITCHEN_ARGS="--concurrency=2 --destroy=always"
+  - KITCHEN_LOCAL_YAML=.kitchen.docker.yml
+  - "HOST_IP=$(ip addr | awk '/scope global/ {print $2; exit}' | cut -d/ -f1)"
+  - DOCKER_HOST=tcp://$HOST_IP:2375
+  - DOCKER_PORT_RANGE=2400:2500
+  - SLIRP_PORTS=$(seq 2000 2500)
+  matrix:
+# CHEF_VERSION is only for unit tests, no for test-kitchen:
+  - TESTS="style unit"  CHEF_VERSION="~> 11.0"
+  - TESTS="style unit"  CHEF_VERSION="~> 12.0"
+# Split up the test-kitchen run to avoid exceeding 50 minutes:
+  - TESTS="integration" KITCHEN_REGEXP=default
+  - TESTS="integration" KITCHEN_REGEXP=ldap-debian
+  - TESTS="integration" KITCHEN_REGEXP=attributes
+
+matrix:
+  exclude:
+  - rvm: 1.9.3
+    env: TESTS="style unit"  CHEF_VERSION="~> 12.0"
+
+before_install:
+- sudo sh -c "wget -qO- https://get.docker.io/gpg | apt-key add -"
+- sudo sh -c "echo deb https://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
+- echo exit 101 | sudo tee /usr/sbin/policy-rc.d
+- sudo chmod +x /usr/sbin/policy-rc.d
+- sudo apt-get -y update
+- sudo apt-get -y install lxc lxc-docker slirp
+- sudo sudo usermod -aG docker "$USER"
+- git clone git://github.com/cptactionhank/sekexe
+
+before_script:
+- "sekexe/run 'echo 2000 2500 > /proc/sys/net/ipv4/ip_local_port_range && mount -t tmpfs -o size=8g tmpfs /var/lib/docker && docker -d -H tcp://0.0.0.0:2375' &> docker_daemon.log &"
+- "while ! docker info &> /dev/null ; do sleep 1; done"
+- docker version
+
+bundler_args: --without doc integration_vagrant integration_cloud guard
+
 script:
-  - bundle exec rake travis:ci
+- travis_retry bundle exec rake $TESTS
+
+after_failure: cat docker_daemon.log
