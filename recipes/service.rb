@@ -24,6 +24,9 @@ service 'dovecot' do
   if node['platform'] == 'ubuntu' &&
      Gem::Version.new(node['platform_version']) >= Gem::Version.new('13.10')
     provider Chef::Provider::Service::Upstart
+  elsif node['platform'] == 'debian' &&
+     node['platform_version'].to_i >= 8
+    provider Chef::Provider::Service::Debian
   end
   action [:enable, :start]
 end

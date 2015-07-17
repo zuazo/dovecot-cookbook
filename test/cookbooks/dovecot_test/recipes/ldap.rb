@@ -91,6 +91,14 @@ directory email_account[:homeDirectory] do
   group email_account[:gidNumber].to_i
 end
 
+# Dovecot SSL configuration
+cert = ssl_certificate 'dovecot2' do
+  namespace node['postfix-dovecot']
+  notifies :restart, 'service[dovecot]'
+end
+node.default['dovecot']['conf']['ssl_cert'] = "<#{cert.chain_combined_path}"
+node.default['dovecot']['conf']['ssl_key'] = "<#{cert.key_path}"
+
 # Dovecot IMAP configuration
 node.default['dovecot']['conf']['mail_location'] = 'maildir:~/Maildir'
 node.default['dovecot']['protocols']['imap'] = {}

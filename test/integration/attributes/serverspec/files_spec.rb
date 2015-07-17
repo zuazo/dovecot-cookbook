@@ -30,7 +30,7 @@ ssl_cert, ssl_key =
   if %w(redhat centos scientific fedora suse amazon).include?(platform)
     %w(/etc/pki/dovecot/certs/dovecot.pem /etc/pki/dovecot/private/dovecot.pem)
   elsif %w(debian).include?(platform)
-    %w(dovecot.pem private/dovecot.pem)
+    platform_version >= 8 ? [nil, nil] : %w(dovecot.pem private/dovecot.pem)
   elsif %w(ubuntu).include?(platform)
     if platform_version >= 14
       %w(dovecot.pem private/dovecot.pem)
@@ -96,8 +96,8 @@ sensitive_files.each do |f|
   end
 end
 
-ssl_key_files = [ssl_key]
-ssl_cert_files = [ssl_cert]
+ssl_key_files = [ssl_key].compact
+ssl_cert_files = [ssl_cert].compact
 
 ssl_cert_files.each do |f|
   describe file(absolute_path(f)) do

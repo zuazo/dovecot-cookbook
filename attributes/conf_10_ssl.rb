@@ -28,8 +28,13 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon' then
   default['dovecot']['conf']['ssl_key'] =
     '</etc/pki/dovecot/private/dovecot.pem'
 when 'debian'
-  default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/dovecot.pem'
-  default['dovecot']['conf']['ssl_key'] = '</etc/dovecot/private/dovecot.pem'
+  if node['platform_version'].to_i >= 8
+    default['dovecot']['conf']['ssl_cert'] = nil
+    default['dovecot']['conf']['ssl_key'] = nil
+  else
+    default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/dovecot.pem'
+    default['dovecot']['conf']['ssl_key'] = '</etc/dovecot/private/dovecot.pem'
+  end
 when 'ubuntu'
   if node['platform_version'].to_f >= 14.04
     default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/dovecot.pem'

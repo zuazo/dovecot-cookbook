@@ -8,6 +8,8 @@ platforms:
 - name: centos-6
 - name: debian-7
   run_list: recipe[apt]
+- name: debian-8
+  run_list: recipe[apt]
 - name: ubuntu-14.10
   run_list: recipe[apt]
   driver_config:

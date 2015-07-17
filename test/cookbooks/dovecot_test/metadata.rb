@@ -29,5 +29,6 @@ version '0.1.0'
 
 depends 'dovecot'
 depends 'ldap', '~> 1.0'
-depends 'openldap', '~> 2.1'
 depends 'netstat', '~> 0.1.0' # Required to run integration tests with Docker
+depends 'openldap', '~> 2.1'
+depends 'ssl_certificate', '~> 1.5'
