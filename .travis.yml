@@ -25,19 +25,19 @@ matrix:
 # Disable integration tests in old Ruby versions:
   - rvm: 1.9.3
     env: TESTS="integration" KITCHEN_REGEXP=default
-  - rvm: 2.0
+  - rvm: 2.0.0
     env: TESTS="integration" KITCHEN_REGEXP=default
   - rvm: 2.1
     env: TESTS="integration" KITCHEN_REGEXP=default
   - rvm: 1.9.3
     env: TESTS="integration" KITCHEN_REGEXP=ldap-debian
-  - rvm: 2.0
+  - rvm: 2.0.0
     env: TESTS="integration" KITCHEN_REGEXP=ldap-debian
   - rvm: 2.1
     env: TESTS="integration" KITCHEN_REGEXP=ldap-debian
   - rvm: 1.9.3
     env: TESTS="integration" KITCHEN_REGEXP=attributes
-  - rvm: 2.0
+  - rvm: 2.0.0
     env: TESTS="integration" KITCHEN_REGEXP=attributes
   - rvm: 2.1
     env: TESTS="integration" KITCHEN_REGEXP=attributes
