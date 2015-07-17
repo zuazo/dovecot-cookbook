@@ -51,7 +51,8 @@ group :guard do
   gem 'guard-foodcritic', '~> 1.0'
   gem 'guard-rubocop', '~> 1.1'
   gem 'guard-rspec', '~> 4.3'
-  gem 'guard-kitchen', '~> 0.0'
+  # Temporary disabled: Error is: cannot load such file -- guard/kitchen
+  # gem 'guard-kitchen', '~> 0.0'
 end
 
 group :travis do

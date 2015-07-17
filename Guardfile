@@ -72,22 +72,24 @@ end # group unit
 # Integration Tests
 # =================
 # - test-kitchen
-
-group :integration do
-  guard 'kitchen',
-        all_on_start: false do
-    watch(%r{attributes/.+\.rb$})
-    watch(%r{definitions/.+\.rb$})
-    watch(%r{libraries/.+\.rb$})
-    watch(%r{providers/.+\.rb$})
-    watch(%r{recipes/.+\.rb$})
-    watch(%r{resources/.+\.rb$})
-    watch(%r{files/.+})
-    watch(%r{templates/.+\.erb$})
-    watch('metadata.rb')
-    watch(%r{test/.+$})
-    watch('Berksfile')
-  end
-end # group integration
+#
+# Temporary disabled. See the Gemfile.
+#
+# group :integration do
+#   guard 'kitchen',
+#         all_on_start: false do
+#     watch(%r{attributes/.+\.rb$})
+#     watch(%r{definitions/.+\.rb$})
+#     watch(%r{libraries/.+\.rb$})
+#     watch(%r{providers/.+\.rb$})
+#     watch(%r{recipes/.+\.rb$})
+#     watch(%r{resources/.+\.rb$})
+#     watch(%r{files/.+})
+#     watch(%r{templates/.+\.erb$})
+#     watch('metadata.rb')
+#     watch(%r{test/.+$})
+#     watch('Berksfile')
+#   end
+# end # group integration
 
 scope groups: [:style, :unit]
