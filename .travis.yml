@@ -1,7 +1,8 @@
 rvm:
 - 1.9.3
-- 2.0
+- 2.0.0
 - 2.1
+- 2.2
 
 env:
   global:
@@ -18,8 +19,28 @@ env:
 
 matrix:
   exclude:
+# Chef 12 requires Ruby 2:
   - rvm: 1.9.3
     env: TESTS="style unit"  CHEF_VERSION="~> 12.0"
+# Disable integration tests in old Ruby versions:
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=default
+  - rvm: 2.0
+    env: TESTS="integration" KITCHEN_REGEXP=default
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=default
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=ldap-debian
+  - rvm: 2.0
+    env: TESTS="integration" KITCHEN_REGEXP=ldap-debian
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=ldap-debian
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=attributes
+  - rvm: 2.0
+    env: TESTS="integration" KITCHEN_REGEXP=attributes
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=attributes
 
 bundler_args: --without doc integration_vagrant integration_cloud guard
 
