@@ -3,7 +3,7 @@ Description
 [![Cookbook Version](https://img.shields.io/cookbook/v/dovecot.svg?style=flat)](https://supermarket.chef.io/cookbooks/dovecot)
 [![Dependency Status](http://img.shields.io/gemnasium/onddo/dovecot-cookbook.svg?style=flat)](https://gemnasium.com/onddo/dovecot-cookbook)
 [![Code Climate](http://img.shields.io/codeclimate/github/onddo/dovecot-cookbook.svg?style=flat)](https://codeclimate.com/github/onddo/dovecot-cookbook)
-[![Build Status](http://img.shields.io/travis/onddo/dovecot-cookbook.svg?style=flat)](https://travis-ci.org/onddo/dovecot-cookbook)
+[![Build Status](http://img.shields.io/travis/onddo/dovecot-cookbook/2.2.0.svg?style=flat)](https://travis-ci.org/onddo/dovecot-cookbook)
 
 Installs and configures [Dovecot](http://www.dovecot.org/), open source IMAP and POP3 email server.
 
@@ -1941,6 +1941,8 @@ License and Author
 | **Contributor:**     | [Arnold Krille](https://github.com/kampfschlaefer)
 | **Contributor:**     | [claudex](https://github.com/claudex)
 | **Contributor:**     | [Jordi Llonch](https://github.com/llonchj)
+| **Contributor:**     | [Michael Burns](https://github.com/mburns)
+| **Contributor:**     | [Marcus Klein](https://github.com/kleini)
 | **Copyright:**       | Copyright (c) 2013-2015, Onddo Labs, SL. (www.onddo.com)
 | **License:**         | Apache License, Version 2.0
 

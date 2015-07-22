@@ -2,6 +2,20 @@
 
 This file is used to list changes made in each version of `dovecot` cookbook.
 
+## v2.2.0 (2015-07-22)
+
+* Fix Debian Jessie support ([issue #15](https://github.com/onddo/dovecot-cookbook/issues/15), thanks [Marcus Klein](https://github.com/kleini) for the help).
+
+* Tests:
+ * Fix typo in 'dovecot is running' test ([issue #13](https://github.com/onddo/dovecot-cookbook/pull/13), thanks [Michael Burns](https://github.com/mburns)).
+ * Integrate [Kitchen integration tests in Travis CI](https://github.com/zuazo/kitchen-in-travis).
+ * Gemfile: Update RuboCop to `0.32.1`.
+ * Run Travis CI tests in Ruby `2.2`.
+ * Temporary disable `guard-kitchen`.
+
+* Documentation:
+ * README: Improve examples and some fixes.
+
 ## v2.1.0 (2015-04-04)
 
 * Improve LDAP support, including integration tests ([issue #12](https://github.com/onddo/dovecot-cookbook/issues/12), thanks [Dr. Ogg](https://github.com/neallawson) for reporting).
