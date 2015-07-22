@@ -8,7 +8,7 @@ sudo: true
 
 env:
   global:
-  - KITCHEN_ARGS="--concurrency=2 --destroy=always"
+  - KITCHEN_ARGS="--concurrency=1 --destroy=always"
   - KITCHEN_LOCAL_YAML=.kitchen.docker.yml
   matrix:
 # CHEF_VERSION is only for unit tests, no for test-kitchen:
