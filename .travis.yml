@@ -15,9 +15,13 @@ env:
   - TESTS="style unit"  CHEF_VERSION="~> 11.0"
   - TESTS="style unit"  CHEF_VERSION="~> 12.0"
 # Split up the test-kitchen run to avoid exceeding 50 minutes:
-  - TESTS="integration" KITCHEN_REGEXP=default
+  - TESTS="integration" KITCHEN_REGEXP=default-centos
+  - TESTS="integration" KITCHEN_REGEXP=default-debian
+  - TESTS="integration" KITCHEN_REGEXP=default-ubuntu
   - TESTS="integration" KITCHEN_REGEXP=ldap-debian
-  - TESTS="integration" KITCHEN_REGEXP=attributes
+  - TESTS="integration" KITCHEN_REGEXP=attributes-centos
+  - TESTS="integration" KITCHEN_REGEXP=attributes-debian
+  - TESTS="integration" KITCHEN_REGEXP=attributes-ubuntu
 
 matrix:
   exclude:
@@ -29,11 +33,23 @@ matrix:
     env: TESTS="style unit"  CHEF_VERSION="~> 11.0"
 # Disable integration tests in old Ruby versions:
   - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=default
+    env: TESTS="integration" KITCHEN_REGEXP=default-centos
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=default-debian
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=default-ubuntu
   - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=default
+    env: TESTS="integration" KITCHEN_REGEXP=default-centos
+  - rvm: 2.0.0
+    env: TESTS="integration" KITCHEN_REGEXP=default-debian
+  - rvm: 2.0.0
+    env: TESTS="integration" KITCHEN_REGEXP=default-ubuntu
   - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=default
+    env: TESTS="integration" KITCHEN_REGEXP=default-centos
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=default-debian
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=default-ubuntu
   - rvm: 1.9.3
     env: TESTS="integration" KITCHEN_REGEXP=ldap-debian
   - rvm: 2.0.0
@@ -41,11 +57,23 @@ matrix:
   - rvm: 2.1
     env: TESTS="integration" KITCHEN_REGEXP=ldap-debian
   - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=attributes
+    env: TESTS="integration" KITCHEN_REGEXP=attributes-centos
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=attributes-debian
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=attributes-ubuntu
   - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=attributes
+    env: TESTS="integration" KITCHEN_REGEXP=attributes-centos
+  - rvm: 2.0.0
+    env: TESTS="integration" KITCHEN_REGEXP=attributes-debian
+  - rvm: 2.0.0
+    env: TESTS="integration" KITCHEN_REGEXP=attributes-ubuntu
   - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=attributes
+    env: TESTS="integration" KITCHEN_REGEXP=attributes-centos
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=attributes-debian
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=attributes-ubuntu
 
 bundler_args: --without doc integration_vagrant integration_cloud guard
 
