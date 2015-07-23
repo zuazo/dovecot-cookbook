@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of `dovecot` cookbook.
 
+## v2.2.0 (2015-07-23)
+
+* Travis CI: Fix `test-kitchen` integration tests.
+
 ## v2.2.0 (2015-07-22)
 
 * Fix Debian Jessie support ([issue #15](https://github.com/onddo/dovecot-cookbook/issues/15), thanks [Marcus Klein](https://github.com/kleini) for the help).
