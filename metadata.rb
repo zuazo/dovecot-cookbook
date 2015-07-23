@@ -26,7 +26,7 @@ description <<-EOH
 Installs and configures Dovecot, open source IMAP and POP3 email server.
 EOH
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '2.2.0'
+version '2.2.1' # WiP
 
 supports 'centos', '>= 6.0'
 supports 'debian', '>= 7.0'
