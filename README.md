@@ -87,868 +87,204 @@ Attributes
 
 To see a more complete description of the attributes, go to the [Dovecot wiki2 configuration section](http://wiki2.dovecot.org/#Dovecot_configuration) or read the comments in the templates and generated configuration files.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['install_from']</code></td>
-    <td>Determines how Dovecot is installed from. Only <code>"package"</code> is supported for now.</td>
-    <td><code>"package"</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['user']</code></td>
-    <td>Dovecot system user. Should no be changed.</td>
-    <td><code>"dovecot"</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['group']</code></td>
-    <td>Dovecot system group. Should no be changed.</td>
-    <td><code>"dovecot"</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['lib_path']</code></td>
-    <td>Dovecot library path. Should no be changed.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf_path']</code></td>
-    <td>Dovecot configuration files path. Should no be changed.</td>
-    <td><code>"/etc/dovecot"</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf_files_user']</code></td>
-    <td>System user owner of configuration files.</td>
-    <td><code>"root"</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf_files_group']</code></td>
-    <td>System group owner of configuration files.</td>
-    <td><code>node["dovecot"]["group"]</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf_files_mode']</code></td>
-    <td>Configuration files system file mode bits.</td>
-    <td><code>00644</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['sensitive_files']</code></td>
-    <td>An array of dovecot sensitive configuration files. Each array item can be a glob expression or a fixed file name. These file names should be relative to <code>node["dovecot"]["conf_path"]</code> directory. Example: <code>[ "dovecot-sql.conf.ext", "*-auth.conf.ext", "conf.d/auth-supersecret.conf.ext" ]</code></td>
-    <td><code>[ "*.conf.ext" ]</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['sensitive_files_mode']</code></td>
-    <td>Configuration files system file mode bits for sensitve files.</td>
-    <td><code>00640</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf_files']['core']</code></td>
-    <td>Dovecot core configuration files list.</td>
-    <td><code>[<br/>
-      &nbsp;&nbsp;"conf.d/10-auth.conf",<br/>
-      &nbsp;&nbsp;"conf.d/10-director.conf",<br/>
-      &nbsp;&nbsp;"conf.d/10-logging.conf",<br/>
-      &nbsp;&nbsp;"conf.d/10-mail.conf",<br/>
-      &nbsp;&nbsp;"conf.d/10-master.conf",<br/>
-      &nbsp;&nbsp;"conf.d/10-ssl.conf",<br/>
-      &nbsp;&nbsp;"conf.d/10-tcpwrapper.conf",<br/>
-      &nbsp;&nbsp;"conf.d/15-lda.conf",<br/>
-      &nbsp;&nbsp;"conf.d/15-mailboxes.conf",<br/>
-      &nbsp;&nbsp;"conf.d/90-acl.conf",<br/>
-      &nbsp;&nbsp;"conf.d/90-plugin.conf",<br/>
-      &nbsp;&nbsp;"conf.d/90-quota.conf",<br/>
-      &nbsp;&nbsp;"conf.d/auth-checkpassword.conf.ext",<br/>
-      &nbsp;&nbsp;"conf.d/auth-deny.conf.ext",<br/>
-      &nbsp;&nbsp;"conf.d/auth-master.conf.ext",<br/>
-      &nbsp;&nbsp;"conf.d/auth-passwdfile.conf.ext",<br/>
-      &nbsp;&nbsp;"conf.d/auth-sql.conf.ext",<br/>
-      &nbsp;&nbsp;"conf.d/auth-static.conf.ext",<br/>
-      &nbsp;&nbsp;"conf.d/auth-system.conf.ext",<br/>
-      &nbsp;&nbsp;"conf.d/auth-vpopmail.conf.ext",<br/>
-      &nbsp;&nbsp;"dovecot.conf",<br/>
-      &nbsp;&nbsp;"dovecot-db.conf.ext",<br/>
-      &nbsp;&nbsp;"dovecot-dict-sql.conf.ext",<br/>
-      &nbsp;&nbsp;"dovecot-sql.conf.ext"<br/>
-    ]</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf_files']['imap']</code></td>
-    <td>Dovecot IMAP configuration files list.</td>
-    <td><code>["conf.d/20-imap.conf"]</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf_files']['pop3']</code></td>
-    <td>Dovecot POP3 configuration files list.</td>
-    <td><code>["conf.d/20-pop3.conf"]</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf_files']['lmtp']</code></td>
-    <td>Dovecot LMTP configuration files list.</td>
-    <td><code>["conf.d/20-lmtp.conf"]</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf_files']['sieve']</code></td>
-    <td>Dovecot Sieve configuration files list.</td>
-    <td><code>[<br/>
-      &nbsp;&nbsp;"conf.d/20-managesieve.conf",<br/>
-      &nbsp;&nbsp;"conf.d/90-sieve.conf"<br/>
-    ]</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf_files']['ldap']</code></td>
-    <td>Dovecot LDAP configuration files list.</td>
-    <td><code>[<br/>
-      &nbsp;&nbsp;"dovecot-ldap.conf.ext",<br/>
-      &nbsp;&nbsp;"conf.d/auth-ldap.conf.ext"<br/>
-    ]</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['auth']</code></td>
-    <td>Dovecot Authentication Databases as a hash of hashes (<a href="#authentication-database-examples">see the examples below</a>). Supported authdbs: checkpassword, deny, ldap, master, passwdfile, sql, system and vpopmail.</td>
-    <td><code>{}</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['namespaces']</code></td>
-    <td>Dovecot Namespaces as an array of hashes (<a href="#namespaces-example">see the example below</a>).</td>
-    <td><code>[]</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['plugins']</code></td>
-    <td>Dovecot Plugins configuration as a hash of hashes (<a href="#plugins-examples">see the examples below</a>). Supported plugins: mail_log, acl and quota.</td>
-    <td><code>{<br/>
-      &nbsp;&nbsp;"sieve" => {<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;"sieve" => "~/.dovecot.sieve",<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;"sieve_dir" => "~/sieve",<br/>
-      &nbsp;&nbsp;}<br/>
-    }</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['protocols']</code></td>
-    <td>Dovecot Protocols configuration as a hash of hashes (<a href="#protocols-example">see the example below</a>). Supported protocols: lda, imap, lmtp, sieve and pop3.</td>
-    <td><code>{}</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['services']</code></td>
-    <td>Dovecot Services configuration as a hash of hashes (<a href="#service-examples">see the examples below</a>). Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login and managesieve.</td>
-    <td><code>{}</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_plugins']</code></td>
-    <td>Dovecot default enabled mail_plugins.</td>
-    <td><code>[]</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['ohai_plugin']['build-options']</code></td>
-    <td>Whether to enable reading build options inside ohai plugin. Can be disabled to be lighter.</td>
-    <td><code>true</code></td>
-  </tr>
-</table>
+| Attribute                                         | Default                    | Description                    |
+|:--------------------------------------------------|:---------------------------|:-------------------------------|
+| `node['dovecot']['install_from']`                 | `'package'`                | Determines how Dovecot is installed from. Only `'package'` is supported for now.
+| `node['dovecot']['user']`                         | `'dovecot'`                | Dovecot system user. Should no be changed.
+| `node['dovecot']['group']`                        | `'dovecot'`                | Dovecot system group. Should no be changed.
+| `node['dovecot']['lib_path']`                     | *calculated*               | Dovecot library path. Should no be changed.
+| `node['dovecot']['conf_path']`                    | `'/etc/dovecot'`           | Dovecot configuration files path. Should no be changed.
+| `node['dovecot']['conf_files_user']`              | `'root'`                   | System user owner of configuration files.
+| `node['dovecot']['conf_files_group']`             | `node['dovecot']['group']` | System group owner of configuration files.
+| `node['dovecot']['conf_files_mode']`              | `00644`                    | Configuration files system file mode bits.
+| `node['dovecot']['sensitive_files']`              | `['*.conf.ext']`           | An array of dovecot sensitive configuration files. Each array item can be a glob expression or a fixed file name. These file names should be relative to `node['dovecot']['conf_path']` directory. Example: `['dovecot-sql.conf.ext', '*-auth.conf.ext', 'conf.d/auth-supersecret.conf.ext']`
+| `node['dovecot']['sensitive_files_mode']`         | `00640`                    | Configuration files system file mode bits for sensitve files.
+| `node['dovecot']['conf_files']['core']`           | *calculated*               | Dovecot core configuration files list.
+| `node['dovecot']['conf_files']['imap']`           | `['conf.d/20-imap.conf']`  | Dovecot IMAP configuration files list.
+| `node['dovecot']['conf_files']['pop3']`           | `['conf.d/20-pop3.conf']`  | Dovecot POP3 configuration files list.
+| `node['dovecot']['conf_files']['lmtp']`           | `['conf.d/20-lmtp.conf']`  | Dovecot LMTP configuration files list.
+| `node['dovecot']['conf_files']['sieve']`          | *calculated*               | Dovecot Sieve configuration files list.
+| `node['dovecot']['conf_files']['ldap']`           | *calculated*               | Dovecot LDAP configuration files list.
+| `node['dovecot']['auth']`                         | `{}`                       | Dovecot Authentication Databases as a hash of hashes ([see the examples below](#authentication-database-examples)). Supported authdbs: checkpassword, deny, ldap, master, passwdfile, sql, system and vpopmail.
+| `node['dovecot']['namespaces']`                   | `[]`                       | Dovecot Namespaces as an array of hashes ([see the example below](#namespaces-example)).
+| `node['dovecot']['plugins']`                      | *calculated*               | Dovecot Plugins configuration as a hash of hashes ([see the examples below](#plugins-examples)). Supported plugins: mail_log, acl and quota.
+| `node['dovecot']['protocols']`                    | `{}`                       | Dovecot Protocols configuration as a hash of hashes ([see the example below](#protocols-example)). Supported protocols: lda, imap, lmtp, sieve and pop3.
+| `node['dovecot']['services']`                     | `{}`                       | Dovecot Services configuration as a hash of hashes ([see the examples below](#service-examples)). Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login and managesieve.
+| `node['dovecot']['conf']['mail_plugins']`         | `[]`                       | Dovecot default enabled mail_plugins.
+| `node['dovecot']['ohai_plugin']['build-options']` | `true`                     | Whether to enable reading build options inside ohai plugin. Can be disabled to be lighter.
 
 ## Main Configuration Attributes
 
 * Configuration file: `dovecot.conf`.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['listen']</code></td>
-    <td>A comma separated list of IPs or hosts where to listen in for connections.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['base_dir']</code></td>
-    <td>Base directory where to store runtime data.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['instance_name']</code></td>
-    <td>Name of this instance. Used to prefix all Dovecot processes in ps output.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['login_greeting']</code></td>
-    <td>Greeting message for clients.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['login_trusted_networks']</code></td>
-    <td>Space separated list of trusted network ranges.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['login_access_sockets']</code></td>
-    <td>Space separated list of login access check sockets.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_proxy_self']</code></td>
-    <td>With proxy_maybe=yes if proxy destination matches any of these IPs, don't do proxying.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['verbose_proctitle']</code></td>
-    <td>Show more verbose process titles (in ps).</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['shutdown_clients']</code></td>
-    <td>Should all processes be killed when Dovecot master process shuts down.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['doveadm_worker_count']</code></td>
-    <td>If non-zero, run mail commands via this many connections to doveadm server.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['doveadm_socket_path']</code></td>
-    <td>UNIX socket or host:port used for connecting to doveadm server.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['import_environment']</code></td>
-    <td>Space separated list of environment variables that are preserved on Dovecot startup and his childs.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['dict']</code></td>
-    <td>Dictionary server settings as a hash.</td>
-    <td><em>nil</em></td>
-  </tr>
-</table>
+| Attribute                                           | Default | Description                    |
+|:----------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['listen']`                 | *nil*   | A comma separated list of IPs or hosts where to listen in for connections.
+| `node['dovecot']['conf']['base_dir']`               | *nil*   | Base directory where to store runtime data.
+| `node['dovecot']['conf']['instance_name']`          | *nil*   | Name of this instance. Used to prefix all Dovecot processes in ps output.
+| `node['dovecot']['conf']['login_greeting']`         | *nil*   | Greeting message for clients.
+| `node['dovecot']['conf']['login_trusted_networks']` | *nil*   | Space separated list of trusted network ranges.
+| `node['dovecot']['conf']['login_access_sockets']`   | *nil*   | Space separated list of login access check sockets.
+| `node['dovecot']['conf']['auth_proxy_self']`        | *nil*   | With proxy_maybe=yes if proxy destination matches any of these IPs, don't do proxying.
+| `node['dovecot']['conf']['verbose_proctitle']`      | *nil*   | Show more verbose process titles (in ps).
+| `node['dovecot']['conf']['shutdown_clients']`       | *nil*   | Should all processes be killed when Dovecot master process shuts down.
+| `node['dovecot']['conf']['doveadm_worker_count']`   | *nil*   | If non-zero, run mail commands via this many connections to doveadm server.
+| `node['dovecot']['conf']['doveadm_socket_path']`    | *nil*   | UNIX socket or host:port used for connecting to doveadm server.
+| `node['dovecot']['conf']['import_environment']`     | *nil*   | Space separated list of environment variables that are preserved on Dovecot startup and his childs.
+| `node['dovecot']['conf']['dict']`                   | *nil*   | Dictionary server settings as a hash.
 
 ## Authentication Processes Attributes
 
 * Configuration file: `conf.d/10-auth.conf`.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['disable_plaintext_auth']</code></td>
-    <td>Disable LOGIN command and all other plaintext authentications unless SSL/TLS is used.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_cache_size']</code></td>
-    <td>Authentication cache size (e.g. 10M). 0 means it's disabled.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_cache_ttl']</code></td>
-    <td>Time to live for cached data.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_cache_negative_ttl']</code></td>
-    <td>TTL for negative hits (user not found, password mismatch).</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_realms']</code></td>
-    <td>Space separated list (or array) of realms for SASL authentication mechanisms that need them.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_default_realm']</code></td>
-    <td>Default realm/domain to use if none was specified.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_username_chars']</code></td>
-    <td>List of allowed characters in username.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_username_translation']</code></td>
-    <td>Username character translations before it's looked up from databases.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_username_format']</code></td>
-    <td>Username formatting before it's looked up from databases.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_master_user_separator']</code></td>
-    <td>If you want to allow master users to log in by specifying the master username within the normal username string, you can specify the separator character here (format: <username><separator><master username>).</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_anonymous_username']</code></td>
-    <td>Username to use for users logging in with ANONYMOUS SASL mechanism.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_worker_max_count']</code></td>
-    <td>Maximum number of dovecot-auth worker processes.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_gssapi_hostname']</code></td>
-    <td>Host name to use in GSSAPI principal names.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_krb5_keytab']</code></td>
-    <td>Kerberos keytab to use for the GSSAPI mechanism.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_use_winbind']</code></td>
-    <td>Do NTLM and GSS-SPNEGO authentication using Samba's winbind daemon and ntlm_auth helper.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_winbind_helper_path']</code></td>
-    <td>Path for Samba's ntlm_auth helper binary.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_failure_delay']</code></td>
-    <td>Time to delay before replying to failed authentications.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_ssl_require_client_cert']</code></td>
-    <td>Take the username from client's SSL certificate, using X509_NAME_get_text_by_NID() which returns the subject's DN's CommonName.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_mechanisms']</code></td>
-    <td>Space separated list of wanted authentication mechanisms: plain, login, digest-md5, cram-md5, ntlm, rpa, apop, anonymous, gssapi, otp, skey, gss-spnego</td>
-    <td><code>"plain"</code></td>
-  </tr>
-</table>
+| Attribute                                                 | Default   | Description                    |
+|:----------------------------------------------------------|:----------|:-------------------------------|
+| `node['dovecot']['conf']['disable_plaintext_auth']`       | *nil*     | Disable LOGIN command and all other plaintext authentications unless SSL/TLS is used.
+| `node['dovecot']['conf']['auth_cache_size']`              | *nil*     | Authentication cache size (e.g. 10M). 0 means it's disabled.
+| `node['dovecot']['conf']['auth_cache_ttl']`               | *nil*     | Time to live for cached data.
+| `node['dovecot']['conf']['auth_cache_negative_ttl']`      | *nil*     | TTL for negative hits (user not found, password mismatch).
+| `node['dovecot']['conf']['auth_realms']`                  | *nil*     | Space separated list (or array) of realms for SASL authentication mechanisms that need them.
+| `node['dovecot']['conf']['auth_default_realm']`           | *nil*     | Default realm/domain to use if none was specified.
+| `node['dovecot']['conf']['auth_username_chars']`          | *nil*     | List of allowed characters in username.
+| `node['dovecot']['conf']['auth_username_translation']`    | *nil*     | Username character translations before it's looked up from databases.
+| `node['dovecot']['conf']['auth_username_format']`         | *nil*     | Username formatting before it's looked up from databases.
+| `node['dovecot']['conf']['auth_master_user_separator']`   | *nil*     | If you want to allow master users to log in by specifying the master username within the normal username string, you can specify the separator character here (format: <username><separator><master username>).</master></separator></username>
+| `node['dovecot']['conf']['auth_anonymous_username']`      | *nil*     | Username to use for users logging in with ANONYMOUS SASL mechanism.
+| `node['dovecot']['conf']['auth_worker_max_count']`        | *nil*     | Maximum number of dovecot-auth worker processes.
+| `node['dovecot']['conf']['auth_gssapi_hostname']`         | *nil*     | Host name to use in GSSAPI principal names.
+| `node['dovecot']['conf']['auth_krb5_keytab']`             | *nil*     | Kerberos keytab to use for the GSSAPI mechanism.
+| `node['dovecot']['conf']['auth_use_winbind']`             | *nil*     | Do NTLM and GSS-SPNEGO authentication using Samba's winbind daemon and ntlm_auth helper.
+| `node['dovecot']['conf']['auth_winbind_helper_path']`     | *nil*     | Path for Samba's ntlm_auth helper binary.
+| `node['dovecot']['conf']['auth_failure_delay']`           | *nil*     | Time to delay before replying to failed authentications.
+| `node['dovecot']['conf']['auth_ssl_require_client_cert']` | *nil*     | Take the username from client's SSL certificate, using X509_NAME_get_text_by_NID() which returns the subject's DN's CommonName.
+| `node['dovecot']['conf']['auth_mechanisms']`              | `'plain'` | Space separated list of wanted authentication mechanisms: plain, login, digest-md5, cram-md5, ntlm, rpa, apop, anonymous, gssapi, otp, skey, gss-spnego
 
 ## Director-specific Attributes
 
 * Configuration file: `conf.d/10-director.conf`.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['director_servers']</code></td>
-    <td>List of IPs or hostnames to all director servers, including ourself (as a string or as an array).</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['director_mail_servers']</code></td>
-    <td>List of IPs or hostnames to all backend mail servers.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['director_user_expire']</code></td>
-    <td>How long to redirect users to a specific server after it no longer has any connections.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['director_doveadm_port']</code></td>
-    <td>TCP/IP port that accepts doveadm connections (instead of director connections).</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['director_username_hash']</code></td>
-    <td>How the username is translated before being hashed.</td>
-    <td><em>nil</em></td>
-  </tr>
-</table>
+| Attribute                                           | Default | Description                    |
+|:----------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['director_servers']`       | *nil*   | List of IPs or hostnames to all director servers, including ourself (as a string or as an array).
+| `node['dovecot']['conf']['director_mail_servers']`  | *nil*   | List of IPs or hostnames to all backend mail servers.
+| `node['dovecot']['conf']['director_user_expire']`   | *nil*   | How long to redirect users to a specific server after it no longer has any connections.
+| `node['dovecot']['conf']['director_doveadm_port']`  | *nil*   | TCP/IP port that accepts doveadm connections (instead of director connections).
+| `node['dovecot']['conf']['director_username_hash']` | *nil*   | How the username is translated before being hashed.
 
 ## Log Destination Attributes
 
 * Configuration file: `conf.d/10-logging.conf`.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['log_path']</code></td>
-    <td>Log file to use for error messages. "syslog" logs to syslog, /dev/stderr logs to stderr.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['info_log_path']</code></td>
-    <td>Log file to use for informational messages. Defaults to log_path.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['debug_log_path']</code></td>
-    <td>Log file to use for debug messages. Defaults to info_log_path.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['syslog_facility']</code></td>
-    <td>Syslog facility to use if you're logging to syslog.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_verbose']</code></td>
-    <td>Log unsuccessful authentication attempts and the reasons why they failed.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_verbose_passwords']</code></td>
-    <td>In case of password mismatches, log the attempted password.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_debug']</code></td>
-    <td>Even more verbose logging for debugging purposes.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_debug_passwords']</code></td>
-    <td>In case of password mismatches, log the passwords and used scheme so the problem can be debugged.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_debug']</code></td>
-    <td>Enable mail process debugging.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['verbose_ssl']</code></td>
-    <td>Show protocol level SSL errors.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['log_timestamp']</code></td>
-    <td>Prefix for each line written to log file.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['login_log_format_elements']</code></td>
-    <td>Space-separated list (or array) of elements we want to log.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['login_log_format']</code></td>
-    <td>Login log format.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_log_prefix']</code></td>
-    <td>Log prefix for mail processes.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['deliver_log_format']</code></td>
-    <td>Format to use for logging mail deliveries.</td>
-    <td><em>nil</em></td>
-  </tr>
-</table>
+| Attribute                                              | Default | Description                    |
+|:-------------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['log_path']`                  | *nil*   | Log file to use for error messages. "syslog" logs to syslog, /dev/stderr logs to stderr.
+| `node['dovecot']['conf']['info_log_path']`             | *nil*   | Log file to use for informational messages. Defaults to log_path.
+| `node['dovecot']['conf']['debug_log_path']`            | *nil*   | Log file to use for debug messages. Defaults to info_log_path.
+| `node['dovecot']['conf']['syslog_facility']`           | *nil*   | Syslog facility to use if you're logging to syslog.
+| `node['dovecot']['conf']['auth_verbose']`              | *nil*   | Log unsuccessful authentication attempts and the reasons why they failed.
+| `node['dovecot']['conf']['auth_verbose_passwords']`    | *nil*   | In case of password mismatches, log the attempted password.
+| `node['dovecot']['conf']['auth_debug']`                | *nil*   | Even more verbose logging for debugging purposes.
+| `node['dovecot']['conf']['auth_debug_passwords']`      | *nil*   | In case of password mismatches, log the passwords and used scheme so the problem can be debugged.
+| `node['dovecot']['conf']['mail_debug']`                | *nil*   | Enable mail process debugging.
+| `node['dovecot']['conf']['verbose_ssl']`               | *nil*   | Show protocol level SSL errors.
+| `node['dovecot']['conf']['log_timestamp']`             | *nil*   | Prefix for each line written to log file.
+| `node['dovecot']['conf']['login_log_format_elements']` | *nil*   | Space-separated list (or array) of elements we want to log.
+| `node['dovecot']['conf']['login_log_format']`          | *nil*   | Login log format.
+| `node['dovecot']['conf']['mail_log_prefix']`           | *nil*   | Log prefix for mail processes.
+| `node['dovecot']['conf']['deliver_log_format']`        | *nil*   | Format to use for logging mail deliveries.
 
 ## Mailbox Locations and Namespaces Attributes
 
 * Configuration file: `conf.d/10-mail.conf`.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_location']</code></td>
-    <td>Location for user's mailboxes.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_shared_explicit_inbox']</code></td>
-    <td>Should shared INBOX be visible as "shared/user" or "shared/user/INBOX"?</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_uid']</code></td>
-    <td>System user used to access mails.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_gid']</code></td>
-    <td>System group used to access mails.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_privileged_group']</code></td>
-    <td>Group to enable temporarily for privileged operations.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_access_groups']</code></td>
-    <td>Grant access to these supplementary groups for mail processes.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_full_filesystem_access']</code></td>
-    <td>Allow full filesystem access to clients.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_attribute_dict']</code></td>
-    <td>Dictionary for key=value mailbox attributes. Currently used by URLAUTH.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mmap_disable']</code></td>
-    <td>Don't use mmap() at all.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['dotlock_use_excl']</code></td>
-    <td>Rely on O_EXCL to work when creating dotlock files.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_fsync']</code></td>
-    <td>When to use fsync() or fdatasync() calls: optimized, always or never</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_nfs_storage']</code></td>
-    <td>Mail storage exists in NFS.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_nfs_index']</code></td>
-    <td>Mail index files also exist in NFS.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['lock_method']</code></td>
-    <td>Locking method for index files: fcntl, flock or dotlock.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_temp_dir']</code></td>
-    <td>Directory in which LDA/LMTP temporarily stores incoming mails >128 kB.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['first_valid_uid']</code></td>
-    <td>Valid UID range for users, defaults to 500 and above.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['last_valid_uid']</code></td>
-    <td>Valid UID range for users, defaults to 500 and above.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['first_valid_gid']</code></td>
-    <td>Valid GID range for users, defaults to non-root/wheel.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['last_valid_gid']</code></td>
-    <td>Valid GID range for users, defaults to non-root/wheel.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_max_keyword_length']</code></td>
-    <td>Maximum allowed length for mail keyword name.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['valid_chroot_dirs']</code></td>
-    <td>':' separated list of directories under which chrooting is allowed for mail processes.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_chroot']</code></td>
-    <td>Default chroot directory for mail processes.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['auth_socket_path']</code></td>
-    <td>UNIX socket path to master authentication server to find users.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_plugin_dir']</code></td>
-    <td>Directory where to look up mail plugins.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_cache_min_mail_count']</code></td>
-    <td>The minimum number of mails in a mailbox before updates are done to cache file.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mailbox_idle_check_interval']</code></td>
-    <td>When IDLE command is running, mailbox is checked once in a while to see if there are any new mails or other changes.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_save_crlf']</code></td>
-    <td>Save mails with CR+LF instead of plain LF.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_prefetch_count']</code></td>
-    <td>Max number of mails to keep open and prefetch to memory.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_temp_scan_interval']</code></td>
-    <td>How often to scan for stale temporary files and delete them (0 = never).</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['maildir_stat_dirs']</code></td>
-    <td>By default LIST command returns all entries in maildir beginning with a dot.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['maildir_copy_with_hardlinks']</code></td>
-    <td>When copying a message, do it with hard links whenever possible.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['maildir_very_dirty_syncs']</code></td>
-    <td>Assume Dovecot is the only MUA accessing Maildir.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['maildir_broken_filename_sizes']</code></td>
-    <td>If enabled, Dovecot doesn't use the S=<size> in the Maildir filenames for getting the mail's physical size, except when recalculating Maildir++ quota.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['maildir_empty_new']</code></td>
-    <td>Always move mails from new/ directory to cur/, even when the \Recent flags aren't being reset.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mbox_read_locks']</code></td>
-    <td>Which read locking methods to use for locking mbox: dotlock, dotlock_try, fcntl, flock or lockfyy</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mbox_write_locks']</code></td>
-    <td>Which write locking methods to use for locking mbox: dotlock, dotlock_try, fcntl, flock or lockfyy</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mbox_lock_timeout']</code></td>
-    <td>Maximum time to wait for lock (all of them) before aborting.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mbox_dotlock_change_timeout']</code></td>
-    <td>If dotlock exists but the mailbox isn't modified in any way, override the lock file after this much time.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mbox_dirty_syncs']</code></td>
-    <td>When mbox changes unexpectedly simply read the new mails but still safely fallbacks to re-reading the whole mbox file whenever something in mbox isn't how it's expected to be.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mbox_very_dirty_syncs']</code></td>
-    <td>Like mbox_dirty_syncs, but don't do full syncs even with SELECT, EXAMINE, EXPUNGE or CHECK commands.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mbox_lazy_writes']</code></td>
-    <td>Delay writing mbox headers until doing a full write sync (EXPUNGE and CHECK commands and when closing the mailbox).</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mbox_min_index_size']</code></td>
-    <td>If mbox size is smaller than this (e.g. 100k), don't write index files.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mbox_md5']</code></td>
-    <td>Mail header selection algorithm to use for MD5 POP3 UIDLs when pop3_uidl_format=%m.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mdbox_rotate_size']</code></td>
-    <td>Maximum dbox file size until it's rotated.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mdbox_rotate_interval']</code></td>
-    <td>Maximum dbox file age until it's rotated.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mdbox_preallocate_space']</code></td>
-    <td>When creating new mdbox files, immediately preallocate their size to mdbox_rotate_size.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_attachment_dir']</code></td>
-    <td>Directory root where to store mail attachments. Disabled, if empty.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_attachment_min_size']</code></td>
-    <td>Attachments smaller than this aren't saved externally.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_attachment_fs']</code></td>
-    <td>Filesystem backend to use for saving attachments: posix, sis posix or sis-queue posix.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['mail_attachment_hash']</code></td>
-    <td>Hash format to use in attachment filenames.</td>
-    <td><em>nil</em></td>
-  </tr>
-</table>
+| Attribute                                                  | Default | Description                    |
+|:-----------------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['mail_location']`                 | *nil*   | Location for user's mailboxes.
+| `node['dovecot']['conf']['mail_shared_explicit_inbox']`    | *nil*   | Should shared INBOX be visible as "shared/user" or "shared/user/INBOX"?
+| `node['dovecot']['conf']['mail_uid']`                      | *nil*   | System user used to access mails.
+| `node['dovecot']['conf']['mail_gid']`                      | *nil*   | System group used to access mails.
+| `node['dovecot']['conf']['mail_privileged_group']`         | *nil*   | Group to enable temporarily for privileged operations.
+| `node['dovecot']['conf']['mail_access_groups']`            | *nil*   | Grant access to these supplementary groups for mail processes.
+| `node['dovecot']['conf']['mail_full_filesystem_access']`   | *nil*   | Allow full filesystem access to clients.
+| `node['dovecot']['conf']['mail_attribute_dict']`           | *nil*   | Dictionary for key=value mailbox attributes. Currently used by URLAUTH.
+| `node['dovecot']['conf']['mmap_disable']`                  | *nil*   | Don't use mmap() at all.
+| `node['dovecot']['conf']['dotlock_use_excl']`              | *nil*   | Rely on O_EXCL to work when creating dotlock files.
+| `node['dovecot']['conf']['mail_fsync']`                    | *nil*   | When to use fsync() or fdatasync() calls: optimized, always or never
+| `node['dovecot']['conf']['mail_nfs_storage']`              | *nil*   | Mail storage exists in NFS.
+| `node['dovecot']['conf']['mail_nfs_index']`                | *nil*   | Mail index files also exist in NFS.
+| `node['dovecot']['conf']['lock_method']`                   | *nil*   | Locking method for index files: fcntl, flock or dotlock.
+| `node['dovecot']['conf']['mail_temp_dir']`                 | *nil*   | Directory in which LDA/LMTP temporarily stores incoming mails &gt;128 kB.
+| `node['dovecot']['conf']['first_valid_uid']`               | *nil*   | Valid UID range for users, defaults to 500 and above.
+| `node['dovecot']['conf']['last_valid_uid']`                | *nil*   | Valid UID range for users, defaults to 500 and above.
+| `node['dovecot']['conf']['first_valid_gid']`               | *nil*   | Valid GID range for users, defaults to non-root/wheel.
+| `node['dovecot']['conf']['last_valid_gid']`                | *nil*   | Valid GID range for users, defaults to non-root/wheel.
+| `node['dovecot']['conf']['mail_max_keyword_length']`       | *nil*   | Maximum allowed length for mail keyword name.
+| `node['dovecot']['conf']['valid_chroot_dirs']`             | *nil*   | ':' separated list of directories under which chrooting is allowed for mail processes.
+| `node['dovecot']['conf']['mail_chroot']`                   | *nil*   | Default chroot directory for mail processes.
+| `node['dovecot']['conf']['auth_socket_path']`              | *nil*   | UNIX socket path to master authentication server to find users.
+| `node['dovecot']['conf']['mail_plugin_dir']`               | *nil*   | Directory where to look up mail plugins.
+| `node['dovecot']['conf']['mail_cache_min_mail_count']`     | *nil*   | The minimum number of mails in a mailbox before updates are done to cache file.
+| `node['dovecot']['conf']['mailbox_idle_check_interval']`   | *nil*   | When IDLE command is running, mailbox is checked once in a while to see if there are any new mails or other changes.
+| `node['dovecot']['conf']['mail_save_crlf']`                | *nil*   | Save mails with CR+LF instead of plain LF.
+| `node['dovecot']['conf']['mail_prefetch_count']`           | *nil*   | Max number of mails to keep open and prefetch to memory.
+| `node['dovecot']['conf']['mail_temp_scan_interval']`       | *nil*   | How often to scan for stale temporary files and delete them (0 = never).
+| `node['dovecot']['conf']['maildir_stat_dirs']`             | *nil*   | By default LIST command returns all entries in maildir beginning with a dot.
+| `node['dovecot']['conf']['maildir_copy_with_hardlinks']`   | *nil*   | When copying a message, do it with hard links whenever possible.
+| `node['dovecot']['conf']['maildir_very_dirty_syncs']`      | *nil*   | Assume Dovecot is the only MUA accessing Maildir.
+| `node['dovecot']['conf']['maildir_broken_filename_sizes']` | *nil*   | If enabled, Dovecot doesn't use the S=<size> in the Maildir filenames for getting the mail's physical size, except when recalculating Maildir++ quota.</size>
+| `node['dovecot']['conf']['maildir_empty_new']`             | *nil*   | Always move mails from new/ directory to cur/, even when the \Recent flags aren't being reset.
+| `node['dovecot']['conf']['mbox_read_locks']`               | *nil*   | Which read locking methods to use for locking mbox: dotlock, dotlock_try, fcntl, flock or lockfyy
+| `node['dovecot']['conf']['mbox_write_locks']`              | *nil*   | Which write locking methods to use for locking mbox: dotlock, dotlock_try, fcntl, flock or lockfyy
+| `node['dovecot']['conf']['mbox_lock_timeout']`             | *nil*   | Maximum time to wait for lock (all of them) before aborting.
+| `node['dovecot']['conf']['mbox_dotlock_change_timeout']`   | *nil*   | If dotlock exists but the mailbox isn't modified in any way, override the lock file after this much time.
+| `node['dovecot']['conf']['mbox_dirty_syncs']`              | *nil*   | When mbox changes unexpectedly simply read the new mails but still safely fallbacks to re-reading the whole mbox file whenever something in mbox isn't how it's expected to be.
+| `node['dovecot']['conf']['mbox_very_dirty_syncs']`         | *nil*   | Like mbox_dirty_syncs, but don't do full syncs even with SELECT, EXAMINE, EXPUNGE or CHECK commands.
+| `node['dovecot']['conf']['mbox_lazy_writes']`              | *nil*   | Delay writing mbox headers until doing a full write sync (EXPUNGE and CHECK commands and when closing the mailbox).
+| `node['dovecot']['conf']['mbox_min_index_size']`           | *nil*   | If mbox size is smaller than this (e.g. 100k), don't write index files.
+| `node['dovecot']['conf']['mbox_md5']`                      | *nil*   | Mail header selection algorithm to use for MD5 POP3 UIDLs when pop3_uidl_format=%m.
+| `node['dovecot']['conf']['mdbox_rotate_size']`             | *nil*   | Maximum dbox file size until it's rotated.
+| `node['dovecot']['conf']['mdbox_rotate_interval']`         | *nil*   | Maximum dbox file age until it's rotated.
+| `node['dovecot']['conf']['mdbox_preallocate_space']`       | *nil*   | When creating new mdbox files, immediately preallocate their size to mdbox_rotate_size.
+| `node['dovecot']['conf']['mail_attachment_dir']`           | *nil*   | Directory root where to store mail attachments. Disabled, if empty.
+| `node['dovecot']['conf']['mail_attachment_min_size']`      | *nil*   | Attachments smaller than this aren't saved externally.
+| `node['dovecot']['conf']['mail_attachment_fs']`            | *nil*   | Filesystem backend to use for saving attachments: posix, sis posix or sis-queue posix.
+| `node['dovecot']['conf']['mail_attachment_hash']`          | *nil*   | Hash format to use in attachment filenames.
 
 ## Master Configuration File Attributes
 
 * Configuration file: `conf.d/10-master.conf`.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['default_process_limit']</code></td>
-    <td>Default process limit.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['default_client_limit']</code></td>
-    <td>Default client limit.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['default_vsz_limit']</code></td>
-    <td>Default VSZ (virtual memory size) limit for service processes.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['default_login_user']</code></td>
-    <td>Login user is internally used by login processes.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['default_internal_user']</code></td>
-    <td>Internal user is used by unprivileged processes.</td>
-    <td><em>nil</em></td>
-  </tr>
-</table>
+| Attribute                                          | Default | Description                    |
+|:---------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['default_process_limit']` | *nil*   | Default process limit.
+| `node['dovecot']['conf']['default_client_limit']`  | *nil*   | Default client limit.
+| `node['dovecot']['conf']['default_vsz_limit']`     | *nil*   | Default VSZ (virtual memory size) limit for service processes.
+| `node['dovecot']['conf']['default_login_user']`    | *nil*   | Login user is internally used by login processes.
+| `node['dovecot']['conf']['default_internal_user']` | *nil*   | Internal user is used by unprivileged processes.
 
 ## SSL Attributes
 
 * Configuration file: `conf.d/10-ssl.conf`.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl']</code></td>
-    <td>SSL/TLS support: true or false</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_cert']</code></td>
-    <td>PEM encoded X.509 SSL/TLS certificate.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_key']</code></td>
-    <td>PEM encoded X.509 SSL/TLS private key.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_key_password']</code></td>
-    <td>If key file is password protected, give the password here.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_ca']</code></td>
-    <td>PEM encoded trusted certificate authority.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_require_crl']</code></td>
-    <td>Require that CRL check succeeds for client certificates.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_client_ca_dir']</code></td>
-    <td>Directory for trusted SSL CA certificates. These are used only when Dovecot needs to act as an SSL client.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_client_ca_file']</code></td>
-    <td>File for trusted SSL CA certificates. These are used only when Dovecot needs to act as an SSL client.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_verify_client_cert']</code></td>
-    <td>Request client to send a certificate.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_cert_username_field']</code></td>
-    <td>Which field from certificate to use for username.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_parameters_regenerate']</code></td>
-    <td>How often to regenerate the SSL parameters file.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_dh_parameters_length']</code></td>
-    <td>DH parameters length to use.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_protocols']</code></td>
-    <td>SSL protocols to use.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_cipher_list']</code></td>
-    <td>SSL ciphers to use</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_prefer_server_ciphers']</code></td>
-    <td>Prefer the server's order of ciphers over client's.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_crypto_device']</code></td>
-    <td>SSL crypto device to use, for valid values run <code>$ openssl engine</code>.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ssl_options']</code></td>
-    <td>SSL extra options. Currently supported options are: <code>'no_compression'</code></td>
-    <td><em>nil</em></td>
-  </tr>
-</table>
+| Attribute                                              | Default      | Description                    |
+|:-------------------------------------------------------|:-------------|:-------------------------------|
+| `node['dovecot']['conf']['ssl']`                       | *nil*        | SSL/TLS support: true or false
+| `node['dovecot']['conf']['ssl_cert']`                  | *calculated* | PEM encoded X.509 SSL/TLS certificate.
+| `node['dovecot']['conf']['ssl_key']`                   | *calculated* | PEM encoded X.509 SSL/TLS private key.
+| `node['dovecot']['conf']['ssl_key_password']`          | *nil*        | If key file is password protected, give the password here.
+| `node['dovecot']['conf']['ssl_ca']`                    | *nil*        | PEM encoded trusted certificate authority.
+| `node['dovecot']['conf']['ssl_require_crl']`           | *nil*        | Require that CRL check succeeds for client certificates.
+| `node['dovecot']['conf']['ssl_client_ca_dir']`         | *nil*        | Directory for trusted SSL CA certificates. These are used only when Dovecot needs to act as an SSL client.
+| `node['dovecot']['conf']['ssl_client_ca_file']`        | *nil*        | File for trusted SSL CA certificates. These are used only when Dovecot needs to act as an SSL client.
+| `node['dovecot']['conf']['ssl_verify_client_cert']`    | *nil*        | Request client to send a certificate.
+| `node['dovecot']['conf']['ssl_cert_username_field']`   | *nil*        | Which field from certificate to use for username.
+| `node['dovecot']['conf']['ssl_parameters_regenerate']` | *nil*        | How often to regenerate the SSL parameters file.
+| `node['dovecot']['conf']['ssl_dh_parameters_length']`  | *nil*        | DH parameters length to use.
+| `node['dovecot']['conf']['ssl_protocols']`             | *nil*        | SSL protocols to use.
+| `node['dovecot']['conf']['ssl_cipher_list']`           | *nil*        | SSL ciphers to use
+| `node['dovecot']['conf']['ssl_prefer_server_ciphers']` | *nil*        | Prefer the server's order of ciphers over client's.
+| `node['dovecot']['conf']['ssl_crypto_device']`         | *nil*        | SSL crypto device to use, for valid values run `$ openssl engine`.
+| `node['dovecot']['conf']['ssl_options']`               | *nil*        | SSL extra options. Currently supported options are: `'no_compression'`
 
 ## LDA Specific Attributes
 
@@ -956,396 +292,112 @@ Also used by LMTP.
 
 * Configuration files: `conf.d/15-lda.conf`.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['postmaster_address']</code></td>
-    <td>Address to use when sending rejection mails.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['hostname']</code></td>
-    <td>Hostname to use in various parts of sent mails, eg. in Message-Id.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['quota_full_tempfail']</code></td>
-    <td>If user is over quota, return with temporary failure instead of bouncing the mail.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['sendmail_path']</code></td>
-    <td>Binary to use for sending mails.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['submission_host']</code></td>
-    <td>If non-empty, send mails via this SMTP host[:port] instead of sendmail.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['rejection_subject']</code></td>
-    <td>Subject: header to use for rejection mails.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['rejection_reason']</code></td>
-    <td>Human readable error message for rejection mails.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['recipient_delimiter']</code></td>
-    <td>Delimiter character between local-part and detail in email address.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['lda_original_recipient_header']</code></td>
-    <td>Header where the original recipient address (SMTP's RCPT TO: address) is taken from if not available elsewhere.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['lda_mailbox_autocreate']</code></td>
-    <td>Should saving a mail to a nonexistent mailbox automatically create it?</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['lda_mailbox_autosubscribe']</code></td>
-    <td>Should automatically created mailboxes be also automatically subscribed?</td>
-    <td><em>nil</em></td>
-  </tr>
-</table>
+| Attribute                                                  | Default | Description                    |
+|:-----------------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['postmaster_address']`            | *nil*   | Address to use when sending rejection mails.
+| `node['dovecot']['conf']['hostname']`                      | *nil*   | Hostname to use in various parts of sent mails, eg. in Message-Id.
+| `node['dovecot']['conf']['quota_full_tempfail']`           | *nil*   | If user is over quota, return with temporary failure instead of bouncing the mail.
+| `node['dovecot']['conf']['sendmail_path']`                 | *nil*   | Binary to use for sending mails.
+| `node['dovecot']['conf']['submission_host']`               | *nil*   | If non-empty, send mails via this SMTP host[:port] instead of sendmail.
+| `node['dovecot']['conf']['rejection_subject']`             | *nil*   | Subject: header to use for rejection mails.
+| `node['dovecot']['conf']['rejection_reason']`              | *nil*   | Human readable error message for rejection mails.
+| `node['dovecot']['conf']['recipient_delimiter']`           | *nil*   | Delimiter character between local-part and detail in email address.
+| `node['dovecot']['conf']['lda_original_recipient_header']` | *nil*   | Header where the original recipient address (SMTP's RCPT TO: address) is taken from if not available elsewhere.
+| `node['dovecot']['conf']['lda_mailbox_autocreate']`        | *nil*   | Should saving a mail to a nonexistent mailbox automatically create it?
+| `node['dovecot']['conf']['lda_mailbox_autosubscribe']`     | *nil*   | Should automatically created mailboxes be also automatically subscribed?
 
 ## LMTP Specific Attributes
 
 * Configuration file: `conf.d/20-lmtp.conf`
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['lmtp_proxy']</code></td>
-    <td>Support proxying to other LMTP/SMTP servers by performing passdb lookups.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['lmtp_save_to_detail_mailbox']</code></td>
-    <td>When recipient address includes the detail (e.g. user+detail), try to save the mail to the detail mailbox.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['lmtp_rcpt_check_quota']</code></td>
-    <td>Verify quota before replying to RCPT TO. This adds a small overhead.</td>
-    <td><em>nil</em></td>
-  </tr>
-</table>
+| Attribute                                                | Default | Description                    |
+|:---------------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['lmtp_proxy']`                  | *nil*   | Support proxying to other LMTP/SMTP servers by performing passdb lookups.
+| `node['dovecot']['conf']['lmtp_save_to_detail_mailbox']` | *nil*   | When recipient address includes the detail (e.g. user+detail), try to save the mail to the detail mailbox.
+| `node['dovecot']['conf']['lmtp_rcpt_check_quota']`       | *nil*   | Verify quota before replying to RCPT TO. This adds a small overhead.
 
 ## Berkeley DB DB_CONFIG Attributes
 
 * Configuration file: `dovecot-db.conf.ext`.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['db']</code></td>
-    <td>DB_CONFIG for Berkeley DB as a hash.</td>
-    <td><em>nil</em></td>
-  </tr>
-</table>
+| Attribute                       | Default | Description                    |
+|:--------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['db']` | *nil*   | DB_CONFIG for Berkeley DB as a hash.
 
 ## Dictionary Quota SQL Attributes
 
 * Configuration files: `dovecot-dict-sql.conf.ext`.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['dict_sql']['connect']</code></td>
-    <td>Dict sql connect configuration as a string or an array.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['dict_sql']['maps']</code></td>
-    <td>Dict sql database tables maps (<a href="#dictionary-quota-sql-example">see the example below</a>).</td>
-    <td><em>nil</em></td>
-  </tr>
-</table>
+| Attribute                                        | Default | Description                    |
+|:-------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['dict_sql']['connect']` | *nil*   | Dict sql connect configuration as a string or an array.
+| `node['dovecot']['conf']['dict_sql']['maps']`    | *nil*   | Dict sql database tables maps ([see the example below](#dictionary-quota-sql-example)).
 
 ## LDAP Authentication Attributes
 
 * Configuration files: `dovecot-ldap.conf.ext`.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['hosts']</code></td>
-    <td>Space separated list or array of LDAP hosts to use.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['uris']</code></td>
-    <td>LDAP URIs to use.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['dn']</code></td>
-    <td>Distinguished Name, the username used to login to the LDAP server.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['dnpass']</code></td>
-    <td>Password for LDAP server, if dn is specified.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['sasl_bind']</code></td>
-    <td>Use SASL binding instead of the simple binding.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['sasl_mech']</code></td>
-    <td>SASL mechanism name to use.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['sasl_realm']</code></td>
-    <td>SASL realm to use.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['sasl_authz_id']</code></td>
-    <td>SASL authorization ID, ie. the dnpass is for this "master user", but the dn is still the logged in user.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['tls']</code></td>
-    <td>Use TLS to connect to the LDAP server.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['tls_ca_cert_file']</code></td>
-    <td>TLS options, currently supported only with OpenLDAP.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['tls_ca_cert_dir']</code></td>
-    <td>TLS options, currently supported only with OpenLDAP.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['tls_cipher_suite']</code></td>
-    <td>TLS options, currently supported only with OpenLDAP.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['tls_cert_file']</code></td>
-    <td>TLS cert/key is used only if LDAP server requires a client certificate.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['tls_key_file']</code></td>
-    <td>TLS cert/key is used only if LDAP server requires a client certificate.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['tls_require_cert']</code></td>
-    <td>Valid values: never, hard, demand, allow, try</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['ldaprc_path']</code></td>
-    <td>Use the given ldaprc path.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['debug_level']</code></td>
-    <td>LDAP library debug level as specified by LDAP_DEBUG_* in ldap_log.h.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['auth_bind']</code></td>
-    <td>Use authentication binding for verifying password's validity.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['auth_bind_userdn']</code></td>
-    <td>If authentication binding is used, you can save one LDAP request per login if user's DN can be specified with a common template.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['ldap_version']</code></td>
-    <td>LDAP protocol version to use. Likely 2 or 3.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['base']</code></td>
-    <td>LDAP base. %variables can be used here.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['deref']</code></td>
-    <td>Dereference: never, searching, finding or always.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['scope']</code></td>
-    <td>Search scope: base, onelevel or subtree.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['user_attrs']</code></td>
-    <td>User attributes are given in LDAP-name=dovecot-internal-name list.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['user_filter']</code></td>
-    <td>Filter for user lookup.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['pass_attrs']</code></td>
-    <td>Password checking attributes.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['pass_filter']</code></td>
-    <td>Filter for password lookups.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['iterate_attrs']</code></td>
-    <td>Attributes to get a list of all users</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['iterate_filter']</code></td>
-    <td>Filter to get a list of all users</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['ldap']['default_pass_scheme']</code></td>
-    <td>Default password scheme. "{scheme}" before password overrides this.</td>
-    <td><em>nil</em></td>
-  </tr>
-</table>
+| Attribute                                                | Default | Description                    |
+|:---------------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['ldap']['hosts']`               | *nil*   | Space separated list or array of LDAP hosts to use.
+| `node['dovecot']['conf']['ldap']['uris']`                | *nil*   | LDAP URIs to use.
+| `node['dovecot']['conf']['ldap']['dn']`                  | *nil*   | Distinguished Name, the username used to login to the LDAP server.
+| `node['dovecot']['conf']['ldap']['dnpass']`              | *nil*   | Password for LDAP server, if dn is specified.
+| `node['dovecot']['conf']['ldap']['sasl_bind']`           | *nil*   | Use SASL binding instead of the simple binding.
+| `node['dovecot']['conf']['ldap']['sasl_mech']`           | *nil*   | SASL mechanism name to use.
+| `node['dovecot']['conf']['ldap']['sasl_realm']`          | *nil*   | SASL realm to use.
+| `node['dovecot']['conf']['ldap']['sasl_authz_id']`       | *nil*   | SASL authorization ID, ie. the dnpass is for this "master user", but the dn is still the logged in user.
+| `node['dovecot']['conf']['ldap']['tls']`                 | *nil*   | Use TLS to connect to the LDAP server.
+| `node['dovecot']['conf']['ldap']['tls_ca_cert_file']`    | *nil*   | TLS options, currently supported only with OpenLDAP.
+| `node['dovecot']['conf']['ldap']['tls_ca_cert_dir']`     | *nil*   | TLS options, currently supported only with OpenLDAP.
+| `node['dovecot']['conf']['ldap']['tls_cipher_suite']`    | *nil*   | TLS options, currently supported only with OpenLDAP.
+| `node['dovecot']['conf']['ldap']['tls_cert_file']`       | *nil*   | TLS cert/key is used only if LDAP server requires a client certificate.
+| `node['dovecot']['conf']['ldap']['tls_key_file']`        | *nil*   | TLS cert/key is used only if LDAP server requires a client certificate.
+| `node['dovecot']['conf']['ldap']['tls_require_cert']`    | *nil*   | Valid values: never, hard, demand, allow, try
+| `node['dovecot']['conf']['ldap']['ldaprc_path']`         | *nil*   | Use the given ldaprc path.
+| `node['dovecot']['conf']['ldap']['debug_level']`         | *nil*   | LDAP library debug level as specified by LDAP_DEBUG_* in ldap_log.h.
+| `node['dovecot']['conf']['ldap']['auth_bind']`           | *nil*   | Use authentication binding for verifying password's validity.
+| `node['dovecot']['conf']['ldap']['auth_bind_userdn']`    | *nil*   | If authentication binding is used, you can save one LDAP request per login if user's DN can be specified with a common template.
+| `node['dovecot']['conf']['ldap']['ldap_version']`        | *nil*   | LDAP protocol version to use. Likely 2 or 3.
+| `node['dovecot']['conf']['ldap']['base']`                | *nil*   | LDAP base. %variables can be used here.
+| `node['dovecot']['conf']['ldap']['deref']`               | *nil*   | Dereference: never, searching, finding or always.
+| `node['dovecot']['conf']['ldap']['scope']`               | *nil*   | Search scope: base, onelevel or subtree.
+| `node['dovecot']['conf']['ldap']['user_attrs']`          | *nil*   | User attributes are given in LDAP-name=dovecot-internal-name list.
+| `node['dovecot']['conf']['ldap']['user_filter']`         | *nil*   | Filter for user lookup.
+| `node['dovecot']['conf']['ldap']['pass_attrs']`          | *nil*   | Password checking attributes.
+| `node['dovecot']['conf']['ldap']['pass_filter']`         | *nil*   | Filter for password lookups.
+| `node['dovecot']['conf']['ldap']['iterate_attrs']`       | *nil*   | Attributes to get a list of all users
+| `node['dovecot']['conf']['ldap']['iterate_filter']`      | *nil*   | Filter to get a list of all users
+| `node['dovecot']['conf']['ldap']['default_pass_scheme']` | *nil*   | Default password scheme. "{scheme}" before password overrides this.
 
 ## SQL Authentication Attributes
 
 * Configuration file: `dovecot-sql.conf.ext`.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['sql']['driver']</code></td>
-    <td>Database driver: mysql, pgsql or sqlite.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['sql']['connect']</code></td>
-    <td>Database connection string or array. This is driver-specific setting.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['sql']['default_pass_scheme']</code></td>
-    <td>Default password scheme.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['sql']['password_query']</code></td>
-    <td>passdb query to retrieve the password.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['sql']['user_query']</code></td>
-    <td>userdb query to retrieve the user information.</td>
-    <td><em>nil</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['conf']['sql']['iterate_query']</code></td>
-    <td>Query to get a list of all usernames.</td>
-    <td><em>nil</em></td>
-  </tr>
-</table>
+| Attribute                                               | Default | Description                    |
+|:--------------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['sql']['driver']`              | *nil*   | Database driver: mysql, pgsql or sqlite.
+| `node['dovecot']['conf']['sql']['connect']`             | *nil*   | Database connection string or array. This is driver-specific setting.
+| `node['dovecot']['conf']['sql']['default_pass_scheme']` | *nil*   | Default password scheme.
+| `node['dovecot']['conf']['sql']['password_query']`      | *nil*   | passdb query to retrieve the password.
+| `node['dovecot']['conf']['sql']['user_query']`          | *nil*   | userdb query to retrieve the user information.
+| `node['dovecot']['conf']['sql']['iterate_query']`       | *nil*   | Query to get a list of all usernames.
 
 ## Distribution Packages Names Attributes
 
 These attributes below contain the default required distribution packages for the supported platforms. But you are free to create your own to support other platforms. Keep in mind that all are put inside a subkey (`type`). This `node['dovecot']['packages'][type]` attribute is then used together with the `node['dovecot']['conf_files'][type]` attribute to generate the configuration files. 
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['core']</code></td>
-    <td>Dovecot core package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['imap']</code></td>
-    <td>Dovecot IMAP package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['pop3']</code></td>
-    <td>Dovecot POP3 package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['lmtp']</code></td>
-    <td>Dovecot LMTP package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['sieve']</code></td>
-    <td>Dovecot Sieve package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['ldap']</code></td>
-    <td>Dovecot LDAP package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['sqlite']</code></td>
-    <td>Dovecot SQLite package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['mysql']</code></td>
-    <td>Dovecot MySQL package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['dovecot']['packages']['pgsql']</code></td>
-    <td>Dovecot PostgreSQL package names array.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-</table>
+| Attribute                               | Default      | Description                    |
+|:----------------------------------------|:-------------|:-------------------------------|
+| `node['dovecot']['packages']['core']`   | *calculated* | Dovecot core package names array.
+| `node['dovecot']['packages']['imap']`   | *calculated* | Dovecot IMAP package names array.
+| `node['dovecot']['packages']['pop3']`   | *calculated* | Dovecot POP3 package names array.
+| `node['dovecot']['packages']['lmtp']`   | *calculated* | Dovecot LMTP package names array.
+| `node['dovecot']['packages']['sieve']`  | *calculated* | Dovecot Sieve package names array.
+| `node['dovecot']['packages']['ldap']`   | *calculated* | Dovecot LDAP package names array.
+| `node['dovecot']['packages']['sqlite']` | *calculated* | Dovecot SQLite package names array.
+| `node['dovecot']['packages']['mysql']`  | *calculated* | Dovecot MySQL package names array.
+| `node['dovecot']['packages']['pgsql']`  | *calculated* | Dovecot PostgreSQL package names array.
 
 Recipes
 =======
