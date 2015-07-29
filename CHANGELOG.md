@@ -2,6 +2,15 @@
 
 This file is used to list changes made in each version of `dovecot` cookbook.
 
+## v2.2.2 (2015-07-29)
+
+* Tests:
+ * Gemfile: kitchen-docker `~> 2.1.0`.
+
+* Documentation:
+ * README: Use markdown tables.
+ * Add GitHub source badge.
+
 ## v2.2.1 (2015-07-23)
 
 * Travis CI: Fix `test-kitchen` integration tests.
