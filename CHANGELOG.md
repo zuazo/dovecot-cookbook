@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of `dovecot` cookbook.
 
-## v2.2.0 (2015-07-23)
+## v2.2.1 (2015-07-23)
 
 * Travis CI: Fix `test-kitchen` integration tests.
 
