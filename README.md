@@ -4,7 +4,7 @@ Description
 [![GitHub Source](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat)](https://github.com/onddo/dovecot-cookbook)
 [![Dependency Status](http://img.shields.io/gemnasium/onddo/dovecot-cookbook.svg?style=flat)](https://gemnasium.com/onddo/dovecot-cookbook)
 [![Code Climate](http://img.shields.io/codeclimate/github/onddo/dovecot-cookbook.svg?style=flat)](https://codeclimate.com/github/onddo/dovecot-cookbook)
-[![Build Status](http://img.shields.io/travis/onddo/dovecot-cookbook/2.2.1.svg?style=flat)](https://travis-ci.org/onddo/dovecot-cookbook)
+[![Build Status](http://img.shields.io/travis/onddo/dovecot-cookbook/2.2.2.svg?style=flat)](https://travis-ci.org/onddo/dovecot-cookbook)
 
 Installs and configures [Dovecot](http://www.dovecot.org/), open source IMAP and POP3 email server.
 
