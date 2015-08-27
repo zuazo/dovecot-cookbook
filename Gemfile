@@ -17,7 +17,7 @@ end
 
 group :style do
   gem 'foodcritic', '= 4.0.0'
-  gem 'rubocop', '= 0.32.1'
+  gem 'rubocop', '= 0.33.0'
 end
 
 group :unit do
@@ -33,7 +33,7 @@ group :integration do
 end
 
 group :integration_docker do
-  gem 'kitchen-docker', '~> 2.1.0'
+  gem 'kitchen-docker', '~> 2.1'
 end
 
 group :integration_vagrant do
