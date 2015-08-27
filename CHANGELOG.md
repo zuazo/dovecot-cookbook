@@ -17,10 +17,10 @@ This file is used to list changes made in each version of `dovecot` cookbook.
 
 ## v2.2.0 (2015-07-22)
 
-* Fix Debian Jessie support ([issue #15](https://github.com/onddo/dovecot-cookbook/issues/15), thanks [Marcus Klein](https://github.com/kleini) for the help).
+* Fix Debian Jessie support ([issue #15](https://github.com/zuazo/dovecot-cookbook/issues/15), thanks [Marcus Klein](https://github.com/kleini) for the help).
 
 * Tests:
- * Fix typo in 'dovecot is running' test ([issue #13](https://github.com/onddo/dovecot-cookbook/pull/13), thanks [Michael Burns](https://github.com/mburns)).
+ * Fix typo in 'dovecot is running' test ([issue #13](https://github.com/zuazo/dovecot-cookbook/pull/13), thanks [Michael Burns](https://github.com/mburns)).
  * Integrate [Kitchen integration tests in Travis CI](https://github.com/zuazo/kitchen-in-travis).
  * Gemfile: Update RuboCop to `0.32.1`.
  * Run Travis CI tests in Ruby `2.2`.
@@ -31,7 +31,7 @@ This file is used to list changes made in each version of `dovecot` cookbook.
 
 ## v2.1.0 (2015-04-04)
 
-* Improve LDAP support, including integration tests ([issue #12](https://github.com/onddo/dovecot-cookbook/issues/12), thanks [Dr. Ogg](https://github.com/neallawson) for reporting).
+* Improve LDAP support, including integration tests ([issue #12](https://github.com/zuazo/dovecot-cookbook/issues/12), thanks [Dr. Ogg](https://github.com/neallawson) for reporting).
 * Update all configuration files to Dovecot `2.2.16`.
 * Update RuboCop to `0.29.1` (new offenses fixed).
 
@@ -98,12 +98,12 @@ This file is used to list changes made in each version of `dovecot` cookbook.
  * Use 512MB instances on DigitalOcean
  * `require_chef_omnibus` `true` instead of `latest`
  * Some images updated
-* README: fixed some typos ([issue #7](https://github.com/onddo/dovecot-cookbook/pull/7), thanks [Jordi Llonch](https://github.com/llonchj))
-* Added `from_package` recipe, `packages` recipe marked for future deprecation ([issue #8](https://github.com/onddo/dovecot-cookbook/pull/8), thanks [Jordi Llonch](https://github.com/llonchj))
+* README: fixed some typos ([issue #7](https://github.com/zuazo/dovecot-cookbook/pull/7), thanks [Jordi Llonch](https://github.com/llonchj))
+* Added `from_package` recipe, `packages` recipe marked for future deprecation ([issue #8](https://github.com/zuazo/dovecot-cookbook/pull/8), thanks [Jordi Llonch](https://github.com/llonchj))
 * Added integration tests for IMAP protocol
-* Package installation and template generation logic standardized using a `Dovecot::Conf#require?` method ([issue #9](https://github.com/onddo/dovecot-cookbook/pull/9), thanks [Jordi Llonch](https://github.com/llonchj) for the help)
+* Package installation and template generation logic standardized using a `Dovecot::Conf#require?` method ([issue #9](https://github.com/zuazo/dovecot-cookbook/pull/9), thanks [Jordi Llonch](https://github.com/llonchj) for the help)
  * ***Note:*** This change is ***huge***, but it is supposed to be backwards compatible
-* Added Ohai 7 plugins support ([issue #10](https://github.com/onddo/dovecot-cookbook/pull/10))
+* Added Ohai 7 plugins support ([issue #10](https://github.com/zuazo/dovecot-cookbook/pull/10))
 
 ## v0.3.1 (2014-03-15)
 
@@ -118,18 +118,18 @@ This file is used to list changes made in each version of `dovecot` cookbook.
 * kitchen.yml: vagrant boxes updated
 * Gemfile: some dependency versions updated
 * Tested to work on Fedora 18, Fedora 19 and Amazon
-* Add support for anvil service ([issue #5](https://github.com/onddo/dovecot-cookbook/pull/5), thanks [Johan Svensson](https://github.com/loxley))
-* Auth-definitions below ldap are a hash, not an array ([issue #6](https://github.com/onddo/dovecot-cookbook/pull/6), thanks [Arnold Krille](https://github.com/kampfschlaefer))
-* Protect sensitive config files from read ([issue #4](https://github.com/onddo/dovecot-cookbook/pull/4), thanks [claudex](https://github.com/claudex))
+* Add support for anvil service ([issue #5](https://github.com/zuazo/dovecot-cookbook/pull/5), thanks [Johan Svensson](https://github.com/loxley))
+* Auth-definitions below ldap are a hash, not an array ([issue #6](https://github.com/zuazo/dovecot-cookbook/pull/6), thanks [Arnold Krille](https://github.com/kampfschlaefer))
+* Protect sensitive config files from read ([issue #4](https://github.com/zuazo/dovecot-cookbook/pull/4), thanks [claudex](https://github.com/claudex))
 
 ## v0.2.0 (2013-10-28)
 
-* Dict auth support and mailbox_list_index ([issue #3](https://github.com/onddo/dovecot-cookbook/pull/3), thanks [Johan Svensson](https://github.com/loxley))
+* Dict auth support and mailbox_list_index ([issue #3](https://github.com/zuazo/dovecot-cookbook/pull/3), thanks [Johan Svensson](https://github.com/loxley))
 
 ## v0.1.1 (2013-07-19)
 
-* Typo in auth-passwdfile.conf template ([issue #2](https://github.com/onddo/dovecot-cookbook/pull/2), thanks [Trond Arve Nordheim](https://github.com/tanordheim))
-* Fix typo in README.md ([issue #1](https://github.com/onddo/dovecot-cookbook/pull/1), thanks [Andreas Lappe](https://github.com/alappe)) 
+* Typo in auth-passwdfile.conf template ([issue #2](https://github.com/zuazo/dovecot-cookbook/pull/2), thanks [Trond Arve Nordheim](https://github.com/tanordheim))
+* Fix typo in README.md ([issue #1](https://github.com/zuazo/dovecot-cookbook/pull/1), thanks [Andreas Lappe](https://github.com/alappe))
 * Gemfile improvements
 
 ## v0.1.0 (2013-06-08)

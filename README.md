@@ -1,10 +1,10 @@
 Description
 ===========
 [![Cookbook Version](https://img.shields.io/cookbook/v/dovecot.svg?style=flat)](https://supermarket.chef.io/cookbooks/dovecot)
-[![GitHub Source](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat)](https://github.com/onddo/dovecot-cookbook)
-[![Dependency Status](http://img.shields.io/gemnasium/onddo/dovecot-cookbook.svg?style=flat)](https://gemnasium.com/onddo/dovecot-cookbook)
-[![Code Climate](http://img.shields.io/codeclimate/github/onddo/dovecot-cookbook.svg?style=flat)](https://codeclimate.com/github/onddo/dovecot-cookbook)
-[![Build Status](http://img.shields.io/travis/onddo/dovecot-cookbook.svg?style=flat)](https://travis-ci.org/onddo/dovecot-cookbook)
+[![GitHub Source](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat)](https://github.com/zuazo/dovecot-cookbook)
+[![Dependency Status](http://img.shields.io/gemnasium/zuazo/dovecot-cookbook.svg?style=flat)](https://gemnasium.com/zuazo/dovecot-cookbook)
+[![Code Climate](http://img.shields.io/codeclimate/github/zuazo/dovecot-cookbook.svg?style=flat)](https://codeclimate.com/github/zuazo/dovecot-cookbook)
+[![Build Status](http://img.shields.io/travis/zuazo/dovecot-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/dovecot-cookbook)
 
 Installs and configures [Dovecot](http://www.dovecot.org/), open source IMAP and POP3 email server.
 
@@ -515,7 +515,7 @@ Another alternative is to include the default recipe in your Run List.
 
 ```json
 {
-  "name": "mail.onddo.com",
+  "name": "mail.example.com",
   "[...]": "[...]",
   "run_list": [
     "recipe[dovecot]"
@@ -963,31 +963,31 @@ template node['dovecot']['plugins']['sieve']['sieve_global_path'] do
 end
 ```
 
-If you want a more complete example, you can look at the [postfix-dovecot](https://github.com/onddo/postfix-dovecot-cookbook) recipe.
+If you want a more complete example, you can look at the [postfix-dovecot](https://github.com/zuazo/postfix-dovecot-cookbook) recipe.
 
 Testing
 =======
 
-See [TESTING.md](https://github.com/onddo/dovecot-cookbook/blob/master/TESTING.md).
+See [TESTING.md](https://github.com/zuazo/dovecot-cookbook/blob/master/TESTING.md).
 
 Contributing
 ============
 
-Please do not hesitate to [open an issue](https://github.com/onddo/dovecot-cookbook/issues/new) with any questions or problems.
+Please do not hesitate to [open an issue](https://github.com/zuazo/dovecot-cookbook/issues/new) with any questions or problems.
 
-See [CONTRIBUTING.md](https://github.com/onddo/dovecot-cookbook/blob/master/CONTRIBUTING.md).
+See [CONTRIBUTING.md](https://github.com/zuazo/dovecot-cookbook/blob/master/CONTRIBUTING.md).
 
 TODO
 ====
 
-See [TODO.md](https://github.com/onddo/dovecot-cookbook/blob/master/TODO.md).
+See [TODO.md](https://github.com/zuazo/dovecot-cookbook/blob/master/TODO.md).
 
 License and Author
 ==================
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
-| **Author:**          | [Xabier de Zuazo](https://github.com/zuazo) (<xabier@onddo.com>)
+| **Author:**          | [Xabier de Zuazo](https://github.com/zuazo) (<xabier@zuazo.org>)
 | **Contributor:**     | [Andreas Lappe](https://github.com/alappe)
 | **Contributor:**     | [Trond Arve Nordheim](https://github.com/tanordheim)
 | **Contributor:**     | [Johan Svensson](https://github.com/loxley)
@@ -996,7 +996,8 @@ License and Author
 | **Contributor:**     | [Jordi Llonch](https://github.com/llonchj)
 | **Contributor:**     | [Michael Burns](https://github.com/mburns)
 | **Contributor:**     | [Marcus Klein](https://github.com/kleini)
-| **Copyright:**       | Copyright (c) 2013-2015, Onddo Labs, SL. (www.onddo.com)
+| **Copyright:**       | Copyright (c) 2015, Xabier de Zuazo
+| **Copyright:**       | Copyright (c) 2013-2015, Onddo Labs, SL.
 | **License:**         | Apache License, Version 2.0
 
     Licensed under the Apache License, Version 2.0 (the "License");
