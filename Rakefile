@@ -1,9 +1,25 @@
 # encoding: UTF-8
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-# Based on magic_shell cookbook code, thanks @sethvargo.
 
+#
+# Available Rake tasks:
+#
+# rake clean                    # Clean some generated files
+# rake default                  # Run doc, style, unit and integration tests
+# rake doc                      # Generate Ruby documentation
+# rake integration              # Run Test Kitchen integration tests
+# rake integration:docker       # Run Test Kitchen tests using docker
+# rake integration:vagrant      # Run Test Kitchen tests using vagrant
+# rake style                    # Run all style checks
+# rake style:chef               # Run Chef style checks using foodcritic
+# rake style:ruby               # Run Ruby style checks using rubocop
+# rake style:ruby:auto_correct  # Auto-correct RuboCop offenses
+# rake unit                     # Run ChefSpec unit tests
+# rake yard                     # Generate Ruby documentation using yard
+#
 # More info at https://github.com/ruby/rake/blob/master/doc/rakefile.rdoc
+#
 
 require 'bundler/setup'
 
@@ -14,6 +30,18 @@ require 'bundler/setup'
 #   travis? #=> false
 def travis?
   ENV['TRAVIS'] == 'true'
+end
+
+desc 'Clean some generated files'
+task :clean do
+  %w(
+    Berksfile.lock
+    .bundle
+    .cache
+    Gemfile.lock
+    .kitchen
+    metadata.json
+  ).each { |f| FileUtils.rm_rf(Dir.glob(f)) }
 end
 
 desc 'Generate Ruby documentation using yard'
