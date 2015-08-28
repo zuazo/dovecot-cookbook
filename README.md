@@ -1,12 +1,12 @@
-Description
-===========
+Dovecot Cookbook
+================
 [![Cookbook Version](https://img.shields.io/cookbook/v/dovecot.svg?style=flat)](https://supermarket.chef.io/cookbooks/dovecot)
 [![GitHub Source](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat)](https://github.com/zuazo/dovecot-cookbook)
 [![Dependency Status](http://img.shields.io/gemnasium/zuazo/dovecot-cookbook.svg?style=flat)](https://gemnasium.com/zuazo/dovecot-cookbook)
 [![Code Climate](http://img.shields.io/codeclimate/github/zuazo/dovecot-cookbook.svg?style=flat)](https://codeclimate.com/github/zuazo/dovecot-cookbook)
 [![Build Status](http://img.shields.io/travis/zuazo/dovecot-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/dovecot-cookbook)
 
-Installs and configures [Dovecot](http://www.dovecot.org/), open source IMAP and POP3 email server.
+[Chef](https://www.chef.io/) cookbook to install and configure [Dovecot](http://www.dovecot.org/), open source IMAP and POP3 email server.
 
 Table of Contents
 =================
