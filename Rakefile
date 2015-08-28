@@ -45,6 +45,7 @@ task :unit do
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:unit) do |t|
     t.rspec_opts = '--color --format progress'
+    t.pattern = 'test/unit/**{,/*/**}/*_spec.rb'
   end
 end
 

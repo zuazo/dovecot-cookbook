@@ -17,8 +17,7 @@
 # limitations under the License.
 #
 
-require 'spec_helper'
-require 'conf'
+require_relative '../spec_helper'
 
 describe 'dovecot::from_package' do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
