@@ -2,14 +2,29 @@
 
 This file is used to list changes made in each version of `dovecot` cookbook.
 
-## v2.2.2 (2015-07-29)
+## v2.3.0 (2015-08-30)
+
+* Update chef links to use *chef.io* domain.
+* Update contact information and links after migration.
+* metadata: Add `source_url` and `issues_url`.
 
 * Tests:
- * Gemfile: kitchen-docker `~> 2.1.0`.
+ * Move ChefSpec tests to *test/unit*.
+ * Rakefile: Add clean task.
+ * Travis CI: Use `kitchen-in-travis` version `0.3.0`.
+ * Gemfile: Update RuboCop to `0.33.0`.
+
+* Documentation:
+ * README: Improve description.
+
+## v2.2.2 (2015-07-29)
 
 * Documentation:
  * README: Use markdown tables.
  * Add GitHub source badge.
+
+* Tests:
+ * Gemfile: kitchen-docker `~> 2.1.0`.
 
 ## v2.2.1 (2015-07-23)
 
