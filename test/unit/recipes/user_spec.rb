@@ -38,7 +38,7 @@ describe 'dovecot::user' do
       expect(chef_run).to create_user(user).with_system(true)
     end
 
-    context 'in Ubuntu' do
+    context 'on Ubuntu' do
       let(:chef_runner) do
         ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04')
       end
@@ -46,9 +46,9 @@ describe 'dovecot::user' do
       it 'has /usr/lib/dovecot as home' do
         expect(chef_run).to create_user(user).with_home('/usr/lib/dovecot')
       end
-    end # context in Ubuntu
+    end # context on Ubuntu
 
-    context 'in CentOS' do
+    context 'on CentOS' do
       let(:chef_runner) do
         ChefSpec::SoloRunner.new(platform: 'centos', version: '5.10')
       end
@@ -56,7 +56,27 @@ describe 'dovecot::user' do
       it 'has /usr/libexec/dovecot as home' do
         expect(chef_run).to create_user(user).with_home('/usr/libexec/dovecot')
       end
-    end # context in CentOS
+    end # context on CentOS
+
+    context 'on SUSE 12' do
+      let(:chef_runner) do
+        ChefSpec::SoloRunner.new(platform: 'suse', version: '12.0')
+      end
+
+      it 'has /var/run/dovecot as home' do
+        expect(chef_run).to create_user(user).with_home('/var/run/dovecot')
+      end
+    end # context on SUSE 12
+
+    context 'on openSUSE 13' do
+      let(:chef_runner) do
+        ChefSpec::SoloRunner.new(platform: 'opensuse', version: '13.1')
+      end
+
+      it 'has /var/run/dovecot as home' do
+        expect(chef_run).to create_user(user).with_home('/var/run/dovecot')
+      end
+    end # context on openSUSE 13
   end # describe the dovecot user
 
   it 'creates the dovecot group' do

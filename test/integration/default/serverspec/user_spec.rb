@@ -22,8 +22,11 @@ require 'spec_helper'
 platform = os[:family].downcase
 
 home =
-  if %w(redhat centos scientific fedora suse amazon).include?(platform)
+  case platform
+  when 'redhat', 'centos', 'scientific', 'fedora', 'amazon'
     '/usr/libexec/dovecot'
+  when 'suse', 'opensuse'
+    '/var/run/dovecot'
   else
     '/usr/lib/dovecot'
   end

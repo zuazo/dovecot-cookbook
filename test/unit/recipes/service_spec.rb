@@ -22,6 +22,7 @@ require_relative '../spec_helper'
 describe 'dovecot::service' do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
+  let(:node) { chef_runner.node }
 
   it 'enables dovecot service' do
     expect(chef_run).to enable_service('dovecot')
@@ -36,15 +37,60 @@ describe 'dovecot::service' do
 
     it 'supports restart, reload and status' do
       expect(chef_run).to enable_service(service)
-        .with_supports(restart: true, reload: true, status: true)
+        .with_supports(Mash.new(restart: true, reload: true, status: true))
     end
 
     it 'uses the default provider' do
-      expect(chef_run).to enable_service(service)
-        .with_provider(nil)
+      expect(chef_run).to enable_service(service).with_provider(nil)
     end
 
-    context 'with Ubuntu 13.10' do
+    context 'on SUSE 12 (issue #16)' do
+      let(:chef_runner) do
+        ChefSpec::SoloRunner.new(platform: 'suse', version: '12.0')
+      end
+
+      it 'uses the RedHat provider' do
+        expect(chef_run).to enable_service(service)
+          .with_provider(Chef::Provider::Service::Redhat)
+      end
+
+      it 'does not support reload' do
+        expect(chef_run).to enable_service(service)
+          .with_supports(Mash.new(restart: true, reload: false, status: true))
+      end
+    end
+
+    context 'on openSUSE 13' do
+      let(:chef_runner) do
+        ChefSpec::SoloRunner.new(platform: 'opensuse', version: '13.1')
+      end
+
+      it 'uses the default provider' do
+        expect(chef_run).to enable_service(service).with_provider(nil)
+      end
+
+      it 'supports reload' do
+        expect(chef_run).to enable_service(service)
+          .with_supports(Mash.new(restart: true, reload: true, status: true))
+      end
+    end
+
+    context 'on Ubuntu 12.04' do
+      before do
+        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04')
+      end
+
+      it 'does not use the upstart provider' do
+        expect(chef_run).to enable_service(service).with_provider(nil)
+      end
+
+      it 'supports reload' do
+        expect(chef_run).to enable_service(service)
+          .with_supports(Mash.new(restart: true, reload: true, status: true))
+      end
+    end
+
+    context 'on Ubuntu 13.10' do
       let(:chef_runner) do
         ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '13.10')
       end
@@ -53,6 +99,46 @@ describe 'dovecot::service' do
         expect(chef_run).to enable_service(service)
           .with_provider(Chef::Provider::Service::Upstart)
       end
-    end # context with Ubuntu 13.10
+
+      it 'supports reload' do
+        expect(chef_run).to enable_service(service)
+          .with_supports(Mash.new(restart: true, reload: true, status: true))
+      end
+    end # context on Ubuntu 13.10
+
+    context 'on Ubuntu 15.04' do
+      # Ubuntu 15.04 still not supported by fauxhai
+      before do
+        node.automatic['platform_family'] = 'debian'
+        node.automatic['platform'] = 'ubuntu'
+        node.automatic['platform_version'] = '15.04'
+      end
+
+      it 'uses the debian provider' do
+        expect(chef_run).to enable_service(service)
+          .with_provider(Chef::Provider::Service::Debian)
+      end
+
+      it 'supports reload' do
+        expect(chef_run).to enable_service(service)
+          .with_supports(Mash.new(restart: true, reload: true, status: true))
+      end
+    end # context on Ubuntu 15.04
+
+    context 'on Debian 8' do
+      let(:chef_runner) do
+        ChefSpec::SoloRunner.new(platform: 'debian', version: '8.0')
+      end
+
+      it 'uses the debian provider' do
+        expect(chef_run).to enable_service(service)
+          .with_provider(Chef::Provider::Service::Debian)
+      end
+
+      it 'supports reload' do
+        expect(chef_run).to enable_service(service)
+          .with_supports(Mash.new(restart: true, reload: true, status: true))
+      end
+    end # context on Debian 8
   end # context the dovecot service
 end

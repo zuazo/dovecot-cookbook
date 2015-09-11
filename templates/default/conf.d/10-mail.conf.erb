@@ -209,10 +209,10 @@
 <%= Dovecot::Conf.attribute(@conf, 'auth_socket_path', '/var/run/dovecot/auth-userdb') %>
 
 # Directory where to look up mail plugins.
-<%= case node['platform']
-    when 'redhat','centos','scientific','fedora','suse','amazon' then
+<%= case node['platform_family']
+    when 'rhel', 'fedora', 'suse'
       Dovecot::Conf.attribute(@conf, 'mail_plugin_dir', '/usr/lib/dovecot')
-    # when 'debian', 'ubuntu' then
+    # when 'debian'
     else
       Dovecot::Conf.attribute(@conf, 'mail_plugin_dir', '/usr/lib/dovecot/modules')
     end

@@ -24,7 +24,7 @@ describe 'dovecot::conf_files' do
   let(:chef_run) { chef_runner.converge(described_recipe) }
   let(:node) { chef_runner.node }
 
-  context 'in Ubuntu' do
+  context 'on Ubuntu' do
     let(:chef_runner) do
       ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04')
     end
@@ -32,9 +32,9 @@ describe 'dovecot::conf_files' do
     it 'creates library path directory' do
       expect(chef_run).to create_directory('/usr/lib/dovecot')
     end
-  end # context in Ubuntu
+  end # context on Ubuntu
 
-  context 'in CentOS' do
+  context 'on CentOS' do
     let(:chef_runner) do
       ChefSpec::SoloRunner.new(platform: 'centos', version: '5.10')
     end
@@ -45,7 +45,27 @@ describe 'dovecot::conf_files' do
         .with_group('dovecot')
         .with_mode('00755')
     end
-  end # context in CentOS
+  end # context on CentOS
+
+  context 'on SUSE 12 (issue #16)' do
+    let(:chef_runner) do
+      ChefSpec::SoloRunner.new(platform: 'suse', version: '12.0')
+    end
+
+    it 'creates library path directory' do
+      expect(chef_run).to create_directory('/var/run/dovecot')
+    end
+  end # context on SUSE 12
+
+  context 'on openSUSE 13' do
+    let(:chef_runner) do
+      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '13.1')
+    end
+
+    it 'creates library path directory' do
+      expect(chef_run).to create_directory('/var/run/dovecot')
+    end
+  end # context on openSUSE 13
 
   it 'creates the conf.d directory recursively' do
     expect(chef_run).to create_directory('/etc/dovecot/conf.d')

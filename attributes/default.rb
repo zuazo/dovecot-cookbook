@@ -24,10 +24,12 @@ default['dovecot']['install_from'] = 'package'
 default['dovecot']['user'] = 'dovecot'
 default['dovecot']['group'] = node['dovecot']['user']
 
-case node['platform']
-when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon' then
+case node['platform_family']
+when 'rhel', 'fedora'
   default['dovecot']['lib_path'] = '/usr/libexec/dovecot'
-# when 'debian', 'ubuntu' then
+when 'suse'
+  default['dovecot']['lib_path'] = '/var/run/dovecot'
+# when 'debian'
 else
   default['dovecot']['lib_path'] = '/usr/lib/dovecot'
 end

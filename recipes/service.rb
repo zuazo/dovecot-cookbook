@@ -3,6 +3,7 @@
 # Cookbook Name:: dovecot
 # Recipe:: service
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
+# Copyright:: Copyright (c) 2015 Xabier de Zuazo
 # Copyright:: Copyright (c) 2013-2014 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
 #
@@ -20,13 +21,8 @@
 #
 
 service 'dovecot' do
-  supports restart: true, reload: true, status: true
-  if node['platform'] == 'ubuntu' &&
-     Gem::Version.new(node['platform_version']) >= Gem::Version.new('13.10')
-    provider Chef::Provider::Service::Upstart
-  elsif node['platform'] == 'debian' &&
-        node['platform_version'].to_i >= 8
-    provider Chef::Provider::Service::Debian
-  end
+  service_name node['dovecot']['service']['name']
+  supports Mash.new(node['dovecot']['service']['supports'])
+  provider node['dovecot']['service']['provider']
   action [:enable, :start]
 end

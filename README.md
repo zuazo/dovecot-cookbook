@@ -30,7 +30,8 @@ Table of Contents
   * [Dictionary Quota SQL Attributes](#dictionary-quota-sql-attributes)
   * [LDAP Authentication Attributes](#ldap-authentication-attributes)
   * [SQL Authentication Attributes](#sql-authentication-attributes)
-  * [Distribution Packages Names Attributes](#distribution-packages-names-attributes)
+  * [Distribution Package Names Attributes](#distribution-package-names-attributes)
+  * [Distribution Service Configuration](#distribution-service-configuration)
 * [Recipes](#recipes)
   * [dovecot::default](#dovecotdefault)
   * [dovecot::user](#dovecotuser)
@@ -66,11 +67,15 @@ Requirements
 
 This cookbook has been tested on the following platforms:
 
+* Amazon
 * CentOS `>= 6.0`
 * Debian `>= 7.0`
 * Fedora `>= 18.0`
+* OpenSUSE
+* Oracle Linux
+* Scientific Linux
+* SUSE
 * Ubuntu `>= 12.04`
-* Amazon
 
 Let me know if you use it successfully on any other platform.
 
@@ -98,7 +103,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf_files_user']`              | `'root'`                   | System user owner of configuration files.
 | `node['dovecot']['conf_files_group']`             | `node['dovecot']['group']` | System group owner of configuration files.
 | `node['dovecot']['conf_files_mode']`              | `00644`                    | Configuration files system file mode bits.
-| `node['dovecot']['sensitive_files']`              | `['*.conf.ext']`           | An array of dovecot sensitive configuration files. Each array item can be a glob expression or a fixed file name. These file names should be relative to `node['dovecot']['conf_path']` directory. Example: `['dovecot-sql.conf.ext', '*-auth.conf.ext', 'conf.d/auth-supersecret.conf.ext']`
+| `node['dovecot']['sensitive_files']`              | `['*.conf.ext']`           | An array of dovecot sensitive configuration files. Each array item can be a glob expression or a fixed file name. These file names should be relative to `node['dovecot']['conf_path']` directory. Example: `['dovecot-sql.conf.ext', '*-auth.conf.ext', 'conf.d/auth-supersecret.conf.ext']`.
 | `node['dovecot']['sensitive_files_mode']`         | `00640`                    | Configuration files system file mode bits for sensitve files.
 | `node['dovecot']['conf_files']['core']`           | *calculated*               | Dovecot core configuration files list.
 | `node['dovecot']['conf_files']['imap']`           | `['conf.d/20-imap.conf']`  | Dovecot IMAP configuration files list.
@@ -149,7 +154,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['auth_username_chars']`          | *nil*     | List of allowed characters in username.
 | `node['dovecot']['conf']['auth_username_translation']`    | *nil*     | Username character translations before it's looked up from databases.
 | `node['dovecot']['conf']['auth_username_format']`         | *nil*     | Username formatting before it's looked up from databases.
-| `node['dovecot']['conf']['auth_master_user_separator']`   | *nil*     | If you want to allow master users to log in by specifying the master username within the normal username string, you can specify the separator character here (format: <username><separator><master username>).</master></separator></username>
+| `node['dovecot']['conf']['auth_master_user_separator']`   | *nil*     | If you want to allow master users to log in by specifying the master username within the normal username string, you can specify the separator character here (format: `<username><separator><master username>`).
 | `node['dovecot']['conf']['auth_anonymous_username']`      | *nil*     | Username to use for users logging in with ANONYMOUS SASL mechanism.
 | `node['dovecot']['conf']['auth_worker_max_count']`        | *nil*     | Maximum number of dovecot-auth worker processes.
 | `node['dovecot']['conf']['auth_gssapi_hostname']`         | *nil*     | Host name to use in GSSAPI principal names.
@@ -158,7 +163,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['auth_winbind_helper_path']`     | *nil*     | Path for Samba's ntlm_auth helper binary.
 | `node['dovecot']['conf']['auth_failure_delay']`           | *nil*     | Time to delay before replying to failed authentications.
 | `node['dovecot']['conf']['auth_ssl_require_client_cert']` | *nil*     | Take the username from client's SSL certificate, using X509_NAME_get_text_by_NID() which returns the subject's DN's CommonName.
-| `node['dovecot']['conf']['auth_mechanisms']`              | `'plain'` | Space separated list of wanted authentication mechanisms: plain, login, digest-md5, cram-md5, ntlm, rpa, apop, anonymous, gssapi, otp, skey, gss-spnego
+| `node['dovecot']['conf']['auth_mechanisms']`              | `'plain'` | Space separated list of wanted authentication mechanisms: plain, login, digest-md5, cram-md5, ntlm, rpa, apop, anonymous, gssapi, otp, skey, gss-spnego.
 
 ## Director-specific Attributes
 
@@ -201,7 +206,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | Attribute                                                  | Default | Description                    |
 |:-----------------------------------------------------------|:--------|:-------------------------------|
 | `node['dovecot']['conf']['mail_location']`                 | *nil*   | Location for user's mailboxes.
-| `node['dovecot']['conf']['mail_shared_explicit_inbox']`    | *nil*   | Should shared INBOX be visible as "shared/user" or "shared/user/INBOX"?
+| `node['dovecot']['conf']['mail_shared_explicit_inbox']`    | *nil*   | Should shared INBOX be visible as "shared/user" or "shared/user/INBOX"?.
 | `node['dovecot']['conf']['mail_uid']`                      | *nil*   | System user used to access mails.
 | `node['dovecot']['conf']['mail_gid']`                      | *nil*   | System group used to access mails.
 | `node['dovecot']['conf']['mail_privileged_group']`         | *nil*   | Group to enable temporarily for privileged operations.
@@ -210,7 +215,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['mail_attribute_dict']`           | *nil*   | Dictionary for key=value mailbox attributes. Currently used by URLAUTH.
 | `node['dovecot']['conf']['mmap_disable']`                  | *nil*   | Don't use mmap() at all.
 | `node['dovecot']['conf']['dotlock_use_excl']`              | *nil*   | Rely on O_EXCL to work when creating dotlock files.
-| `node['dovecot']['conf']['mail_fsync']`                    | *nil*   | When to use fsync() or fdatasync() calls: optimized, always or never
+| `node['dovecot']['conf']['mail_fsync']`                    | *nil*   | When to use fsync() or fdatasync() calls: optimized, always or never.
 | `node['dovecot']['conf']['mail_nfs_storage']`              | *nil*   | Mail storage exists in NFS.
 | `node['dovecot']['conf']['mail_nfs_index']`                | *nil*   | Mail index files also exist in NFS.
 | `node['dovecot']['conf']['lock_method']`                   | *nil*   | Locking method for index files: fcntl, flock or dotlock.
@@ -232,10 +237,10 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['maildir_stat_dirs']`             | *nil*   | By default LIST command returns all entries in maildir beginning with a dot.
 | `node['dovecot']['conf']['maildir_copy_with_hardlinks']`   | *nil*   | When copying a message, do it with hard links whenever possible.
 | `node['dovecot']['conf']['maildir_very_dirty_syncs']`      | *nil*   | Assume Dovecot is the only MUA accessing Maildir.
-| `node['dovecot']['conf']['maildir_broken_filename_sizes']` | *nil*   | If enabled, Dovecot doesn't use the S=<size> in the Maildir filenames for getting the mail's physical size, except when recalculating Maildir++ quota.</size>
+| `node['dovecot']['conf']['maildir_broken_filename_sizes']` | *nil*   | If enabled, Dovecot doesn't use the `S=<size>` in the Maildir filenames for getting the mail's physical size, except when recalculating Maildir++ quota.
 | `node['dovecot']['conf']['maildir_empty_new']`             | *nil*   | Always move mails from new/ directory to cur/, even when the \Recent flags aren't being reset.
-| `node['dovecot']['conf']['mbox_read_locks']`               | *nil*   | Which read locking methods to use for locking mbox: dotlock, dotlock_try, fcntl, flock or lockfyy
-| `node['dovecot']['conf']['mbox_write_locks']`              | *nil*   | Which write locking methods to use for locking mbox: dotlock, dotlock_try, fcntl, flock or lockfyy
+| `node['dovecot']['conf']['mbox_read_locks']`               | *nil*   | Which read locking methods to use for locking mbox: dotlock, dotlock_try, fcntl, flock or lockf.
+| `node['dovecot']['conf']['mbox_write_locks']`              | *nil*   | Which write locking methods to use for locking mbox: dotlock, dotlock_try, fcntl, flock or lockf.
 | `node['dovecot']['conf']['mbox_lock_timeout']`             | *nil*   | Maximum time to wait for lock (all of them) before aborting.
 | `node['dovecot']['conf']['mbox_dotlock_change_timeout']`   | *nil*   | If dotlock exists but the mailbox isn't modified in any way, override the lock file after this much time.
 | `node['dovecot']['conf']['mbox_dirty_syncs']`              | *nil*   | When mbox changes unexpectedly simply read the new mails but still safely fallbacks to re-reading the whole mbox file whenever something in mbox isn't how it's expected to be.
@@ -269,7 +274,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 
 | Attribute                                              | Default      | Description                    |
 |:-------------------------------------------------------|:-------------|:-------------------------------|
-| `node['dovecot']['conf']['ssl']`                       | *nil*        | SSL/TLS support: true or false
+| `node['dovecot']['conf']['ssl']`                       | *calculated* | SSL/TLS support: `true` or `false`.
 | `node['dovecot']['conf']['ssl_cert']`                  | *calculated* | PEM encoded X.509 SSL/TLS certificate.
 | `node['dovecot']['conf']['ssl_key']`                   | *calculated* | PEM encoded X.509 SSL/TLS private key.
 | `node['dovecot']['conf']['ssl_key_password']`          | *nil*        | If key file is password protected, give the password here.
@@ -282,10 +287,10 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['ssl_parameters_regenerate']` | *nil*        | How often to regenerate the SSL parameters file.
 | `node['dovecot']['conf']['ssl_dh_parameters_length']`  | *nil*        | DH parameters length to use.
 | `node['dovecot']['conf']['ssl_protocols']`             | *nil*        | SSL protocols to use.
-| `node['dovecot']['conf']['ssl_cipher_list']`           | *nil*        | SSL ciphers to use
+| `node['dovecot']['conf']['ssl_cipher_list']`           | *nil*        | SSL ciphers to use.
 | `node['dovecot']['conf']['ssl_prefer_server_ciphers']` | *nil*        | Prefer the server's order of ciphers over client's.
 | `node['dovecot']['conf']['ssl_crypto_device']`         | *nil*        | SSL crypto device to use, for valid values run `$ openssl engine`.
-| `node['dovecot']['conf']['ssl_options']`               | *nil*        | SSL extra options. Currently supported options are: `'no_compression'`
+| `node['dovecot']['conf']['ssl_options']`               | *nil*        | SSL extra options. Currently supported options are: `'no_compression'`.
 
 ## LDA Specific Attributes
 
@@ -354,7 +359,7 @@ Also used by LMTP.
 | `node['dovecot']['conf']['ldap']['tls_cipher_suite']`    | *nil*   | TLS options, currently supported only with OpenLDAP.
 | `node['dovecot']['conf']['ldap']['tls_cert_file']`       | *nil*   | TLS cert/key is used only if LDAP server requires a client certificate.
 | `node['dovecot']['conf']['ldap']['tls_key_file']`        | *nil*   | TLS cert/key is used only if LDAP server requires a client certificate.
-| `node['dovecot']['conf']['ldap']['tls_require_cert']`    | *nil*   | Valid values: never, hard, demand, allow, try
+| `node['dovecot']['conf']['ldap']['tls_require_cert']`    | *nil*   | Valid values: never, hard, demand, allow, try.
 | `node['dovecot']['conf']['ldap']['ldaprc_path']`         | *nil*   | Use the given ldaprc path.
 | `node['dovecot']['conf']['ldap']['debug_level']`         | *nil*   | LDAP library debug level as specified by LDAP_DEBUG_* in ldap_log.h.
 | `node['dovecot']['conf']['ldap']['auth_bind']`           | *nil*   | Use authentication binding for verifying password's validity.
@@ -367,8 +372,8 @@ Also used by LMTP.
 | `node['dovecot']['conf']['ldap']['user_filter']`         | *nil*   | Filter for user lookup.
 | `node['dovecot']['conf']['ldap']['pass_attrs']`          | *nil*   | Password checking attributes.
 | `node['dovecot']['conf']['ldap']['pass_filter']`         | *nil*   | Filter for password lookups.
-| `node['dovecot']['conf']['ldap']['iterate_attrs']`       | *nil*   | Attributes to get a list of all users
-| `node['dovecot']['conf']['ldap']['iterate_filter']`      | *nil*   | Filter to get a list of all users
+| `node['dovecot']['conf']['ldap']['iterate_attrs']`       | *nil*   | Attributes to get a list of all users.
+| `node['dovecot']['conf']['ldap']['iterate_filter']`      | *nil*   | Filter to get a list of all users.
 | `node['dovecot']['conf']['ldap']['default_pass_scheme']` | *nil*   | Default password scheme. "{scheme}" before password overrides this.
 
 ## SQL Authentication Attributes
@@ -384,7 +389,8 @@ Also used by LMTP.
 | `node['dovecot']['conf']['sql']['user_query']`          | *nil*   | userdb query to retrieve the user information.
 | `node['dovecot']['conf']['sql']['iterate_query']`       | *nil*   | Query to get a list of all usernames.
 
-## Distribution Packages Names Attributes
+
+## Distribution Package Names Attributes
 
 These attributes below contain the default required distribution packages for the supported platforms. But you are free to create your own to support other platforms. Keep in mind that all are put inside a subkey (`type`). This `node['dovecot']['packages'][type]` attribute is then used together with the `node['dovecot']['conf_files'][type]` attribute to generate the configuration files. 
 
@@ -399,6 +405,16 @@ These attributes below contain the default required distribution packages for th
 | `node['dovecot']['packages']['sqlite']` | *calculated* | Dovecot SQLite package names array.
 | `node['dovecot']['packages']['mysql']`  | *calculated* | Dovecot MySQL package names array.
 | `node['dovecot']['packages']['pgsql']`  | *calculated* | Dovecot PostgreSQL package names array.
+
+## Distribution Service Configuration
+
+Some cookbook attributes are used internally to support the different platform services. Surely you want to change them if you want to support new platforms or want to improve the support of some platforms already supported.
+
+| Attribute                                | Default      | Description                       |
+|:-----------------------------------------|:-------------|:----------------------------------|
+| `node['dovecot']['service']['name']`     | `'dovecot'`  | Dovecot system service name.
+| `node['dovecot']['service']['supports']` | *calculated* | Dovecot service supported actions.
+| `node['dovecot']['service']['provider']` | *calculated* | Dovecot service Chef provider class.
 
 Recipes
 =======

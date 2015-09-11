@@ -95,7 +95,7 @@ describe 'dovecot::from_package' do
     end
   end
 
-  context 'in Ubuntu' do
+  context 'on Ubuntu' do
     let(:chef_runner) do
       ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04')
     end
@@ -141,9 +141,9 @@ describe 'dovecot::from_package' do
         end # context when pkg is required
       end # each pkg
     end # each type, pkgs
-  end # context in Ubuntu
+  end # context on Ubuntu
 
-  context 'in CentOS' do
+  context 'on CentOS' do
     let(:chef_runner) do
       ChefSpec::SoloRunner.new(platform: 'centos', version: '5.10')
     end
@@ -173,11 +173,78 @@ describe 'dovecot::from_package' do
         end # context when pkg is required
       end # each pkg
     end # each type, pkgs
-  end # context in CentOS
+  end # context on CentOS
 
-  context 'in Arch' do
+  context 'on SUSE 12' do
+    let(:chef_runner) do
+      ChefSpec::SoloRunner.new(platform: 'suse', version: '12.0')
+    end
+
+    it 'installs dovecot package' do
+      expect(chef_run).to install_package('(core) dovecot')
+    end
+
+    {
+      'sqlite' => %w(dovecot-backend-sqlite),
+      'mysql' => %w(dovecot-backend-mysql),
+      'pgsql' => %w(dovecot-backend-pgsql)
+    }.each do |type, pkgs|
+      pkgs.each do |pkg|
+        context "when #{pkg} is required" do
+          before { Dovecot::Conf::Requirements.set(type, node) }
+
+          it "installs dovecot #{pkg} package" do
+            expect(chef_run).to install_package("(#{type}) #{pkg}")
+              .with_package_name(pkg)
+          end
+
+          describe "#{pkg} package" do
+            let(:pkg) { "(#{type}) #{pkg}" }
+            it_behaves_like 'non-core package'
+          end # describe pkg package
+        end # context when pkg is required
+      end # each pkg
+    end # each type, pkgs
+  end # context on SUSE 12
+
+  context 'on openSUSE 13' do
+    let(:chef_runner) do
+      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '13.1')
+    end
+
+    it 'installs dovecot package' do
+      expect(chef_run).to install_package('(core) dovecot')
+    end
+
+    {
+      'sqlite' => %w(dovecot-backend-sqlite),
+      'mysql' => %w(dovecot-backend-mysql),
+      'pgsql' => %w(dovecot-backend-pgsql)
+    }.each do |type, pkgs|
+      pkgs.each do |pkg|
+        context "when #{pkg} is required" do
+          before { Dovecot::Conf::Requirements.set(type, node) }
+
+          it "installs dovecot #{pkg} package" do
+            expect(chef_run).to install_package("(#{type}) #{pkg}")
+              .with_package_name(pkg)
+          end
+
+          describe "#{pkg} package" do
+            let(:pkg) { "(#{type}) #{pkg}" }
+            it_behaves_like 'non-core package'
+          end # describe pkg package
+        end # context when pkg is required
+      end # each pkg
+    end # each type, pkgs
+  end # context on SUSE 12
+
+  context 'on Arch' do
     # Arch still not supported by fauxhai
-    before { node.automatic['platform'] = 'arch' }
+    before do
+      node.automatic['platform_family'] = 'arch'
+      node.automatic['platform'] = 'arch'
+    end
 
     it 'installs dovecot package' do
       expect(chef_run).to install_package('(core) dovecot')
@@ -202,5 +269,5 @@ describe 'dovecot::from_package' do
         end # context when pkg is required
       end # each pkg
     end # each type, pkgs
-  end # context in Arch
+  end # context on Arch
 end

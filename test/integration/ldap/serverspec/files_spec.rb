@@ -27,7 +27,7 @@ platform = os[:family].downcase
 platform_version = os[:release].to_f
 
 ssl_cert, ssl_key =
-  if %w(redhat centos scientific fedora suse amazon).include?(platform)
+  if %w(redhat centos scientific fedora amazon).include?(platform)
     %w(/etc/pki/dovecot/certs/dovecot.pem /etc/pki/dovecot/private/dovecot.pem)
   elsif %w(debian).include?(platform)
     platform_version >= 8 ? [nil, nil] : %w(dovecot.pem private/dovecot.pem)
@@ -37,6 +37,8 @@ ssl_cert, ssl_key =
     else
       %w(/etc/ssl/certs/dovecot.pem /etc/ssl/private/dovecot.pem)
     end
+  elsif %w(suse opensuse).include?(platform)
+    [nil, nil]
   else
     %w(dovecot.pem private/dovecot.pem)
   end
@@ -63,6 +65,7 @@ normal_files = %w(
   conf.d/auth-system.conf.ext
   conf.d/10-ssl.conf
   conf.d/auth-sql.conf.ext
+  conf.d/20-imap.conf
   conf.d/auth-master.conf.ext
 )
 

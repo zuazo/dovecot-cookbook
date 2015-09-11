@@ -35,11 +35,15 @@ if respond_to?(:issues_url)
   issues_url "https://github.com/zuazo/#{name}-cookbook/issues"
 end
 
+supports 'amazon'
 supports 'centos', '>= 6.0'
 supports 'debian', '>= 7.0'
 supports 'fedora', '>= 18.0'
+supports 'opensuse'
+supports 'oracle'
+supports 'scientific'
+supports 'suse'
 supports 'ubuntu', '>= 12.04'
-supports 'amazon'
 
 depends 'ohai'
 
@@ -329,6 +333,31 @@ attribute 'dovecot/packages/pgsql',
           display_name: 'dovecot pgsql packages',
           description: 'Dovecot PostgreSQL package names array.',
           type: 'array',
+          required: 'optional',
+          calculated: true
+
+grouping 'dovecot/service',
+         title: 'dovecot service',
+         description: 'Dovecot system service'
+
+attribute 'dovecot/service/name',
+          display_name: 'dovecot service name',
+          description: 'Dovecot system service name.',
+          type: 'string',
+          required: 'optional',
+          default: 'dovecot'
+
+attribute 'dovecot/service/supports',
+          display_name: 'dovecot service supports',
+          description: 'Dovecot service supported actions.',
+          type: 'hash',
+          required: 'optional',
+          calculated: true
+
+attribute 'dovecot/service/provider',
+          display_name: 'dovecot service provider',
+          description: 'Dovecot service Chef provider class.',
+          type: 'string', # 'class' really
           required: 'optional',
           calculated: true
 

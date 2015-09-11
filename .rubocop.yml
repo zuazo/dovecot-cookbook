@@ -1,5 +1,6 @@
 AllCops:
   Exclude:
-  - '.kitchen'
+  - .kitchen
+  - vendor/**/*
 Metrics/ModuleLength:
   Max: 121

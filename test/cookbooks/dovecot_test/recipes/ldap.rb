@@ -93,7 +93,7 @@ end
 
 # Dovecot SSL configuration
 cert = ssl_certificate 'dovecot2' do
-  namespace node['postfix-dovecot']
+  namespace node['dovecot']
   notifies :restart, 'service[dovecot]'
 end
 node.default['dovecot']['conf']['ssl_cert'] = "<#{cert.chain_combined_path}"

@@ -19,6 +19,15 @@
 # limitations under the License.
 #
 
+# Dovecot SSL configuration
+node.default['dovecot']['conf']['ssl'] = true
+cert = ssl_certificate 'dovecot2' do
+  namespace node['dovecot']
+  notifies :restart, 'service[dovecot]'
+end
+node.default['dovecot']['conf']['ssl_cert'] = "<#{cert.chain_combined_path}"
+node.default['dovecot']['conf']['ssl_key'] = "<#{cert.key_path}"
+
 # auth.rb
 
 node.default['dovecot']['auth']['checkpassword'] =
