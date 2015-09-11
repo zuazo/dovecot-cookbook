@@ -72,8 +72,8 @@ This cookbook has been tested on the following platforms:
 * Debian `>= 7.0`
 * Fedora `>= 18.0`
 * OpenSUSE
-* Oracle Linux
-* Scientific Linux
+* Oracle Linux  `>= 6.0`
+* Scientific Linux  `>= 6.0`
 * SUSE
 * Ubuntu `>= 12.04`
 
