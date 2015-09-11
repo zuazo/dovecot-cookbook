@@ -6,7 +6,7 @@ This file is used to list changes made in each version of `dovecot` cookbook.
 
 * Improve platforms support using `node['platform_family']`:
  * Fix Ubuntu `15.04` support.
- * Add SUSE and OpenSUSE support (fixes issue #16).
+ * Add SUSE and OpenSUSE support ([issue #16](https://github.com/zuazo/dovecot-cookbook/issues/16), thanks [Marcus Klein](https://github.com/kleini) for the help).
  * Add Oracle Linux support.
  * Add Scientific Linux support.
 
