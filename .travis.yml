@@ -7,75 +7,72 @@ rvm:
 sudo: true
 
 env:
-  global:
-  - KITCHEN_ARGS="--concurrency=1 --destroy=always"
-  - KITCHEN_LOCAL_YAML=.kitchen.docker.yml
   matrix:
 # CHEF_VERSION is only for unit tests, no for test-kitchen:
-  - TESTS="style unit"  CHEF_VERSION="~> 11.0"
-  - TESTS="style unit"  CHEF_VERSION="~> 12.0"
+  - TESTS="style unit" CHEF_VERSION="~> 11.0"
+  - TESTS="style unit" CHEF_VERSION="~> 12.0"
 # Split up the test-kitchen run to avoid exceeding 50 minutes:
-  - TESTS="integration" KITCHEN_REGEXP=default-centos
-  - TESTS="integration" KITCHEN_REGEXP=default-debian
-  - TESTS="integration" KITCHEN_REGEXP=default-ubuntu
-  - TESTS="integration" KITCHEN_REGEXP=ldap-debian
-  - TESTS="integration" KITCHEN_REGEXP=attributes-centos
-  - TESTS="integration" KITCHEN_REGEXP=attributes-debian
-  - TESTS="integration" KITCHEN_REGEXP=attributes-ubuntu
+  - TESTS="integration:docker[default-centos]"
+  - TESTS="integration:docker[default-debian]"
+  - TESTS="integration:docker[default-ubuntu]"
+  - TESTS="integration:docker[ldap-debian]"
+  - TESTS="integration:docker[attributes-centos]"
+  - TESTS="integration:docker[attributes-debian]"
+  - TESTS="integration:docker[attributes-ubuntu]"
 
 matrix:
   exclude:
 # Chef 12 requires Ruby 2:
   - rvm: 1.9.3
-    env: TESTS="style unit"  CHEF_VERSION="~> 12.0"
+    env: TESTS="style unit" CHEF_VERSION="~> 12.0"
 # Chef 11 cannot resolve dependencies in Ruby 2.2 (mixlib-shellout):
   - rvm: 2.2
-    env: TESTS="style unit"  CHEF_VERSION="~> 11.0"
+    env: TESTS="style unit" CHEF_VERSION="~> 11.0"
 # Disable integration tests in old Ruby versions:
   - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=default-centos
+    env: TESTS="integration:docker[default-centos]"
+  - rvm: 2.0.0
+    env: TESTS="integration:docker[default-centos]"
+  - rvm: 2.1
+    env: TESTS="integration:docker[default-centos]"
   - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=default-debian
+    env: TESTS="integration:docker[default-debian]"
+  - rvm: 2.0.0
+    env: TESTS="integration:docker[default-debian]"
+  - rvm: 2.1
+    env: TESTS="integration:docker[default-debian]"
   - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=default-ubuntu
+    env: TESTS="integration:docker[default-ubuntu]"
   - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=default-centos
-  - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=default-debian
-  - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=default-ubuntu
+    env: TESTS="integration:docker[default-ubuntu]"
   - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=default-centos
-  - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=default-debian
-  - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=default-ubuntu
+    env: TESTS="integration:docker[default-ubuntu]"
   - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=ldap-debian
+    env: TESTS="integration:docker[ldap-debian]"
   - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=ldap-debian
+    env: TESTS="integration:docker[ldap-debian]"
   - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=ldap-debian
+    env: TESTS="integration:docker[ldap-debian]"
   - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=attributes-centos
+    env: TESTS="integration:docker[attributes-centos]"
+  - rvm: 2.0.0
+    env: TESTS="integration:docker[attributes-centos]"
+  - rvm: 2.1
+    env: TESTS="integration:docker[attributes-centos]"
   - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=attributes-debian
+    env: TESTS="integration:docker[attributes-debian]"
+  - rvm: 2.0.0
+    env: TESTS="integration:docker[attributes-debian]"
+  - rvm: 2.1
+    env: TESTS="integration:docker[attributes-debian]"
   - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=attributes-ubuntu
+    env: TESTS="integration:docker[attributes-ubuntu]"
   - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=attributes-centos
-  - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=attributes-debian
-  - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=attributes-ubuntu
+    env: TESTS="integration:docker[attributes-ubuntu]"
   - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=attributes-centos
-  - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=attributes-debian
-  - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=attributes-ubuntu
+    env: TESTS="integration:docker[attributes-ubuntu]"
 
-bundler_args: --without doc integration_vagrant integration_cloud guard
+bundler_args: --jobs=3 --retry=3 --without='doc integration_vagrant integration_cloud guard'
 
 before_script:
 - source <(curl -sL https://raw.githubusercontent.com/zuazo/kitchen-in-travis/0.3.0/scripts/start_docker.sh)
