@@ -408,7 +408,7 @@ These attributes below contain the default required distribution packages for th
 
 ## Distribution Service Configuration
 
-Some cookbook attributes are used internally to support the different platform services. Surely you want to change them if you want to support new platforms or want to improve the support of some platforms already supported.
+These attributes are used to configure the Dovecot service according to each distribution. Surely you want to change them if you want to support new platforms or want to improve the support of some platforms already supported.
 
 | Attribute                                | Default      | Description                       |
 |:-----------------------------------------|:-------------|:----------------------------------|
