@@ -2,6 +2,19 @@
 
 This file is used to list changes made in each version of `dovecot` cookbook.
 
+## v2.4.0 (2015-09-11)
+
+* Improve platforms support using `node['platform_family']`:
+ * Fix Ubuntu `15.04` support.
+ * Add SUSE and OpenSUSE support (fixes issue #16).
+ * Add Oracle Linux support.
+ * Add Scientific Linux support.
+
+* Testing:
+ * Vagrantfile: Add Chef Server documentation.
+ * Gemfile: foodcritic ~> `4.0.0`, rubocop ~> `0.34.0`.
+ * Rakefile: Add arguments to the integration task.
+
 ## v2.3.0 (2015-08-30)
 
 * Update chef links to use *chef.io* domain.
