@@ -23,6 +23,8 @@ default['dovecot']['conf_path'] = '/etc/dovecot'
 default['dovecot']['conf_files_user'] = 'root'
 default['dovecot']['conf_files_group'] = node['dovecot']['group']
 default['dovecot']['conf_files_mode'] = '00644'
+default['dovecot']['conf']['password_file'] = \
+  "#{node['dovecot']['conf_path']}/password"
 
 default['dovecot']['sensitive_files'] = %w(
   *.conf.ext

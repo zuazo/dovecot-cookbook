@@ -78,6 +78,20 @@ attribute 'dovecot/group',
           required: 'optional',
           default: '"dovecot"'
 
+attribute 'dovecot/databag_name',
+          display_name: 'Databag name',
+          description: 'The name of the databag to use',
+          type: 'string',
+          required: 'optional',
+          default: '"dovecot"'
+
+attribute 'dovecot/databag_item_name',
+          display_name: 'Databag item name',
+          description: 'The name item to put the ussers in',
+          type: 'string',
+          required: 'optional',
+          default: '"users"'
+
 attribute 'dovecot/lib_path',
           display_name: 'dovecot library path',
           description: 'Dovecot library path. Should no be changed.',
@@ -113,6 +127,13 @@ attribute 'dovecot/conf_files_mode',
           type: 'string',
           required: 'optional',
           default: '00644'
+
+attribute 'dovecot/conf/password_file',
+          display_name: 'path of password file',
+          description: 'The path and filename of the password file',
+          type: 'string',
+          required: 'optional',
+          default: 'node["dovecot"]["conf_path"]/password'
 
 attribute 'dovecot/sensitive_files',
           display_name: 'dovecot sensitve files',
