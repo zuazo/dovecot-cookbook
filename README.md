@@ -86,7 +86,6 @@ Let me know if you use it successfully on any other platform.
 ## Required Applications
 
 * **Dovecot `>= 2`**: requires this version of dovecot to be available by the distribution's package manager.
-* Ruby `>= 1.9.3`
 
 Attributes
 ==========
