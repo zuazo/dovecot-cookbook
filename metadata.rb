@@ -133,7 +133,7 @@ attribute 'dovecot/conf/password_file',
           description: 'The path and filename of the password file',
           type: 'string',
           required: 'optional',
-          default: '#{node['dovecot']['conf_path']}/password'
+          default: 'node["dovecot"]["conf_path"]/password'
 
 attribute 'dovecot/sensitive_files',
           display_name: 'dovecot sensitve files',
