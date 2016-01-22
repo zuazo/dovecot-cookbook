@@ -31,3 +31,11 @@ group node['dovecot']['group'] do
   system true
   append true
 end
+
+if node['dovecot']['conf']['default_login_user'].nil?
+  group 'dovenull'
+  user 'dovenull'
+else
+  group node['dovecot']['conf']['default_login_user']
+  user node['dovecot']['conf']['default_login_user']
+end

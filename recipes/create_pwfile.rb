@@ -22,7 +22,9 @@ extend Chef::Mixin::ShellOut
 credentials = []
 credentials_updated = false
 
-passwordfile = File.open(node['dovecot']['conf']['password_file'],File::CREAT|File::RDONLY,0640)
+passwordfile = File.open(
+  node['dovecot']['conf']['password_file'], File::CREAT | File::RDONLY, 0640
+)
 
 local_creds = {}
 passwordfile.readlines.each do |line|
@@ -32,10 +34,14 @@ end
 
 passwordfile.close
 
-data_bag_item(node['dovecot']['databag_name'], node['dovecot']['databag_item_name'])['users'].each do |user|
-    enc_password = shell_out("/usr/bin/doveadm pw -s MD5 -p #{user[1]}").stdout
-    credentials_updated = true if shell_out("/usr/bin/doveadm pw -t '#{local_creds[user[0]]}' -p #{user[1]}").exitstatus != 0
-    credentials.push([user[0], enc_password.strip])
+data_bag_item(
+  node['dovecot']['databag_name'], node['dovecot']['databag_item_name']
+)['users'].each do |user|
+  enc_password = shell_out("/usr/bin/doveadm pw -s MD5 -p #{user[1]}").stdout
+  credentials_updated = true if shell_out(
+    "/usr/bin/doveadm pw -t '#{local_creds[user[0]]}' -p #{user[1]}"
+  ).exitstatus != 0
+  credentials.push([user[0], enc_password.strip])
 end
 
 template node['dovecot']['conf']['password_file'] do
@@ -43,8 +49,8 @@ template node['dovecot']['conf']['password_file'] do
   owner node['dovecot']['user']
   group node['dovecot']['group']
   mode '0640'
-  variables ({
-    :credentials => credentials
-  })
+  variables(
+    credentials: credentials
+  )
   only_if { credentials_updated }
 end
