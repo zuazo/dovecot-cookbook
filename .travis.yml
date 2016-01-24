@@ -3,7 +3,9 @@ rvm:
 - 2.1
 - 2.2
 
-sudo: true
+sudo: required
+
+services: docker
 
 env:
   matrix:
@@ -11,13 +13,23 @@ env:
   - TESTS="style unit" CHEF_VERSION="~> 11.0"
   - TESTS="style unit" CHEF_VERSION="~> 12.0"
 # Split up the test-kitchen run to avoid exceeding 50 minutes:
-  - TESTS="integration:docker[default-centos]"
-  - TESTS="integration:docker[default-debian]"
-  - TESTS="integration:docker[default-ubuntu]"
-  - TESTS="integration:docker[ldap-debian]"
-  - TESTS="integration:docker[attributes-centos]"
-  - TESTS="integration:docker[attributes-debian]"
-  - TESTS="integration:docker[attributes-ubuntu]"
+  - TESTS="integration[default-centos-6,verify]"
+  - TESTS="integration[default-debian-7,verify]"
+  - TESTS="integration[default-debian-8,verify]"
+  - TESTS="integration[default-oraclelinux-6,verify]"
+  - TESTS="integration[default-ubuntu-1504,verify]"
+  - TESTS="integration[default-ubuntu-1510,verify]"
+  - TESTS="integration[default-scientific-66,verify]"
+  - TESTS="integration[ldap-debian-7,verify]"
+  - TESTS="integration[ldap-debian-8,verify]"
+  - TESTS="integration[ldap-ubuntu-1510,verify]"
+  - TESTS="integration[attributes-centos-6,verify]"
+  - TESTS="integration[attributes-debian-7,verify]"
+  - TESTS="integration[attributes-debian-8,verify]"
+  - TESTS="integration[attributes-oraclelinux-6,verify]"
+  - TESTS="integration[attributes-ubuntu-1504,verify]"
+  - TESTS="integration[attributes-ubuntu-1510,verify]"
+  - TESTS="integration[attributes-scientific-66,verify]"
 
 matrix:
   exclude:
@@ -26,40 +38,79 @@ matrix:
     env: TESTS="style unit" CHEF_VERSION="~> 11.0"
 # Disable integration tests in old Ruby versions:
   - rvm: 2.0.0
-    env: TESTS="integration:docker[default-centos]"
+    env: TESTS="integration[default-centos-6,verify]"
   - rvm: 2.1
-    env: TESTS="integration:docker[default-centos]"
+    env: TESTS="integration[default-centos-6,verify]"
   - rvm: 2.0.0
-    env: TESTS="integration:docker[default-debian]"
+    env: TESTS="integration[default-debian-7,verify]"
   - rvm: 2.1
-    env: TESTS="integration:docker[default-debian]"
+    env: TESTS="integration[default-debian-7,verify]"
   - rvm: 2.0.0
-    env: TESTS="integration:docker[default-ubuntu]"
+    env: TESTS="integration[default-debian-8,verify]"
   - rvm: 2.1
-    env: TESTS="integration:docker[default-ubuntu]"
+    env: TESTS="integration[default-debian-8,verify]"
   - rvm: 2.0.0
-    env: TESTS="integration:docker[ldap-debian]"
+    env: TESTS="integration[default-oraclelinux-6,verify]"
   - rvm: 2.1
-    env: TESTS="integration:docker[ldap-debian]"
+    env: TESTS="integration[default-oraclelinux-6,verify]"
   - rvm: 2.0.0
-    env: TESTS="integration:docker[attributes-centos]"
+    env: TESTS="integration[default-ubuntu-1504,verify]"
   - rvm: 2.1
-    env: TESTS="integration:docker[attributes-centos]"
+    env: TESTS="integration[default-ubuntu-1504,verify]"
   - rvm: 2.0.0
-    env: TESTS="integration:docker[attributes-debian]"
+    env: TESTS="integration[default-ubuntu-1510,verify]"
   - rvm: 2.1
-    env: TESTS="integration:docker[attributes-debian]"
+    env: TESTS="integration[default-ubuntu-1510,verify]"
   - rvm: 2.0.0
-    env: TESTS="integration:docker[attributes-ubuntu]"
+    env: TESTS="integration[default-scientific-66,verify]"
   - rvm: 2.1
-    env: TESTS="integration:docker[attributes-ubuntu]"
+    env: TESTS="integration[default-scientific-66,verify]"
+  - rvm: 2.0.0
+    env: TESTS="integration[ldap-debian-7,verify]"
+  - rvm: 2.1
+    env: TESTS="integration[ldap-debian-7,verify]"
+  - rvm: 2.0.0
+    env: TESTS="integration[ldap-debian-8,verify]"
+  - rvm: 2.1
+    env: TESTS="integration[ldap-debian-8,verify]"
+  - rvm: 2.0.0
+    env: TESTS="integration[ldap-ubuntu-1510,verify]"
+  - rvm: 2.1
+    env: TESTS="integration[ldap-ubuntu-1510,verify]"
+  - rvm: 2.0.0
+    env: TESTS="integration[attributes-centos-6,verify]"
+  - rvm: 2.1
+    env: TESTS="integration[attributes-centos-6,verify]"
+  - rvm: 2.0.0
+    env: TESTS="integration[attributes-debian-7,verify]"
+  - rvm: 2.1
+    env: TESTS="integration[attributes-debian-7,verify]"
+  - rvm: 2.0.0
+    env: TESTS="integration[attributes-debian-8,verify]"
+  - rvm: 2.1
+    env: TESTS="integration[attributes-debian-8,verify]"
+  - rvm: 2.0.0
+    env: TESTS="integration[attributes-oraclelinux-6,verify]"
+  - rvm: 2.1
+    env: TESTS="integration[attributes-oraclelinux-6,verify]"
+  - rvm: 2.0.0
+    env: TESTS="integration[attributes-ubuntu-1504,verify]"
+  - rvm: 2.1
+    env: TESTS="integration[attributes-ubuntu-1504,verify]"
+  - rvm: 2.0.0
+    env: TESTS="integration[attributes-ubuntu-1510,verify]"
+  - rvm: 2.1
+    env: TESTS="integration[attributes-ubuntu-1510,verify]"
+  - rvm: 2.0.0
+    env: TESTS="integration[attributes-scientific-66,verify]"
+  - rvm: 2.1
+    env: TESTS="integration[attributes-scientific-66,verify]"
 
-bundler_args: --jobs=3 --retry=3 --without='doc integration_vagrant integration_cloud guard'
+before_install: curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 0.10.0
 
-before_script:
-- source <(curl -sL https://raw.githubusercontent.com/zuazo/kitchen-in-travis/0.4.0/scripts/start_docker.sh)
+install: chef exec bundle install --jobs=3 --retry=3 --without='doc integration_vagrant integration_cloud guard'
 
-script:
-- travis_retry bundle exec rake $TESTS
+# https://github.com/zuazo/kitchen-in-travis-native/issues/1#issuecomment-142455888
+before_script: sudo iptables -L DOCKER || sudo iptables -N DOCKER
 
-after_failure: cat docker_daemon.log
+script: travis_retry chef exec bundle exec rake $TESTS
