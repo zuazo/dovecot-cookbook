@@ -19,11 +19,6 @@ platforms:
   run_list: recipe[apt]
 
 # Non-official images with systemd
-- name: centos-7
-  driver_config:
-    # https://registry.hub.docker.com/u/milcom/centos7-systemd/dockerfile/
-    image: milcom/centos7-systemd
-    privileged: true
 - name: scientific-6.6
   driver_config:
     image: ringo/scientific:6.6
