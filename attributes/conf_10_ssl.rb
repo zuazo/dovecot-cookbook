@@ -35,7 +35,10 @@ when 'rhel', 'fedora'
 when 'debian'
   case node['platform']
   when 'ubuntu'
-    if node['platform_version'].to_f >= 14.04
+    if node['platform_version'].to_f >= 15.10
+      default['dovecot']['conf']['ssl_cert'] = nil
+      default['dovecot']['conf']['ssl_key'] = nil
+    elsif node['platform_version'].to_f >= 14.04
       default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/dovecot.pem'
       default['dovecot']['conf']['ssl_key'] =
         '</etc/dovecot/private/dovecot.pem'

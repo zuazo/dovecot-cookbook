@@ -33,7 +33,9 @@ ssl_cert, ssl_key =
   when 'debian'
     platform_version >= 8 ? [nil, nil] : %w(dovecot.pem private/dovecot.pem)
   when 'ubuntu'
-    if platform_version >= 14
+    if platform_version >= 15.10
+      [nil, nil]
+    elsif platform_version >= 14
       %w(dovecot.pem private/dovecot.pem)
     else
       %w(/etc/ssl/certs/dovecot.pem /etc/ssl/private/dovecot.pem)

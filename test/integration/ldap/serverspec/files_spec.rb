@@ -27,17 +27,20 @@ platform = os[:family].downcase
 platform_version = os[:release].to_f
 
 ssl_cert, ssl_key =
-  if %w(redhat centos scientific fedora amazon).include?(platform)
+  case platform
+  when 'redhat', 'centos', 'scientific', 'fedora', 'amazon'
     %w(/etc/pki/dovecot/certs/dovecot.pem /etc/pki/dovecot/private/dovecot.pem)
-  elsif %w(debian).include?(platform)
+  when 'debian'
     platform_version >= 8 ? [nil, nil] : %w(dovecot.pem private/dovecot.pem)
-  elsif %w(ubuntu).include?(platform)
-    if platform_version >= 14
+  when 'ubuntu'
+    if platform_version >= 15.10
+      [nil, nil]
+    elsif platform_version >= 14
       %w(dovecot.pem private/dovecot.pem)
     else
       %w(/etc/ssl/certs/dovecot.pem /etc/ssl/private/dovecot.pem)
     end
-  elsif %w(suse opensuse).include?(platform)
+  when 'suse', 'opensuse'
     [nil, nil]
   else
     %w(dovecot.pem private/dovecot.pem)

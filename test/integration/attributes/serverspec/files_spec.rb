@@ -32,7 +32,9 @@ ssl_cert, ssl_key =
   elsif %w(debian).include?(platform)
     platform_version >= 8 ? [nil, nil] : %w(dovecot.pem private/dovecot.pem)
   elsif %w(ubuntu).include?(platform)
-    if platform_version >= 14
+    if platform_version >= 15.10
+      [nil, nil]
+    elsif platform_version >= 14
       %w(dovecot.pem private/dovecot.pem)
     else
       %w(/etc/ssl/certs/dovecot.pem /etc/ssl/private/dovecot.pem)
