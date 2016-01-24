@@ -13,10 +13,10 @@ platforms:
 - name: oraclelinux-6
   driver_config:
     platform: rhel
-- name: ubuntu-14.10
+- name: ubuntu-15.04
   run_list: recipe[apt]
-  driver_config:
-    image: ubuntu-upstart:14.10
+- name: ubuntu-15.10
+  run_list: recipe[apt]
 
 # Non-official images with systemd
 - name: centos-7
