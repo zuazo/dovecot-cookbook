@@ -31,7 +31,7 @@ default['dovecot']['service']['supports'] =
 default['dovecot']['service']['provider'] =
   if node['platform'] == 'ubuntu' &&
      Gem::Requirement.new(['>= 13.10', '< 15'])
-     .satisfied_by?(Gem::Version.new(node['platform_version']))
+                     .satisfied_by?(Gem::Version.new(node['platform_version']))
     Chef::Provider::Service::Upstart
   elsif (node['platform'] == 'debian' && node['platform_version'].to_i >= 8) ||
         (node['platform'] == 'ubuntu' && node['platform_version'].to_i >= 15)

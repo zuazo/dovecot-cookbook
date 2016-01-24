@@ -25,8 +25,7 @@ module Dovecot
   module Conf
     # Configuration structure templates
     module Templates
-      unless defined?(::Dovecot::Conf::Templates::AUTHDB)
-        AUTHDB = <<-EOT
+      AUTHDB = <<-EOT
 <% confs = @conf.is_a?(Array)? @conf : [@conf]
     confs.each do |conf| -%>
 <%=   @dovecot_conf.name(@type) %> {
@@ -43,10 +42,9 @@ module Dovecot
 }
 <% end -%>
 EOT
-      end
+               .freeze unless defined?(::Dovecot::Conf::Templates::AUTHDB)
 
-      unless defined?(::Dovecot::Conf::Templates::PLUGIN)
-        PLUGIN = <<-EOT
+      PLUGIN = <<-EOT
 plugin {
   <% @conf.sort.each do |key, value|
        unless value.nil?
@@ -56,10 +54,9 @@ plugin {
      end -%>
 }
 EOT
-      end
+               .freeze unless defined?(::Dovecot::Conf::Templates::PLUGIN)
 
-      unless defined?(::Dovecot::Conf::Templates::NAMESPACE)
-        NAMESPACE = <<-EOT
+      NAMESPACE = <<-EOT
 namespace <%= @dovecot_conf.name(@ns['name']) %> {
   <% if @ns['mailboxes'].is_a?(Array) || @ns['mailboxes'].is_a?(Hash)
        mailboxes =
@@ -86,20 +83,18 @@ namespace <%= @dovecot_conf.name(@ns['name']) %> {
   <% end -%>
 }
 EOT
-      end
+                  .freeze unless defined?(::Dovecot::Conf::Templates::NAMESPACE)
 
-      unless defined?(::Dovecot::Conf::Templates::PROTOCOL)
-        PROTOCOL = <<-EOT
+      PROTOCOL = <<-EOT
 protocol <%= @dovecot_conf.name(@name) %> {
   <% @conf.sort.each do |key, value| -%>
   <%=  key %> = <%= @dovecot_conf.value(value) %>
   <% end -%>
 }
 EOT
-      end
+                 .freeze unless defined?(::Dovecot::Conf::Templates::PROTOCOL)
 
-      unless defined?(::Dovecot::Conf::Templates::SERVICE)
-        SERVICE = <<-EOT
+      SERVICE = <<-EOT
 service <%= @dovecot_conf.name(@name) %> {
   <% if @conf['listeners'].is_a?(Array) || @conf['listeners'].is_a?(Hash)
       listeners =
@@ -128,10 +123,9 @@ service <%= @dovecot_conf.name(@name) %> {
   <% end -%>
 }
 EOT
-      end
+                .freeze unless defined?(::Dovecot::Conf::Templates::SERVICE)
 
-      unless defined?(::Dovecot::Conf::Templates::MAP)
-        MAP = <<-EOT
+      MAP = <<-EOT
 map {
 <%     @map.sort.each do |k, v|
          if v.is_a?(Hash)
@@ -150,7 +144,7 @@ map {
 -%>
 }
 EOT
-      end
+            .freeze unless defined?(::Dovecot::Conf::Templates::MAP)
     end
   end
 end
