@@ -733,6 +733,40 @@ node.default['dovecot']['services']['imap-login'] = {
 }
 ```
 
+### Doveadm Service Example
+
+```ruby
+default['dovecot']['services']['doveadm'] = {
+  'listeners' => [
+    { 'inet:doveadm-server' => { 'port' => 3333 }
+    }
+  ]
+}
+```
+
+### Quota-status Service Example
+
+```ruby
+default['dovecot']['services']['quota-status'] = {
+  'executable' => 'quota-status -p postfix',
+  'listeners' => [
+    { 'inet:imap' => { 'port' => 4444 } }
+  ]
+}
+```
+
+### Quota-warning Service Example
+
+```ruby
+default['dovecot']['services']['quota-warning'] = {
+  'user' => 'dovecot',
+  'executable' => 'script /usr/local/bin/quota-warning.sh',
+  'listeners' => [
+    { 'unix:quota-warning' => { 'user' => 'postfix' } }
+  ]
+}
+```
+
 ## LDAP Example
 
 This is a recipe example to integrate Dovecot with [OpenLDAP](http://www.openldap.org/). The following cookbooks are used:
