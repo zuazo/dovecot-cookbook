@@ -252,8 +252,8 @@ attribute 'dovecot/services',
           description:
             'Dovecot Services configuration as a hash of hashes. Supported '\
             'services: anvil, director, imap-login, pop3-login, lmtp, imap, '\
-            'pop3, auth, auth-worker, dict, tcpwrap, managesieve-login and '\
-            'managesieve.',
+            'pop3, auth, auth-worker, dict, tcpwrap, managesieve-login, '\
+            'managesieve, quota-status, quota-warning and doveadm',
           type: 'hash',
           required: 'optional',
           default: {}

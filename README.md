@@ -114,7 +114,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['namespaces']`                   | `[]`                       | Dovecot Namespaces as an array of hashes ([see the example below](#namespaces-example)).
 | `node['dovecot']['plugins']`                      | *calculated*               | Dovecot Plugins configuration as a hash of hashes ([see the examples below](#plugins-examples)). Supported plugins: mail_log, acl and quota.
 | `node['dovecot']['protocols']`                    | `{}`                       | Dovecot Protocols configuration as a hash of hashes ([see the example below](#protocols-example)). Supported protocols: lda, imap, lmtp, sieve and pop3.
-| `node['dovecot']['services']`                     | `{}`                       | Dovecot Services configuration as a hash of hashes ([see the examples below](#service-examples)). Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login and managesieve.
+| `node['dovecot']['services']`                     | `{}`                       | Dovecot Services configuration as a hash of hashes ([see the examples below](#service-examples)). Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login managesieve, quota-status, quota-warning and doveadm.
 | `node['dovecot']['conf']['mail_plugins']`         | `[]`                       | Dovecot default enabled mail_plugins.
 | `node['dovecot']['ohai_plugin']['build-options']` | `true`                     | Whether to enable reading build options inside ohai plugin. Can be disabled to be lighter.
 
