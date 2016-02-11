@@ -445,6 +445,10 @@ Installs the required packages. Used by the default recipe if `node['dovecot']['
 
 Configures the Dovecot service. Used by the default recipe.
 
+## dovecot::create_pwfile
+
+Creates and configures a password file from local mailboxes based on a data bag.
+
 Ohai Plugin
 ===========
 
