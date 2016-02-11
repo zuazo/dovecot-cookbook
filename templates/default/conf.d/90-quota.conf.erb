@@ -7,9 +7,18 @@
 # Note that you also have to enable quota plugin in mail_plugins setting.
 # <doc/wiki/Quota.txt>
 
-<% if @plugins.has_key?('quota') and @plugins['quota'].kind_of?(Hash) -%>
+<% if [@plugins['quota'], @services['quota-status'], @services['quota-warning']].any? {|p| !p.nil?} -%>
+  <% unless @plugins['quota'].nil? or !@plugins['quota'].kind_of?(Hash) or @plugins['quota'].empty? -%>
 <%=  Dovecot::Conf.plugin('quota', @plugins['quota']) %>
+  <% end -%>
+  <% unless @services['quota-status'].nil? or !@services['quota-status'].kind_of?(Hash) or @services['quota-status'].empty? -%>
+<%=  Dovecot::Conf.service('quota-status', @services['quota-status']) %>
+  <% end -%>
+  <% unless @services['quota-warning'].nil? or !@services['quota-warning'].kind_of?(Hash) or @services['quota-warning'].empty? -%>
+<%=  Dovecot::Conf.service('quota-warning', @services['quota-warning']) %>
+  <% end -%>
 <% else -%>
+
 ##
 ## Quota limits
 ##
