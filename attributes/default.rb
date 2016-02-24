@@ -33,4 +33,4 @@ end
 
 default['dovecot']['user'] = 'dovecot'
 default['dovecot']['group'] = node['dovecot']['user']
-default['dovecot']['user']['homedir'] = node['dovecot']['lib_path']
+default['dovecot']['user_homedir'] = node['dovecot']['lib_path']
