@@ -21,13 +21,15 @@
 
 user node['dovecot']['user'] do
   comment 'Dovecot mail server'
-  home node['dovecot']['lib_path']
+  home node['dovecot']['user']['homedir']
   shell '/bin/false'
   system true
+  not_if "getent passwd #{node['dovecot']['user']}"
 end
 
 group node['dovecot']['group'] do
   members [node['dovecot']['user']]
   system true
   append true
+  not_if "getent group #{node['dovecot']['group']}"
 end
