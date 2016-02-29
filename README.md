@@ -53,6 +53,9 @@ Table of Contents
   * [Service Examples](#service-examples)
     * [Director Service Example](#director-service-example)
     * [Imap-login Service Example](#imap-login-service-example)
+    * [Doveadm Service Example](#doveadm-service-example)
+    * [Quota-status Service Example](#quota-status-service-example)
+    * [Quota-warning Service Example](#quota-warning-service-example)
   * [LDAP Example](#ldap-example)
   * [A Complete Example](#a-complete-example)
 * [Testing](#testing)
@@ -114,7 +117,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['namespaces']`                   | `[]`                       | Dovecot Namespaces as an array of hashes ([see the example below](#namespaces-example)).
 | `node['dovecot']['plugins']`                      | *calculated*               | Dovecot Plugins configuration as a hash of hashes ([see the examples below](#plugins-examples)). Supported plugins: mail_log, acl and quota.
 | `node['dovecot']['protocols']`                    | `{}`                       | Dovecot Protocols configuration as a hash of hashes ([see the example below](#protocols-example)). Supported protocols: lda, imap, lmtp, sieve and pop3.
-| `node['dovecot']['services']`                     | `{}`                       | Dovecot Services configuration as a hash of hashes ([see the examples below](#service-examples)). Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login and managesieve.
+| `node['dovecot']['services']`                     | `{}`                       | Dovecot Services configuration as a hash of hashes ([see the examples below](#service-examples)). Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login managesieve, quota-status, quota-warning and doveadm.
 | `node['dovecot']['conf']['mail_plugins']`         | `[]`                       | Dovecot default enabled mail_plugins.
 | `node['dovecot']['ohai_plugin']['build-options']` | `true`                     | Whether to enable reading build options inside ohai plugin. Can be disabled to be lighter.
 
@@ -734,6 +737,40 @@ node.default['dovecot']['services']['imap-login'] = {
   'service_count' => 1,
   'process_min_avail' => 0,
   'vsz_limit' => '64M'
+}
+```
+
+### Doveadm Service Example
+
+```ruby
+default['dovecot']['services']['doveadm'] = {
+  'listeners' => [
+    { 'inet:doveadm-server' => { 'port' => 3333 }
+    }
+  ]
+}
+```
+
+### Quota-status Service Example
+
+```ruby
+default['dovecot']['services']['quota-status'] = {
+  'executable' => 'quota-status -p postfix',
+  'listeners' => [
+    { 'inet:imap' => { 'port' => 4444 } }
+  ]
+}
+```
+
+### Quota-warning Service Example
+
+```ruby
+default['dovecot']['services']['quota-warning'] = {
+  'user' => 'dovecot',
+  'executable' => 'script /usr/local/bin/quota-warning.sh',
+  'listeners' => [
+    { 'unix:quota-warning' => { 'user' => 'postfix' } }
+  ]
 }
 ```
 

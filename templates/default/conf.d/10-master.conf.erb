@@ -16,6 +16,10 @@
 # login user, so that login processes can't disturb other processes.
 <%= Dovecot::Conf.attribute(@conf, 'default_internal_user', 'dovecot') %>
 
+<% if @services['doveadm'].kind_of?(Hash) and @services['doveadm'].length > 0 -%>
+<%=  Dovecot::Conf.service('doveadm', @services['doveadm']) %>
+<% end -%>
+
 <% if @services['imap-login'].kind_of?(Hash) and @services['imap-login'].length > 0 -%>
 <%=  Dovecot::Conf.service('imap-login', @services['imap-login']) %>
 <% else -%>
