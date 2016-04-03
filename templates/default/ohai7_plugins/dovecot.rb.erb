@@ -48,7 +48,7 @@ Ohai.plugin(:Dovecot) do
   end
 
   def collect_build_options(stdout)
-    stdout.split("\n").each do |line|
+    stdout.each_line do |line|
       case line
       when /^Build options: *(.+)/
         dovecot['build-options'].merge!(parse_build_options_hash($1))
@@ -60,13 +60,12 @@ Ohai.plugin(:Dovecot) do
 
   collect_data do
     init_dovecot
-    status, stdout, stderr = run_command(:no_status_check => true, :command => 'dovecot --version')
-    collect_version(stdout) if status === 0
+    so = shell_out('dovecot --version')
+    collect_version(so.stdout) if so.exitstatus == 0
 
     if ENABLE_BUILD_OPTIONS
-      status, stdout, stderr = run_command(:no_status_check => true, :command => 'dovecot --build-options')
-      collect_build_options(stdout) if status === 0
+      so_bo = shell_out('dovecot --build-options')
+      collect_build_options(so_bo.stdout) if so_bo.exitstatus == 0
     end
   end
-
 end
