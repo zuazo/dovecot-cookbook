@@ -31,3 +31,13 @@ group node['dovecot']['group'] do
   system true
   append true
 end
+
+default_login_user = node['dovecot']['conf']['default_login_user'] || 'dovenull'
+
+group default_login_user do
+  system true
+end
+
+user default_login_user do
+  group default_login_user
+end
