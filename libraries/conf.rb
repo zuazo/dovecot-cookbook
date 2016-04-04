@@ -96,7 +96,7 @@ module Dovecot
       when 'ldap' then Conf::Require.ldap?(conf['conf'])
       when 'sqlite', 'mysql', 'pgsql' then Conf::Require.db?(req, conf['conf'])
       else
-        fail "Unknown configuration requirement: #{req.inspect}"
+        raise "Unknown configuration requirement: #{req.inspect}"
       end
     end
   end

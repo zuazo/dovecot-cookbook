@@ -26,8 +26,8 @@ node['dovecot']['packages'].each do |type, pkgs|
   if pkgs.is_a?(String)
     pkgs = [pkgs]
   elsif !pkgs.is_a?(Array)
-    fail "`node['dovecot']['packages']['#{type}']` should contain an array of "\
-         "packages. You passed: #{pkgs.inspect}"
+    raise "`node['dovecot']['packages']['#{type}']` should contain an array "\
+          "of packages. You passed: #{pkgs.inspect}"
   end
 
   pkgs.each do |pkg|

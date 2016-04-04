@@ -24,11 +24,11 @@ include_recipe 'dovecot'
 ruby_block 'ohai plugin tests' do
   block do
     unless node['dovecot']['version'].is_a?(String)
-      fail 'Ohai plugin cannot get dovecot version.'
+      raise 'Ohai plugin cannot get dovecot version.'
     end
     unless node['dovecot']['build-options'].is_a?(Hash) &&
-           node['dovecot']['build-options'].length > 0
-      fail 'Ohai plugin cannot get dovecot build options.'
+           !node['dovecot']['build-options'].empty?
+      raise 'Ohai plugin cannot get dovecot build options.'
     end
   end
 end
