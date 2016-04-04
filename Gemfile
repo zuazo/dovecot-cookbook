@@ -41,7 +41,7 @@ group :integration_vagrant do
 end
 
 group :integration_cloud do
-  gem 'kitchen-ec2', '~> 0.8'
+  gem 'kitchen-ec2', '~> 1.0'
   gem 'kitchen-digitalocean', '~> 0.9'
 end
 
