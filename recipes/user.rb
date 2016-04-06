@@ -21,7 +21,7 @@
 
 user node['dovecot']['user'] do
   comment 'Dovecot mail server'
-  home node['dovecot']['lib_path']
+  home node['dovecot']['user_homedir']
   shell '/bin/false'
   system true
 end
