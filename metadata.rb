@@ -81,7 +81,7 @@ attribute 'dovecot/group',
 attribute 'dovecot/user_homedir',
           display_name: 'dovecot homedir',
           description: 'Dovecot system user home directory.',
-          calculated: 'true',
+          calculated: true,
           type: 'string',
           required: 'optional'
 
