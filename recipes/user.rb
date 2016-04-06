@@ -19,6 +19,12 @@
 # limitations under the License.
 #
 
+group node['dovecot']['group'] do
+  members [node['dovecot']['user']]
+  system true
+  append true
+end
+
 user node['dovecot']['user'] do
   comment 'Dovecot mail server'
   home node['dovecot']['lib_path']
@@ -26,10 +32,12 @@ user node['dovecot']['user'] do
   system true
 end
 
-group node['dovecot']['group'] do
-  members [node['dovecot']['user']]
-  system true
-  append true
+if node['dovecot']['conf']['default_login_user'].nil?
+  group 'dovenull'
+  user 'dovenull'
+else
+  group node['dovecot']['conf']['default_login_user']
+  user node['dovecot']['conf']['default_login_user']
 end
 
 default_login_user = node['dovecot']['conf']['default_login_user'] || 'dovenull'
