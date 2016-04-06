@@ -100,6 +100,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['install_from']`                 | `'package'`                | Determines how Dovecot is installed from. Only `'package'` is supported for now.
 | `node['dovecot']['user']`                         | `'dovecot'`                | Dovecot system user. Should no be changed.
 | `node['dovecot']['group']`                        | `'dovecot'`                | Dovecot system group. Should no be changed.
+| `node['dovecot']['user_homedir']`                 | *calculated*               | Dovecot system user home directory.
 | `node['dovecot']['lib_path']`                     | *calculated*               | Dovecot library path. Should no be changed.
 | `node['dovecot']['conf_path']`                    | `'/etc/dovecot'`           | Dovecot configuration files path. Should no be changed.
 | `node['dovecot']['conf_files_user']`              | `'root'`                   | System user owner of configuration files.
