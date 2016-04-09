@@ -2,6 +2,7 @@
 #
 # Cookbook Name:: dovecot
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
+# Copyright:: Copyright (c) 2016 Xabier de Zuazo
 # Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
 #
@@ -860,9 +861,23 @@ attribute 'dovecot/conf/mail_full_filesystem_access',
 
 attribute 'dovecot/conf/mail_attribute_dict',
           display_name: 'mail attribute dict',
+          description: 'Dictionary for key=value mailbox attributes.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/mail_server_comment',
+          display_name: 'mail server comment',
+          description: 'A comment or note that is associated with the server.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/mail_server_admin',
+          display_name: 'mail server admin',
           description:
-            'Dictionary for key=value mailbox attributes. Currently used by '\
-            'URLAUTH.',
+            'Indicates a method for contacting the server administrator. '\
+            'This value MUST be a URI.',
           type: 'string',
           required: 'optional',
           default: 'nil'
@@ -1496,6 +1511,15 @@ attribute 'dovecot/conf/lmtp_rcpt_check_quota',
           description:
             'Verify quota before replying to RCPT TO. This adds a small '\
             'overhead.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/lmtp_hdr_delivery_address',
+          display_name: 'lmtp hdr delivery address',
+          description:
+            'Which recipient address to use for Delivered-To: header and '\
+            'Received: header.',
           type: 'string',
           required: 'optional',
           default: 'nil'

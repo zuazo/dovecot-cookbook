@@ -3,6 +3,7 @@
 # Cookbook Name:: dovecot
 # Attributes:: conf_20_lmtp
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
+# Copyright:: Copyright (c) 2016 Xabier de Zuazo
 # Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
 #
@@ -24,3 +25,4 @@
 default['dovecot']['conf']['lmtp_proxy'] = nil
 default['dovecot']['conf']['lmtp_save_to_detail_mailbox'] = nil
 default['dovecot']['conf']['lmtp_rcpt_check_quota'] = nil
+default['dovecot']['conf']['lmtp_hdr_delivery_address'] = nil

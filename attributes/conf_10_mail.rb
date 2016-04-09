@@ -3,6 +3,7 @@
 # Cookbook Name:: dovecot
 # Attributes:: conf_10_mail
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
+# Copyright:: Copyright (c) 2016 Xabier de Zuazo
 # Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
 #
@@ -29,6 +30,8 @@ default['dovecot']['conf']['mail_privileged_group'] = nil
 default['dovecot']['conf']['mail_access_groups'] = nil
 default['dovecot']['conf']['mail_full_filesystem_access'] = nil
 default['dovecot']['conf']['mail_attribute_dict'] = nil
+default['dovecot']['conf']['mail_server_comment'] = nil
+default['dovecot']['conf']['mail_server_admin'] = nil
 default['dovecot']['conf']['mmap_disable'] = nil
 default['dovecot']['conf']['dotlock_use_excl'] = nil
 default['dovecot']['conf']['mail_fsync'] = nil

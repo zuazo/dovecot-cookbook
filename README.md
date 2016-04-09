@@ -216,7 +216,9 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['mail_privileged_group']`         | *nil*   | Group to enable temporarily for privileged operations.
 | `node['dovecot']['conf']['mail_access_groups']`            | *nil*   | Grant access to these supplementary groups for mail processes.
 | `node['dovecot']['conf']['mail_full_filesystem_access']`   | *nil*   | Allow full filesystem access to clients.
-| `node['dovecot']['conf']['mail_attribute_dict']`           | *nil*   | Dictionary for key=value mailbox attributes. Currently used by URLAUTH.
+| `node['dovecot']['conf']['mail_attribute_dict']`           | *nil*   | Dictionary for key=value mailbox attributes.
+| `node['dovecot']['conf']['mail_server_comment']`           | *nil*   | A comment or note that is associated with the server.
+| `node['dovecot']['conf']['mail_server_admin']`             | *nil*   | Indicates a method for contacting the server administrator. This value MUST be a URI.
 | `node['dovecot']['conf']['mmap_disable']`                  | *nil*   | Don't use mmap() at all.
 | `node['dovecot']['conf']['dotlock_use_excl']`              | *nil*   | Rely on O_EXCL to work when creating dotlock files.
 | `node['dovecot']['conf']['mail_fsync']`                    | *nil*   | When to use fsync() or fdatasync() calls: optimized, always or never.
@@ -325,7 +327,7 @@ Also used by LMTP.
 | `node['dovecot']['conf']['lmtp_proxy']`                  | *nil*   | Support proxying to other LMTP/SMTP servers by performing passdb lookups.
 | `node['dovecot']['conf']['lmtp_save_to_detail_mailbox']` | *nil*   | When recipient address includes the detail (e.g. user+detail), try to save the mail to the detail mailbox.
 | `node['dovecot']['conf']['lmtp_rcpt_check_quota']`       | *nil*   | Verify quota before replying to RCPT TO. This adds a small overhead.
-
+| `node['dovecot']['conf']['lmtp_hdr_delivery_address']`   | *nil*   |  Which recipient address to use for Delivered-To: header and Received: header.
 ## Berkeley DB DB_CONFIG Attributes
 
 * Configuration file: `dovecot-db.conf.ext`.
@@ -1050,7 +1052,7 @@ License and Author
 | **Contributor:**     | [Jordi Llonch](https://github.com/llonchj)
 | **Contributor:**     | [Michael Burns](https://github.com/mburns)
 | **Contributor:**     | [Marcus Klein](https://github.com/kleini)
-| **Copyright:**       | Copyright (c) 2015, Xabier de Zuazo
+| **Copyright:**       | Copyright (c) 2015-2016, Xabier de Zuazo
 | **Copyright:**       | Copyright (c) 2013-2015, Onddo Labs, SL.
 | **License:**         | Apache License, Version 2.0
 
