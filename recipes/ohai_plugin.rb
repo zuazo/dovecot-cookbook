@@ -26,6 +26,11 @@ end
 ohai_build_options = node['dovecot']['ohai_plugin']['build-options']
 source_dir = ohai7? ? 'ohai7_plugins' : 'ohai_plugins'
 
+# dummy resource to be able to notify reload action to the ohai plugin
+ohai 'dovecot' do
+  action :nothing
+end
+
 ohai_plugin 'dovecot' do
   name 'dovecot'
   source_file "#{source_dir}/dovecot.rb.erb"

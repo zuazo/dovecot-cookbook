@@ -27,6 +27,12 @@ describe 'dovecot::from_package' do
   shared_examples 'any package' do
     context 'with ohai build options enabled' do
       before { node.set['dovecot']['ohai_plugin']['build-options'] = true }
+
+      it 'notifies ohai plugin' do
+        resource = chef_run.package(pkg)
+        expect(resource).to notify('ohai[dovecot]').to(:reload)
+          .immediately
+      end
     end # context with ohai build options enabled
   end # shared example any package
 
@@ -35,6 +41,12 @@ describe 'dovecot::from_package' do
 
     context 'with ohai build options disabled' do
       before { node.set['dovecot']['ohai_plugin']['build-options'] = false }
+
+      it 'notifies ohai plugin' do
+        resource = chef_run.package(pkg)
+        expect(resource).to notify('ohai[dovecot]').to(:reload)
+          .immediately
+      end
     end # context with ohai build options disabled
   end
 
@@ -43,6 +55,11 @@ describe 'dovecot::from_package' do
 
     context 'with ohai build options disabled' do
       before { node.set['dovecot']['ohai_plugin']['build-options'] = false }
+
+      it 'notifies ohai plugin' do
+        resource = chef_run.package(pkg)
+        expect(resource).to_not notify('ohai[dovecot]')
+      end
     end # context with ohai build options disabled
   end
 

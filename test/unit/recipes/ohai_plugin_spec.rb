@@ -22,6 +22,11 @@ require_relative '../spec_helper'
 describe 'dovecot::ohai_plugin' do
   let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
+  it 'creates ohai dummy resource' do
+    resource = chef_run.ohai('dovecot')
+    expect(resource).to do_nothing
+  end
+
   it 'creates ohai dovecot plugin' do
     expect(chef_run).to create_ohai_plugin('dovecot')
   end

@@ -34,6 +34,9 @@ node['dovecot']['packages'].each do |type, pkgs|
     package "(#{type}) #{pkg}" do
       package_name pkg
       only_if { Dovecot::Conf.require?(type, node['dovecot']) }
+      if type == 'core' || node['dovecot']['ohai_plugin']['build-options']
+        notifies :reload, 'ohai[dovecot]', :immediately
+      end
     end # package
   end # pkg.each
 end # node['dovecot']['packages'].each
