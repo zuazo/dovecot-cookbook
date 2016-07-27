@@ -1,5 +1,4 @@
 rvm:
-- 1.9.3
 - 2.0.0
 - 2.1
 - 2.2
@@ -7,66 +6,48 @@ rvm:
 sudo: true
 
 env:
-  matrix:
 # CHEF_VERSION is only for unit tests, no for test-kitchen:
-  - TESTS="style unit" CHEF_VERSION="~> 11.0"
-  - TESTS="style unit" CHEF_VERSION="~> 12.0"
+- TESTS="style unit" CHEF_VERSION="~> 11.0"
+- TESTS="style unit" CHEF_VERSION="~> 12.0"
 # Split up the test-kitchen run to avoid exceeding 50 minutes:
-  - TESTS="integration:docker[default-centos]"
-  - TESTS="integration:docker[default-debian]"
-  - TESTS="integration:docker[default-ubuntu]"
-  - TESTS="integration:docker[ldap-debian]"
-  - TESTS="integration:docker[attributes-centos]"
-  - TESTS="integration:docker[attributes-debian]"
-  - TESTS="integration:docker[attributes-ubuntu]"
+- TESTS="integration:docker[default-centos]"
+- TESTS="integration:docker[default-debian]"
+- TESTS="integration:docker[default-ubuntu]"
+- TESTS="integration:docker[ldap-debian]"
+- TESTS="integration:docker[attributes-centos]"
+- TESTS="integration:docker[attributes-debian]"
+- TESTS="integration:docker[attributes-ubuntu]"
 
 matrix:
   exclude:
-# Chef 12 requires Ruby 2:
-  - rvm: 1.9.3
+# Chef 12.9 requires Ruby >= 2.1
+  - rvm: 2.0.0
     env: TESTS="style unit" CHEF_VERSION="~> 12.0"
-# Chef 11 cannot resolve dependencies in Ruby 2.2 (mixlib-shellout):
-  - rvm: 2.2
-    env: TESTS="style unit" CHEF_VERSION="~> 11.0"
 # Disable integration tests in old Ruby versions:
-  - rvm: 1.9.3
-    env: TESTS="integration:docker[default-centos]"
   - rvm: 2.0.0
     env: TESTS="integration:docker[default-centos]"
   - rvm: 2.1
     env: TESTS="integration:docker[default-centos]"
-  - rvm: 1.9.3
-    env: TESTS="integration:docker[default-debian]"
   - rvm: 2.0.0
     env: TESTS="integration:docker[default-debian]"
   - rvm: 2.1
     env: TESTS="integration:docker[default-debian]"
-  - rvm: 1.9.3
-    env: TESTS="integration:docker[default-ubuntu]"
   - rvm: 2.0.0
     env: TESTS="integration:docker[default-ubuntu]"
   - rvm: 2.1
     env: TESTS="integration:docker[default-ubuntu]"
-  - rvm: 1.9.3
-    env: TESTS="integration:docker[ldap-debian]"
   - rvm: 2.0.0
     env: TESTS="integration:docker[ldap-debian]"
   - rvm: 2.1
     env: TESTS="integration:docker[ldap-debian]"
-  - rvm: 1.9.3
-    env: TESTS="integration:docker[attributes-centos]"
   - rvm: 2.0.0
     env: TESTS="integration:docker[attributes-centos]"
   - rvm: 2.1
     env: TESTS="integration:docker[attributes-centos]"
-  - rvm: 1.9.3
-    env: TESTS="integration:docker[attributes-debian]"
   - rvm: 2.0.0
     env: TESTS="integration:docker[attributes-debian]"
   - rvm: 2.1
     env: TESTS="integration:docker[attributes-debian]"
-  - rvm: 1.9.3
-    env: TESTS="integration:docker[attributes-ubuntu]"
   - rvm: 2.0.0
     env: TESTS="integration:docker[attributes-ubuntu]"
   - rvm: 2.1
