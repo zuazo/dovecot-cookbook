@@ -45,7 +45,7 @@ supports 'scientific', '>= 6.0'
 supports 'suse'
 supports 'ubuntu', '>= 12.04'
 
-depends 'ohai'
+depends 'ohai', '~> 3.0'
 
 recipe 'dovecot::default', 'Installs and configures Dovecot.'
 recipe 'dovecot::user', 'Creates the dovecot system user.'
