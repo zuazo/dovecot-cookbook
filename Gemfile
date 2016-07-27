@@ -25,6 +25,7 @@ group :unit do
   gem 'simplecov', '~> 0.9'
   gem 'should_not', '~> 1.1'
   gem 'chefspec', '~> 4.1'
+  gem 'rack', '~> 1.0' if RUBY_VERSION < '2.2.2'
 end
 
 group :integration do
