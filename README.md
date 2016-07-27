@@ -89,6 +89,8 @@ Let me know if you use it successfully on any other platform.
 
 ## Required Applications
 
+* Chef `12` or higher.
+* Ruby `2.1` or higher.
 * **Dovecot `>= 2`**: requires this version of dovecot to be available by the distribution's package manager.
 
 Attributes
