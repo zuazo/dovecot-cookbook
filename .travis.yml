@@ -33,9 +33,9 @@ env:
 
 matrix:
   exclude:
-# Chef 11 cannot resolve dependencies in Ruby 2.2 (mixlib-shellout):
-  - rvm: 2.2
-    env: TESTS="style unit" CHEF_VERSION="~> 11.0"
+# Chef 12.9 requires Ruby >= 2.1
+  - rvm: 2.0.0
+    env: TESTS="style unit" CHEF_VERSION="~> 12.0"
 # Disable integration tests in old Ruby versions:
   - rvm: 2.0.0
     env: TESTS="integration[default-centos-6,verify]"
