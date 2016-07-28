@@ -12,11 +12,11 @@ env:
 # Split up the test-kitchen run to avoid exceeding 50 minutes:
 - TESTS="integration:docker[default-centos]"
 - TESTS="integration:docker[default-debian]"
-- TESTS="integration:docker[default-ubuntu]"
+# - TESTS="integration:docker[default-ubuntu]"
 - TESTS="integration:docker[ldap-debian]"
 - TESTS="integration:docker[attributes-centos]"
 - TESTS="integration:docker[attributes-debian]"
-- TESTS="integration:docker[attributes-ubuntu]"
+# - TESTS="integration:docker[attributes-ubuntu]"
 
 matrix:
   exclude:
