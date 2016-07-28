@@ -8,22 +8,18 @@ platforms:
 - name: centos-6
 - name: debian-7
   run_list: recipe[apt]
-- name: debian-8
-  run_list: recipe[apt]
+# urllib2.URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate
+# - name: debian-8
+#   run_list: recipe[apt]
 - name: oraclelinux-6
   driver_config:
     platform: rhel
-- name: ubuntu-14.10
+- name: ubuntu-15.04
   run_list: recipe[apt]
-  driver_config:
-    image: ubuntu-upstart:14.10
+- name: ubuntu-15.10
+  run_list: recipe[apt]
 
 # Non-official images with systemd
-- name: centos-7
-  driver_config:
-    # https://registry.hub.docker.com/u/milcom/centos7-systemd/dockerfile/
-    image: milcom/centos7-systemd
-    privileged: true
 - name: scientific-6.6
   driver_config:
     image: ringo/scientific:6.6
