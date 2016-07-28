@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of `dovecot` cookbook.
 
+## v2.5.0 (2016-07-28)
+
+* metadata: Add ohai dependency version constraint for version `3` (fixes [#22](https://github.com/zuazo/dovecot-cookbook/issues/22), thanks [Markus Wagner](https://github.com/zuazo/dovecot-cookbook/issues/22) for reporting).
+* Fix the unit and integration tests.
+
 ## v2.4.0 (2015-09-11)
 
 * Improve platforms support using `node['platform_family']`:
