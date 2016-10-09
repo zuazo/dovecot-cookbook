@@ -53,6 +53,8 @@ matrix:
   - rvm: 2.3
     env: TESTS="integration[ldap-ubuntu-1510,verify]"
   - rvm: 2.3
+    env: TESTS="integration[ldap-ubuntu-1604,verify]"
+  - rvm: 2.3
     env: TESTS="integration[attributes-centos-6,verify]"
   - rvm: 2.3
     env: TESTS="integration[attributes-debian-7,verify]"
