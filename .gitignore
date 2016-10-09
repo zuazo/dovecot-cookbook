@@ -9,7 +9,7 @@ bin
 cookbooks
 coverage
 doc
-Dockerfile-kitchen-*
+Dockerfile-kitchen*
 *.gem
 Gemfile.lock
 .kitchen
