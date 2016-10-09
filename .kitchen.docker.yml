@@ -8,9 +8,8 @@ platforms:
 - name: centos-6
 - name: debian-7
   run_list: recipe[apt]
-# urllib2.URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate
-# - name: debian-8
-#   run_list: recipe[apt]
+- name: debian-8
+  run_list: recipe[apt]
 - name: oraclelinux-6
   driver_config:
     platform: rhel

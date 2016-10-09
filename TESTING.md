@@ -3,9 +3,18 @@ Testing
 
 ## Installing the Requirements
 
-You must have [VirtualBox](https://www.virtualbox.org/) and [Vagrant](http://www.vagrantup.com/) installed.
+You must have [VirtualBox](https://www.virtualbox.org/manual/ch02.html)&[Vagrant](https://www.vagrantup.com/docs/installation/) or [Docker](https://docs.docker.com/engine/installation/) installed.
+
+It's also recommend to install [ChefDK](https://downloads.chef.io/chef-dk/):
+
+    $ curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk
+    $ eval "$(/opt/chefdk/bin/chef shell-init bash)"
 
 You can install gem dependencies with bundler:
+
+    $ chef exec bundle install --without travis
+
+Or, if you don't want to use ChefDK:
 
     $ gem install bundler
     $ bundle install --without travis
@@ -14,7 +23,7 @@ You can install gem dependencies with bundler:
 
 This will generate the documentation for the source files inside the [*libraries/*](https://github.com/zuazo/dovecot-cookbook/tree/master/libraries) directory.
 
-    $ bundle exec rake doc
+    $ chef exec bundle exec rake doc
 
 The documentation is included in the source code itself.
 
@@ -27,7 +36,12 @@ We use the following tools to test the code style:
 
 To run the tests:
 
-    $ bundle exec rake style
+    $ chef exec bundle exec rake style
+
+Or:
+
+    $ rubocop .
+    $ foodcritic .
 
 ## Unit Tests
 
@@ -37,9 +51,13 @@ The unit test files are placed in the [*test/unit/*](https://github.com/zuazo/do
 
 To run the tests:
 
-    $ bundle exec rake unit
+    $ chef exec bundle exec rake unit
 
-## Integration Tests
+Or:
+
+    $ rspec test/unit
+
+## Integration Tests in Vagrant
 
 We use [Test Kitchen](http://kitchen.ci/) to run the tests and the tests are written using [Serverspec](http://serverspec.org/).
 
@@ -47,12 +65,12 @@ The integration test files are placed in the [*test/integration/*](https://githu
 
 To run the tests:
 
-    $ bundle exec rake integration:vagrant
+    $ chef exec bundle exec rake integration:vagrant
 
 Or:
 
-    $ bundle exec kitchen list
-    $ bundle exec kitchen test
+    $ kitchen list
+    $ kitchen test
     [...]
 
 ### Integration Tests in Docker
@@ -66,6 +84,12 @@ Of course, you need to have [Docker installed](https://docs.docker.com/engine/in
 Then use the `integration:docker` rake task to run the tests:
 
     $ bundle exec rake integration:docker
+
+Or:
+
+    $ export KITCHEN_LOCAL_YAML=.kitchen.docker.yml
+    $ kitchen list
+    $ kitchen test
 
 ### Integration Tests in the Cloud
 
@@ -110,9 +134,9 @@ See [Rakefile documentation](https://github.com/ruby/rake/blob/master/doc/rakefi
 ```
 $ vagrant plugin install vagrant-berkshelf vagrant-omnibus
 ```
-* The path correctly set for ChefDK:
+* The environment correctly configured for ChefDK:
 ```
-$ export PATH="/opt/chefdk/bin:${PATH}"
+$ eval "$(/opt/chefdk/bin/chef shell-init bash)"
 ```
 
 ### Vagrantfile Usage
