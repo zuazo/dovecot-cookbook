@@ -9,8 +9,10 @@ source 'https://rubygems.org'
 
 chef_version = ENV.key?('CHEF_VERSION') ? ENV['CHEF_VERSION'] : nil
 
-gem 'rake'
-gem 'berkshelf', '~> 5.1'
+group :test do
+  gem 'rake'
+  gem 'berkshelf', '~> 5.1'
+end
 
 group :doc do
   gem 'yard', '~> 0.9.5'
