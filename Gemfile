@@ -9,13 +9,13 @@ source 'https://rubygems.org'
 
 chef_version = ENV.key?('CHEF_VERSION') ? ENV['CHEF_VERSION'] : nil
 
+group :doc do
+  gem 'yard', '~> 0.9.5'
+end
+
 group :test do
   gem 'rake'
   gem 'berkshelf', '~> 5.1'
-end
-
-group :doc do
-  gem 'yard', '~> 0.9.5'
 end
 
 group :style do
@@ -31,7 +31,7 @@ group :unit do
 end
 
 group :integration do
-  gem 'test-kitchen', '~> 1.13.2'
+  gem 'test-kitchen', '~> 1.13'
 end
 
 group :integration_docker do
