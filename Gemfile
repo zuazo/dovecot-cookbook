@@ -2,7 +2,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Many of the gems versions installed here are based on the versions installed
+# More info at http://bundler.io/gemfile.html
+#
+# Many of the gem versions installed here are based on the versions installed
 # by ChefDK.
 
 source 'https://rubygems.org'
@@ -25,7 +27,7 @@ end
 
 group :unit do
   gem 'chef', chef_version unless chef_version.nil?
-  gem 'chefspec', '~> 5.2.0'
+  gem 'chefspec', '~> 5.2'
   gem 'simplecov', '~> 0.12.0'
   gem 'should_not', '~> 1.1'
 end
@@ -39,17 +41,17 @@ group :integration_docker do
 end
 
 group :integration_vagrant do
-  gem 'kitchen-vagrant', '~> 0.20.0'
   gem 'vagrant-wrapper', '~> 2.0'
+  gem 'kitchen-vagrant', '~> 0.20.0'
 end
 
 group :integration_cloud do
-  gem 'kitchen-ec2', '~> 1.2.0'
+  gem 'kitchen-ec2', '~> 1.2'
   gem 'kitchen-digitalocean', '~> 0.9.5'
 end
 
 group :guard do
-  gem 'guard', '~> 2.14.0'
+  gem 'guard', '~> 2.14'
   gem 'guard-foodcritic', '~> 2.1'
   gem 'guard-rubocop', '~> 1.1'
   gem 'guard-rspec', '~> 4.3'

@@ -1,6 +1,4 @@
-rvm:
-- 2.2
-- 2.3
+rvm: 2.2
 
 sudo: required
 
@@ -28,46 +26,6 @@ env:
   - TESTS="integration[attributes-ubuntu-1510,verify]"
   - TESTS="integration[attributes-ubuntu-1604,verify]"
   - TESTS="integration[attributes-scientific-66,verify]"
-
-matrix:
-  exclude:
-# Disable integration tests in old Ruby versions:
-  - rvm: 2.3
-    env: TESTS="integration[default-centos-6,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[default-debian-7,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[default-debian-8,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[default-oraclelinux-6,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[default-ubuntu-1510,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[default-ubuntu-1604,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[default-scientific-66,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[ldap-debian-7,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[ldap-debian-8,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[ldap-ubuntu-1510,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[ldap-ubuntu-1604,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[attributes-centos-6,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[attributes-debian-7,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[attributes-debian-8,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[attributes-oraclelinux-6,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[attributes-ubuntu-1510,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[attributes-ubuntu-1604,verify]"
-  - rvm: 2.3
-    env: TESTS="integration[attributes-scientific-66,verify]"
 
 before_install:
 - chef --version &> /dev/null || curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 0.18.30
