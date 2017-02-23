@@ -39,6 +39,7 @@ default['dovecot']['conf_files']['core'] = %w(
   conf.d/10-tcpwrapper.conf
   conf.d/15-lda.conf
   conf.d/15-mailboxes.conf
+  conf.d/15-replication.conf
   conf.d/90-acl.conf
   conf.d/90-plugin.conf
   conf.d/90-quota.conf
