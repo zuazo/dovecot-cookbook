@@ -728,7 +728,7 @@ The `['services']` attribute is a hash. Each service attribute should be a hash.
 
 Inside this `listeners` key, you should name each listener with the format *PROTOCOL:NAME*. Allowed protocols are `fifo`, `unix` and `inet`.
 
-Supported services are the following: `anvil`, `director`, `imap-login`, `pop3-login`, `lmtp`, `imap`, `pop3`, `auth`, `auth-worker`, `dict`, `tcpwrap`, `managesieve-login` and `managesieve`.
+Supported services are the following: `anvil`, `director`, `imap-login`, `pop3-login`, `lmtp`, `imap`, `pop3`, `auth`, `auth-worker`, `dict`, `tcpwrap`, `managesieve-login`, `managesieve`, `aggregator`, `replicator`, `config`.
 
 ### Director Service Example
 
