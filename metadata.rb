@@ -462,7 +462,7 @@ attribute 'dovecot/conf/doveadm_port',
           required: 'optional',
           default: 'nil'
 
-attribute 'dovecot/conf/dovadm_password'
+attribute 'dovecot/conf/doveadm_password',
           display_name: 'doveadm password',
           description:
           'If not empty, the doveadm server replication communication will '\
