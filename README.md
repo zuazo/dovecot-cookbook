@@ -321,6 +321,18 @@ Also used by LMTP.
 | `node['dovecot']['conf']['lda_mailbox_autocreate']`        | *nil*   | Should saving a mail to a nonexistent mailbox automatically create it?
 | `node['dovecot']['conf']['lda_mailbox_autosubscribe']`     | *nil*   | Should automatically created mailboxes be also automatically subscribed?
 
+## Replication Specific Attributes
+
+Also used by Replication/sync of dovecot.
+
+* Configuration files: `conf.d/15-replication.conf`.
+
+| Attribute                                                  | Default | Description                    |
+|:-----------------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['doveadm_port']`                  | *nil*   | Used to set a default port for the doveadm replication commands.
+| `node['dovecot']['conf']['doveadm_password']`              | *nil*   | Needed to set an 'secret' for the replication communication between to servers.
+
+
 ## LMTP Specific Attributes
 
 * Configuration file: `conf.d/20-lmtp.conf`
@@ -401,7 +413,7 @@ Also used by LMTP.
 
 ## Distribution Package Names Attributes
 
-These attributes below contain the default required distribution packages for the supported platforms. But you are free to create your own to support other platforms. Keep in mind that all are put inside a subkey (`type`). This `node['dovecot']['packages'][type]` attribute is then used together with the `node['dovecot']['conf_files'][type]` attribute to generate the configuration files. 
+These attributes below contain the default required distribution packages for the supported platforms. But you are free to create your own to support other platforms. Keep in mind that all are put inside a subkey (`type`). This `node['dovecot']['packages'][type]` attribute is then used together with the `node['dovecot']['conf_files'][type]` attribute to generate the configuration files.
 
 | Attribute                               | Default      | Description                    |
 |:----------------------------------------|:-------------|:-------------------------------|
@@ -1062,9 +1074,9 @@ License and Author
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-    
+
         http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

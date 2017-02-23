@@ -261,7 +261,8 @@ attribute 'dovecot/services',
             'Dovecot Services configuration as a hash of hashes. Supported '\
             'services: anvil, director, imap-login, pop3-login, lmtp, imap, '\
             'pop3, auth, auth-worker, dict, tcpwrap, managesieve-login, '\
-            'managesieve, quota-status, quota-warning and doveadm',
+            'managesieve, quota-status, quota-warning, doveadm, config, '\
+            'aggregator, replicator',
           type: 'hash',
           required: 'optional',
           default: {}
@@ -448,6 +449,24 @@ attribute 'dovecot/conf/shutdown_clients',
           description:
             'Should all processes be killed when Dovecot master process shuts '\
             'down.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/doveadm_port',
+          display_name: 'doveadm port',
+          description:
+          'If non-zero, doveadm cli will use this port to communicate with '\
+          'doveadm server.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/dovadm_password'
+          display_name: 'doveadm password',
+          description:
+          'If not empty, the doveadm server replication communication will '\
+          'use that secret.',
           type: 'string',
           required: 'optional',
           default: 'nil'
