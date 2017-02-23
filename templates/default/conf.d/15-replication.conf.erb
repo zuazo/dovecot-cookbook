@@ -3,11 +3,6 @@
 # This file will contain replication settings in case of a replicated
 # master/master dovecot setup
 
-<% if @services['doveadm'].kind_of?(Hash) and @services['doveadm'].length > 0 -%>
-<%=  Dovecot::Conf.service('doveadm', @services['doveadm']) %>
-<% end -%>
-
-
 <% if @services['replicator'].kind_of?(Hash) and @services['replicator'].length > 0 -%>
 <%=  Dovecot::Conf.service('replicator', @services['replicator']) %>
 <% end -%>
