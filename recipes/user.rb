@@ -27,7 +27,7 @@ end
 
 user node['dovecot']['user'] do
   comment 'Dovecot mail server'
-  home node['dovecot']['lib_path']
+  home node['dovecot']['user_homedir']
   shell '/bin/false'
   system true
 end
@@ -38,4 +38,14 @@ if node['dovecot']['conf']['default_login_user'].nil?
 else
   group node['dovecot']['conf']['default_login_user']
   user node['dovecot']['conf']['default_login_user']
+end
+
+default_login_user = node['dovecot']['conf']['default_login_user'] || 'dovenull'
+
+group default_login_user do
+  system true
+end
+
+user default_login_user do
+  group default_login_user
 end

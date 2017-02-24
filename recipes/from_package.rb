@@ -26,8 +26,8 @@ node['dovecot']['packages'].each do |type, pkgs|
   if pkgs.is_a?(String)
     pkgs = [pkgs]
   elsif !pkgs.is_a?(Array)
-    fail "`node['dovecot']['packages']['#{type}']` should contain an array of "\
-         "packages. You passed: #{pkgs.inspect}"
+    raise "`node['dovecot']['packages']['#{type}']` should contain an array "\
+          "of packages. You passed: #{pkgs.inspect}"
   end
 
   pkgs.each do |pkg|
@@ -35,7 +35,7 @@ node['dovecot']['packages'].each do |type, pkgs|
       package_name pkg
       only_if { Dovecot::Conf.require?(type, node['dovecot']) }
       if type == 'core' || node['dovecot']['ohai_plugin']['build-options']
-        notifies :reload, 'ohai[reload_dovecot]', :immediately
+        notifies :reload, 'ohai[dovecot]', :immediately
       end
     end # package
   end # pkg.each

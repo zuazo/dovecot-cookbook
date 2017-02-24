@@ -1,7 +1,4 @@
-rvm:
-- 2.0.0
-- 2.1
-- 2.2
+rvm: 2.2
 
 sudo: required
 
@@ -9,108 +6,39 @@ services: docker
 
 env:
   matrix:
-# CHEF_VERSION is only for unit tests, no for test-kitchen:
-  - TESTS="style unit" CHEF_VERSION="~> 11.0"
-  - TESTS="style unit" CHEF_VERSION="~> 12.0"
+  - TESTS="style unit"
 # Split up the test-kitchen run to avoid exceeding 50 minutes:
   - TESTS="integration[default-centos-6,verify]"
   - TESTS="integration[default-debian-7,verify]"
   - TESTS="integration[default-debian-8,verify]"
   - TESTS="integration[default-oraclelinux-6,verify]"
-  - TESTS="integration[default-ubuntu-1504,verify]"
   - TESTS="integration[default-ubuntu-1510,verify]"
+  - TESTS="integration[default-ubuntu-1604,verify]"
   - TESTS="integration[default-scientific-66,verify]"
   - TESTS="integration[ldap-debian-7,verify]"
   - TESTS="integration[ldap-debian-8,verify]"
   - TESTS="integration[ldap-ubuntu-1510,verify]"
+  - TESTS="integration[ldap-ubuntu-1604,verify]"
   - TESTS="integration[attributes-centos-6,verify]"
   - TESTS="integration[attributes-debian-7,verify]"
   - TESTS="integration[attributes-debian-8,verify]"
   - TESTS="integration[attributes-oraclelinux-6,verify]"
-  - TESTS="integration[attributes-ubuntu-1504,verify]"
   - TESTS="integration[attributes-ubuntu-1510,verify]"
+  - TESTS="integration[attributes-ubuntu-1604,verify]"
   - TESTS="integration[attributes-scientific-66,verify]"
 
-matrix:
-  exclude:
-# Chef 11 cannot resolve dependencies in Ruby 2.2 (mixlib-shellout):
-  - rvm: 2.2
-    env: TESTS="style unit" CHEF_VERSION="~> 11.0"
-# Disable integration tests in old Ruby versions:
-  - rvm: 2.0.0
-    env: TESTS="integration[default-centos-6,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[default-centos-6,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[default-debian-7,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[default-debian-7,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[default-debian-8,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[default-debian-8,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[default-oraclelinux-6,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[default-oraclelinux-6,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[default-ubuntu-1504,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[default-ubuntu-1504,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[default-ubuntu-1510,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[default-ubuntu-1510,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[default-scientific-66,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[default-scientific-66,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[ldap-debian-7,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[ldap-debian-7,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[ldap-debian-8,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[ldap-debian-8,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[ldap-ubuntu-1510,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[ldap-ubuntu-1510,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[attributes-centos-6,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[attributes-centos-6,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[attributes-debian-7,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[attributes-debian-7,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[attributes-debian-8,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[attributes-debian-8,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[attributes-oraclelinux-6,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[attributes-oraclelinux-6,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[attributes-ubuntu-1504,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[attributes-ubuntu-1504,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[attributes-ubuntu-1510,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[attributes-ubuntu-1510,verify]"
-  - rvm: 2.0.0
-    env: TESTS="integration[attributes-scientific-66,verify]"
-  - rvm: 2.1
-    env: TESTS="integration[attributes-scientific-66,verify]"
+before_install:
+- chef --version &> /dev/null || curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 0.18.30
+- eval "$(/opt/chefdk/bin/chef shell-init bash)"
 
-before_install: curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 0.10.0
+install:
+- chef exec bundle install --jobs=3 --retry=3 --without='doc integration_vagrant integration_cloud guard'
 
-install: chef exec bundle install --jobs=3 --retry=3 --without='doc integration_vagrant integration_cloud guard'
-
+before_script:
 # https://github.com/zuazo/kitchen-in-travis-native/issues/1#issuecomment-142455888
-before_script: sudo iptables -L DOCKER || sudo iptables -N DOCKER
+- sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+- chef --version
+- cookstyle --version
+- foodcritic --version
 
 script: travis_retry chef exec bundle exec rake $TESTS

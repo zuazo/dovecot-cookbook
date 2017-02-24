@@ -1,54 +1,42 @@
 ---
 driver:
-  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
-  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
   aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
-  ssh:
-    forward_agent: true
-
-provisioner:
-  name: chef_zero
-  require_chef_omnibus: true
 
 platforms:
 - name: fedora-19-x64
   driver_plugin: digitalocean
   driver_config:
     flavor: 512MB
-    region: Amsterdam 2
 
 - name: fedora-20-x64
   driver_plugin: digitalocean
   driver_config:
     flavor: 512MB
-    region: Amsterdam 2
 
 - name: ubuntu-10-04-x64
   driver_plugin: digitalocean
   driver_config:
     flavor: 512MB
-    region: Amsterdam 2
-  run_list: ["recipe[apt]"]
+  run_list: recipe[apt]
 
 - name: ubuntu-12-04-x64
   driver_plugin: digitalocean
   driver_config:
     flavor: 512MB
-    region: Amsterdam 2
-  run_list: ["recipe[apt]"]
+  run_list: recipe[apt]
 
 - name: ubuntu-14-04-x64
   driver_plugin: digitalocean
   driver_config:
     flavor: 512MB
-    region: Amsterdam 2
-  run_list: ["recipe[apt]"]
+  run_list: recipe[apt]
 
 - name: amazon-2011.02.1
   driver_plugin: ec2
   driver_config:
     image_id: ami-8e1fece7
-    flavor_id: t1.micro
+    instance_type: t1.micro
+  transport:
     username: ec2-user
 <% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
@@ -58,7 +46,8 @@ platforms:
   driver_plugin: ec2
   driver_config:
     image_id: ami-bba18dd2
-    flavor_id: t1.micro
+    instance_type: t1.micro
+  transport:
     username: ec2-user
 <% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>

@@ -1,7 +1,9 @@
 Dovecot Cookbook
 ================
 [![Cookbook Version](https://img.shields.io/cookbook/v/dovecot.svg?style=flat)](https://supermarket.chef.io/cookbooks/dovecot)
-[![GitHub Source](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat)](https://github.com/zuazo/dovecot-cookbook)
+[![GitHub](http://img.shields.io/badge/github-zuazo/dovecot--cookbook-blue.svg?style=flat)](https://github.com/zuazo/dovecot-cookbook)
+[![License](https://img.shields.io/github/license/zuazo/dovecot-cookbook.svg?style=flat)](#license-and-author)
+
 [![Dependency Status](http://img.shields.io/gemnasium/zuazo/dovecot-cookbook.svg?style=flat)](https://gemnasium.com/zuazo/dovecot-cookbook)
 [![Code Climate](http://img.shields.io/codeclimate/github/zuazo/dovecot-cookbook.svg?style=flat)](https://codeclimate.com/github/zuazo/dovecot-cookbook)
 [![Build Status](http://img.shields.io/travis/zuazo/dovecot-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/dovecot-cookbook)
@@ -25,6 +27,7 @@ Table of Contents
   * [Master Configuration File Attributes](#master-configuration-file-attributes)
   * [SSL Attributes](#ssl-attributes)
   * [LDA Specific Attributes](#lda-specific-attributes)
+  * [Replication Specific Attributes](#replication-specific-attributes)
   * [LMTP Specific Attributes](#lmtp-specific-attributes)
   * [Berkeley DB DB_CONFIG Attributes](#berkeley-db-db_config-attributes)
   * [Dictionary Quota SQL Attributes](#dictionary-quota-sql-attributes)
@@ -88,6 +91,8 @@ Let me know if you use it successfully on any other platform.
 
 ## Required Applications
 
+* Chef `12` or higher.
+* Ruby `2.2` or higher.
 * **Dovecot `>= 2`**: requires this version of dovecot to be available by the distribution's package manager.
 
 Attributes
@@ -100,6 +105,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['install_from']`                 | `'package'`                | Determines how Dovecot is installed from. Only `'package'` is supported for now.
 | `node['dovecot']['user']`                         | `'dovecot'`                | Dovecot system user. Should no be changed.
 | `node['dovecot']['group']`                        | `'dovecot'`                | Dovecot system group. Should no be changed.
+| `node['dovecot']['user_homedir']`                 | *calculated*               | Dovecot system user home directory.
 | `node['dovecot']['lib_path']`                     | *calculated*               | Dovecot library path. Should no be changed.
 | `node['dovecot']['conf_path']`                    | `'/etc/dovecot'`           | Dovecot configuration files path. Should no be changed.
 | `node['dovecot']['conf_files_user']`              | `'root'`                   | System user owner of configuration files.
@@ -214,7 +220,9 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['mail_privileged_group']`         | *nil*   | Group to enable temporarily for privileged operations.
 | `node['dovecot']['conf']['mail_access_groups']`            | *nil*   | Grant access to these supplementary groups for mail processes.
 | `node['dovecot']['conf']['mail_full_filesystem_access']`   | *nil*   | Allow full filesystem access to clients.
-| `node['dovecot']['conf']['mail_attribute_dict']`           | *nil*   | Dictionary for key=value mailbox attributes. Currently used by URLAUTH.
+| `node['dovecot']['conf']['mail_attribute_dict']`           | *nil*   | Dictionary for key=value mailbox attributes.
+| `node['dovecot']['conf']['mail_server_comment']`           | *nil*   | A comment or note that is associated with the server.
+| `node['dovecot']['conf']['mail_server_admin']`             | *nil*   | Indicates a method for contacting the server administrator. This value MUST be a URI.
 | `node['dovecot']['conf']['mmap_disable']`                  | *nil*   | Don't use mmap() at all.
 | `node['dovecot']['conf']['dotlock_use_excl']`              | *nil*   | Rely on O_EXCL to work when creating dotlock files.
 | `node['dovecot']['conf']['mail_fsync']`                    | *nil*   | When to use fsync() or fdatasync() calls: optimized, always or never.
@@ -314,6 +322,18 @@ Also used by LMTP.
 | `node['dovecot']['conf']['lda_mailbox_autocreate']`        | *nil*   | Should saving a mail to a nonexistent mailbox automatically create it?
 | `node['dovecot']['conf']['lda_mailbox_autosubscribe']`     | *nil*   | Should automatically created mailboxes be also automatically subscribed?
 
+## Replication Specific Attributes
+
+Also used by Replication/sync of dovecot.
+
+* Configuration files: `conf.d/15-replication.conf`.
+
+| Attribute                                                  | Default | Description                    |
+|:-----------------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['doveadm_port']`                  | *nil*   | Used to set a default port for the doveadm replication commands.
+| `node['dovecot']['conf']['doveadm_password']`              | *nil*   | Needed to set an 'secret' for the replication communication between to servers.
+
+
 ## LMTP Specific Attributes
 
 * Configuration file: `conf.d/20-lmtp.conf`
@@ -323,7 +343,7 @@ Also used by LMTP.
 | `node['dovecot']['conf']['lmtp_proxy']`                  | *nil*   | Support proxying to other LMTP/SMTP servers by performing passdb lookups.
 | `node['dovecot']['conf']['lmtp_save_to_detail_mailbox']` | *nil*   | When recipient address includes the detail (e.g. user+detail), try to save the mail to the detail mailbox.
 | `node['dovecot']['conf']['lmtp_rcpt_check_quota']`       | *nil*   | Verify quota before replying to RCPT TO. This adds a small overhead.
-
+| `node['dovecot']['conf']['lmtp_hdr_delivery_address']`   | *nil*   |  Which recipient address to use for Delivered-To: header and Received: header.
 ## Berkeley DB DB_CONFIG Attributes
 
 * Configuration file: `dovecot-db.conf.ext`.
@@ -394,7 +414,7 @@ Also used by LMTP.
 
 ## Distribution Package Names Attributes
 
-These attributes below contain the default required distribution packages for the supported platforms. But you are free to create your own to support other platforms. Keep in mind that all are put inside a subkey (`type`). This `node['dovecot']['packages'][type]` attribute is then used together with the `node['dovecot']['conf_files'][type]` attribute to generate the configuration files. 
+These attributes below contain the default required distribution packages for the supported platforms. But you are free to create your own to support other platforms. Keep in mind that all are put inside a subkey (`type`). This `node['dovecot']['packages'][type]` attribute is then used together with the `node['dovecot']['conf_files'][type]` attribute to generate the configuration files.
 
 | Attribute                               | Default      | Description                    |
 |:----------------------------------------|:-------------|:-------------------------------|
@@ -713,7 +733,7 @@ The `['services']` attribute is a hash. Each service attribute should be a hash.
 
 Inside this `listeners` key, you should name each listener with the format *PROTOCOL:NAME*. Allowed protocols are `fifo`, `unix` and `inet`.
 
-Supported services are the following: `anvil`, `director`, `imap-login`, `pop3-login`, `lmtp`, `imap`, `pop3`, `auth`, `auth-worker`, `dict`, `tcpwrap`, `managesieve-login` and `managesieve`.
+Supported services are the following: `anvil`, `director`, `imap-login`, `pop3-login`, `lmtp`, `imap`, `pop3`, `auth`, `auth-worker`, `dict`, `tcpwrap`, `managesieve-login`, `managesieve`, `aggregator`, `replicator`, `config`.
 
 ### Director Service Example
 
@@ -1052,7 +1072,7 @@ License and Author
 | **Contributor:**     | [Jordi Llonch](https://github.com/llonchj)
 | **Contributor:**     | [Michael Burns](https://github.com/mburns)
 | **Contributor:**     | [Marcus Klein](https://github.com/kleini)
-| **Copyright:**       | Copyright (c) 2015, Xabier de Zuazo
+| **Copyright:**       | Copyright (c) 2015-2016, Xabier de Zuazo
 | **Copyright:**       | Copyright (c) 2013-2015, Onddo Labs, SL.
 | **License:**         | Apache License, Version 2.0
 

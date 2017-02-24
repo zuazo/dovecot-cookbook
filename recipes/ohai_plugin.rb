@@ -23,22 +23,17 @@ def ohai7?
   Gem::Requirement.new('>= 7').satisfied_by?(Gem::Version.new(Ohai::VERSION))
 end
 
+ohai_build_options = node['dovecot']['ohai_plugin']['build-options']
 source_dir = ohai7? ? 'ohai7_plugins' : 'ohai_plugins'
 
-ohai 'reload_dovecot' do
-  plugin 'dovecot'
+# dummy resource to be able to notify reload action to the ohai plugin
+ohai 'dovecot' do
   action :nothing
 end
 
-template "#{node['ohai']['plugin_path']}/dovecot.rb" do
-  source "#{source_dir}/dovecot.rb.erb"
-  owner 'root'
-  group 'root'
-  mode '0755'
-  variables(
-    enable_build_options: node['dovecot']['ohai_plugin']['build-options']
-  )
-  notifies :reload, 'ohai[reload_dovecot]', :immediately
+ohai_plugin 'dovecot' do
+  name 'dovecot'
+  source_file "#{source_dir}/dovecot.rb.erb"
+  resource :template
+  variables enable_build_options: ohai_build_options
 end
-
-include_recipe 'ohai::default'

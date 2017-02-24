@@ -2,6 +2,7 @@
 #
 # Cookbook Name:: dovecot
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
+# Copyright:: Copyright (c) 2016 Xabier de Zuazo
 # Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
 #
@@ -26,7 +27,7 @@ description <<-EOH
 Installs and configures Dovecot, open source IMAP and POP3 email server.
 EOH
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '2.4.1001'
+version '3.1.0' # WiP
 
 if respond_to?(:source_url)
   source_url "https://github.com/zuazo/#{name}-cookbook"
@@ -45,7 +46,7 @@ supports 'scientific', '>= 6.0'
 supports 'suse'
 supports 'ubuntu', '>= 12.04'
 
-depends 'ohai'
+depends 'ohai', '~> 4.0'
 
 recipe 'dovecot::default', 'Installs and configures Dovecot.'
 recipe 'dovecot::user', 'Creates the dovecot system user.'
@@ -91,6 +92,13 @@ attribute 'dovecot/databag_item_name',
           type: 'string',
           required: 'optional',
           default: '"users"'
+
+attribute 'dovecot/user_homedir',
+          display_name: 'dovecot homedir',
+          description: 'Dovecot system user home directory.',
+          calculated: true,
+          type: 'string',
+          required: 'optional'
 
 attribute 'dovecot/lib_path',
           display_name: 'dovecot library path',
@@ -274,7 +282,8 @@ attribute 'dovecot/services',
             'Dovecot Services configuration as a hash of hashes. Supported '\
             'services: anvil, director, imap-login, pop3-login, lmtp, imap, '\
             'pop3, auth, auth-worker, dict, tcpwrap, managesieve-login, '\
-            'managesieve, quota-status, quota-warning and doveadm',
+            'managesieve, quota-status, quota-warning, doveadm, config, '\
+            'aggregator, replicator',
           type: 'hash',
           required: 'optional',
           default: {}
@@ -461,6 +470,24 @@ attribute 'dovecot/conf/shutdown_clients',
           description:
             'Should all processes be killed when Dovecot master process shuts '\
             'down.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/doveadm_port',
+          display_name: 'doveadm port',
+          description:
+          'If non-zero, doveadm cli will use this port to communicate with '\
+          'doveadm server.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/doveadm_password',
+          display_name: 'doveadm password',
+          description:
+          'If not empty, the doveadm server replication communication will '\
+          'use that secret.',
           type: 'string',
           required: 'optional',
           default: 'nil'
@@ -874,9 +901,23 @@ attribute 'dovecot/conf/mail_full_filesystem_access',
 
 attribute 'dovecot/conf/mail_attribute_dict',
           display_name: 'mail attribute dict',
+          description: 'Dictionary for key=value mailbox attributes.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/mail_server_comment',
+          display_name: 'mail server comment',
+          description: 'A comment or note that is associated with the server.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/mail_server_admin',
+          display_name: 'mail server admin',
           description:
-            'Dictionary for key=value mailbox attributes. Currently used by '\
-            'URLAUTH.',
+            'Indicates a method for contacting the server administrator. '\
+            'This value MUST be a URI.',
           type: 'string',
           required: 'optional',
           default: 'nil'
@@ -1510,6 +1551,15 @@ attribute 'dovecot/conf/lmtp_rcpt_check_quota',
           description:
             'Verify quota before replying to RCPT TO. This adds a small '\
             'overhead.',
+          type: 'string',
+          required: 'optional',
+          default: 'nil'
+
+attribute 'dovecot/conf/lmtp_hdr_delivery_address',
+          display_name: 'lmtp hdr delivery address',
+          description:
+            'Which recipient address to use for Delivered-To: header and '\
+            'Received: header.',
           type: 'string',
           required: 'optional',
           default: 'nil'

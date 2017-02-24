@@ -1,9 +1,8 @@
 # encoding: UTF-8
 #
-# Cookbook Name:: dovecot_test
-# Recipe:: default
-# Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL.
+# Cookbook Name:: dovecot
+# Attributes:: conf_10_replication
+# Author:: Vassilis Aretakis (<vassilis@aretakis.eu>)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,20 +18,7 @@
 # limitations under the License.
 #
 
-include_recipe 'dovecot'
+# conf.d/10-director.conf
 
-ruby_block 'ohai plugin tests' do
-  block do
-    unless node['dovecot']['version'].is_a?(String)
-      raise 'Ohai plugin cannot get dovecot version.'
-    end
-    unless node['dovecot']['build-options'].is_a?(Hash) &&
-           !node['dovecot']['build-options'].empty?
-      raise 'Ohai plugin cannot get dovecot build options.'
-    end
-  end
-end
-
-# Required for integration tests:
-package 'lsof'
-include_recipe 'netstat'
+default['dovecot']['conf']['doveadm_port'] = nil
+default['dovecot']['conf']['doveadm_password'] = nil

@@ -15,6 +15,13 @@
 # Verify quota before replying to RCPT TO. This adds a small overhead.
 <%= Dovecot::Conf.attribute(@conf, 'lmtp_rcpt_check_quota', false) %>
 
+# Which recipient address to use for Delivered-To: header and Received:
+# header. The default is "final", which is the same as the one given to
+# RCPT TO command. "original" uses the address given in RCPT TO's ORCPT
+# parameter, "none" uses nothing. Note that "none" is currently always used
+# when a mail has multiple recipients.
+<%= Dovecot::Conf.attribute(@conf, 'lmtp_hdr_delivery_address', 'final') %>
+
 <% if @protocols['lmtp'].kind_of?(Hash) and @protocols['lmtp'].length > 0 -%>
 <%=  Dovecot::Conf.protocol('lmtp', @protocols['lmtp']) %>
 <% else -%>

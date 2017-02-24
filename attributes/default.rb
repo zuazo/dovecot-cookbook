@@ -21,11 +21,6 @@
 
 default['dovecot']['install_from'] = 'package'
 
-default['dovecot']['user'] = 'dovecot'
-default['dovecot']['group'] = node['dovecot']['user']
-default['dovecot']['databag_name'] = 'dovecot'
-default['dovecot']['databag_item_name'] = 'users'
-
 case node['platform_family']
 when 'rhel', 'fedora'
   default['dovecot']['lib_path'] = '/usr/libexec/dovecot'
@@ -35,3 +30,9 @@ when 'suse'
 else
   default['dovecot']['lib_path'] = '/usr/lib/dovecot'
 end
+
+default['dovecot']['user'] = 'dovecot'
+default['dovecot']['group'] = node['dovecot']['user']
+default['dovecot']['user_homedir'] = node['dovecot']['lib_path']
+default['dovecot']['databag_name'] = 'dovecot'
+default['dovecot']['databag_item_name'] = 'users'

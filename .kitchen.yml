@@ -31,7 +31,9 @@ platforms:
   run_list: recipe[apt]
 - name: ubuntu-14.04
   run_list: recipe[apt]
-- name: ubuntu-15.04
+- name: ubuntu-15.10
+  run_list: recipe[apt]
+- name: ubuntu-16.04
   run_list: recipe[apt]
 
 suites:
@@ -50,7 +52,6 @@ suites:
   - opensuse-12.3
   - opensuse-13.2
   - oraclelinux-6
-  - ubuntu-15.04
   - scientific-6.6
   run_list:
   - recipe[dovecot_test::ldap]

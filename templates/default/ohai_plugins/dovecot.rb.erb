@@ -18,14 +18,15 @@
 
 provides 'dovecot'
 provides 'dovecot/version'
+
 def build_option_key(str)
-  str.downcase.gsub(' ', '-')
+  str.downcase.tr(' ', '-')
 end
 
 def parse_build_options_hash(build_options)
-  Hash[build_options.split(/ +/).map { |value|
-    value.index('=').nil? ? [ value, true ] : value.split('=', 2)
-  }]
+  Hash[build_options.split(/ +/).map do |value|
+    value.index('=').nil? ? [value, true] : value.split('=', 2)
+  end]
 end
 
 def parse_build_options_array(build_options)
@@ -35,8 +36,9 @@ end
 dovecot Mash.new unless dovecot
 dovecot['version'] = nil unless dovecot['version']
 
-status, stdout, stderr = run_command(no_status_check: true, command: 'dovecot --version')
-dovecot['version'] = stdout.split("\n")[0] if status === 0
+status, stdout, _stderr =
+  run_command(no_status_check: true, command: 'dovecot --version')
+dovecot['version'] = stdout.split("\n")[0] if status == 0
 
 <% if @enable_build_options -%>
 
@@ -44,14 +46,17 @@ provides 'dovecot/build-options'
 
 dovecot['build-options'] = {} unless dovecot['build-options']
 
-status, stdout, stderr = run_command(no_status_check: true, command: 'dovecot --build-options')
+status, stdout, _stderr =
+  run_command(no_status_check: true, command: 'dovecot --build-options')
 if status == 0
   stdout.split("\n").each do |line|
     case line
     when /^Build options: *(.+)/
-      dovecot['build-options'].merge!(parse_build_options_hash($1))
+      dovecot['build-options']
+        .merge!(parse_build_options_hash(Regexp.last_match[1]))
     when /^([^:]+): *(.+)/
-      dovecot['build-options'][build_option_key($1)] = parse_build_options_array($2)
+      dovecot['build-options'][build_option_key(Regexp.last_match[1])] =
+        parse_build_options_array(Regexp.last_match[2])
     end
   end
 end

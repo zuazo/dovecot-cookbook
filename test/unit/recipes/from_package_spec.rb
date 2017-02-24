@@ -30,7 +30,7 @@ describe 'dovecot::from_package' do
 
       it 'notifies ohai plugin' do
         resource = chef_run.package(pkg)
-        expect(resource).to notify('ohai[reload_dovecot]').to(:reload)
+        expect(resource).to notify('ohai[dovecot]').to(:reload)
           .immediately
       end
     end # context with ohai build options enabled
@@ -44,7 +44,7 @@ describe 'dovecot::from_package' do
 
       it 'notifies ohai plugin' do
         resource = chef_run.package(pkg)
-        expect(resource).to notify('ohai[reload_dovecot]').to(:reload)
+        expect(resource).to notify('ohai[dovecot]').to(:reload)
           .immediately
       end
     end # context with ohai build options disabled
@@ -58,7 +58,7 @@ describe 'dovecot::from_package' do
 
       it 'notifies ohai plugin' do
         resource = chef_run.package(pkg)
-        expect(resource).to_not notify('ohai[reload_dovecot]')
+        expect(resource).to_not notify('ohai[dovecot]')
       end
     end # context with ohai build options disabled
   end

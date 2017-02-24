@@ -2,6 +2,52 @@
 
 This file is used to list changes made in each version of `dovecot` cookbook.
 
+## v3.0.0 (2016-10-09)
+
+### Breaking Changes on v3.0.0
+
+* Drop Chef `11` support (required by ohai dependency).
+* Drop Ruby `< 2.2` support.
+
+### New Features on v3.0.0
+
+* Add support for services: quota-status, quota-warning, doveadm ([issue #18](https://github.com/zuazo/dovecot-cookbook/pull/18), thanks [@ledgr](https://github.com/ledgr)).
+* Change dovecot users homedir separate attribute ([issue #21](https://github.com/zuazo/dovecot-cookbook/pull/21), thanks [@ledgr](https://github.com/ledgr)).
+* Update all configuration files to Dovecot `2.2.23`.
+* Rewrite Ohai plugin to support Ohai cookbook version `4` ([issue #23](https://github.com/zuazo/dovecot-cookbook/pull/23), thanks [@ledgr](https://github.com/ledgr)).
+
+### Fixes on v3.0.0
+
+* Fix Ubuntu >= `15.10` support.
+* Always create dovenull user.
+* Ohai plugin: Use `#shell_out` instead of `run_command` (fix Ohai `9` support).
+* Fix metadata error in a *calculated* field documentation.
+
+### Improvements on v3.0.0
+
+* Fix RuboCop offenses in ohai plugins.
+
+### Documentation Changes on v3.0.0
+
+* README: Add license badge and improve the badges position.
+* Improve TESTING documentation.
+
+### Changes on Tests on v3.0.0
+
+* test-kitchen: Update platform versions.
+* Travis CI:
+  * Run test-kitchen using native Docker support.
+  * Improve ChefDK installation procedure.
+  * Update ChefDK to version `0.18.3`.
+  * Run unit tests against Ruby `2.3` also.
+* Update all gems in the Gemfile.
+  * Update kitchen-digitalocean, fix *Resolving dependencies*.
+
+## v2.5.0 (2016-07-28)
+
+* metadata: Add ohai dependency version constraint for version `3` (fixes [#22](https://github.com/zuazo/dovecot-cookbook/issues/22), thanks [Markus Wagner](https://github.com/zuazo/dovecot-cookbook/issues/22) for reporting).
+* Fix the unit and integration tests.
+
 ## v2.4.0 (2015-09-11)
 
 * Improve platforms support using `node['platform_family']`:

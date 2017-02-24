@@ -2,6 +2,7 @@
 #
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2014 Onddo Labs, SL.
+# Copyright:: Copyright (c) 2016 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +23,7 @@ require_relative '../spec_helper'
 describe 'dovecot::user' do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
+  let(:node) { chef_runner.node }
 
   it 'creates the dovecot user' do
     expect(chef_run).to create_user('dovecot')
@@ -100,4 +102,29 @@ describe 'dovecot::user' do
       end
     end # describe users
   end # describe the dovecot group
+
+  it 'creates default login group' do
+    expect(chef_run).to create_group('dovenull')
+  end
+
+  it 'creates default login user' do
+    expect(chef_run).to create_user('dovenull')
+      .with_group('dovenull')
+  end
+
+  context 'when setting default_login_user' do
+    let(:default_login_user) { 'default_login_user' }
+    before do
+      node.set['dovecot']['conf']['default_login_user'] = default_login_user
+    end
+
+    it 'creates default login group' do
+      expect(chef_run).to create_group(default_login_user)
+    end
+
+    it 'creates default login user' do
+      expect(chef_run).to create_user(default_login_user)
+        .with_group(default_login_user)
+    end
+  end # context when setting default_login_user
 end
