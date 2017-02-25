@@ -28,7 +28,7 @@ end
 group :unit do
   gem 'chef', chef_version unless chef_version.nil?
   gem 'chefspec', '~> 5.2'
-  gem 'simplecov', '~> 0.12.0'
+  gem 'simplecov', '~> 0.13.0'
   gem 'should_not', '~> 1.1'
 end
 
@@ -42,7 +42,7 @@ end
 
 group :integration_vagrant do
   gem 'vagrant-wrapper', '~> 2.0'
-  gem 'kitchen-vagrant', '~> 0.20.0'
+  gem 'kitchen-vagrant', '~> 1.0'
 end
 
 group :integration_cloud do
