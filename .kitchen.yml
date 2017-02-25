@@ -8,7 +8,10 @@ driver:
   - ["forwarded_port", {guest: 993, host: 8993, auto_correct: true}]
 
 provisioner:
+  name: chef_zero
   require_chef_omnibus: true
+  # client_rb:
+  #   treat_deprecation_warnings_as_errors: true # WiP on some depends
 
 platforms:
 - name: centos-6.7
