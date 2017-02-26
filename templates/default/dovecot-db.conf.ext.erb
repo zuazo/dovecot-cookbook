@@ -6,7 +6,7 @@
 
 <% if @conf['db'].kind_of?(Hash) -%>
 <%   @conf['db'].sort.each do |k, v| -%>
-<%=    k %> <%= Dovecot::Conf.value(v) %>
+<%=    k %> <%= DovecotCookbook::Conf.value(v) %>
 <%   end -%>
 <% else -%>
 # Maximum number of simultaneous transactions.

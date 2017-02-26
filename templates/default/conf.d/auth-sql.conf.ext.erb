@@ -4,8 +4,8 @@
 #
 # <doc/wiki/AuthDatabase.SQL.txt>
 
-<% if Dovecot::Auth.passdb?(@auth['sql']) -%>
-<%=  Dovecot::Conf.authdb('sql', 'passdb', @auth['sql']['passdb']) %>
+<% if DovecotCookbook::Auth.passdb?(@auth['sql']) -%>
+<%=  DovecotCookbook::Conf.authdb('sql', 'passdb', @auth['sql']['passdb']) %>
 <% else -%>
 passdb {
   driver = sql
@@ -15,8 +15,8 @@ passdb {
 }
 <% end -%>
 
-<% if Dovecot::Auth.userdb?(@auth['sql']) -%>
-<%=  Dovecot::Conf.authdb('sql', 'userdb', @auth['sql']['userdb']) %>
+<% if DovecotCookbook::Auth.userdb?(@auth['sql']) -%>
+<%=  DovecotCookbook::Conf.authdb('sql', 'userdb', @auth['sql']['userdb']) %>
 <% else -%>
 # "prefetch" user database means that the passdb already provided the
 # needed information and there's no need to do a separate userdb lookup.

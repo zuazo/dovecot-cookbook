@@ -7,7 +7,7 @@
 # Service definitions
 
 <% if @services['managesieve-login'].kind_of?(Hash) and @services['managesieve-login'].length > 0 -%>
-<%=  Dovecot::Conf.service('managesieve-login', @services['managesieve-login']) %>
+<%=  DovecotCookbook::Conf.service('managesieve-login', @services['managesieve-login']) %>
 <% else -%>
 service managesieve-login {
   #inet_listener sieve {
@@ -32,7 +32,7 @@ service managesieve-login {
 <% end -%>
 
 <% if @services['managesieve'].kind_of?(Hash) and @services['managesieve'].length > 0 -%>
-<%=  Dovecot::Conf.service('managesieve', @services['managesieve']) %>
+<%=  DovecotCookbook::Conf.service('managesieve', @services['managesieve']) %>
 <% else -%>
 service managesieve {
   # Max. number of ManageSieve processes (connections)
@@ -43,7 +43,7 @@ service managesieve {
 # Service configuration
 
 <% if @protocols['sieve'].kind_of?(Hash) and @protocols['sieve'].length > 0 -%>
-<%=  Dovecot::Conf.protocol('sieve', @protocols['sieve']) %>
+<%=  DovecotCookbook::Conf.protocol('sieve', @protocols['sieve']) %>
 <% else -%>
 protocol sieve {
   # Maximum ManageSieve command line length in bytes. ManageSieve usually does

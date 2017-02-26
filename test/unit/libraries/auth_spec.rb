@@ -20,8 +20,8 @@
 require_relative '../spec_helper'
 require 'auth'
 
-describe Dovecot::Auth, order: :random do
-  subject { Dovecot::Auth }
+describe DovecotCookbook::Auth, order: :random do
+  subject { DovecotCookbook::Auth }
 
   context '#passdb?' do
     it 'returns false for non-arrays' do

@@ -24,7 +24,7 @@
 
 # Protocols we want to be serving.
 <% unless @protocols.nil? -%>
-protocols = <%= Dovecot::Conf.protocols(@protocols) %>
+protocols = <%= DovecotCookbook::Conf.protocols(@protocols) %>
 <% else -%>
 #protocols = imap pop3 lmtp
 <% end -%>
@@ -33,55 +33,55 @@ protocols = <%= Dovecot::Conf.protocols(@protocols) %>
 # "*" listens in all IPv4 interfaces, "::" listens in all IPv6 interfaces.
 # If you want to specify non-default ports or anything more complex,
 # edit conf.d/master.conf.
-<%= Dovecot::Conf.attribute(@conf, 'listen', '*, ::') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'listen', '*, ::') %>
 
 # Base directory where to store runtime data.
-<%= Dovecot::Conf.attribute(@conf, 'base_dir', '/var/run/dovecot/') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'base_dir', '/var/run/dovecot/') %>
 
 # Name of this instance. In multi-instance setup doveadm and other commands
 # can use -i <instance_name> to select which instance is used (an alternative
 # to -c <config_path>). The instance name is also added to Dovecot processes
 # in ps output.
-<%= Dovecot::Conf.attribute(@conf, 'instance_name', 'dovecot') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'instance_name', 'dovecot') %>
 
 # Greeting message for clients.
-<%= Dovecot::Conf.attribute(@conf, 'login_greeting', 'Dovecot ready.') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'login_greeting', 'Dovecot ready.') %>
 
 # Space separated list of trusted network ranges. Connections from these
 # IPs are allowed to override their IP addresses and ports (for logging and
 # for authentication checks). disable_plaintext_auth is also ignored for
 # these networks. Typically you'd specify your IMAP proxy servers here.
-<%= Dovecot::Conf.attribute(@conf, 'login_trusted_networks') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'login_trusted_networks') %>
 
 # Space separated list of login access check sockets (e.g. tcpwrap)
-<%= Dovecot::Conf.attribute(@conf, 'login_access_sockets') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'login_access_sockets') %>
 
 # With proxy_maybe=yes if proxy destination matches any of these IPs, don't do
 # proxying. This isn't necessary normally, but may be useful if the destination
 # IP is e.g. a load balancer's IP.
-<%= Dovecot::Conf.attribute(@conf, 'auth_proxy_self') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_proxy_self') %>
 
 # Show more verbose process titles (in ps). Currently shows user name and
 # IP address. Useful for seeing who are actually using the IMAP processes
 # (eg. shared mailboxes or if same uid is used for multiple accounts).
-<%= Dovecot::Conf.attribute(@conf, 'verbose_proctitle', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'verbose_proctitle', false) %>
 
 # Should all processes be killed when Dovecot master process shuts down.
 # Setting this to "no" means that Dovecot can be upgraded without
 # forcing existing client connections to close (although that could also be
 # a problem if the upgrade is e.g. because of a security fix).
-<%= Dovecot::Conf.attribute(@conf, 'shutdown_clients', true) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'shutdown_clients', true) %>
 
 # If non-zero, run mail commands via this many connections to doveadm server,
 # instead of running them directly in the same process.
-<%= Dovecot::Conf.attribute(@conf, 'doveadm_worker_count', 0) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'doveadm_worker_count', 0) %>
 # UNIX socket or host:port used for connecting to doveadm server
-<%= Dovecot::Conf.attribute(@conf, 'doveadm_socket_path', 'doveadm-server') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'doveadm_socket_path', 'doveadm-server') %>
 
 # Space separated list of environment variables that are preserved on Dovecot
 # startup and passed down to all of its child processes. You can also give
 # key=value pairs to always set specific settings.
-<%= Dovecot::Conf.attribute(@conf, 'import_environment', 'TZ') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'import_environment', 'TZ') %>
 
 ##
 ## Dictionary server settings
@@ -96,7 +96,7 @@ protocols = <%= Dovecot::Conf.protocols(@protocols) %>
 <% if @conf['dict'].kind_of?(Hash) -%>
 dict {
 <%   @conf['dict'].sort.each do |key, value| -%>
-  <%=  key %> = <%= Dovecot::Conf.value(value) %>
+  <%=  key %> = <%= DovecotCookbook::Conf.value(value) %>
 <%   end -%>
 }
 <% else -%>

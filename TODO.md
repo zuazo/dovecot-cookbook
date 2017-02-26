@@ -1,7 +1,6 @@
 TODO
 ====
 
-* [ ] DovecotCookbook namespace for libraries.
 * [ ] Complete the **dovecot-dict-auth.conf.ext.erb** template.
 * [ ] Add unit tests for libraries.
 * [ ] Install from sources.

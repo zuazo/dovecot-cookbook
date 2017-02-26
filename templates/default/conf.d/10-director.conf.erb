@@ -13,27 +13,27 @@
 # List of IPs or hostnames to all director servers, including ourself.
 # Ports can be specified as ip:port. The default port is the same as
 # what director service's inet_listener is using.
-<%= Dovecot::Conf.attribute(@conf, 'director_servers') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'director_servers') %>
 
 # List of IPs or hostnames to all backend mail servers. Ranges are allowed
 # too, like 10.0.0.10-10.0.0.30.
-<%= Dovecot::Conf.attribute(@conf, 'director_mail_servers') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'director_mail_servers') %>
 
 # How long to redirect users to a specific server after it no longer has
 # any connections.
-<%= Dovecot::Conf.attribute(@conf, 'director_user_expire', '15 min') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'director_user_expire', '15 min') %>
 
 # TCP/IP port that accepts doveadm connections (instead of director connections)
 # If you enable this, you'll also need to add inet_listener for the port.
-<%= Dovecot::Conf.attribute(@conf, 'director_doveadm_port', 0) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'director_doveadm_port', 0) %>
 
 # How the username is translated before being hashed. Useful values include
 # %Ln if user can log in with or without @domain, %Ld if mailboxes are shared
 # within domain.
-<%= Dovecot::Conf.attribute(@conf, 'director_username_hash', '%Lu') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'director_username_hash', '%Lu') %>
 
 <% if @services['director'].kind_of?(Hash) and @services['director'].length > 0 -%>
-<%=  Dovecot::Conf.service('director', @services['director']) %>
+<%=  DovecotCookbook::Conf.service('director', @services['director']) %>
 <% else -%>
 # To enable director service, uncomment the modes and assign a port.
 service director {

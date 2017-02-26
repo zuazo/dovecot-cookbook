@@ -4,17 +4,17 @@
 # master/master dovecot setup
 
 <% if @services['replicator'].kind_of?(Hash) and @services['replicator'].length > 0 -%>
-<%=  Dovecot::Conf.service('replicator', @services['replicator']) %>
+<%=  DovecotCookbook::Conf.service('replicator', @services['replicator']) %>
 <% end -%>
 
 <% if @services['aggregator'].kind_of?(Hash) and @services['aggregator'].length > 0 -%>
-<%=  Dovecot::Conf.service('aggregator', @services['aggregator']) %>
+<%=  DovecotCookbook::Conf.service('aggregator', @services['aggregator']) %>
 <% end -%>
 
 <% if @services['config'].kind_of?(Hash) and @services['config'].length > 0 -%>
-<%=  Dovecot::Conf.service('config', @services['config']) %>
+<%=  DovecotCookbook::Conf.service('config', @services['config']) %>
 <% end -%>
 
 #Doveadm port and password for replication
-<%= Dovecot::Conf.attribute(@conf, 'doveadm_port', 3333) %>
-<%= Dovecot::Conf.attribute(@conf, 'doveadm_password', 'secret') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'doveadm_port', 3333) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'doveadm_password', 'secret') %>

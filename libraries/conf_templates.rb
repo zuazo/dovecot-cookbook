@@ -21,7 +21,7 @@
 
 require 'erubis'
 
-module Dovecot
+module DovecotCookbook
   module Conf
     # Configuration structure templates
     module Templates
@@ -42,7 +42,7 @@ module Dovecot
 }
 <% end -%>
 EOT
-               .freeze unless defined?(::Dovecot::Conf::Templates::AUTHDB)
+               .freeze unless defined?(Conf::Templates::AUTHDB)
 
       PLUGIN = <<-EOT
 plugin {
@@ -54,7 +54,7 @@ plugin {
      end -%>
 }
 EOT
-               .freeze unless defined?(::Dovecot::Conf::Templates::PLUGIN)
+               .freeze unless defined?(Conf::Templates::PLUGIN)
 
       NAMESPACE = <<-EOT
 namespace <%= @dovecot_conf.name(@ns['name']) %> {
@@ -83,7 +83,7 @@ namespace <%= @dovecot_conf.name(@ns['name']) %> {
   <% end -%>
 }
 EOT
-                  .freeze unless defined?(::Dovecot::Conf::Templates::NAMESPACE)
+                  .freeze unless defined?(Conf::Templates::NAMESPACE)
 
       PROTOCOL = <<-EOT
 protocol <%= @dovecot_conf.name(@name) %> {
@@ -92,7 +92,7 @@ protocol <%= @dovecot_conf.name(@name) %> {
   <% end -%>
 }
 EOT
-                 .freeze unless defined?(::Dovecot::Conf::Templates::PROTOCOL)
+                 .freeze unless defined?(Conf::Templates::PROTOCOL)
 
       SERVICE = <<-EOT
 service <%= @dovecot_conf.name(@name) %> {
@@ -123,7 +123,7 @@ service <%= @dovecot_conf.name(@name) %> {
   <% end -%>
 }
 EOT
-                .freeze unless defined?(::Dovecot::Conf::Templates::SERVICE)
+                .freeze unless defined?(Conf::Templates::SERVICE)
 
       MAP = <<-EOT
 map {
@@ -144,7 +144,7 @@ map {
 -%>
 }
 EOT
-            .freeze unless defined?(::Dovecot::Conf::Templates::MAP)
+            .freeze unless defined?(Conf::Templates::MAP)
     end
   end
 end

@@ -9,13 +9,13 @@
 
 <% if [@plugins['quota'], @services['quota-status'], @services['quota-warning']].any? {|p| !p.nil?} -%>
   <% unless @plugins['quota'].nil? or !@plugins['quota'].kind_of?(Hash) or @plugins['quota'].empty? -%>
-<%=  Dovecot::Conf.plugin('quota', @plugins['quota']) %>
+<%=  DovecotCookbook::Conf.plugin('quota', @plugins['quota']) %>
   <% end -%>
   <% unless @services['quota-status'].nil? or !@services['quota-status'].kind_of?(Hash) or @services['quota-status'].empty? -%>
-<%=  Dovecot::Conf.service('quota-status', @services['quota-status']) %>
+<%=  DovecotCookbook::Conf.service('quota-status', @services['quota-status']) %>
   <% end -%>
   <% unless @services['quota-warning'].nil? or !@services['quota-warning'].kind_of?(Hash) or @services['quota-warning'].empty? -%>
-<%=  Dovecot::Conf.service('quota-warning', @services['quota-warning']) %>
+<%=  DovecotCookbook::Conf.service('quota-warning', @services['quota-warning']) %>
   <% end -%>
 <% else -%>
 

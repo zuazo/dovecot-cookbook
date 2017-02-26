@@ -70,7 +70,11 @@ node['dovecot']['conf_files'].each do |type, conf_files|
         namespaces: node['dovecot']['namespaces'],
         conf: node['dovecot']['conf']
       )
-      action Dovecot::Conf.require?(type, node['dovecot']) ? :create : :delete
+      if DovecotCookbook::Conf.require?(type, node['dovecot'])
+        action :create
+      else
+        action :delete
+      end
       notifies :reload, 'service[dovecot]'
     end # template conf_file
   end # conf_files.each

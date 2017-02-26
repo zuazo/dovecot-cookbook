@@ -19,57 +19,57 @@
 #        by * none
 
 # Space separated list of LDAP hosts to use. host:port is allowed too.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'hosts') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'hosts') %>
 
 # LDAP URIs to use. You can use this instead of hosts list. Note that this
 # setting isn't supported by all LDAP libraries.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'uris') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'uris') %>
 
 # Distinguished Name - the username used to login to the LDAP server.
 # Leave it commented out to bind anonymously (useful with auth_bind=yes).
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'dn') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'dn') %>
 
 # Password for LDAP server, if dn is specified.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'dnpass') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'dnpass') %>
 
 # Use SASL binding instead of the simple binding. Note that this changes
 # ldap_version automatically to be 3 if it's lower. Also note that SASL binds
 # and auth_bind=yes don't work together.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'sasl_bind', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'sasl_bind', false) %>
 # SASL mechanism name to use.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'sasl_mech') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'sasl_mech') %>
 # SASL realm to use.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'sasl_realm') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'sasl_realm') %>
 # SASL authorization ID, ie. the dnpass is for this "master user", but the
 # dn is still the logged in user. Normally you want to keep this empty.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'sasl_authz_id') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'sasl_authz_id') %>
 
 # Use TLS to connect to the LDAP server.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'tls', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'tls', false) %>
 # TLS options, currently supported only with OpenLDAP:
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'tls_ca_cert_file') %>
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'tls_ca_cert_dir') %>
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'tls_cipher_suite') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'tls_ca_cert_file') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'tls_ca_cert_dir') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'tls_cipher_suite') %>
 # TLS cert/key is used only if LDAP server requires a client certificate.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'tls_cert_file') %>
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'tls_key_file') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'tls_cert_file') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'tls_key_file') %>
 # Valid values: never, hard, demand, allow, try
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'tls_require_cert') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'tls_require_cert') %>
 
 # Use the given ldaprc path.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'ldaprc_path') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'ldaprc_path') %>
 
 # LDAP library debug level as specified by LDAP_DEBUG_* in ldap_log.h.
 # -1 = everything. You may need to recompile OpenLDAP with debugging enabled
 # to get enough output.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'debug_level', 0) %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'debug_level', 0) %>
 
 # Use authentication binding for verifying password's validity. This works by
 # logging into LDAP server using the username and password given by client.
 # The pass_filter is used to find the DN for the user. Note that the pass_attrs
 # is still used, only the password field is ignored in it. Before doing any
 # search, the binding is switched back to the default DN.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'auth_bind', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'auth_bind', false) %>
 
 # If authentication binding is used, you can save one LDAP request per login
 # if users' DN can be specified with a common template. The template can use
@@ -85,20 +85,20 @@
 # For example:
 #   auth_bind_userdn = cn=%u,ou=people,o=org
 #
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'auth_bind_userdn') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'auth_bind_userdn') %>
 
 # LDAP protocol version to use. Likely 2 or 3.
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'ldap_version', 3) %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'ldap_version', 3) %>
 
 # LDAP base. %variables can be used here.
 # For example: dc=mail, dc=example, dc=org
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'base') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'base') %>
 
 # Dereference: never, searching, finding, always
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'deref', 'never') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'deref', 'never') %>
 
 # Search scope: base, onelevel, subtree
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'scope', 'subtree') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'scope', 'subtree') %>
 
 # User attributes are given in LDAP-name=dovecot-internal-name list. The
 # internal names are:
@@ -109,14 +109,14 @@
 #
 # There are also other special fields which can be returned, see
 # http://wiki2.dovecot.org/UserDatabase/ExtraFields
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'user_attrs', 'homeDirectory=home,uidNumber=uid,gidNumber=gid') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'user_attrs', 'homeDirectory=home,uidNumber=uid,gidNumber=gid') %>
 
 # Filter for user lookup. Some variables can be used (see
 # http://wiki2.dovecot.org/Variables for full list):
 #   %u - username
 #   %n - user part in user@domain, same as %u if there's no domain
 #   %d - domain part in user@domain, empty if user there's no domain
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'user_filter', '(&(objectClass=posixAccount)(uid=%u))') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'user_filter', '(&(objectClass=posixAccount)(uid=%u))') %>
 
 # Password checking attributes:
 #  user: Virtual user name (user@domain), if you wish to change the
@@ -124,7 +124,7 @@
 #  password: Password, may optionally start with {type}, eg. {crypt}
 # There are also other special fields which can be returned, see
 # http://wiki2.dovecot.org/PasswordDatabase/ExtraFields
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'pass_attrs', 'uid=user,userPassword=password') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'pass_attrs', 'uid=user,userPassword=password') %>
 
 # If you wish to avoid two LDAP lookups (passdb + userdb), you can use
 # userdb prefetch instead of userdb ldap in dovecot.conf. In that case you'll
@@ -134,12 +134,12 @@
 #  homeDirectory=userdb_home,uidNumber=userdb_uid,gidNumber=userdb_gid
 
 # Filter for password lookups
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'pass_filter', '(&(objectClass=posixAccount)(uid=%u))') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'pass_filter', '(&(objectClass=posixAccount)(uid=%u))') %>
 
 # Attributes and filter to get a list of all users
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'iterate_attrs', 'uid=user') %>
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'iterate_filter', '(objectClass=posixAccount)') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'iterate_attrs', 'uid=user') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'iterate_filter', '(objectClass=posixAccount)') %>
 
 # Default password scheme. "{scheme}" before password overrides this.
 # List of supported schemes is in: http://wiki2.dovecot.org/Authentication
-<%= Dovecot::Conf.attribute(@conf['ldap'], 'default_pass_scheme', 'CRYPT') %>
+<%= DovecotCookbook::Conf.attribute(@conf['ldap'], 'default_pass_scheme', 'CRYPT') %>

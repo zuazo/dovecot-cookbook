@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-module Dovecot
+module DovecotCookbook
   # Helpers module to check if the configuration contains a valid user or passdb
   module Auth
     def self.authdb?(type, auth)

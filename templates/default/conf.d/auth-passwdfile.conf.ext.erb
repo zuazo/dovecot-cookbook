@@ -5,8 +5,8 @@
 # passwd-like file with specified location.
 # <doc/wiki/AuthDatabase.PasswdFile.txt>
 
-<% if Dovecot::Auth.passdb?(@auth['passwdfile']) -%>
-<%=  Dovecot::Conf.authdb('passwd-file', 'passdb', @auth['passwdfile']['passdb']) %>
+<% if DovecotCookbook::Auth.passdb?(@auth['passwdfile']) -%>
+<%=  DovecotCookbook::Conf.authdb('passwd-file', 'passdb', @auth['passwdfile']['passdb']) %>
 <% else -%>
 passdb {
   driver = passwd-file
@@ -14,8 +14,8 @@ passdb {
 }
 <% end -%>
 
-<% if Dovecot::Auth.userdb?(@auth['passwdfile']) -%>
-<%=  Dovecot::Conf.authdb('passwd-file', 'userdb', @auth['passwdfile']['userdb']) %>
+<% if DovecotCookbook::Auth.userdb?(@auth['passwdfile']) -%>
+<%=  DovecotCookbook::Conf.authdb('passwd-file', 'userdb', @auth['passwdfile']['userdb']) %>
 <% else -%>
 userdb {
   driver = passwd-file

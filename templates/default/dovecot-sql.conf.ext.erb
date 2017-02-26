@@ -31,7 +31,7 @@
 # );
 
 # Database driver: mysql, pgsql, sqlite
-<%= Dovecot::Conf.attribute(@conf['sql'], 'driver') %>
+<%= DovecotCookbook::Conf.attribute(@conf['sql'], 'driver') %>
 
 # Database connection string. This is driver-specific setting.
 #
@@ -70,14 +70,14 @@
 #   connect = host=sql.example.com dbname=virtual user=virtual password=blarg
 #   connect = /etc/dovecot/authdb.sqlite
 #
-<%= Dovecot::Conf.attribute(@conf['sql'], 'connect') %>
+<%= DovecotCookbook::Conf.attribute(@conf['sql'], 'connect') %>
 
 # Default password scheme.
 #
 # List of supported schemes is in
 # http://wiki2.dovecot.org/Authentication/PasswordSchemes
 #
-<%= Dovecot::Conf.attribute(@conf['sql'], 'default_pass_scheme', 'MD5') %>
+<%= DovecotCookbook::Conf.attribute(@conf['sql'], 'default_pass_scheme', 'MD5') %>
 
 # passdb query to retrieve the password. It can return fields:
 #   password - The user's password. This field must be returned.
@@ -109,7 +109,7 @@
 #password_query = \
 #  SELECT username, domain, password \
 #  FROM users WHERE username = '%n' AND domain = '%d'
-<%= Dovecot::Conf.attribute(@conf['sql'], 'password_query') %>
+<%= DovecotCookbook::Conf.attribute(@conf['sql'], 'password_query') %>
 
 # userdb query to retrieve the user information. It can return fields:
 #   uid - System UID (overrides mail_uid setting)
@@ -130,7 +130,7 @@
 #user_query = \
 #  SELECT home, uid, gid \
 #  FROM users WHERE username = '%n' AND domain = '%d'
-<%= Dovecot::Conf.attribute(@conf['sql'], 'user_query') %>
+<%= DovecotCookbook::Conf.attribute(@conf['sql'], 'user_query') %>
 
 # If you wish to avoid two SQL lookups (passdb + userdb), you can use
 # userdb prefetch instead of userdb sql in dovecot.conf. In that case you'll
@@ -143,4 +143,4 @@
 
 # Query to get a list of all usernames.
 #iterate_query = SELECT username AS user FROM users
-<%= Dovecot::Conf.attribute(@conf['sql'], 'iterate_query') %>
+<%= DovecotCookbook::Conf.attribute(@conf['sql'], 'iterate_query') %>
