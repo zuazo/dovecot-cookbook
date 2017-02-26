@@ -20,7 +20,7 @@
 
 require_relative '../spec_helper'
 
-describe 'dovecot::user' do
+describe 'dovecot::user', order: :random do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
   let(:node) { chef_runner.node }
