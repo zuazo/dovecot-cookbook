@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of `dovecot` cookbook.
 
+## v3.1.0 (2017-02-27)
+
+* Service: Add support for Dovecot Replication ([issue #24](https://github.com/zuazo/dovecot-cookbook/pull/24), thanks [Vassilis Aretakis](https://github.com/billiaz)).
+* Change libraries namespace from `Dovecot` to `DovecotCookbook`.
+* Add unit tests to `Dovecot::Auth` library.
+
 ## v3.0.0 (2016-10-09)
 
 ### Breaking Changes on v3.0.0

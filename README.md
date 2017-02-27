@@ -6,7 +6,7 @@ Dovecot Cookbook
 
 [![Dependency Status](http://img.shields.io/gemnasium/zuazo/dovecot-cookbook.svg?style=flat)](https://gemnasium.com/zuazo/dovecot-cookbook)
 [![Code Climate](http://img.shields.io/codeclimate/github/zuazo/dovecot-cookbook.svg?style=flat)](https://codeclimate.com/github/zuazo/dovecot-cookbook)
-[![Build Status](http://img.shields.io/travis/zuazo/dovecot-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/dovecot-cookbook)
+[![Build Status](http://img.shields.io/travis/zuazo/dovecot-cookbook/3.1.0.svg?style=flat)](https://travis-ci.org/zuazo/dovecot-cookbook)
 
 [Chef](https://www.chef.io/) cookbook to install and configure [Dovecot](http://www.dovecot.org/), open source IMAP and POP3 email server.
 
@@ -1068,6 +1068,7 @@ License and Author
 | **Contributor:**     | [Jordi Llonch](https://github.com/llonchj)
 | **Contributor:**     | [Michael Burns](https://github.com/mburns)
 | **Contributor:**     | [Marcus Klein](https://github.com/kleini)
+| **Contributor:**     | [Vassilis Aretakis](https://github.com/billiaz)
 | **Copyright:**       | Copyright (c) 2015-2016, Xabier de Zuazo
 | **Copyright:**       | Copyright (c) 2013-2015, Onddo Labs, SL.
 | **License:**         | Apache License, Version 2.0
