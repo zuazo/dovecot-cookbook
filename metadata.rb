@@ -27,7 +27,7 @@ description <<-EOH
 Installs and configures Dovecot, open source IMAP and POP3 email server.
 EOH
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '3.1.0' # WiP
+version '3.2.0001'
 
 if respond_to?(:source_url)
   source_url "https://github.com/zuazo/#{name}-cookbook"
@@ -55,6 +55,7 @@ recipe 'dovecot::ohai_plugin',
        'Provides an Ohai plugin for reading dovecot install information.'
 recipe 'dovecot::from_package', 'Installs the required packages.'
 recipe 'dovecot::service', 'Configures the Dovecot service.'
+recipe 'dovecot::create_pwfile', 'Creates a userdb password file from databag.'
 
 attribute 'dovecot/install_from',
           display_name: 'dovecot install method',
@@ -86,9 +87,9 @@ attribute 'dovecot/databag_name',
           required: 'optional',
           default: '"dovecot"'
 
-attribute 'dovecot/databag_item_name',
-          display_name: 'Databag item name',
-          description: 'The name item to put the ussers in',
+attribute 'dovecot/databag_users_item',
+          display_name: 'Databag users item name',
+          description: 'The name item to put the users in',
           type: 'string',
           required: 'optional',
           default: '"users"'

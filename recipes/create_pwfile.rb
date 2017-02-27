@@ -19,29 +19,58 @@
 #
 extend Chef::Mixin::ShellOut
 
+include_recipe 'dovecot::from_package'
+
+# The file credentials should be like:
+# user:password:uid:gid:(gecos):home:(shell):extra_fields
+# We ignore gecos and shell, all the others are included in the script but
+# uid,gid,home,extra_Fields can be nil
+# user:pass:<num>:<num>::<string>::<Extras string>
+
 credentials = []
 credentials_updated = false
 
-passwordfile = File.open(
-  node['dovecot']['conf']['password_file'], File::CREAT | File::RDONLY, 0640
-)
-
 local_creds = {}
-passwordfile.readlines.each do |line|
-  (user, crypt) = line.strip.split(':')
-  local_creds[user] = crypt
+if ::File.exist?(node['dovecot']['conf']['password_file'])
+  passwordfile = File.open(
+    node['dovecot']['conf']['password_file'], File::RDONLY | File::CREAT, 640
+  )
+
+  passwordfile.readlines.each do |line|
+    (user, crypt, uid, gid, gecos, homedir, shell, extra_fields) \
+      = line.strip.split(':')
+    local_creds[user] = if line.strip.split(':').length == 2
+                          [crypt, uid, gid, gecos, homedir, shell, extra_fields]
+                        else
+                          [crypt]
+                        end
+  end
+
+  passwordfile.close
 end
 
-passwordfile.close
-
-data_bag_item(
-  node['dovecot']['databag_name'], node['dovecot']['databag_item_name']
-)['users'].each do |user|
-  enc_password = shell_out("/usr/bin/doveadm pw -s MD5 -p #{user[1]}").stdout
-  credentials_updated = true if shell_out(
-    "/usr/bin/doveadm pw -t '#{local_creds[user[0]]}' -p #{user[1]}"
-  ).exitstatus != 0
-  credentials.push([user[0], enc_password.strip])
+ruby_block 'databag_to_dovecot_userdb' do
+  block do
+    data_bag_item(
+      node['dovecot']['databag_name'], node['dovecot']['databag_users_item']
+    )['users'].each do |username, details|
+      userdbformat = if details.is_a?(Array)
+                   [username] + details
+                 else
+                   [username, details, nil, nil, nil, nil, nil, nil]
+                 end
+      plaintextpass = userdbformat[1]
+      puts "#{plaintextpass} #{local_creds[username][0]}"
+      userdbformat[1] = shell_out("/usr/bin/doveadm pw -s MD5 -p \
+                              #{plaintextpass}").stdout.tr("\n", '')
+      credentials_updated = true if shell_out(
+        "/usr/bin/doveadm pw -t '#{local_creds[username][0]}' \
+         -p #{plaintextpass}"
+      ).exitstatus != 0 || local_creds[username].length == 1
+      credentials.push(userdbformat)
+    end
+  end
+  action :run
 end
 
 template node['dovecot']['conf']['password_file'] do

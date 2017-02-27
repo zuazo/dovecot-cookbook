@@ -35,4 +35,4 @@ default['dovecot']['user'] = 'dovecot'
 default['dovecot']['group'] = node['dovecot']['user']
 default['dovecot']['user_homedir'] = node['dovecot']['lib_path']
 default['dovecot']['databag_name'] = 'dovecot'
-default['dovecot']['databag_item_name'] = 'users'
+default['dovecot']['databag_users_item'] = 'users'

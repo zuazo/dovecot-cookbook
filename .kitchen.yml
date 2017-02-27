@@ -9,6 +9,7 @@ driver:
 
 provisioner:
   require_chef_omnibus: true
+  data_bags_path: ./test/data_bags
 
 platforms:
 - name: centos-6.7
@@ -46,7 +47,7 @@ suites:
   - centos-6
   - centos-6.6
   - centos-7
-  - centos-7.0
+  - centos-7.2
   - fedora-20
   - fedora-21
   - opensuse-12.3
