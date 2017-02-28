@@ -127,8 +127,8 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['services']`                     | `{}`                       | Dovecot Services configuration as a hash of hashes ([see the examples below](#service-examples)). Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login managesieve, quota-status, quota-warning and doveadm.
 | `node['dovecot']['conf']['mail_plugins']`         | `[]`                       | Dovecot default enabled mail_plugins.
 | `node['dovecot']['ohai_plugin']['build-options']` | `true`                     | Whether to enable reading build options inside ohai plugin. Can be disabled to be lighter.
-| `* `node['dovecot']['databag_name']`              | `dovecot`                  | The databag to use.
-| `* `node['dovecot']['databag_user_item']`         | `users`                    | The databag item to use for User's database (Passwords).
+| `node['dovecot']['databag_name']`              | `dovecot`                  | The databag to use.
+| `node['dovecot']['databag_users_item']`         | `users`                    | The databag item to use for User's database (Passwords).
 
 ## Main Configuration Attributes
 
@@ -472,7 +472,7 @@ Configures the Dovecot service. Used by the default recipe.
 
 Creates and configures a password file from local mailboxes based on a data bag.
 
-* `node['dovecot']['databag_user_item']`: The databag item to use (under the databag set)
+* `node['dovecot']['databag_users_item']`: The databag item to use (under the databag set)
 
 Ohai Plugin
 ===========
@@ -1077,6 +1077,7 @@ License and Author
 | **Contributor:**     | [Jordi Llonch](https://github.com/llonchj)
 | **Contributor:**     | [Michael Burns](https://github.com/mburns)
 | **Contributor:**     | [Marcus Klein](https://github.com/kleini)
+| **Contributor:**     | [Vassilis Aretakis](https://github.com/billiaz)
 | **Copyright:**       | Copyright (c) 2015-2016, Xabier de Zuazo
 | **Copyright:**       | Copyright (c) 2013-2015, Onddo Labs, SL.
 | **License:**         | Apache License, Version 2.0
@@ -1084,9 +1085,9 @@ License and Author
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-
+    
         http://www.apache.org/licenses/LICENSE-2.0
-
+    
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

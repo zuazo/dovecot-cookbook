@@ -19,7 +19,7 @@
 
 require_relative '../spec_helper'
 
-describe 'dovecot::from_package' do
+describe 'dovecot::from_package', order: :random do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
   let(:node) { chef_runner.node }
@@ -127,7 +127,7 @@ describe 'dovecot::from_package' do
     }.each do |type, pkgs|
       pkgs.each do |pkg|
         context "when #{pkg} is required" do
-          before { Dovecot::Conf::Requirements.set(type, node) }
+          before { DovecotCookbook::Conf::Requirements.set(type, node) }
 
           it "installs dovecot #{pkg} package" do
             expect(chef_run).to install_package("(#{type}) #{pkg}")
@@ -159,7 +159,7 @@ describe 'dovecot::from_package' do
     }.each do |type, pkgs|
       pkgs.each do |pkg|
         context "when #{pkg} is required" do
-          before { Dovecot::Conf::Requirements.set(type, node) }
+          before { DovecotCookbook::Conf::Requirements.set(type, node) }
 
           it "installs dovecot #{pkg} package" do
             expect(chef_run).to install_package("(#{type}) #{pkg}")
@@ -191,7 +191,7 @@ describe 'dovecot::from_package' do
     }.each do |type, pkgs|
       pkgs.each do |pkg|
         context "when #{pkg} is required" do
-          before { Dovecot::Conf::Requirements.set(type, node) }
+          before { DovecotCookbook::Conf::Requirements.set(type, node) }
 
           it "installs dovecot #{pkg} package" do
             expect(chef_run).to install_package("(#{type}) #{pkg}")
@@ -223,7 +223,7 @@ describe 'dovecot::from_package' do
     }.each do |type, pkgs|
       pkgs.each do |pkg|
         context "when #{pkg} is required" do
-          before { Dovecot::Conf::Requirements.set(type, node) }
+          before { DovecotCookbook::Conf::Requirements.set(type, node) }
 
           it "installs dovecot #{pkg} package" do
             expect(chef_run).to install_package("(#{type}) #{pkg}")
@@ -255,7 +255,7 @@ describe 'dovecot::from_package' do
     }.each do |type, pkgs|
       pkgs.each do |pkg|
         context "when #{pkg} is required" do
-          before { Dovecot::Conf::Requirements.set(type, node) }
+          before { DovecotCookbook::Conf::Requirements.set(type, node) }
 
           it "installs dovecot #{pkg} package" do
             expect(chef_run).to install_package("(#{type}) #{pkg}")

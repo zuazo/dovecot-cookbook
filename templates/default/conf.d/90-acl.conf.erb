@@ -11,7 +11,7 @@
 # specifies how many seconds to wait between stat()ing dovecot-acl file
 # to see if it changed.
 <% if @plugins.has_key?('acl') and @plugins['acl'].kind_of?(Hash) -%>
-<%=  Dovecot::Conf.plugin('acl', @plugins['acl']) %>
+<%=  DovecotCookbook::Conf.plugin('acl', @plugins['acl']) %>
 <% else -%>
 plugin {
   #acl = vfile:/etc/dovecot/global-acls:cache_secs=300

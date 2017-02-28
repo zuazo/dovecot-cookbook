@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-module Dovecot
+module DovecotCookbook
   module Conf
     # Helper module to force some requirements
     module Requirements

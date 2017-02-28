@@ -6,46 +6,46 @@
 
 # Address to use when sending rejection mails.
 # Default is postmaster@<your domain>. %d expands to recipient domain.
-<%= Dovecot::Conf.attribute(@conf, 'postmaster_address') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'postmaster_address') %>
 
 # Hostname to use in various parts of sent mails (e.g. in Message-Id) and
 # in LMTP replies. Default is the system's real hostname@domain.
-<%= Dovecot::Conf.attribute(@conf, 'hostname') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'hostname') %>
 
 # If user is over quota, return with temporary failure instead of
 # bouncing the mail.
-<%= Dovecot::Conf.attribute(@conf, 'quota_full_tempfail', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'quota_full_tempfail', false) %>
 
 # Binary to use for sending mails.
-<%= Dovecot::Conf.attribute(@conf, 'sendmail_path', '/usr/sbin/sendmail') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'sendmail_path', '/usr/sbin/sendmail') %>
 
 # If non-empty, send mails via this SMTP host[:port] instead of sendmail.
-<%= Dovecot::Conf.attribute(@conf, 'submission_host') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'submission_host') %>
 
 # Subject: header to use for rejection mails. You can use the same variables
 # as for rejection_reason below.
-<%= Dovecot::Conf.attribute(@conf, 'rejection_subject', 'Rejected: %s') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'rejection_subject', 'Rejected: %s') %>
 
 # Human readable error message for rejection mails. You can use variables:
 #  %n = CRLF, %r = reason, %s = original subject, %t = recipient
-<%= Dovecot::Conf.attribute(@conf, 'rejection_reason', 'Your message to <%t> was automatically rejected:%n%r') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'rejection_reason', 'Your message to <%t> was automatically rejected:%n%r') %>
 
 # Delimiter character between local-part and detail in email address.
-<%= Dovecot::Conf.attribute(@conf, 'recipient_delimiter', '+') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'recipient_delimiter', '+') %>
 
 # Header where the original recipient address (SMTP's RCPT TO: address) is taken
 # from if not available elsewhere. With dovecot-lda -a parameter overrides this. 
 # A commonly used header for this is X-Original-To.
-<%= Dovecot::Conf.attribute(@conf, 'lda_original_recipient_header') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'lda_original_recipient_header') %>
 
 # Should saving a mail to a nonexistent mailbox automatically create it?
-<%= Dovecot::Conf.attribute(@conf, 'lda_mailbox_autocreate', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'lda_mailbox_autocreate', false) %>
 
 # Should automatically created mailboxes be also automatically subscribed?
-<%= Dovecot::Conf.attribute(@conf, 'lda_mailbox_autosubscribe', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'lda_mailbox_autosubscribe', false) %>
 
 <% if @protocols['lda'].kind_of?(Hash) and @protocols['lda'].length > 0 -%>
-<%=  Dovecot::Conf.protocol('lda', @protocols['lda']) %>
+<%=  DovecotCookbook::Conf.protocol('lda', @protocols['lda']) %>
 <% else -%>
 protocol lda {
   # Space separated list of plugins to load (default is global mail_plugins).

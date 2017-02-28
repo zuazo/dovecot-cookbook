@@ -10,8 +10,8 @@
 #  - authentication with SSL certificates
 #  - simple testing
 
-<% if Dovecot::Auth.passdb?(@auth['static']) -%>
-<%=  Dovecot::Conf.authdb('static', 'passdb', @auth['static']['passdb']) %>
+<% if DovecotCookbook::Auth.passdb?(@auth['static']) -%>
+<%=  DovecotCookbook::Conf.authdb('static', 'passdb', @auth['static']['passdb']) %>
 <% else -%>
 #passdb {
 #  driver = static
@@ -24,8 +24,8 @@
 #}
 <% end -%>
 
-<% if Dovecot::Auth.userdb?(@auth['static']) -%>
-<%=  Dovecot::Conf.authdb('static', 'userdb', @auth['static']['userdb']) %>
+<% if DovecotCookbook::Auth.userdb?(@auth['static']) -%>
+<%=  DovecotCookbook::Conf.authdb('static', 'userdb', @auth['static']['userdb']) %>
 <% else -%>
 #userdb {
 #  driver = static

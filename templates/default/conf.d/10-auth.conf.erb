@@ -9,97 +9,97 @@
 # matches the local IP (ie. you're connecting from the same computer), the
 # connection is considered secure and plaintext authentication is allowed.
 # See also ssl=required setting.
-<%= Dovecot::Conf.attribute(@conf, 'disable_plaintext_auth', true) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'disable_plaintext_auth', true) %>
 
 # Authentication cache size (e.g. 10M). 0 means it's disabled. Note that
 # bsdauth, PAM and vpopmail require cache_key to be set for caching to be used.
-<%= Dovecot::Conf.attribute(@conf, 'auth_cache_size', 0) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_cache_size', 0) %>
 # Time to live for cached data. After TTL expires the cached record is no
 # longer used, *except* if the main database lookup returns internal failure.
 # We also try to handle password changes automatically: If user's previous
 # authentication was successful, but this one wasn't, the cache isn't used.
 # For now this works only with plaintext authentication.
-<%= Dovecot::Conf.attribute(@conf, 'auth_cache_ttl', '1 hour') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_cache_ttl', '1 hour') %>
 # TTL for negative hits (user not found, password mismatch).
 # 0 disables caching them completely.
-<%= Dovecot::Conf.attribute(@conf, 'auth_cache_negative_ttl', '1 hour') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_cache_negative_ttl', '1 hour') %>
 
 # Space separated list of realms for SASL authentication mechanisms that need
 # them. You can leave it empty if you don't want to support multiple realms.
 # Many clients simply use the first one listed here, so keep the default realm
 # first.
-<%= Dovecot::Conf.attribute(@conf, 'auth_realms') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_realms') %>
 
 # Default realm/domain to use if none was specified. This is used for both
 # SASL realms and appending @domain to username in plaintext logins.
-<%= Dovecot::Conf.attribute(@conf, 'auth_default_realm') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_default_realm') %>
 
 # List of allowed characters in username. If the user-given username contains
 # a character not listed in here, the login automatically fails. This is just
 # an extra check to make sure user can't exploit any potential quote escaping
 # vulnerabilities with SQL/LDAP databases. If you want to allow all characters,
 # set this value to empty.
-<%= Dovecot::Conf.attribute(@conf, 'auth_username_chars', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890.-_@') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_username_chars', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890.-_@') %>
 
 # Username character translations before it's looked up from databases. The
 # value contains series of from -> to characters. For example "#@/@" means
 # that '#' and '/' characters are translated to '@'.
-<%= Dovecot::Conf.attribute(@conf, 'auth_username_translation') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_username_translation') %>
 
 # Username formatting before it's looked up from databases. You can use
 # the standard variables here, eg. %Lu would lowercase the username, %n would
 # drop away the domain if it was given, or "%n-AT-%d" would change the '@' into
 # "-AT-". This translation is done after auth_username_translation changes.
-<%= Dovecot::Conf.attribute(@conf, 'auth_username_format', '%Lu') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_username_format', '%Lu') %>
 
 # If you want to allow master users to log in by specifying the master
 # username within the normal username string (ie. not using SASL mechanism's
 # support for it), you can specify the separator character here. The format
 # is then <username><separator><master username>. UW-IMAP uses "*" as the
 # separator, so that could be a good choice.
-<%= Dovecot::Conf.attribute(@conf, 'auth_master_user_separator') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_master_user_separator') %>
 
 # Username to use for users logging in with ANONYMOUS SASL mechanism
-<%= Dovecot::Conf.attribute(@conf, 'auth_anonymous_username', 'anonymous') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_anonymous_username', 'anonymous') %>
 
 # Maximum number of dovecot-auth worker processes. They're used to execute
 # blocking passdb and userdb queries (eg. MySQL and PAM). They're
 # automatically created and destroyed as needed.
-<%= Dovecot::Conf.attribute(@conf, 'auth_worker_max_count', 30) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_worker_max_count', 30) %>
 
 # Host name to use in GSSAPI principal names. The default is to use the
 # name returned by gethostname(). Use "$ALL" (with quotes) to allow all keytab
 # entries.
-<%= Dovecot::Conf.attribute(@conf, 'auth_gssapi_hostname') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_gssapi_hostname') %>
 
 # Kerberos keytab to use for the GSSAPI mechanism. Will use the system
 # default (usually /etc/krb5.keytab) if not specified. You may need to change
 # the auth service to run as root to be able to read this file.
-<%= Dovecot::Conf.attribute(@conf, 'auth_krb5_keytab') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_krb5_keytab') %>
 
 # Do NTLM and GSS-SPNEGO authentication using Samba's winbind daemon and
 # ntlm_auth helper. <doc/wiki/Authentication/Mechanisms/Winbind.txt>
-<%= Dovecot::Conf.attribute(@conf, 'auth_use_winbind', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_use_winbind', false) %>
 
 # Path for Samba's ntlm_auth helper binary.
-<%= Dovecot::Conf.attribute(@conf, 'auth_winbind_helper_path', '/usr/bin/ntlm_auth') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_winbind_helper_path', '/usr/bin/ntlm_auth') %>
 
 # Time to delay before replying to failed authentications.
-<%= Dovecot::Conf.attribute(@conf, 'auth_failure_delay', '2 secs') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_failure_delay', '2 secs') %>
 
 # Require a valid SSL client certificate or the authentication fails.
-<%= Dovecot::Conf.attribute(@conf, 'auth_ssl_require_client_cert', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_ssl_require_client_cert', false) %>
 
 # Take the username from client's SSL certificate, using 
 # X509_NAME_get_text_by_NID() which returns the subject's DN's
 # CommonName. 
-<%= Dovecot::Conf.attribute(@conf, 'auth_ssl_username_from_cert', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_ssl_username_from_cert', false) %>
 
 # Space separated list of wanted authentication mechanisms:
 #   plain login digest-md5 cram-md5 ntlm rpa apop anonymous gssapi otp skey
 #   gss-spnego
 # NOTE: See also disable_plaintext_auth setting.
-<%= Dovecot::Conf.attribute(@conf, 'auth_mechanisms', 'plain') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_mechanisms', 'plain') %>
 
 ##
 ## Password and user databases
@@ -123,7 +123,7 @@
 
 <%= '#' unless @auth['system'].kind_of?(Hash) %>!include auth-system.conf.ext
 <%= '#' unless @auth['sql'].kind_of?(Hash) %>!include auth-sql.conf.ext
-<%= '#' unless Dovecot::Conf::Require.ldap?(@conf) %>!include auth-ldap.conf.ext
+<%= '#' unless DovecotCookbook::Conf::Require.ldap?(@conf) %>!include auth-ldap.conf.ext
 <%= '#' unless @auth['passwdfile'].kind_of?(Hash) %>!include auth-passwdfile.conf.ext
 <%= '#' unless @auth['checkpassword'].kind_of?(Hash) %>!include auth-checkpassword.conf.ext
 <%= '#' unless @auth['vpopmail'].kind_of?(Hash) %>!include auth-vpopmail.conf.ext

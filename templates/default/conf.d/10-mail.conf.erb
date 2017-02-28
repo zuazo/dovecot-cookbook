@@ -29,7 +29,7 @@
 #
 # <doc/wiki/MailLocation.txt>
 #
-<%= Dovecot::Conf.attribute(@conf, 'mail_location') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_location') %>
 
 # If you need to set multiple mailbox locations or want to change default
 # namespace settings, you can do it by defining namespace sections.
@@ -43,7 +43,7 @@
 # on filesystem level to do so.
 <% if @namespaces.kind_of?(Array) and @namespaces.length > 0 -%>
 <%   @namespaces.each do |ns| -%>
-<%=    Dovecot::Conf.namespace(ns) %>
+<%=    DovecotCookbook::Conf.namespace(ns) %>
 <%   end -%>
 <% else -%>
 #namespace {
@@ -108,47 +108,47 @@
   #list = children
 #}
 # Should shared INBOX be visible as "shared/user" or "shared/user/INBOX"?
-<%= Dovecot::Conf.attribute(@conf, 'mail_shared_explicit_inbox', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_shared_explicit_inbox', false) %>
 
 # System user and group used to access mails. If you use multiple, userdb
 # can override these by returning uid or gid fields. You can use either numbers
 # or names. <doc/wiki/UserIds.txt>
-<%= Dovecot::Conf.attribute(@conf, 'mail_uid') %>
-<%= Dovecot::Conf.attribute(@conf, 'mail_gid') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_uid') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_gid') %>
 
 # Group to enable temporarily for privileged operations. Currently this is
 # used only with INBOX when either its initial creation or dotlocking fails.
 # Typically this is set to "mail" to give access to /var/mail.
-<%= Dovecot::Conf.attribute(@conf, 'mail_privileged_group') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_privileged_group') %>
 
 # Grant access to these supplementary groups for mail processes. Typically
 # these are used to set up access to shared mailboxes. Note that it may be
 # dangerous to set these if users can create symlinks (e.g. if "mail" group is
 # set here, ln -s /var/mail ~/mail/var could allow a user to delete others'
 # mailboxes, or ln -s /secret/shared/box ~/mail/mybox would allow reading it).
-<%= Dovecot::Conf.attribute(@conf, 'mail_access_groups') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_access_groups') %>
 
 # Allow full filesystem access to clients. There's no access checks other than
 # what the operating system does for the active UID/GID. It works with both
 # maildir and mboxes, allowing you to prefix mailboxes names with eg. /path/
 # or ~user/.
-<%= Dovecot::Conf.attribute(@conf, 'mail_full_filesystem_access', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_full_filesystem_access', false) %>
 
 # Dictionary for key=value mailbox attributes. This is used for example by
 # URLAUTH and METADATA extensions.
-<%= Dovecot::Conf.attribute(@conf, 'mail_attribute_dict') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_attribute_dict') %>
 
 # A comment or note that is associated with the server. This value is
 # accessible for authenticated users through the IMAP METADATA server
 # entry "/shared/comment".
-<%= Dovecot::Conf.attribute(@conf, 'mail_server_comment', '') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_server_comment', '') %>
 
 # Indicates a method for contacting the server administrator. According to
 # RFC 5464, this value MUST be a URI (e.g., a mailto: or tel: URL), but that
 # is currently not enforced. Use for example mailto:admin@example.com. This
 # value is accessible for authenticated users through the IMAP METADATA server
 # entry "/shared/admin".
-<%= Dovecot::Conf.attribute(@conf, 'mail_server_admin', '') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_server_admin', '') %>
 
 ##
 ## Mail processes
@@ -156,50 +156,50 @@
 
 # Don't use mmap() at all. This is required if you store indexes to shared
 # filesystems (NFS or clustered filesystem).
-<%= Dovecot::Conf.attribute(@conf, 'mmap_disable', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mmap_disable', false) %>
 
 # Rely on O_EXCL to work when creating dotlock files. NFS supports O_EXCL
 # since version 3, so this should be safe to use nowadays by default.
-<%= Dovecot::Conf.attribute(@conf, 'dotlock_use_excl', true) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'dotlock_use_excl', true) %>
 
 # When to use fsync() or fdatasync() calls:
 #   optimized (default): Whenever necessary to avoid losing important data
 #   always: Useful with e.g. NFS when write()s are delayed
 #   never: Never use it (best performance, but crashes can lose data)
-<%= Dovecot::Conf.attribute(@conf, 'mail_fsync', 'optimized') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_fsync', 'optimized') %>
 
 # Mail storage exists in NFS. Set this to yes to make Dovecot flush NFS caches
 # whenever needed. If you're using only a single mail server this isn't needed.
-<%= Dovecot::Conf.attribute(@conf, 'mail_nfs_storage', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_nfs_storage', false) %>
 # Mail index files also exist in NFS. Setting this to yes requires
 # mmap_disable=yes and fsync_disable=no.
-<%= Dovecot::Conf.attribute(@conf, 'mail_nfs_index', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_nfs_index', false) %>
 
 # Locking method for index files. Alternatives are fcntl, flock and dotlock.
 # Dotlocking uses some tricks which may create more disk I/O than other locking
 # methods. NFS users: flock doesn't work, remember to change mmap_disable.
-<%= Dovecot::Conf.attribute(@conf, 'lock_method', 'fcntl') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'lock_method', 'fcntl') %>
 
 # Directory in which LDA/LMTP temporarily stores incoming mails >128 kB.
-<%= Dovecot::Conf.attribute(@conf, 'mail_temp_dir', '/tmp') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_temp_dir', '/tmp') %>
 
 # Valid UID range for users, defaults to 500 and above. This is mostly
 # to make sure that users can't log in as daemons or other system users.
 # Note that denying root logins is hardcoded to dovecot binary and can't
 # be done even if first_valid_uid is set to 0.
-<%= Dovecot::Conf.attribute(@conf, 'first_valid_uid', 500) %>
-<%= Dovecot::Conf.attribute(@conf, 'last_valid_uid', 0) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'first_valid_uid', 500) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'last_valid_uid', 0) %>
 
 # Valid GID range for users, defaults to non-root/wheel. Users having
 # non-valid GID as primary group ID aren't allowed to log in. If user
 # belongs to supplementary groups with non-valid GIDs, those groups are
 # not set.
-<%= Dovecot::Conf.attribute(@conf, 'first_valid_gid', 1) %>
-<%= Dovecot::Conf.attribute(@conf, 'last_valid_gid', 0) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'first_valid_gid', 1) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'last_valid_gid', 0) %>
 
 # Maximum allowed length for mail keyword name. It's only forced when trying
 # to create new keywords.
-<%= Dovecot::Conf.attribute(@conf, 'mail_max_keyword_length', 50) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_max_keyword_length', 50) %>
 
 # ':' separated list of directories under which chrooting is allowed for mail
 # processes (ie. /var/mail will allow chrooting to /var/mail/foo/bar too).
@@ -208,7 +208,7 @@
 # WARNING: Never add directories here which local users can modify, that
 # may lead to root exploit. Usually this should be done only if you don't
 # allow shell access for users. <doc/wiki/Chrooting.txt>
-<%= Dovecot::Conf.attribute(@conf, 'valid_chroot_dirs') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'valid_chroot_dirs') %>
 
 # Default chroot directory for mail processes. This can be overridden for
 # specific users in user database by giving /./ in user's home directory
@@ -216,25 +216,25 @@
 # need to do chrooting, Dovecot doesn't allow users to access files outside
 # their mail directory anyway. If your home directories are prefixed with
 # the chroot directory, append "/." to mail_chroot. <doc/wiki/Chrooting.txt>
-<%= Dovecot::Conf.attribute(@conf, 'mail_chroot') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_chroot') %>
 
 # UNIX socket path to master authentication server to find users.
 # This is used by imap (for shared users) and lda.
-<%= Dovecot::Conf.attribute(@conf, 'auth_socket_path', '/var/run/dovecot/auth-userdb') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'auth_socket_path', '/var/run/dovecot/auth-userdb') %>
 
 # Directory where to look up mail plugins.
 <%= case node['platform_family']
     when 'rhel', 'fedora', 'suse'
-      Dovecot::Conf.attribute(@conf, 'mail_plugin_dir', '/usr/lib/dovecot')
+      DovecotCookbook::Conf.attribute(@conf, 'mail_plugin_dir', '/usr/lib/dovecot')
     # when 'debian'
     else
-      Dovecot::Conf.attribute(@conf, 'mail_plugin_dir', '/usr/lib/dovecot/modules')
+      DovecotCookbook::Conf.attribute(@conf, 'mail_plugin_dir', '/usr/lib/dovecot/modules')
     end
 %>
 
 # Space separated list of plugins to load for all services. Plugins specific to
 # IMAP, LDA, etc. are added to this list in their own .conf files.
-<%= Dovecot::Conf.attribute(@conf, 'mail_plugins') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_plugins') %>
 
 ##
 ## Mailbox handling optimizations
@@ -242,33 +242,33 @@
 
 # Mailbox list indexes can be used to optimize IMAP STATUS commands. They are
 # also required for IMAP NOTIFY extension to be enabled.
-<%= Dovecot::Conf.attribute(@conf, 'mailbox_list_index', 'no') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mailbox_list_index', 'no') %>
 
 # The minimum number of mails in a mailbox before updates are done to cache
 # file. This allows optimizing Dovecot's behavior to do less disk writes at
 # the cost of more disk reads.
-<%= Dovecot::Conf.attribute(@conf, 'mail_cache_min_mail_count', 0) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_cache_min_mail_count', 0) %>
 
 # When IDLE command is running, mailbox is checked once in a while to see if
 # there are any new mails or other changes. This setting defines the minimum
 # time to wait between those checks. Dovecot can also use inotify and
 # kqueue to find out immediately when changes occur.
-<%= Dovecot::Conf.attribute(@conf, 'mailbox_idle_check_interval', '30 secs') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mailbox_idle_check_interval', '30 secs') %>
 
 # Save mails with CR+LF instead of plain LF. This makes sending those mails
 # take less CPU, especially with sendfile() syscall with Linux and FreeBSD.
 # But it also creates a bit more disk I/O which may just make it slower.
 # Also note that if other software reads the mboxes/maildirs, they may handle
 # the extra CRs wrong and cause problems.
-<%= Dovecot::Conf.attribute(@conf, 'mail_save_crlf', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_save_crlf', false) %>
 
 # Max number of mails to keep open and prefetch to memory. This only works with
 # some mailbox formats and/or operating systems.
-<%= Dovecot::Conf.attribute(@conf, 'mail_prefetch_count', 0) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_prefetch_count', 0) %>
 
 # How often to scan for stale temporary files and delete them (0 = never).
 # These should exist only after Dovecot dies in the middle of saving mails.
-<%= Dovecot::Conf.attribute(@conf, 'mail_temp_scan_interval', '1w') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_temp_scan_interval', '1w') %>
 
 ##
 ## Maildir-specific settings
@@ -279,25 +279,25 @@
 # This is done by stat()ing each entry, so it causes more disk I/O.
 # (For systems setting struct dirent->d_type, this check is free and it's
 # done always regardless of this setting)
-<%= Dovecot::Conf.attribute(@conf, 'maildir_stat_dirs', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'maildir_stat_dirs', false) %>
 
 # When copying a message, do it with hard links whenever possible. This makes
 # the performance much better, and it's unlikely to have any side effects.
-<%= Dovecot::Conf.attribute(@conf, 'maildir_copy_with_hardlinks', true) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'maildir_copy_with_hardlinks', true) %>
 
 # Assume Dovecot is the only MUA accessing Maildir: Scan cur/ directory only
 # when its mtime changes unexpectedly or when we can't find the mail otherwise.
-<%= Dovecot::Conf.attribute(@conf, 'maildir_very_dirty_syncs', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'maildir_very_dirty_syncs', false) %>
 
 # If enabled, Dovecot doesn't use the S=<size> in the Maildir filenames for
 # getting the mail's physical size, except when recalculating Maildir++ quota.
 # This can be useful in systems where a lot of the Maildir filenames have a
 # broken size. The performance hit for enabling this is very small.
-<%= Dovecot::Conf.attribute(@conf, 'maildir_broken_filename_sizes', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'maildir_broken_filename_sizes', false) %>
 
 # Always move mails from new/ directory to cur/, even when the \Recent flags
 # aren't being reset.
-<%= Dovecot::Conf.attribute(@conf, 'maildir_empty_new', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'maildir_empty_new', false) %>
 
 ##
 ## mbox-specific settings
@@ -317,15 +317,15 @@
 # in is important to avoid deadlocks if other MTAs/MUAs are using multiple
 # locking methods as well. Some operating systems don't allow using some of
 # them simultaneously.
-<%= Dovecot::Conf.attribute(@conf, 'mbox_read_locks', 'fcntl') %>
-<%= Dovecot::Conf.attribute(@conf, 'mbox_write_locks', 'dotlock fcntl') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mbox_read_locks', 'fcntl') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mbox_write_locks', 'dotlock fcntl') %>
 
 # Maximum time to wait for lock (all of them) before aborting.
-<%= Dovecot::Conf.attribute(@conf, 'mbox_lock_timeout', '5 mins') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mbox_lock_timeout', '5 mins') %>
 
 # If dotlock exists but the mailbox isn't modified in any way, override the
 # lock file after this much time.
-<%= Dovecot::Conf.attribute(@conf, 'mbox_dotlock_change_timeout', '2 mins') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mbox_dotlock_change_timeout', '2 mins') %>
 
 # When mbox changes unexpectedly we have to fully read it to find out what
 # changed. If the mbox is large this can take a long time. Since the change
@@ -336,43 +336,43 @@
 # some other MUA changes message flags, Dovecot doesn't notice it immediately.
 # Note that a full sync is done with SELECT, EXAMINE, EXPUNGE and CHECK 
 # commands.
-<%= Dovecot::Conf.attribute(@conf, 'mbox_dirty_syncs', true) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mbox_dirty_syncs', true) %>
 
 # Like mbox_dirty_syncs, but don't do full syncs even with SELECT, EXAMINE,
 # EXPUNGE or CHECK commands. If this is set, mbox_dirty_syncs is ignored.
-<%= Dovecot::Conf.attribute(@conf, 'mbox_very_dirty_syncs', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mbox_very_dirty_syncs', false) %>
 
 # Delay writing mbox headers until doing a full write sync (EXPUNGE and CHECK
 # commands and when closing the mailbox). This is especially useful for POP3
 # where clients often delete all mails. The downside is that our changes
 # aren't immediately visible to other MUAs.
-<%= Dovecot::Conf.attribute(@conf, 'mbox_lazy_writes', true) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mbox_lazy_writes', true) %>
 
 # If mbox size is smaller than this (e.g. 100k), don't write index files.
 # If an index file already exists it's still read, just not updated.
-<%= Dovecot::Conf.attribute(@conf, 'mbox_min_index_size', 0) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mbox_min_index_size', 0) %>
 
 # Mail header selection algorithm to use for MD5 POP3 UIDLs when
 # pop3_uidl_format=%m. For backwards compatibility we use apop3d inspired
 # algorithm, but it fails if the first Received: header isn't unique in all
 # mails. An alternative algorithm is "all" that selects all headers.
-<%= Dovecot::Conf.attribute(@conf, 'mbox_md5', 'apop3d') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mbox_md5', 'apop3d') %>
 
 ##
 ## mdbox-specific settings
 ##
 
 # Maximum dbox file size until it's rotated.
-<%= Dovecot::Conf.attribute(@conf, 'mdbox_rotate_size', '2M') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mdbox_rotate_size', '2M') %>
 
 # Maximum dbox file age until it's rotated. Typically in days. Day begins
 # from midnight, so 1d = today, 2d = yesterday, etc. 0 = check disabled.
-<%= Dovecot::Conf.attribute(@conf, 'mdbox_rotate_interval', 0) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mdbox_rotate_interval', 0) %>
 
 # When creating new mdbox files, immediately preallocate their size to
 # mdbox_rotate_size. This setting currently works only in Linux with some
 # filesystems (ext4, xfs).
-<%= Dovecot::Conf.attribute(@conf, 'mdbox_preallocate_space', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mdbox_preallocate_space', false) %>
 
 ##
 ## Mail attachments
@@ -383,19 +383,19 @@
 # this for now.
 
 # Directory root where to store mail attachments. Disabled, if empty.
-<%= Dovecot::Conf.attribute(@conf, 'mail_attachment_dir') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_attachment_dir') %>
 
 # Attachments smaller than this aren't saved externally. It's also possible to
 # write a plugin to disable saving specific attachments externally.
-<%= Dovecot::Conf.attribute(@conf, 'mail_attachment_min_size', '128k') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_attachment_min_size', '128k') %>
 
 # Filesystem backend to use for saving attachments:
 #  posix : No SiS done by Dovecot (but this might help FS's own deduplication)
 #  sis posix : SiS with immediate byte-by-byte comparison during saving
 #  sis-queue posix : SiS with delayed comparison and deduplication
-<%= Dovecot::Conf.attribute(@conf, 'mail_attachment_fs', 'sis posix') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_attachment_fs', 'sis posix') %>
 
 # Hash format to use in attachment filenames. You can add any text and
 # variables: %{md4}, %{md5}, %{sha1}, %{sha256}, %{sha512}, %{size}.
 # Variables can be truncated, e.g. %{sha256:80} returns only first 80 bits
-<%= Dovecot::Conf.attribute(@conf, 'mail_attachment_hash', '%{sha1}') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'mail_attachment_hash', '%{sha1}') %>

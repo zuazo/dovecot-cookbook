@@ -5,25 +5,25 @@
 ##
 
 # Support proxying to other LMTP/SMTP servers by performing passdb lookups.
-<%= Dovecot::Conf.attribute(@conf, 'lmtp_proxy', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'lmtp_proxy', false) %>
 
 # When recipient address includes the detail (e.g. user+detail), try to save
 # the mail to the detail mailbox. See also recipient_delimiter and
 # lda_mailbox_autocreate settings.
-<%= Dovecot::Conf.attribute(@conf, 'lmtp_save_to_detail_mailbox', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'lmtp_save_to_detail_mailbox', false) %>
 
 # Verify quota before replying to RCPT TO. This adds a small overhead.
-<%= Dovecot::Conf.attribute(@conf, 'lmtp_rcpt_check_quota', false) %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'lmtp_rcpt_check_quota', false) %>
 
 # Which recipient address to use for Delivered-To: header and Received:
 # header. The default is "final", which is the same as the one given to
 # RCPT TO command. "original" uses the address given in RCPT TO's ORCPT
 # parameter, "none" uses nothing. Note that "none" is currently always used
 # when a mail has multiple recipients.
-<%= Dovecot::Conf.attribute(@conf, 'lmtp_hdr_delivery_address', 'final') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'lmtp_hdr_delivery_address', 'final') %>
 
 <% if @protocols['lmtp'].kind_of?(Hash) and @protocols['lmtp'].length > 0 -%>
-<%=  Dovecot::Conf.protocol('lmtp', @protocols['lmtp']) %>
+<%=  DovecotCookbook::Conf.protocol('lmtp', @protocols['lmtp']) %>
 <% else -%>
 protocol lmtp {
   # Space separated list of plugins to load (default is global mail_plugins).

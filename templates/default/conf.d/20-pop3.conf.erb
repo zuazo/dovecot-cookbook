@@ -5,7 +5,7 @@
 ##
 
 <% if @protocols['pop3'].kind_of?(Hash) and @protocols['pop3'].length > 0 -%>
-<%=  Dovecot::Conf.protocol('pop3', @protocols['pop3']) %>
+<%=  DovecotCookbook::Conf.protocol('pop3', @protocols['pop3']) %>
 <% else -%>
 protocol pop3 {
   # Don't try to set mails non-recent or seen with POP3 sessions. This is

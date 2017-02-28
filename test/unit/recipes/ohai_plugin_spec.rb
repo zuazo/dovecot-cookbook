@@ -19,7 +19,7 @@
 
 require_relative '../spec_helper'
 
-describe 'dovecot::ohai_plugin' do
+describe 'dovecot::ohai_plugin', order: :random do
   let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
   it 'creates ohai dummy resource' do

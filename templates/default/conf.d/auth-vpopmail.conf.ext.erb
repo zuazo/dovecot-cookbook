@@ -4,8 +4,8 @@
 #
 # <doc/wiki/AuthDatabase.VPopMail.txt>
 
-<% if Dovecot::Auth.passdb?(@auth['vpopmail']) -%>
-<%=  Dovecot::Conf.authdb('vpopmail', 'passdb', @auth['vpopmail']['passdb']) %>
+<% if DovecotCookbook::Auth.passdb?(@auth['vpopmail']) -%>
+<%=  DovecotCookbook::Conf.authdb('vpopmail', 'passdb', @auth['vpopmail']['passdb']) %>
 <% else -%>
 passdb {
   driver = vpopmail
@@ -15,8 +15,8 @@ passdb {
 }
 <% end -%>
 
-<% if Dovecot::Auth.userdb?(@auth['vpopmail']) -%>
-<%=  Dovecot::Conf.authdb('vpopmail', 'userdb', @auth['vpopmail']['userdb']) %>
+<% if DovecotCookbook::Auth.userdb?(@auth['vpopmail']) -%>
+<%=  DovecotCookbook::Conf.authdb('vpopmail', 'userdb', @auth['vpopmail']['userdb']) %>
 <% else -%>
 userdb {
   driver = vpopmail

@@ -3,7 +3,7 @@
 # This file is commonly accessed via dict {} section in dovecot.conf
 
 <% unless @conf['dict_sql']['connect'].nil? -%>
-connect = <%= Dovecot::Conf.value(@conf['dict_sql']['connect']) %>
+connect = <%= DovecotCookbook::Conf.value(@conf['dict_sql']['connect']) %>
 <% else -%>
 #connect = host=localhost dbname=mails user=testuser password=pass
 <% end -%>
@@ -17,7 +17,7 @@ connect = <%= Dovecot::Conf.value(@conf['dict_sql']['connect']) %>
 
 <% if @conf['dict_sql']['maps'].kind_of?(Array) -%>
 <%   @conf['dict_sql']['maps'].each do |map| -%>
-<%=    Dovecot::Conf.map(map) %>
+<%=    DovecotCookbook::Conf.map(map) %>
 <%   end -%>
 <% else -%>
 map {

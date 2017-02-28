@@ -21,7 +21,7 @@
 
 require 'erubis'
 
-module Dovecot
+module DovecotCookbook
   # Helper module to generate configuration structures
   module Conf
     def self.name(str)
@@ -45,7 +45,7 @@ module Dovecot
     end
 
     def self.evaluate_template(template, context)
-      context = context.merge(dovecot_conf: Dovecot::Conf)
+      context = context.merge(dovecot_conf: DovecotCookbook::Conf)
       eruby = Erubis::Eruby.new(template)
       eruby.evaluate(context)
     end
@@ -54,37 +54,37 @@ module Dovecot
       # dovecot: config: Fatal: Error in configuration file
       # /etc/dovecot/dovecot.conf: protocols: Unknown protocol: lda
       ignore_protos = %w(lda)
-      protos = Dovecot::Protocols.list(conf) - ignore_protos
+      protos = DovecotCookbook::Protocols.list(conf) - ignore_protos
       protos.empty? ? 'none' : protos.join(' ')
     end
 
     def self.authdb(driver, type, conf)
-      template = Dovecot::Conf::Templates::AUTHDB
+      template = DovecotCookbook::Conf::Templates::AUTHDB
       evaluate_template(template, driver: driver, type: type, conf: conf)
     end
 
     def self.plugin(_name, conf)
-      template = Dovecot::Conf::Templates::PLUGIN
+      template = DovecotCookbook::Conf::Templates::PLUGIN
       evaluate_template(template, conf: conf)
     end
 
     def self.namespace(ns)
-      template = Dovecot::Conf::Templates::NAMESPACE
+      template = DovecotCookbook::Conf::Templates::NAMESPACE
       evaluate_template(template, ns: ns)
     end
 
     def self.protocol(name, conf)
-      template = Dovecot::Conf::Templates::PROTOCOL
+      template = DovecotCookbook::Conf::Templates::PROTOCOL
       evaluate_template(template, name: name, conf: conf)
     end
 
     def self.service(name, conf)
-      template = Dovecot::Conf::Templates::SERVICE
+      template = DovecotCookbook::Conf::Templates::SERVICE
       evaluate_template(template, name: name, conf: conf)
     end
 
     def self.map(map)
-      template = Dovecot::Conf::Templates::MAP
+      template = DovecotCookbook::Conf::Templates::MAP
       evaluate_template(template, map: map)
     end
 

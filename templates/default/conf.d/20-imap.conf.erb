@@ -5,7 +5,7 @@
 ##
 
 <% if @protocols['imap'].kind_of?(Hash) and @protocols['imap'].length > 0 -%>
-<%=  Dovecot::Conf.protocol('imap', @protocols['imap']) %>
+<%=  DovecotCookbook::Conf.protocol('imap', @protocols['imap']) %>
 <% else -%>
 protocol imap {
   # If nothing happens for this long while client is IDLEing, move the connection

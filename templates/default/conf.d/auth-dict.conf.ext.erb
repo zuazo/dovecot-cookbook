@@ -4,8 +4,8 @@
 #
 # <doc/wiki/AuthDatabase.Dict.txt>
 
-<% if Dovecot::Auth.passdb?(@auth['dict']) -%>
-<%=  Dovecot::Conf.authdb('dict', 'passdb', @auth['dict']['passdb']) %>
+<% if DovecotCookbook::Auth.passdb?(@auth['dict']) -%>
+<%=  DovecotCookbook::Conf.authdb('dict', 'passdb', @auth['dict']['passdb']) %>
 <% else -%>
 passdb {
   driver = dict
@@ -16,8 +16,8 @@ passdb {
 }
 <% end -%>
 
-<% if Dovecot::Auth.userdb?(@auth['dict']) -%>
-<%=  Dovecot::Conf.authdb('dict', 'userdb', @auth['dict']['userdb']) %>
+<% if DovecotCookbook::Auth.userdb?(@auth['dict']) -%>
+<%=  DovecotCookbook::Conf.authdb('dict', 'userdb', @auth['dict']['userdb']) %>
 <% else -%>
 userdb {
   driver = dict

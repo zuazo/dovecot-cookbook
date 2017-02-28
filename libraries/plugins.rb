@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-module Dovecot
+module DovecotCookbook
   # Helper module to check required plugins
   module Plugins
     def self.require_plugin?(plugin, conf)

@@ -19,7 +19,7 @@
 
 require_relative '../spec_helper'
 
-describe 'dovecot::conf_files' do
+describe 'dovecot::conf_files', order: :random do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
   let(:node) { chef_runner.node }
@@ -170,7 +170,7 @@ describe 'dovecot::conf_files' do
   normal_templates.each do |type, templates|
     templates.each do |template|
       context "when #{type} is required" do
-        before { Dovecot::Conf::Requirements.set(type, node) }
+        before { DovecotCookbook::Conf::Requirements.set(type, node) }
 
         it_behaves_like 'a normal template' do
           let(:type) { type }
@@ -179,7 +179,7 @@ describe 'dovecot::conf_files' do
       end # when type is required
 
       context "when #{type} is not required", unless: type == 'core' do
-        before { Dovecot::Conf::Requirements.unset(type, node) }
+        before { DovecotCookbook::Conf::Requirements.unset(type, node) }
 
         it_behaves_like 'a deleted template' do
           let(:type) { type }
@@ -192,7 +192,7 @@ describe 'dovecot::conf_files' do
   sensitive_templates.each do |type, templates|
     templates.each do |template|
       context "when #{type} is required" do
-        before { Dovecot::Conf::Requirements.set(type, node) }
+        before { DovecotCookbook::Conf::Requirements.set(type, node) }
 
         it_behaves_like 'a sensitive template' do
           let(:type) { type }
@@ -201,7 +201,7 @@ describe 'dovecot::conf_files' do
       end # when type is required
 
       context "when #{type} is not required", unless: type == 'core' do
-        before { Dovecot::Conf::Requirements.unset(type, node) }
+        before { DovecotCookbook::Conf::Requirements.unset(type, node) }
 
         it_behaves_like 'a deleted template' do
           let(:type) { type }

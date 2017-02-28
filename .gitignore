@@ -4,9 +4,11 @@
 \#*#
 Berksfile.lock
 bin
+bin/*
 .bundle
+.bundle/*
 .cache
-cookbooks
+/cookbooks
 coverage
 doc
 Dockerfile-kitchen*
@@ -20,4 +22,5 @@ nodes/
 test/kitchen/.kitchen/
 *.un~
 .vagrant
+vendor
 .yardoc

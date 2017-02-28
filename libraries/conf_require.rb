@@ -21,16 +21,16 @@
 
 require 'erubis'
 
-module Dovecot
+module DovecotCookbook
   module Conf
     # Helper module to check configuration requirements
     module Require
       def self.protocol?(proto, gconf)
-        Dovecot::Protocols.enabled?(proto, gconf['protocols'])
+        DovecotCookbook::Protocols.enabled?(proto, gconf['protocols'])
       end
 
       def self.plugin?(plugin, gconf)
-        Dovecot::Plugins.required?(plugin, gconf)
+        DovecotCookbook::Plugins.required?(plugin, gconf)
       end
 
       def self.ldap?(conf)

@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-module Dovecot
+module DovecotCookbook
   # Helper module to check enabled protocols
   module Protocols
     def self.enabled?(proto, protos)
