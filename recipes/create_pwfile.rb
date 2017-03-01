@@ -45,28 +45,38 @@ if ::File.exist?(node['dovecot']['conf']['password_file'])
                           [crypt]
                         end
   end
-
   passwordfile.close
+else
+  credentials_updated = true
 end
 
 ruby_block 'databag_to_dovecot_userdb' do
   block do
     data_bag_item(
       node['dovecot']['databag_name'], node['dovecot']['databag_users_item']
-    )['users'].each do |username, details|
-      userdbformat = if details.is_a?(Array)
-                   [username] + details
-                 else
-                   [username, details, nil, nil, nil, nil, nil, nil]
-                 end
+    )['users'].each do |username, user_details|
+      userdbformat = if user_details.is_a?(Array)
+                       [username] + user_details
+                     else
+                       [username, user_details, nil, nil, nil, nil, nil, nil]
+                     end
       plaintextpass = userdbformat[1]
-      puts "#{plaintextpass} #{local_creds[username][0]}"
       userdbformat[1] = shell_out("/usr/bin/doveadm pw -s MD5 -p \
                               #{plaintextpass}").stdout.tr("\n", '')
-      credentials_updated = true if shell_out(
-        "/usr/bin/doveadm pw -t '#{local_creds[username][0]}' \
-         -p #{plaintextpass}"
-      ).exitstatus != 0 || local_creds[username].length == 1
+
+      if local_creds.key?(username) && credentials_updated == false
+        current_encpass = if local_creds[username].is_a?(Array)
+                            local_creds[username][0]
+                          else
+                            local_creds[username]
+                          end
+        credentials_updated = true if shell_out(
+          "/usr/bin/doveadm pw -t '#{current_encpass}' \
+          -p #{plaintextpass}"
+        ).exitstatus != 0
+      else
+        credentials_updated = true
+      end
       credentials.push(userdbformat)
     end
   end

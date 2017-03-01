@@ -33,23 +33,6 @@ ruby_block 'ohai plugin tests' do
   end
 end
 
-# users = begin
-#           data_bag_item(
-#             node['dovecot']['databag_name'],
-#             node['dovecot']['databag_users_item']
-#           )
-#         rescue Net::HTTPServerException, Chef::Exceptions::InvalidDataBagPath
-#           nil
-#         end
-# puts '------ DATABAG'
-# puts users['users']
-
-include_recipe 'dovecot::create_pwfile' if
-  data_bag_item(
-    node['dovecot']['databag_name'],
-    node['dovecot']['databag_users_item']
-  )
-
 # Required for integration tests:
 package 'lsof'
 include_recipe 'netstat'
