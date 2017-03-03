@@ -1,9 +1,8 @@
 {
   "users": {
+    "dilan": "password1234",
     "vassilis": [
-      "vassilis123",null,null,null,null,null,null
-      
-    ],
-    "roberto": "roberto123"
+      "vassilis1234",null,null,null,null,null,null 
+    ]
   }
 }

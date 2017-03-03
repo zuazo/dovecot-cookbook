@@ -17,68 +17,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-extend Chef::Mixin::ShellOut
-
-include_recipe 'dovecot::from_package'
-
 # The file credentials should be like:
 # user:password:uid:gid:(gecos):home:(shell):extra_fields
 # We ignore gecos and shell, all the others are included in the script but
 # uid,gid,home,extra_Fields can be nil
 # user:pass:<num>:<num>::<string>::<Extras string>
 
+# Predefined Variables
 credentials = []
-credentials_updated = false
-
-local_creds = {}
-if ::File.exist?(node['dovecot']['conf']['password_file'])
-  passwordfile = File.open(
-    node['dovecot']['conf']['password_file'], File::RDONLY | File::CREAT, 640
-  )
-
-  passwordfile.readlines.each do |line|
-    (user, crypt, uid, gid, gecos, homedir, shell, extra_fields) \
-      = line.strip.split(':')
-    local_creds[user] = if line.strip.split(':').length == 2
-                          [crypt, uid, gid, gecos, homedir, shell, extra_fields]
-                        else
-                          [crypt]
-                        end
-  end
-  passwordfile.close
-else
-  credentials_updated = true
-end
+update_credentials = false
 
 ruby_block 'databag_to_dovecot_userdb' do
   block do
-    data_bag_item(
-      node['dovecot']['databag_name'], node['dovecot']['databag_users_item']
-    )['users'].each do |username, user_details|
-      userdbformat = if user_details.is_a?(Array)
-                       [username] + user_details
-                     else
-                       [username, user_details, nil, nil, nil, nil, nil, nil]
-                     end
-      plaintextpass = userdbformat[1]
-      userdbformat[1] = shell_out("/usr/bin/doveadm pw -s MD5 -p \
-                              #{plaintextpass}").stdout.tr("\n", '')
+    passwd_file = node['dovecot']['conf']['password_file']
+    databag_users = data_bag_item(node['dovecot']['databag_name'], node['dovecot']['databag_users_item'])['users']
 
-      if local_creds.key?(username) && credentials_updated == false
-        current_encpass = if local_creds[username].is_a?(Array)
-                            local_creds[username][0]
-                          else
-                            local_creds[username]
-                          end
-        credentials_updated = true if shell_out(
-          "/usr/bin/doveadm pw -t '#{current_encpass}' \
-          -p #{plaintextpass}"
-        ).exitstatus != 0
-      else
-        credentials_updated = true
-      end
-      credentials.push(userdbformat)
-    end
+    # Check if passwd file exists
+    local_creds, pwfile_exists = DovecotCookbook::Pwfile.passfile_read(passwd_file)
+    # Check if users on both passwd file and databag are the same
+    # if not, force credentials update
+    update_credentials = true unless DovecotCookbook::Pwfile.arrays_same?(databag_users.keys, local_creds.keys)
+    # Check if users has a changed password, if not change it and force update
+    update_credentials = DovecotCookbook::Pwfile.compile_users(databag_users,
+                                                               local_creds,
+                                                               pwfile_exists,
+                                                               update_credentials,
+                                                               credentials)
   end
   action :run
 end
@@ -91,5 +55,5 @@ template node['dovecot']['conf']['password_file'] do
   variables(
     credentials: credentials
   )
-  only_if { credentials_updated }
+  only_if { update_credentials }
 end

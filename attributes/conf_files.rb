@@ -26,9 +26,6 @@ default['dovecot']['conf_files_mode'] = '00644'
 default['dovecot']['conf']['password_file'] = \
   "#{node['dovecot']['conf_path']}/password"
 
-default['dovecot']['conf']['password_file'] = \
-  "#{node['dovecot']['conf_path']}/password"
-
 default['dovecot']['sensitive_files'] = %w(
   *.conf.ext
 )

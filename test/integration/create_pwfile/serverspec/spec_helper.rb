@@ -1,9 +1,7 @@
 # encoding: UTF-8
 #
-# Cookbook Name:: dovecot
-# Recipe:: user
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2013-2014 Onddo Labs, SL.
+# Copyright:: Copyright (c) 2014 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,25 +17,8 @@
 # limitations under the License.
 #
 
-user node['dovecot']['user'] do
-  comment 'Dovecot mail server'
-  home node['dovecot']['user_homedir']
-  shell '/bin/false'
-  system true
-end
+require 'serverspec'
+require 'type/imap_server'
 
-group node['dovecot']['group'] do
-  members [node['dovecot']['user']]
-  system true
-  append true
-end
-
-default_login_user = node['dovecot']['conf']['default_login_user'] || 'dovenull'
-
-group default_login_user do
-  system true
-end
-
-user default_login_user do
-  group default_login_user
-end
+# Set backend type
+set :backend, :exec

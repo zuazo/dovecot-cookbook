@@ -62,3 +62,6 @@ suites:
 - name: attributes
   run_list:
   - recipe[dovecot_test::attributes]
+- name: create_pwfile
+  run_list:
+  - recipe[dovecot_test::create_pwfile]

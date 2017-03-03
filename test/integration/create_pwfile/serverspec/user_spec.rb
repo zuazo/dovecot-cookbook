@@ -1,9 +1,7 @@
 # encoding: UTF-8
 #
-# Cookbook Name:: dovecot
-# Recipe:: user
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2013-2014 Onddo Labs, SL.
+# Copyright:: Copyright (c) 2014 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,25 +17,27 @@
 # limitations under the License.
 #
 
-user node['dovecot']['user'] do
-  comment 'Dovecot mail server'
-  home node['dovecot']['user_homedir']
-  shell '/bin/false'
-  system true
+require 'spec_helper'
+
+platform = os[:family].downcase
+
+home =
+  case platform
+  when 'redhat', 'centos', 'scientific', 'fedora', 'amazon'
+    '/usr/libexec/dovecot'
+  when 'suse', 'opensuse'
+    '/var/run/dovecot'
+  else
+    '/usr/lib/dovecot'
+  end
+
+describe user('dovecot') do
+  it { should exist }
+  it { should belong_to_group 'dovecot' }
+  it { should have_home_directory home }
+  it { should have_login_shell '/bin/false' }
 end
 
-group node['dovecot']['group'] do
-  members [node['dovecot']['user']]
-  system true
-  append true
-end
-
-default_login_user = node['dovecot']['conf']['default_login_user'] || 'dovenull'
-
-group default_login_user do
-  system true
-end
-
-user default_login_user do
-  group default_login_user
+describe group('dovecot') do
+  it { should exist }
 end

@@ -27,7 +27,7 @@ description <<-EOH
 Installs and configures Dovecot, open source IMAP and POP3 email server.
 EOH
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '3.2.0001'
+version '3.2.0' # WIP
 
 if respond_to?(:source_url)
   source_url "https://github.com/zuazo/#{name}-cookbook"

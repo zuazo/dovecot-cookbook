@@ -4,3 +4,5 @@ AllCops:
   - vendor/**/*
 Metrics/ModuleLength:
   Max: 121
+Metrics/LineLength:
+  Max: 121
