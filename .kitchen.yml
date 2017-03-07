@@ -65,3 +65,17 @@ suites:
 - name: create_pwfile
   run_list:
   - recipe[dovecot_test::create_pwfile]
+  excludes:
+  # tests are not working on older versions of dovecot
+  - centos-6.7
+  - debian-8.2
+  - ubuntu-12.04
+  - ubuntu-15.10
+  - ubuntu-16.04
+  - fedora-20
+  - fedora-21
+  - opensuse-12.3
+  - opensuse-13.2
+  - oraclelinux-6
+  - scientific-6.6
+
