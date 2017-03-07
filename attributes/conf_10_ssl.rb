@@ -21,11 +21,10 @@
 
 # conf.d/10-ssl.conf
 
-if node['platform_family'] == 'suse' && node['platform_version'].to_i < 13
-  default['dovecot']['conf']['ssl'] = false
-else
-  default['dovecot']['conf']['ssl'] = nil
-end
+default['dovecot']['conf']['ssl'] = \
+  if node['platform_family'] == 'suse' && node['platform_version'].to_i < 13
+    false
+  end
 
 case node['platform_family']
 when 'rhel', 'fedora'
