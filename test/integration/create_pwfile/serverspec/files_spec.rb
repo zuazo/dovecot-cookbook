@@ -101,8 +101,8 @@ sensitive_files.each do |f|
   end
 end
 
-describe file ('/etc/dovecot/password') do
-  it { should be_file} 
+describe file('/etc/dovecot/password') do
+  it { should be_file }
   it { should be_mode 640 }
   it { should be_owned_by 'dovecot' }
   it { should be_grouped_into 'dovecot' }

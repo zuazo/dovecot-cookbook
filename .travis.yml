@@ -26,6 +26,10 @@ env:
   - TESTS="integration[attributes-ubuntu-1510,verify]"
   - TESTS="integration[attributes-ubuntu-1604,verify]"
   - TESTS="integration[attributes-scientific-66,verify]"
+  - TESTS="integration[create-pwfile-centos-67,verify]"
+  - TESTS="integration[create-pwfile-centos-72,verify]"
+  - TESTS="integration[create-pwfile-debian-79,verify]"
+  - TESTS="integration[create-pwfile-debian-82,verify]"
 
 before_install:
 - chef --version &> /dev/null || curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 1.2.22

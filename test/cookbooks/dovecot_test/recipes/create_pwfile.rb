@@ -21,17 +21,16 @@
 
 maildir = '/var/dovecot/vmail'
 
-
 node.default['dovecot']['auth']['passwdfile'] = {
- 'passdb' => {
+  'passdb' => {
     'driver' => 'passwd-file',
     'args'   => node['dovecot']['conf']['password_file']
- },
- 'userdb' => {
+  },
+  'userdb' => {
     'driver' => 'passwd-file',
-    'args'  => "username_format=%u #{node['dovecot']['conf']['password_file']}",
+    'args' => "username_format=%u #{node['dovecot']['conf']['password_file']}",
     'default_fields' => "home=#{maildir}/%d/%n"
- }
+  }
 }
 node.default['dovecot']['services'] = {
   'auth' => {
@@ -49,7 +48,7 @@ node.default['dovecot']['services'] = {
     'listeners' => [
       {
         'unix:config' => {
-         'user' => 'dovecot'
+          'user' => 'dovecot'
         }
       }
     ]
