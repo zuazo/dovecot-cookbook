@@ -52,6 +52,7 @@ template node['dovecot']['conf']['password_file'] do
   owner node['dovecot']['user']
   group node['dovecot']['group']
   mode '0640'
+  sensitive true
   variables(
     credentials: credentials
   )

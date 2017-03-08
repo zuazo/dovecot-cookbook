@@ -25,6 +25,7 @@ require 'should_not/rspec'
 
 require_relative 'support/coverage'
 require_relative 'support/conf_requirements'
+require_relative 'support/stubs'
 
 RSpec.configure do |config|
   # Prohibit using the should syntax

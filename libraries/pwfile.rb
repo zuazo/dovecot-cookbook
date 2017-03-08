@@ -24,17 +24,17 @@ module DovecotCookbook
     extend Chef::Mixin::ShellOut
 
     def self.exists?(localdata)
-      true if ::File.exist?(localdata)
+      ::File.exist?(localdata)
     end
 
     def self.file_to_hash(inputfile)
       output_entries = {}
-      passwordfile = File.open(inputfile, File::RDONLY | File::CREAT, 640)
-      passwordfile.readlines.each do |line|
-        user, data = fileline_to_userdb_hash(line)
-        output_entries[user] = data
+      File.open(inputfile, File::RDONLY | File::CREAT, 640) do |passwordfile|
+        passwordfile.readlines.each do |line|
+          user, data = fileline_to_userdb_hash(line)
+          output_entries[user] = data
+        end
       end
-      passwordfile.close
       output_entries
     end
 
@@ -65,9 +65,8 @@ module DovecotCookbook
     end
 
     def self.password_valid?(hashed_pw, plaintext_pw)
-      true unless shell_out(
-        "/usr/bin/doveadm pw -t '#{hashed_pw}' -p '#{plaintext_pw}'"
-      ).exitstatus != 0
+      shell_out("/usr/bin/doveadm pw -t '#{hashed_pw}' -p '#{plaintext_pw}'")
+        .exitstatus == 0
     end
 
     def self.arrays_same?(array1, array2)
