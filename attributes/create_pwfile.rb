@@ -1,9 +1,9 @@
 # encoding: UTF-8
 #
 # Cookbook Name:: dovecot
-# Attributes:: default
+# Attributes:: create_pwfile
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2013-2014 Onddo Labs, SL.
+# Copyright:: Copyright (c) 2017 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,18 +19,5 @@
 # limitations under the License.
 #
 
-default['dovecot']['install_from'] = 'package'
-
-case node['platform_family']
-when 'rhel', 'fedora'
-  default['dovecot']['lib_path'] = '/usr/libexec/dovecot'
-when 'suse'
-  default['dovecot']['lib_path'] = '/var/run/dovecot'
-# when 'debian'
-else
-  default['dovecot']['lib_path'] = '/usr/lib/dovecot'
-end
-
-default['dovecot']['user'] = 'dovecot'
-default['dovecot']['group'] = node['dovecot']['user']
-default['dovecot']['user_homedir'] = node['dovecot']['lib_path']
+default['dovecot']['databag_name'] = 'dovecot'
+default['dovecot']['databag_users_item'] = 'users'

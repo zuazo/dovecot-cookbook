@@ -38,25 +38,25 @@ describe 'dovecot::create_pwfile', order: :random do
         }
       }
     end
-    let(:pwfile) { instance_double('File', readlines: [], close: nil) }
+    let(:pwfile) { instance_double('File', readlines: []) }
     let(:encrypted_password) { 'encrypted_password' }
     before do
       # Stub ::File.open:
+      allow(::File).to receive(:exist?).and_call_original
+      allow(::File).to receive(:exist?).with('/etc/dovecot/password')
+        .and_return(true)
       allow(::File).to receive(:open).and_call_original
       allow(::File).to receive(:open).with('/etc/dovecot/password', any_args)
-        .and_return(pwfile)
+        .and_yield(pwfile)
 
       # Stub Data Bag:
       stub_data_bag_item('dovecot', 'users').and_return(data_bag_users)
 
       # Stub some commands excuted inside the ruby_block:
-      # Using: https://github.com/zuazo/filesystem_resize-cookbook/blob/master/test/unit/support/stubs.rb
-      stub_shell_out(
-        '/usr/bin/doveadm pw -s MD5 -p                 password1234'
-      ).and_return_stdout(encrypted_password)
-      stub_shell_out(
-        '/usr/bin/doveadm pw -s MD5 -p                 vassilis1234'
-      ).and_return_stdout(encrypted_password)
+      stub_shell_out("/usr/bin/doveadm pw -s MD5 -p 'password1234'")
+        .and_return_stdout(encrypted_password)
+      stub_shell_out("/usr/bin/doveadm pw -s MD5 -p 'vassilis1234'")
+        .and_return_stdout(encrypted_password)
     end
 
     it 'creates password file template' do

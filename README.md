@@ -474,7 +474,6 @@ Configures the Dovecot service. Used by the default recipe.
 
 Creates and configures a password file from local mailboxes based on a data bag.
 
-
 * `node['dovecot']['databag_name']`: The Databag on which items are stored.
 * `node['dovecot']['databag_users_item']`: The databag item to use (under the databag set)
 
@@ -910,44 +909,45 @@ include_recipe 'dovecot'
 
 ## Password File Example
 
-This is an example how to use userdb password file.
+This is an example of how to use userdb password file.
 
 ```ruby
-# Define databag and item inside Databag (default.conf)
-node.default['dovecot']'databag_name'] = 'dovecot'
+# Define databag and item inside Databag (default.conf):
+node.default['dovecot']['databag_name'] = 'dovecot'
 node.default['dovecot']['databag_users_item'] = 'users'
 
-# Attributes for userdb to function
-node.default['dovecot']['auth']['passwdfile'] = {
- 'passdb' => {
-    'driver' => 'passwd-file',
-    'args'   => node['dovecot']['conf']['password_file']
- },
- 'userdb' => {
-    'driver' => 'passwd-file',
-    'args'  => "username_format=%u #{node['dovecot']['conf']['password_file']}",
-    'default_fields' => 'home=/var/dovecot/vmail/%d/%n'
- }
-}
+# Attributes for userdb to function:
+node.default['dovecot']['auth']['passwdfile'] =
+  {
+    'passdb' => {
+      'driver' => 'passwd-file',
+      'args' => node['dovecot']['conf']['password_file']
+    },
+    'userdb' => {
+      'driver' => 'passwd-file',
+      'args' =>
+        "username_format=%u #{node['dovecot']['conf']['password_file']}",
+      'default_fields' => 'home=/var/dovecot/vmail/%d/%n'
+    }
+  }
 
-
-#include this recipe on your
+# Include this recipe on your:
 include_recipe 'dovecot::pwfile-file'
 ```
 
-Databag example.
-Two ways of defining an user example included
+Databag example, two ways of defining a user included:
 
 ```json
 {
   "users": {
     "dilan": "password1234",
     "vassilis": [
-      "vassilis1234",null,null,null,null,null,null
+      "vassilis1234", null, null, null, null, null, null
     ]
   }
 }
 ```
+
 ## A Complete Example
 
 This is a complete recipe example for installing and configuring Dovecot 2 to work with PostfixAdmin MySQL tables, including IMAP service:

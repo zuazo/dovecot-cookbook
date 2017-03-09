@@ -24,10 +24,6 @@ class FakeShellOut
     def initialize(status)
       @status = status
     end
-
-    def success?
-      @status == true
-    end
   end
 
   attr_reader :status, :stdout
