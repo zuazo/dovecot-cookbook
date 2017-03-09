@@ -1,6 +1,6 @@
 --markup markdown
 --no-private
---exclude spec
+--exclude test
 '*/**/*.rb'
 -
 *.md
