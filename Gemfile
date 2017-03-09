@@ -27,7 +27,7 @@ end
 
 group :unit do
   gem 'chef', chef_version unless chef_version.nil?
-  gem 'chefspec', '~> 5.2'
+  gem 'chefspec', '~> 6.0'
   gem 'simplecov', '~> 0.13.0'
   gem 'should_not', '~> 1.1'
 end
