@@ -47,7 +47,7 @@ module DovecotCookbook
       output_entries
     end
 
-    # Returns Password file in userdb style hash and if exists
+    # Returns Password file in userdb style hash and if exists.
     #
     # @param input [String] The path of the file.
     # @return [Array] An array with two values: The input in hash format and
