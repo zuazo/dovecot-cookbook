@@ -80,6 +80,8 @@ describe 'dovecot::conf_files', order: :random do
   end
 
   shared_examples 'a template' do
+    let(:conf_file) { template }
+
     it 'creates the template' do
       expect(chef_run).to create_template("(#{type}) #{template}")
         .with_path("/etc/dovecot/#{template}")
@@ -170,45 +172,45 @@ describe 'dovecot::conf_files', order: :random do
 
   normal_templates.each do |type, templates|
     templates.each do |template|
-      context "when #{type} is required" do
-        before { DovecotCookbook::Conf::Requirements.set(type, node) }
+      context "#{template} normal template" do
+        let(:type) { type }
+        let(:template) { template }
 
-        it_behaves_like 'a normal template' do
-          let(:type) { type }
-          let(:template) { template }
-        end
-      end # when type is required
+        context "when #{type} is required" do
+          before { DovecotCookbook::Conf::Requirements.set(type, node) }
 
-      context "when #{type} is not required", unless: type == 'core' do
-        before { DovecotCookbook::Conf::Requirements.unset(type, node) }
+          it_behaves_like 'a template'
+          it_behaves_like 'a normal template'
+        end # when type is required
 
-        it_behaves_like 'a deleted template' do
-          let(:type) { type }
-          let(:template) { template }
-        end
-      end # when type is not required
-    end # each template
+        context "when #{type} is not required", unless: type == 'core' do
+          before { DovecotCookbook::Conf::Requirements.unset(type, node) }
+
+          it_behaves_like 'a deleted template'
+        end # when type is not required
+      end # normal template
+    end # each normal template
   end # each type, templates
 
   sensitive_templates.each do |type, templates|
     templates.each do |template|
-      context "when #{type} is required" do
-        before { DovecotCookbook::Conf::Requirements.set(type, node) }
+      context "#{template} sensitive template" do
+        let(:type) { type }
+        let(:template) { template }
 
-        it_behaves_like 'a sensitive template' do
-          let(:type) { type }
-          let(:template) { template }
-        end
-      end # when type is required
+        context "when #{type} is required" do
+          before { DovecotCookbook::Conf::Requirements.set(type, node) }
 
-      context "when #{type} is not required", unless: type == 'core' do
-        before { DovecotCookbook::Conf::Requirements.unset(type, node) }
+          it_behaves_like 'a template'
+          it_behaves_like 'a sensitive template'
+        end # when type is required
 
-        it_behaves_like 'a deleted template' do
-          let(:type) { type }
-          let(:template) { template }
-        end
-      end # when type is not required
-    end # each template
+        context "when #{type} is not required", unless: type == 'core' do
+          before { DovecotCookbook::Conf::Requirements.unset(type, node) }
+
+          it_behaves_like 'a deleted template'
+        end # when type is not required
+      end # sensitive template
+    end # each sensitive_template
   end # each type, templates
 end
