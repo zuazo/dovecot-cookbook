@@ -1,9 +1,10 @@
 Dovecot Cookbook
 ================
-[![Cookbook Version](https://img.shields.io/cookbook/v/dovecot.svg?style=flat)](https://supermarket.chef.io/cookbooks/dovecot)
+[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg?style=flat)](http://www.rubydoc.info/github/zuazo/dovecot-cookbook)
 [![GitHub](http://img.shields.io/badge/github-zuazo/dovecot--cookbook-blue.svg?style=flat)](https://github.com/zuazo/dovecot-cookbook)
 [![License](https://img.shields.io/github/license/zuazo/dovecot-cookbook.svg?style=flat)](#license-and-author)
 
+[![Cookbook Version](https://img.shields.io/cookbook/v/dovecot.svg?style=flat)](https://supermarket.chef.io/cookbooks/dovecot)
 [![Dependency Status](http://img.shields.io/gemnasium/zuazo/dovecot-cookbook.svg?style=flat)](https://gemnasium.com/zuazo/dovecot-cookbook)
 [![Code Climate](http://img.shields.io/codeclimate/github/zuazo/dovecot-cookbook.svg?style=flat)](https://codeclimate.com/github/zuazo/dovecot-cookbook)
 [![Build Status](http://img.shields.io/travis/zuazo/dovecot-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/dovecot-cookbook)
