@@ -90,9 +90,9 @@ describe 'dovecot::service', order: :random do
       end
     end
 
-    context 'on Ubuntu 13.10' do
+    context 'on Ubuntu 14.04' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '13.10')
+        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04')
       end
 
       it 'uses the upstart provider' do
