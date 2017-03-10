@@ -3,6 +3,13 @@ All notable changes to the `dovecot` cookbook will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+- ...
+
+## [3.2.1] - 2017-03-10
+### Fixed
+- Unit Tests fix: Replace Ubuntu `13.10` with Ubuntu `14.04`.
+
 ## [3.2.0] - 2017-03-10
 Special thanks to [Vassilis Aretakis](https://github.com/billiaz) for his astonishing contributions :sparkles:
 
@@ -163,7 +170,8 @@ Special thanks to [Vassilis Aretakis](https://github.com/billiaz) for his astoni
 ## 0.1.0 - 2013-06-08
 - Initial release of `dovecot`.
 
-[Unreleased]: https://github.com/zuazo/dovecot-cookbook/compare/3.2.0...HEAD
+[Unreleased]: https://github.com/zuazo/dovecot-cookbook/compare/3.2.1...HEAD
+[3.2.1]: https://github.com/zuazo/dovecot-cookbook/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/zuazo/dovecot-cookbook/compare/3.1.0...3.2.0
 [3.1.0]: https://github.com/zuazo/dovecot-cookbook/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/zuazo/dovecot-cookbook/compare/2.5.0...3.0.0
