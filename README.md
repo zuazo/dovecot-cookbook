@@ -1124,6 +1124,9 @@ License and Author
 | **Contributor:**     | [Michael Burns](https://github.com/mburns)
 | **Contributor:**     | [Marcus Klein](https://github.com/kleini)
 | **Contributor:**     | [Vassilis Aretakis](https://github.com/billiaz)
+| **Contributor:**     | [Edgaras Lukosevicius](https://github.com/ledgr)
+| **Contributor:**     | [Sjoerd Tromp](https://github.com/stromp)
+| **Contributor:**     | [Sander van Harmelen](https://github.com/svanharmelen)
 | **Copyright:**       | Copyright (c) 2015-2016, Xabier de Zuazo
 | **Copyright:**       | Copyright (c) 2013-2015, Onddo Labs, SL.
 | **License:**         | Apache License, Version 2.0
