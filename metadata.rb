@@ -291,20 +291,12 @@ attribute 'dovecot/services',
           required: 'optional',
           default: {}
 
-grouping 'dovecot/conf',
-         title: 'dovecot conf',
-         description: 'Dovecot configuration values'
-
 attribute 'dovecot/conf/mail_plugins',
           display_name: 'dovecot mail plugins',
           description: 'Dovecot default enabled mail_plugins.',
           type: 'array',
           required: 'optional',
           default: []
-
-grouping 'dovecot/packages',
-         title: 'dovecot packages',
-         description: 'Dovecot packages'
 
 attribute 'dovecot/packages/core',
           display_name: 'dovecot core packages',
@@ -368,10 +360,6 @@ attribute 'dovecot/packages/pgsql',
           type: 'array',
           required: 'optional',
           calculated: true
-
-grouping 'dovecot/service',
-         title: 'dovecot service',
-         description: 'Dovecot system service'
 
 attribute 'dovecot/service/name',
           display_name: 'dovecot service name',
@@ -1578,10 +1566,6 @@ attribute 'dovecot/conf/db',
 
 # conf-dovecot-dict-sql.rb
 
-grouping 'dovecot/conf/dict_sql',
-         title: 'dict sql config',
-         description: 'Dovecot dict sql configuration'
-
 attribute 'dovecot/conf/dict_sql/connect',
           display_name: 'dict sql connect',
           description:
@@ -1598,10 +1582,6 @@ attribute 'dovecot/conf/dict_sql/maps',
           default: 'nil'
 
 # dovecot-ldap.conf.ext
-
-grouping 'dovecot/conf/ldap',
-         title: 'ldap config',
-         description: 'Dovecot LDAP Authentication Database configuration'
 
 attribute 'dovecot/conf/ldap/hosts',
           display_name: 'ldap hosts',
