@@ -16,7 +16,7 @@ group :doc do
 end
 
 group :test do
-  gem 'rake'
+  gem 'rake', '~> 12.0'
   gem 'berkshelf', '~> 5.1'
 end
 
