@@ -2,10 +2,17 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-source 'https://supermarket.chef.io'
-my_cookbook = ::File.basename(Dir.pwd).sub(/[-_]?cookbook$/, '')
+# More info at http://berkshelf.com/#the-berksfile
 
-# Helper to include a local cookbook from disk
+source 'https://supermarket.chef.io'
+my_cookbook = 'dovecot'
+
+# Berkshelf helper to include a local cookbook from disk.
+#
+# @param name [String] cookbook name.
+# @param version [String] cookbook version requirement.
+# @param options [Hash] #cookbook method options.
+# return void
 def local_cookbook(name, version = '>= 0.0.0', options = {})
   cookbook(name, version, {
     path: "../../cookbooks/#{name}"
