@@ -5,6 +5,8 @@ sudo: required
 services: docker
 
 env:
+  global:
+  - CHEF_VERSION="~> 12.0"
   matrix:
   - TESTS="style unit"
 # Split up the test-kitchen run to avoid exceeding 50 minutes:
