@@ -17,7 +17,7 @@ end
 
 group :test do
   gem 'rake', '~> 12.0'
-  gem 'berkshelf', '~> 5.1'
+  gem 'berkshelf', '~> 6.0'
 end
 
 group :style do
