@@ -40,7 +40,7 @@ node.default['openldap']['tls_enabled'] = false
 node.default['openldap']['rootpw'] = generate_ldap_password(ldap_password)
 node.default['openldap']['loglevel'] = 'any'
 
-include_recipe 'openldap::server'
+include_recipe 'openldap::default'
 
 # Create some LDAP entries as an example
 

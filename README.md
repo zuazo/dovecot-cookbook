@@ -55,6 +55,7 @@ Table of Contents
   * [Plugins Examples](#plugins-examples)
     * [Mail Log Plugin Example](#mail-log-plugin-example)
     * [Sieve Plugin Example](#sieve-plugin-example)
+    * [Stats Plugin Example](#stats-plugin-example)
   * [Protocols Examples](#protocols-examples)
   * [Service Examples](#service-examples)
     * [Director Service Example](#director-service-example)
@@ -62,6 +63,7 @@ Table of Contents
     * [Doveadm Service Example](#doveadm-service-example)
     * [Quota-status Service Example](#quota-status-service-example)
     * [Quota-warning Service Example](#quota-warning-service-example)
+    * [Stats Service Example](#stats-service-example)
   * [LDAP Example](#ldap-example)
   * [Password File Example](#password-file-example)
   * [A Complete Example](#a-complete-example)
@@ -127,7 +129,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['namespaces']`                   | `[]`                       | Dovecot Namespaces as an array of hashes ([see the example below](#namespaces-example)).
 | `node['dovecot']['plugins']`                      | *calculated*               | Dovecot Plugins configuration as a hash of hashes ([see the examples below](#plugins-examples)). Supported plugins: mail_log, acl and quota.
 | `node['dovecot']['protocols']`                    | `{}`                       | Dovecot Protocols configuration as a hash of hashes ([see the example below](#protocols-example)). Supported protocols: lda, imap, lmtp, sieve and pop3.
-| `node['dovecot']['services']`                     | `{}`                       | Dovecot Services configuration as a hash of hashes ([see the examples below](#service-examples)). Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login managesieve, quota-status, quota-warning and doveadm.
+| `node['dovecot']['services']`                     | `{}`                       | Dovecot Services configuration as a hash of hashes ([see the examples below](#service-examples)). Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login managesieve, quota-status, quota-warning, stats, and doveadm.
 | `node['dovecot']['conf']['mail_plugins']`         | `[]`                       | Dovecot default enabled mail_plugins.
 | `node['dovecot']['ohai_plugin']['build-options']` | `true`                     | Whether to enable reading build options inside ohai plugin. Can be disabled to be lighter.
 | `node['dovecot']['databag_name']`              | `dovecot`                  | The databag to use.
@@ -719,6 +721,19 @@ node.default['dovecot']['plugins']['sieve'] = {
 }
 ```
 
+### Stats Plugin Example
+```ruby
+node.default['dovecot']['plugins']['stats'] = {
+  'stats_refresh' => '60 secs',
+  'stats_memory_limit' => '64 M',
+  'stats_command_min_time' => '5 mins',
+  'stats_session_min_time' => '5 mins',
+  'stats_user_min_time' => '24 hours',
+  'stats_domain_min_time' => '24 hours',
+  'stats_ip_min_time' => '1 hours'
+}
+```
+
 ## Protocols Examples
 
 Protocol attribute values should be of type hash.
@@ -800,6 +815,23 @@ default['dovecot']['services']['quota-warning'] = {
   'executable' => 'script /usr/local/bin/quota-warning.sh',
   'listeners' => [
     { 'unix:quota-warning' => { 'user' => 'postfix' } }
+  ]
+}
+```
+
+### Stats Service Example
+
+```ruby
+default['dovecot']['services']['stats'] = {
+  listeners: [
+    { 'fifo:stats-mail' =>
+      {  user: node['dovecot']['user'],
+         group: node['dovecot']['group'],
+         mode: '0600' } },
+    { 'fifo:stats-user' =>
+      {  user: node['dovecot']['user'],
+         group: node['dovecot']['group'],
+         mode: '0600' } }
   ]
 }
 ```
