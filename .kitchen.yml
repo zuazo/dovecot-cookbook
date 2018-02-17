@@ -17,25 +17,20 @@ provisioner:
 platforms:
 - name: centos-6.7
 - name: centos-7.2
+- name: centos-7.4
 - name: debian-7.9
   run_list: recipe[apt]
 - name: debian-8.2
   run_list: recipe[apt]
 - name: fedora-20
 - name: fedora-21
-- name: opensuse-12.3
+- name: opensuse-42.3
   driver_config:
-    box: opensuse-12.3-64
-    box_url: 'http://downloads.sourceforge.net/project/opensusevagrant/12.3/opensuse-12.3-64.box?r=&ts=1441918998&use_mirror=freefr'
-- name: opensuse-13.2
-  driver_config:
-    box: opscode-opensuse-13.2
-    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_opensuse-13.2-x86_64_chef-provisionerless.box
+    box: opensuse/openSUSE-42.3-x86_64
+    box_version: 1.0.5.20171128
 - name: ubuntu-12.04
   run_list: recipe[apt]
 - name: ubuntu-14.04
-  run_list: recipe[apt]
-- name: ubuntu-15.10
   run_list: recipe[apt]
 - name: ubuntu-16.04
   run_list: recipe[apt]
@@ -53,8 +48,7 @@ suites:
   - centos-7.2
   - fedora-20
   - fedora-21
-  - opensuse-12.3
-  - opensuse-13.2
+  - opensuse-42.3
   - oraclelinux-6
   - scientific-6.6
   run_list:
@@ -71,12 +65,10 @@ suites:
   - debian-8.2
   - debian-8
   - ubuntu-12.04
-  - ubuntu-15.10
   - ubuntu-16.04
   - fedora-20
   - fedora-21
-  - opensuse-12.3
-  - opensuse-13.2
+  - opensuse-42.3
   - oraclelinux-6
   - scientific-6.6
 
