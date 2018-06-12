@@ -6,7 +6,7 @@ services: docker
 
 env:
   global:
-  - CHEF_VERSION="~> 12.0"
+  - CHEF_VERSION="~> 14.0"
   matrix:
   - TESTS="style unit"
 # Split up the test-kitchen run to avoid exceeding 50 minutes:
@@ -33,7 +33,7 @@ env:
   - TESTS="integration[create-pwfile-ubuntu-14.04,verify]"
 
 before_install:
-- chef --version &> /dev/null || curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 1.2.22
+- chef --version &> /dev/null || curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 3.0.36
 - eval "$(/opt/chefdk/bin/chef shell-init bash)"
 
 install:
