@@ -4,3 +4,28 @@ AllCops:
   - vendor/**/*
 Metrics/ModuleLength:
   Max: 121
+
+Style/CommentedKeyword:
+  Enabled: False
+
+Metrics/LineLength:
+  Max: 100
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']
+  Max: 35
+
+Layout/IndentHeredoc:
+  Enabled: False
+
+Naming/HeredocDelimiterNaming:
+  Enabled: False
+
+Style/MultilineIfModifier:
+  Enabled: False
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: False
+
+Layout/ClosingHeredocIndentation:
+  Enabled: False

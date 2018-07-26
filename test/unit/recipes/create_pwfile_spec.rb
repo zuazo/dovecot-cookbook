@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2014 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
@@ -29,7 +27,7 @@ describe 'dovecot::create_pwfile', order: :random do
   end
 
   describe 'inside ruby_block[databag_to_dovecot_userdb] resource' do
-    let(:chef_runner) { ChefSpec::SoloRunner.new(step_into: %w(ruby_block)) }
+    let(:chef_runner) { ChefSpec::SoloRunner.new(step_into: %w[ruby_block]) }
     let(:data_bag_users) do
       {
         'users' => {
@@ -43,10 +41,12 @@ describe 'dovecot::create_pwfile', order: :random do
     before do
       # Stub ::File.open:
       allow(::File).to receive(:exist?).and_call_original
-      allow(::File).to receive(:exist?).with('/etc/dovecot/password')
+      allow(::File).to receive(:exist?)
+        .with('/etc/dovecot/password')
         .and_return(true)
       allow(::File).to receive(:open).and_call_original
-      allow(::File).to receive(:open).with('/etc/dovecot/password', any_args)
+      allow(::File).to receive(:open)
+        .with('/etc/dovecot/password', any_args)
         .and_yield(pwfile)
 
       # Stub Data Bag:

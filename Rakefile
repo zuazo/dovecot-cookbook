@@ -1,7 +1,3 @@
-# encoding: UTF-8
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 #
 # Available Rake tasks:
 #
@@ -36,7 +32,7 @@ end
 
 desc 'Clean some generated files'
 task :clean do
-  %w(
+  %w[
     Berksfile.lock
     .bundle
     .cache
@@ -45,19 +41,19 @@ task :clean do
     .kitchen
     metadata.json
     vendor
-  ).each { |f| FileUtils.rm_rf(Dir.glob(f)) }
+  ].each { |f| FileUtils.rm_rf(Dir.glob(f)) }
 end
 
 desc 'Generate Ruby documentation using yard'
 task :yard do
   require 'yard'
   YARD::Rake::YardocTask.new do |t|
-    t.stats_options = %w(--list-undoc)
+    t.stats_options = %w[--list-undoc]
   end
 end
 
 desc 'Generate Ruby documentation'
-task doc: %w(yard)
+task doc: %w[yard]
 
 namespace :style do
   require 'rubocop/rake_task'
@@ -75,7 +71,7 @@ namespace :style do
 end
 
 desc 'Run all style checks'
-task style: %w(style:chef style:ruby)
+task style: %w[style:chef style:ruby]
 
 desc 'Run ChefSpec unit tests'
 task :unit do
@@ -143,8 +139,8 @@ namespace :integration do
 end
 
 desc 'Run Test Kitchen integration tests'
-task :integration, [:regexp, :action] =>
-  ci? ? %w(integration:docker) : %w(integration:vagrant)
+task :integration, %i[regexp action] =>
+  ci? ? %w[integration:docker] : %w[integration:vagrant]
 
 desc 'Run doc, style, unit and integration tests'
-task default: %w(doc style unit integration)
+task default: %w[doc style unit integration]

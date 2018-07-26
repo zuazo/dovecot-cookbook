@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
@@ -26,12 +24,11 @@ describe 'dovecot::from_package', order: :random do
 
   shared_examples 'any package' do
     context 'with ohai build options enabled' do
-      before { node.set['dovecot']['ohai_plugin']['build-options'] = true }
+      before { node.override['dovecot']['ohai_plugin']['build-options'] = true }
 
       it 'notifies ohai plugin' do
         resource = chef_run.package(pkg)
-        expect(resource).to notify('ohai[dovecot]').to(:reload)
-          .immediately
+        expect(resource).to notify('ohai[dovecot]').to(:reload).immediately
       end
     end # context with ohai build options enabled
   end # shared example any package
@@ -40,12 +37,11 @@ describe 'dovecot::from_package', order: :random do
     it_behaves_like 'any package'
 
     context 'with ohai build options disabled' do
-      before { node.set['dovecot']['ohai_plugin']['build-options'] = false }
+      before { node.override['dovecot']['ohai_plugin']['build-options'] = false }
 
       it 'notifies ohai plugin' do
         resource = chef_run.package(pkg)
-        expect(resource).to notify('ohai[dovecot]').to(:reload)
-          .immediately
+        expect(resource).to notify('ohai[dovecot]').to(:reload).immediately
       end
     end # context with ohai build options disabled
   end
@@ -54,7 +50,7 @@ describe 'dovecot::from_package', order: :random do
     it_behaves_like 'any package'
 
     context 'with ohai build options disabled' do
-      before { node.set['dovecot']['ohai_plugin']['build-options'] = false }
+      before { node.override['dovecot']['ohai_plugin']['build-options'] = false }
 
       it 'notifies ohai plugin' do
         resource = chef_run.package(pkg)
@@ -64,7 +60,7 @@ describe 'dovecot::from_package', order: :random do
   end
 
   context 'when node[dovecot][packages][type] is an array' do
-    before { node.set['dovecot']['packages']['core'] = %w(my_package) }
+    before { node.override['dovecot']['packages']['core'] = %w[my_package] }
 
     it 'does not fail' do
       expect { chef_run }.to_not raise_error
@@ -76,7 +72,7 @@ describe 'dovecot::from_package', order: :random do
   end
 
   context 'when node[dovecot][packages][type] is a string' do
-    before { node.set['dovecot']['packages']['core'] = 'my_package' }
+    before { node.override['dovecot']['packages']['core'] = 'my_package' }
 
     it 'does not fail' do
       expect { chef_run }.to_not raise_error
@@ -88,7 +84,7 @@ describe 'dovecot::from_package', order: :random do
   end
 
   context 'when node[dovecot][packages][type] has bad format' do
-    before { node.set['dovecot']['packages']['type'] = Mash.new }
+    before { node.override['dovecot']['packages']['type'] = Mash.new }
 
     it 'fails' do
       expect { chef_run }.to raise_error(/should contain an array/)
@@ -97,13 +93,13 @@ describe 'dovecot::from_package', order: :random do
 
   context 'on Ubuntu' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04')
+      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '18.04')
     end
 
-    %w(
+    %w[
       dovecot-core
       dovecot-gssapi
-    ).each do |pkg|
+    ].each do |pkg|
       it "installs #{pkg} package" do
         expect(chef_run).to install_package("(core) #{pkg}")
           .with_package_name(pkg)
@@ -116,14 +112,14 @@ describe 'dovecot::from_package', order: :random do
     end # each pkg
 
     {
-      'imap' => %w(dovecot-imapd),
-      'pop3' => %w(dovecot-pop3d),
-      'lmtp' => %w(dovecot-lmtpd),
-      'sieve' => %w(dovecot-sieve dovecot-managesieved),
-      'ldap' => %w(dovecot-ldap),
-      'sqlite' => %w(dovecot-sqlite),
-      'mysql' => %w(dovecot-mysql),
-      'pgsql' => %w(dovecot-pgsql)
+      'imap' => %w[dovecot-imapd],
+      'pop3' => %w[dovecot-pop3d],
+      'lmtp' => %w[dovecot-lmtpd],
+      'sieve' => %w[dovecot-sieve dovecot-managesieved],
+      'ldap' => %w[dovecot-ldap],
+      'sqlite' => %w[dovecot-sqlite],
+      'mysql' => %w[dovecot-mysql],
+      'pgsql' => %w[dovecot-pgsql]
     }.each do |type, pkgs|
       pkgs.each do |pkg|
         context "when #{pkg} is required" do
@@ -145,7 +141,7 @@ describe 'dovecot::from_package', order: :random do
 
   context 'on CentOS' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '5.10')
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.5.1804')
     end
 
     it 'installs dovecot package' do
@@ -153,9 +149,9 @@ describe 'dovecot::from_package', order: :random do
     end
 
     {
-      'sieve' => %w(dovecot-pigeonhole),
-      'mysql' => %w(dovecot-mysql),
-      'pgsql' => %w(dovecot-pgsql)
+      'sieve' => %w[dovecot-pigeonhole],
+      'mysql' => %w[dovecot-mysql],
+      'pgsql' => %w[dovecot-pgsql]
     }.each do |type, pkgs|
       pkgs.each do |pkg|
         context "when #{pkg} is required" do
@@ -175,9 +171,9 @@ describe 'dovecot::from_package', order: :random do
     end # each type, pkgs
   end # context on CentOS
 
-  context 'on SUSE 12' do
+  context 'on openSUSE 42' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'suse', version: '12.0')
+      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '42.3')
     end
 
     it 'installs dovecot package' do
@@ -185,9 +181,9 @@ describe 'dovecot::from_package', order: :random do
     end
 
     {
-      'sqlite' => %w(dovecot-backend-sqlite),
-      'mysql' => %w(dovecot-backend-mysql),
-      'pgsql' => %w(dovecot-backend-pgsql)
+      'sqlite' => %w[dovecot-backend-sqlite],
+      'mysql' => %w[dovecot-backend-mysql],
+      'pgsql' => %w[dovecot-backend-pgsql]
     }.each do |type, pkgs|
       pkgs.each do |pkg|
         context "when #{pkg} is required" do
@@ -205,39 +201,7 @@ describe 'dovecot::from_package', order: :random do
         end # context when pkg is required
       end # each pkg
     end # each type, pkgs
-  end # context on SUSE 12
-
-  context 'on openSUSE 13' do
-    let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '13.1')
-    end
-
-    it 'installs dovecot package' do
-      expect(chef_run).to install_package('(core) dovecot')
-    end
-
-    {
-      'sqlite' => %w(dovecot-backend-sqlite),
-      'mysql' => %w(dovecot-backend-mysql),
-      'pgsql' => %w(dovecot-backend-pgsql)
-    }.each do |type, pkgs|
-      pkgs.each do |pkg|
-        context "when #{pkg} is required" do
-          before { DovecotCookbook::Conf::Requirements.set(type, node) }
-
-          it "installs dovecot #{pkg} package" do
-            expect(chef_run).to install_package("(#{type}) #{pkg}")
-              .with_package_name(pkg)
-          end
-
-          describe "#{pkg} package" do
-            let(:pkg) { "(#{type}) #{pkg}" }
-            it_behaves_like 'non-core package'
-          end # describe pkg package
-        end # context when pkg is required
-      end # each pkg
-    end # each type, pkgs
-  end # context on SUSE 12
+  end # context on SUSE 42
 
   context 'on Arch' do
     # Arch still not supported by fauxhai
@@ -251,7 +215,7 @@ describe 'dovecot::from_package', order: :random do
     end
 
     {
-      'sieve' => %w(pigeonhole)
+      'sieve' => %w[pigeonhole]
     }.each do |type, pkgs|
       pkgs.each do |pkg|
         context "when #{pkg} is required" do

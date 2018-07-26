@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot
 # Recipe:: ohai_plugin
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
@@ -19,12 +17,7 @@
 # limitations under the License.
 #
 
-def ohai7?
-  Gem::Requirement.new('>= 7').satisfied_by?(Gem::Version.new(Ohai::VERSION))
-end
-
-ohai_build_options = node['dovecot']['ohai_plugin']['build-options']
-source_dir = ohai7? ? 'ohai7_plugins' : 'ohai_plugins'
+build_options = node['dovecot']['ohai_plugin']['build-options']
 
 # dummy resource to be able to notify reload action to the ohai plugin
 ohai 'dovecot' do
@@ -32,8 +25,7 @@ ohai 'dovecot' do
 end
 
 ohai_plugin 'dovecot' do
-  name 'dovecot'
-  source_file "#{source_dir}/dovecot.rb.erb"
+  source_file 'ohai_plugins/dovecot.rb.erb'
   resource :template
-  variables enable_build_options: ohai_build_options
+  variables enable_build_options: build_options
 end

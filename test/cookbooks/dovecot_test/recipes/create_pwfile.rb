@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot_test
 # Recipe:: default
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
@@ -58,7 +56,7 @@ node.default['dovecot']['services'] = {
 node.default['dovecot']['protocols']['imap'] = {}
 node.default['dovecot']['protocols']['pop3'] = {}
 node.default['dovecot']['protocols']['lda'] =
-  { 'mail_plugins' => %w($mail_plugins) }
+  { 'mail_plugins' => %w[$mail_plugins] }
 node.default['dovecot']['conf']['mail_uid'] = 'dovecot'
 node.default['dovecot']['conf']['mail_gid'] = 'dovecot'
 node.default['dovecot']['conf']['mail_location'] = 'maildir:~/Maildir'

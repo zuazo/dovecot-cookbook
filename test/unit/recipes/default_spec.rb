@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2014 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
@@ -24,20 +22,20 @@ describe 'dovecot::default', order: :random do
   let(:chef_run) { chef_runner.converge(described_recipe) }
   let(:node) { chef_runner.node }
 
-  %w(
+  %w[
     dovecot::ohai_plugin
     dovecot::user
     dovecot::from_package
     dovecot::conf_files
     dovecot::service
-  ).each do |recipe|
+  ].each do |recipe|
     it "includes #{recipe} recipe" do
       expect(chef_run).to include_recipe(recipe)
     end
   end # each recipe
 
   xcontext 'with install from source (not yet implemented)' do
-    before { node.set['dovecot']['install_from'] = 'source' }
+    before { node.override['dovecot']['install_from'] = 'source' }
 
     it 'includes dovecot::from_source recipe'
 

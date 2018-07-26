@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2016 Xabier de Zuazo
@@ -29,26 +27,22 @@ EOH
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '3.3.0' # WiP
 
-if respond_to?(:source_url)
-  source_url "https://github.com/zuazo/#{name}-cookbook"
-end
-if respond_to?(:issues_url)
-  issues_url "https://github.com/zuazo/#{name}-cookbook/issues"
-end
+
+source_url "https://github.com/zuazo/#{name}-cookbook" if respond_to?(:source_url)
+issues_url "https://github.com/zuazo/#{name}-cookbook/issues" if respond_to?(:issues_url)
 
 chef_version '>= 12' if respond_to?(:chef_version)
 
 supports 'amazon'
-supports 'centos', '>= 6.0'
-supports 'debian', '>= 7.0'
-supports 'fedora', '>= 18.0'
-supports 'opensuse'
-supports 'oracle', '>= 6.0'
-supports 'scientific', '>= 6.0'
-supports 'suse'
-supports 'ubuntu', '>= 12.04'
+supports 'centos', '>= 6.7'
+supports 'debian', '>= 7.11'
+supports 'fedora', '>= 26.0'
+supports 'opensuse-leap', '>= 42.0'
+supports 'oracle', '>= 6.9'
+supports 'ubuntu', '>= 14.04'
 
-depends 'ohai', '~> 4.0'
+# TODO: remove this as it will be deprecated in Chef 15
+depends 'ohai'
 
 recipe 'dovecot::default', 'Installs and configures Dovecot.'
 recipe 'dovecot::user', 'Creates the dovecot system user.'
@@ -156,7 +150,7 @@ attribute 'dovecot/sensitive_files',
             '"conf.d/auth-supersecret.conf.ext" ]',
           type: 'array',
           required: 'optional',
-          default: %w(*.conf.ext)
+          default: %w[*.conf.ext]
 
 attribute 'dovecot/sensitive_files_mode',
           display_name: 'dovecot sensitve files mode',
@@ -171,7 +165,7 @@ attribute 'dovecot/conf_files/core',
           description: 'Dovecot core configuration files list.',
           type: 'array',
           required: 'optional',
-          default: %w(
+          default: %w[
             conf.d/10-auth.conf
             conf.d/10-director.conf
             conf.d/10-logging.conf
@@ -196,48 +190,48 @@ attribute 'dovecot/conf_files/core',
             dovecot-db.conf.ext
             dovecot-dict-sql.conf.ext
             dovecot-sql.conf.ext
-          )
+          ]
 
 attribute 'dovecot/conf_files/imap',
           display_name: 'dovecot imap configuration files',
           description: 'Dovecot IMAP configuration files list.',
           type: 'array',
           required: 'optional',
-          default: %w(conf.d/20-imap.conf)
+          default: %w[conf.d/20-imap.conf]
 
 attribute 'dovecot/conf_files/pop3',
           display_name: 'dovecot pop3 configuration files',
           description: 'Dovecot POP3 configuration files list.',
           type: 'array',
           required: 'optional',
-          default: %w(conf.d/20-pop3.conf)
+          default: %w[conf.d/20-pop3.conf]
 
 attribute 'dovecot/conf_files/lmtp',
           display_name: 'dovecot lmtp configuration files',
           description: 'Dovecot LMTP configuration files list.',
           type: 'array',
           required: 'optional',
-          default: %w(conf.d/20-lmtp.conf)
+          default: %w[conf.d/20-lmtp.conf]
 
 attribute 'dovecot/conf_files/sieve',
           display_name: 'dovecot sieve configuration files',
           description: 'Dovecot Sieve configuration files list.',
           type: 'array',
           required: 'optional',
-          default: %w(
+          default: %w[
             conf.d/20-managesieve.conf
             conf.d/90-sieve.conf
-          )
+          ]
 
 attribute 'dovecot/conf_files/ldap',
           display_name: 'dovecot ldap configuration files',
           description: 'Dovecot LDAP configuration files list.',
           type: 'array',
           required: 'optional',
-          default: %w(
+          default: %w[
             dovecot-ldap.conf.ext
             conf.d/auth-ldap.conf.ext
-          )
+          ]
 
 attribute 'dovecot/auth',
           display_name: 'dovecot auth',
@@ -389,7 +383,7 @@ attribute 'dovecot/ohai_plugin/build-options',
             'be disabled to be lighter.',
           type: 'string',
           required: 'optional',
-          choice: %w(true false),
+          choice: %w[true false],
           default: 'true'
 
 # dovecot.conf

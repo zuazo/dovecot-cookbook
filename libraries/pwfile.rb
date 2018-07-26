@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot
 # Library:: pwfile
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
@@ -38,7 +36,7 @@ module DovecotCookbook
     # @return [Hash] The file contents.
     def self.file_to_hash(inputfile)
       output_entries = {}
-      File.open(inputfile, File::RDONLY | File::CREAT, 0640) do |passwordfile|
+      File.open(inputfile, File::RDONLY | File::CREAT, 0o0640) do |passwordfile|
         passwordfile.readlines.each do |line|
           user, data = fileline_to_userdb_hash(line)
           output_entries[user] = data
@@ -94,7 +92,7 @@ module DovecotCookbook
     # @return [Boolean] Whether the two passwords are the same.
     def self.password_valid?(hashed_pw, plaintext_pw)
       shell_out("/usr/bin/doveadm pw -t '#{hashed_pw}' -p '#{plaintext_pw}'")
-        .exitstatus == 0
+        .exitstatus.zero?
     end
 
     # Checks if two arrays contain the same values.
@@ -154,7 +152,8 @@ module DovecotCookbook
         current_user = dbentry_to_array(username, user_details)
         current_user[1], updated =
           generate_userpass(
-            current_users[username], current_user[1], updated, pwfile_exists)
+            current_users[username], current_user[1], updated, pwfile_exists
+          )
         credentials.push(current_user)
         updated
       end

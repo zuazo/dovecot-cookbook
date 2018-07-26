@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot
 # Library:: plugins
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
@@ -37,12 +35,12 @@ module DovecotCookbook
     end
 
     def self.list_unknown(plugins)
-      known_plugins = %w(
+      known_plugins = %w[
         mail_log
         quota
         acl
         sieve
-      )
+      ]
       plugins.keys - known_plugins
     end
   end

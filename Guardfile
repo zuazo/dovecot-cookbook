@@ -1,7 +1,3 @@
-# encoding: UTF-8
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 # More info at https://github.com/guard/guard#readme
 
 # Style Tests
@@ -86,4 +82,4 @@ end # group unit
 #   end
 # end # group integration
 
-scope groups: [:style, :unit]
+scope groups: %i[style unit]

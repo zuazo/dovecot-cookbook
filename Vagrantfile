@@ -1,7 +1,3 @@
-# encoding: UTF-8
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 # See TESTING.md file.
 
 Vagrant.configure('2') do |config|

@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot_test
 # Recipe:: ldap
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
@@ -47,7 +45,7 @@ include_recipe 'openldap::default'
 include_recipe 'ldap'
 
 ldap_entry node['openldap']['basedn'] do
-  attributes objectClass: %w(top dcObject organization),
+  attributes objectClass: %w[top dcObject organization],
              o: 'myorg',
              dc: 'myorg',
              description: 'My organization'
@@ -55,14 +53,14 @@ ldap_entry node['openldap']['basedn'] do
 end
 
 ldap_entry "ou=accounts,#{node['openldap']['basedn']}" do
-  attributes objectClass: %w(top organizationalUnit),
+  attributes objectClass: %w[top organizationalUnit],
              ou: 'accounts',
              description: 'Dovecot email accounts'
   credentials ldap_credentials
 end
 
 ldap_entry "cn=dovecot,ou=accounts,#{node['openldap']['basedn']}" do
-  attributes objectClass: %w(top person),
+  attributes objectClass: %w[top person],
              cn: 'dovecot',
              sn: 'dovecot'
   credentials ldap_credentials
@@ -81,7 +79,7 @@ email_account = {
 }
 
 ldap_entry "uid=wobble,ou=accounts,#{node['openldap']['basedn']}" do
-  attributes email_account.merge(objectClass: %w(top person posixAccount))
+  attributes email_account.merge(objectClass: %w[top person posixAccount])
   credentials ldap_credentials
 end
 
@@ -116,7 +114,7 @@ node.default['dovecot']['services']['imap-login'] =
 
 # Dovecot LDAP configuration
 node.default['dovecot']['conf']['ldap']['auth_bind'] = true
-node.default['dovecot']['conf']['ldap']['hosts'] = %w(localhost)
+node.default['dovecot']['conf']['ldap']['hosts'] = %w[localhost]
 node.default['dovecot']['conf']['ldap']['dn'] = ldap_credentials['bind_dn']
 node.default['dovecot']['conf']['ldap']['dnpass'] = ldap_credentials['password']
 node.default['dovecot']['conf']['ldap']['base'] = node['openldap']['basedn']
