@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
@@ -22,35 +20,35 @@ module DovecotCookbook
     # Helper module to force some requirements
     module Requirements
       def self.enable_protocol(node, proto)
-        node.set['dovecot']['protocols'][proto] = Mash.new
+        node.override['dovecot']['protocols'][proto] = Mash.new
       end
 
       def self.disable_protocol(node, proto)
-        node.set['dovecot']['protocols'][proto] = 'disabled'
+        node.override['dovecot']['protocols'][proto] = 'disabled'
       end
 
       def self.enable_sieve(node)
-        node.set['dovecot']['conf']['mail_plugins'] = %w(sieve)
+        node.override['dovecot']['conf']['mail_plugins'] = %w[sieve]
       end
 
       def self.disable_sieve(node)
-        node.set['dovecot']['conf']['mail_plugins'] = %w()
+        node.override['dovecot']['conf']['mail_plugins'] = %w[]
       end
 
       def self.enable_ldap(node)
-        node.set['dovecot']['conf']['ldap']['auth_bind'] = true
+        node.override['dovecot']['conf']['ldap']['auth_bind'] = true
       end
 
       def self.disable_ldap(node)
-        node.set['dovecot']['conf']['ldap']['auth_bind'] = 'disabled'
+        node.override['dovecot']['conf']['ldap']['auth_bind'] = 'disabled'
       end
 
       def self.enable_driver(node, driver)
-        node.set['dovecot']['conf']['sql']['driver'] = driver
+        node.override['dovecot']['conf']['sql']['driver'] = driver
       end
 
       # def self.disable_driver(node)
-      #   node.set['dovecot']['conf']['sql']['driver'] = 'disabled'
+      #   node.override['dovecot']['conf']['sql']['driver'] = 'disabled'
       # end
 
       def self.set(type, node)

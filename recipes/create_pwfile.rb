@@ -1,4 +1,3 @@
-#
 # Cookbook Name:: dovecot
 # Recipe:: create_pwfile
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)

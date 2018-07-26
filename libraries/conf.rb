@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot
 # Library:: conf
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
@@ -53,7 +51,7 @@ module DovecotCookbook
     def self.protocols(conf)
       # dovecot: config: Fatal: Error in configuration file
       # /etc/dovecot/dovecot.conf: protocols: Unknown protocol: lda
-      ignore_protos = %w(lda)
+      ignore_protos = %w[lda]
       protos = DovecotCookbook::Protocols.list(conf) - ignore_protos
       protos.empty? ? 'none' : protos.join(' ')
     end

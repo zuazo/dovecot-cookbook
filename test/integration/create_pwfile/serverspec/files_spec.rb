@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2014 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
@@ -19,8 +17,8 @@
 
 require 'spec_helper'
 
-def absolute_path(f)
-  f[0] == '/' ? f : "/etc/dovecot/#{f}"
+def absolute_path(filename)
+  filename[0] == '/' ? filename : "/etc/dovecot/#{filename}"
 end
 
 platform = os[:family].downcase
@@ -28,25 +26,25 @@ platform_version = os[:release].to_f
 
 ssl_cert, ssl_key =
   case platform
-  when 'redhat', 'centos', 'scientific', 'fedora', 'amazon'
-    %w(/etc/pki/dovecot/certs/dovecot.pem /etc/pki/dovecot/private/dovecot.pem)
+  when 'redhat', 'centos', 'fedora', 'amazon'
+    %w[/etc/pki/dovecot/certs/dovecot.pem /etc/pki/dovecot/private/dovecot.pem]
   when 'debian'
-    platform_version >= 8 ? [nil, nil] : %w(dovecot.pem private/dovecot.pem)
+    platform_version >= 8 ? [nil, nil] : %w[dovecot.pem private/dovecot.pem]
   when 'ubuntu'
     if platform_version >= 15.10
       [nil, nil]
     elsif platform_version >= 14
-      %w(dovecot.pem private/dovecot.pem)
+      %w[dovecot.pem private/dovecot.pem]
     else
-      %w(/etc/ssl/certs/dovecot.pem /etc/ssl/private/dovecot.pem)
+      %w[/etc/ssl/certs/dovecot.pem /etc/ssl/private/dovecot.pem]
     end
   when 'suse', 'opensuse'
     [nil, nil]
   else
-    %w(dovecot.pem private/dovecot.pem)
+    %w[dovecot.pem private/dovecot.pem]
   end
 
-normal_files = %w(
+normal_files = %w[
   dovecot.conf
   conf.d/10-mail.conf
   conf.d/10-logging.conf
@@ -70,14 +68,14 @@ normal_files = %w(
   conf.d/auth-sql.conf.ext
   conf.d/20-imap.conf
   conf.d/auth-master.conf.ext
-)
+]
 
-sensitive_files = %w(
+sensitive_files = %w[
   dovecot-sql.conf.ext
   dovecot-dict-auth.conf.ext
   dovecot-db.conf.ext
   dovecot-dict-sql.conf.ext
-)
+]
 
 normal_files.each do |f|
   describe file(absolute_path(f)) do

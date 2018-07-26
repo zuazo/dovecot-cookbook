@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2014 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
@@ -23,7 +21,7 @@ platform = os[:family].downcase
 
 home =
   case platform
-  when 'redhat', 'centos', 'scientific', 'fedora', 'amazon'
+  when 'redhat', 'centos', 'fedora', 'amazon'
     '/usr/libexec/dovecot'
   when 'suse', 'opensuse'
     '/var/run/dovecot'

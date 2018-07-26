@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2015 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
@@ -87,3 +85,4 @@ RSpec::Matchers.define :authenticate do |user, pass, auth_type = 'PLAIN'|
     subject.authenticates?(user, pass, auth_type)
   end
 end
+]

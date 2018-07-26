@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2014 Onddo Labs, SL.
 # Copyright:: Copyright (c) 2016 Xabier de Zuazo
@@ -42,43 +40,33 @@ describe 'dovecot::user', order: :random do
 
     context 'on Ubuntu' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04')
+        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '18.04')
       end
 
       it 'has /usr/lib/dovecot as home' do
         expect(chef_run).to create_user(user).with_home('/usr/lib/dovecot')
       end
-    end # context on Ubuntu
+    end
 
     context 'on CentOS' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'centos', version: '5.10')
+        ChefSpec::SoloRunner.new(platform: 'centos', version: '7.5.1804')
       end
 
       it 'has /usr/libexec/dovecot as home' do
         expect(chef_run).to create_user(user).with_home('/usr/libexec/dovecot')
       end
-    end # context on CentOS
+    end
 
-    context 'on SUSE 12' do
+    context 'on openSUSE 42' do
       let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'suse', version: '12.0')
+        ChefSpec::SoloRunner.new(platform: 'opensuse', version: '42.3')
       end
 
       it 'has /var/run/dovecot as home' do
         expect(chef_run).to create_user(user).with_home('/var/run/dovecot')
       end
-    end # context on SUSE 12
-
-    context 'on openSUSE 13' do
-      let(:chef_runner) do
-        ChefSpec::SoloRunner.new(platform: 'opensuse', version: '13.1')
-      end
-
-      it 'has /var/run/dovecot as home' do
-        expect(chef_run).to create_user(user).with_home('/var/run/dovecot')
-      end
-    end # context on openSUSE 13
+    end
   end # describe the dovecot user
 
   it 'creates the dovecot group' do
@@ -89,7 +77,7 @@ describe 'dovecot::user', order: :random do
     let(:group) { 'dovecot' }
 
     it 'has dovecot user as member' do
-      expect(chef_run).to create_group(group).with_members(%w(dovecot))
+      expect(chef_run).to create_group(group).with_members(%w[dovecot])
     end
 
     it 'is a system group' do
@@ -100,7 +88,7 @@ describe 'dovecot::user', order: :random do
       it 'are appended' do
         expect(chef_run).to create_group(group).with_append(true)
       end
-    end # describe users
+    end
   end # describe the dovecot group
 
   it 'creates default login group' do
@@ -115,7 +103,7 @@ describe 'dovecot::user', order: :random do
   context 'when setting default_login_user' do
     let(:default_login_user) { 'default_login_user' }
     before do
-      node.set['dovecot']['conf']['default_login_user'] = default_login_user
+      node.override['dovecot']['conf']['default_login_user'] = default_login_user
     end
 
     it 'creates default login group' do

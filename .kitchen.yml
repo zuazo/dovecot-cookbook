@@ -9,7 +9,6 @@ driver:
 
 provisioner:
   name: chef_zero
-  require_chef_omnibus: 12
   data_bags_path: ./test/data_bags
   # client_rb:
   #   treat_deprecation_warnings_as_errors: true # WiP on some depends
@@ -18,41 +17,43 @@ platforms:
 - name: centos-6.7
 - name: centos-7.2
 - name: centos-7.4
-- name: debian-7.9
+- name: centos-7.5
+- name: fedora-26
+- name: fedora-28
+- name: oracle-6.9
+- name: oracle-7.4
+- name: debian-7.11
   run_list: recipe[apt]
-- name: debian-8.2
+- name: debian-8.9
   run_list: recipe[apt]
-- name: fedora-20
-- name: fedora-21
-- name: opensuse-42.3
-  driver_config:
-    box: opensuse/openSUSE-42.3-x86_64
-    box_version: 1.0.5.20171128
-- name: ubuntu-12.04
+- name: debian-8.10
+  run_list: recipe[apt]
+- name: debian-9.2
+  run_list: recipe[apt]
+- name: debian-9.3
+  run_list: recipe[apt]
+- name: debian-9.4
   run_list: recipe[apt]
 - name: ubuntu-14.04
   run_list: recipe[apt]
 - name: ubuntu-16.04
   run_list: recipe[apt]
+- name: ubuntu-18.04
+  run_list: recipe[apt]
+- name: opensuse-leap-42
 
 suites:
 - name: default
   run_list:
   - recipe[dovecot_test]
 - name: ldap
-  excludes:
-  # openldap cookbook does not work
-  - centos-6
-  - centos-6.6
-  - centos-7
-  - centos-7.2
-  - fedora-20
-  - fedora-21
-  - opensuse-42.3
-  - oraclelinux-6
-  - scientific-6.6
   run_list:
   - recipe[dovecot_test::ldap]
+  excludes:
+    # does not use (deprecated) slapd.conf anymore,
+    # and openldap cookbook is not up-to-date with this change yet
+    - fedora-26
+    - fedora-28
 - name: attributes
   run_list:
   - recipe[dovecot_test::attributes]
@@ -60,15 +61,12 @@ suites:
   run_list:
   - recipe[dovecot_test::create_pwfile]
   excludes:
-  # tests are not working on older versions of dovecot
+  # old versions of Dovecot does not support default_field_values
   - centos-6.7
-  - debian-8.2
-  - debian-8
-  - ubuntu-12.04
-  - ubuntu-16.04
-  - fedora-20
-  - fedora-21
-  - opensuse-42.3
-  - oraclelinux-6
-  - scientific-6.6
-
+  - oracle-6.9
+  # by default does not have 'snakeoil' self-signed cert and key
+  - debian-8.9
+  - debian-8.10
+  - debian-9.2
+  - debian-9.3
+  - debian-9.4

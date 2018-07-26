@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot_test
 # Recipe:: attributes
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
@@ -142,7 +140,7 @@ node.default['dovecot']['plugins']['sieve'] =
 
 node.default['dovecot']['protocols']['imap'] = {}
 node.default['dovecot']['protocols']['lda'] =
-  { 'mail_plugins' => %w($mail_plugins) }
+  { 'mail_plugins' => %w[$mail_plugins] }
 
 # services.rb
 

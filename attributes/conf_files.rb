@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot
 # Attributes:: conf_files
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
@@ -26,12 +24,12 @@ default['dovecot']['conf_files_mode'] = '00644'
 default['dovecot']['conf']['password_file'] =
   "#{node['dovecot']['conf_path']}/password"
 
-default['dovecot']['sensitive_files'] = %w(
+default['dovecot']['sensitive_files'] = %w[
   *.conf.ext
-)
+]
 default['dovecot']['sensitive_files_mode'] = '00640'
 
-default['dovecot']['conf_files']['core'] = %w(
+default['dovecot']['conf_files']['core'] = %w[
   conf.d/10-auth.conf
   conf.d/10-director.conf
   conf.d/10-logging.conf
@@ -59,21 +57,21 @@ default['dovecot']['conf_files']['core'] = %w(
   dovecot-dict-auth.conf.ext
   dovecot-dict-sql.conf.ext
   dovecot-sql.conf.ext
-)
-default['dovecot']['conf_files']['imap'] = %w(
+]
+default['dovecot']['conf_files']['imap'] = %w[
   conf.d/20-imap.conf
-)
-default['dovecot']['conf_files']['pop3'] = %w(
+]
+default['dovecot']['conf_files']['pop3'] = %w[
   conf.d/20-pop3.conf
-)
-default['dovecot']['conf_files']['lmtp'] = %w(
+]
+default['dovecot']['conf_files']['lmtp'] = %w[
   conf.d/20-lmtp.conf
-)
-default['dovecot']['conf_files']['sieve'] = %w(
+]
+default['dovecot']['conf_files']['sieve'] = %w[
   conf.d/20-managesieve.conf
   conf.d/90-sieve.conf
-)
-default['dovecot']['conf_files']['ldap'] = %w(
+]
+default['dovecot']['conf_files']['ldap'] = %w[
   dovecot-ldap.conf.ext
   conf.d/auth-ldap.conf.ext
-)
+]
