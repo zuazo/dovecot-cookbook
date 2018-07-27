@@ -85,4 +85,3 @@ RSpec::Matchers.define :authenticate do |user, pass, auth_type = 'PLAIN'|
     subject.authenticates?(user, pass, auth_type)
   end
 end
-]
