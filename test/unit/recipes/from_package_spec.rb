@@ -24,7 +24,7 @@ describe 'dovecot::from_package', order: :random do
 
   shared_examples 'any package' do
     context 'with ohai build options enabled' do
-      before { node.override['dovecot']['ohai_plugin']['build-options'] = true }
+      before { node.normal['dovecot']['ohai_plugin']['build-options'] = true }
 
       it 'notifies ohai plugin' do
         resource = chef_run.package(pkg)
@@ -37,7 +37,7 @@ describe 'dovecot::from_package', order: :random do
     it_behaves_like 'any package'
 
     context 'with ohai build options disabled' do
-      before { node.override['dovecot']['ohai_plugin']['build-options'] = false }
+      before { node.normal['dovecot']['ohai_plugin']['build-options'] = false }
 
       it 'notifies ohai plugin' do
         resource = chef_run.package(pkg)
@@ -50,7 +50,7 @@ describe 'dovecot::from_package', order: :random do
     it_behaves_like 'any package'
 
     context 'with ohai build options disabled' do
-      before { node.override['dovecot']['ohai_plugin']['build-options'] = false }
+      before { node.normal['dovecot']['ohai_plugin']['build-options'] = false }
 
       it 'notifies ohai plugin' do
         resource = chef_run.package(pkg)
@@ -60,7 +60,7 @@ describe 'dovecot::from_package', order: :random do
   end
 
   context 'when node[dovecot][packages][type] is an array' do
-    before { node.override['dovecot']['packages']['core'] = %w[my_package] }
+    before { node.normal['dovecot']['packages']['core'] = %w[my_package] }
 
     it 'does not fail' do
       expect { chef_run }.to_not raise_error
@@ -72,7 +72,7 @@ describe 'dovecot::from_package', order: :random do
   end
 
   context 'when node[dovecot][packages][type] is a string' do
-    before { node.override['dovecot']['packages']['core'] = 'my_package' }
+    before { node.normal['dovecot']['packages']['core'] = 'my_package' }
 
     it 'does not fail' do
       expect { chef_run }.to_not raise_error
@@ -84,7 +84,7 @@ describe 'dovecot::from_package', order: :random do
   end
 
   context 'when node[dovecot][packages][type] has bad format' do
-    before { node.override['dovecot']['packages']['type'] = Mash.new }
+    before { node.normal['dovecot']['packages']['type'] = Mash.new }
 
     it 'fails' do
       expect { chef_run }.to raise_error(/should contain an array/)

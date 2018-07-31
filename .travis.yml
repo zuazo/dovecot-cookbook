@@ -1,4 +1,4 @@
-rvm: 2.2
+rvm: 2.5
 
 sudo: required
 
@@ -56,10 +56,11 @@ env:
   - TESTS="integration[create-pwfile-opensuse-leap-42,verify]"
 
 before_install:
-- chef --version &> /dev/null || curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 1.2.22
+- chef --version &> /dev/null || curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 3.1.0
 - eval "$(/opt/chefdk/bin/chef shell-init bash)"
 
 install:
+- sudo chef exec gem update --system 2.7.5
 - chef exec bundle install --jobs=3 --retry=3 --without='doc integration_vagrant integration_cloud guard'
 
 before_script:

@@ -103,7 +103,7 @@ describe 'dovecot::user', order: :random do
   context 'when setting default_login_user' do
     let(:default_login_user) { 'default_login_user' }
     before do
-      node.override['dovecot']['conf']['default_login_user'] = default_login_user
+      node.normal['dovecot']['conf']['default_login_user'] = default_login_user
     end
 
     it 'creates default login group' do
