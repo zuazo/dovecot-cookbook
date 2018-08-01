@@ -13,7 +13,7 @@ Metrics/LineLength:
 
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
-  Max: 35
+  Max: 50
 
 Layout/IndentHeredoc:
   Enabled: False

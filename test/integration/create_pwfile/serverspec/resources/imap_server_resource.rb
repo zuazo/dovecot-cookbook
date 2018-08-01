@@ -18,9 +18,7 @@
 require 'net/imap'
 
 module Serverspec
-  # Serverspec resource types.
   module Type
-    # Serverspec IMAP resource type.
     class ImapServer < Base
       # TODO: Silence stderr with IMAP exceptions
 
@@ -36,13 +34,13 @@ module Serverspec
       protected
 
       def imap
-        @imap ||= ::Net::IMAP.new(@host)
+        @imap ||= Net::IMAP.new(@host)
       end
 
       def imap_close
         return if @imap.nil?
         @imap.close
-      rescue ::Net::IMAP::BadResponseError
+      rescue Net::IMAP::BadResponseError
         nil
       ensure
         @imap = nil
@@ -54,7 +52,7 @@ module Serverspec
         imap
         imap_close
         true
-      rescue ::Net::IMAP::NoResponseError
+      rescue Net::IMAP::NoResponseError
         false
       end
 
@@ -67,14 +65,18 @@ module Serverspec
         false
       end
     end
-
-    def imap_server(server, port = nil)
-      ::Serverspec::Type::ImapServer.new(server, port)
-    end
   end
 end
 
-include Serverspec::Type
+module Serverspec
+  module Helper
+    module Type
+      def imap_server(server, port = nil)
+        Serverspec::Type::ImapServer.new(server, port)
+      end
+    end
+  end
+end
 
 RSpec::Matchers.define :connect do
   match(&:connects?)
