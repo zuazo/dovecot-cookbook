@@ -16,7 +16,7 @@
 #
 
 require 'serverspec'
-require 'type/imap_server'
+require 'resources/imap_server_resource'
 
 # Set backend type
 set :backend, :exec

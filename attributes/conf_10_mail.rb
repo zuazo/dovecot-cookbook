@@ -75,8 +75,4 @@ default['dovecot']['conf']['mail_attachment_hash'] = nil
 # grep SYS_UID_MAX /etc/login.defs
 # SuSE == 499
 # others == 999
-if node['platform_family'] == 'suse'
-  default['dovecot']['conf']['first_valid_uid'] = 480
-else
-  default['dovecot']['conf']['first_valid_uid'] = nil
-end
+default['dovecot']['conf']['first_valid_uid'] = 480 if node['platform_family'] == 'suse'
