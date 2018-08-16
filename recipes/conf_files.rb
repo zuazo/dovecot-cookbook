@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot
 # Recipe:: conf_files
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
@@ -32,7 +30,6 @@ conf_files_dirs =
   end.uniq
 conf_files_dirs.each do |dir|
   directory "#{node['dovecot']['conf_path']}/#{dir}" do
-    name ::File.join(node['dovecot']['conf_path'], dir)
     recursive true
     owner node['dovecot']['conf_files_user']
     group node['dovecot']['group']

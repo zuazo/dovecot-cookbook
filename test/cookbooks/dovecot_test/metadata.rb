@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot_test
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL.
@@ -28,7 +26,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '0.1.0'
 
 depends 'dovecot'
-depends 'ldap', '~> 1.0'
-depends 'netstat', '~> 0.1.0' # Required to run integration tests with Docker
-depends 'openldap', '~> 3.1'
-depends 'ssl_certificate', '~> 1.5'
+depends 'ldap'
+depends 'netstat' # Required to run integration tests with Docker
+depends 'openldap'
+depends 'ssl_certificate'

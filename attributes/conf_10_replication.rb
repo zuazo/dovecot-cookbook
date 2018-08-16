@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot
 # Attributes:: conf_10_replication
 # Author:: Vassilis Aretakis (<vassilis@aretakis.eu>)

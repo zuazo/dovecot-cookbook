@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot
 # Recipe:: user
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)

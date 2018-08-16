@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2014 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
@@ -26,7 +24,7 @@ describe 'dovecot::conf_files', order: :random do
 
   context 'on Ubuntu' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04')
+      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '18.04')
     end
 
     it 'creates library path directory' do
@@ -36,43 +34,37 @@ describe 'dovecot::conf_files', order: :random do
 
   context 'on CentOS' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '5.10')
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.5.1804')
     end
 
     it 'creates library path directory' do
       expect(chef_run).to create_directory('/usr/libexec/dovecot')
-        .with_user('root')
-        .with_group('dovecot')
-        .with_mode('00755')
+        .with(
+          owner: 'root',
+          group: 'dovecot',
+          mode: '00755'
+        )
     end
   end # context on CentOS
 
-  context 'on SUSE 12 (issue #16)' do
+  context 'on openSUSE 42' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'suse', version: '12.0')
+      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '42.3')
     end
 
     it 'creates library path directory' do
       expect(chef_run).to create_directory('/var/run/dovecot')
     end
-  end # context on SUSE 12
-
-  context 'on openSUSE 13' do
-    let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '13.1')
-    end
-
-    it 'creates library path directory' do
-      expect(chef_run).to create_directory('/var/run/dovecot')
-    end
-  end # context on openSUSE 13
+  end # context on openSUSE 42
 
   it 'creates the conf.d directory recursively' do
     expect(chef_run).to create_directory('/etc/dovecot/conf.d')
-      .with_recursive(true)
-      .with_user('root')
-      .with_group('dovecot')
-      .with_mode('00755')
+      .with(
+        recursive: true,
+        owner: 'root',
+        group: 'dovecot',
+        mode: '00755'
+      )
   end
 
   it 'avoids the creation of /etc/dovecot/. (with dot) directory' do
@@ -84,10 +76,12 @@ describe 'dovecot::conf_files', order: :random do
 
     it 'creates the template' do
       expect(chef_run).to create_template("(#{type}) #{template}")
-        .with_path("/etc/dovecot/#{template}")
-        .with_source("#{conf_file}.erb")
-        .with_owner('root')
-        .with_group('dovecot')
+        .with(
+          path: "/etc/dovecot/#{template}",
+          source: "#{conf_file}.erb",
+          owner: 'root',
+          group: 'dovecot'
+        )
     end
 
     it 'notifies dovecot service' do
@@ -99,14 +93,18 @@ describe 'dovecot::conf_files', order: :random do
   shared_examples 'a normal template' do
     it 'creates the template with normal privilages' do
       expect(chef_run).to create_template("(#{type}) #{template}")
-        .with_mode('00644')
+        .with(
+          mode: '00644'
+        )
     end
   end # shared example a normal template
 
   shared_examples 'a sensitive template' do
     it 'creates the template with normal privilages' do
       expect(chef_run).to create_template("(#{type}) #{template}")
-        .with_mode('00640')
+        .with(
+          mode: '00640'
+        )
     end
   end # shared example a sensitive template
 
@@ -123,7 +121,7 @@ describe 'dovecot::conf_files', order: :random do
 
   normal_templates = {
     'core' =>
-      %w(
+      %w[
         conf.d/10-auth.conf
         conf.d/10-director.conf
         conf.d/10-logging.conf
@@ -147,27 +145,27 @@ describe 'dovecot::conf_files', order: :random do
         conf.d/auth-system.conf.ext
         conf.d/auth-vpopmail.conf.ext
         dovecot.conf
-      ),
-    'imap' => %w(conf.d/20-imap.conf),
-    'pop3' => %w(conf.d/20-pop3.conf),
-    'lmtp' => %w(conf.d/20-lmtp.conf),
+      ],
+    'imap' => %w[conf.d/20-imap.conf],
+    'pop3' => %w[conf.d/20-pop3.conf],
+    'lmtp' => %w[conf.d/20-lmtp.conf],
     'sieve' =>
-      %w(
+      %w[
         conf.d/20-managesieve.conf
         conf.d/90-sieve.conf
-      ),
-    'ldap' => %w(conf.d/auth-ldap.conf.ext)
+      ],
+    'ldap' => %w[conf.d/auth-ldap.conf.ext]
   }
 
   sensitive_templates = {
     'core' =>
-      %w(
+      %w[
         dovecot-db.conf.ext
         dovecot-dict-auth.conf.ext
         dovecot-dict-sql.conf.ext
         dovecot-sql.conf.ext
-      ),
-    'ldap' => %w(dovecot-ldap.conf.ext)
+      ],
+    'ldap' => %w[dovecot-ldap.conf.ext]
   }
 
   normal_templates.each do |type, templates|
