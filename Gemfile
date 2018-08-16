@@ -13,19 +13,19 @@ end
 
 group :test do
   gem 'berkshelf', '~> 7.0'
-  gem 'rake', '~> 12.0'
+  gem 'rake'
 end
 
 group :style do
-  gem 'foodcritic'
-  gem 'rubocop'
+  gem 'foodcritic', '~> 14.0.0'
+  gem 'rubocop', '~> 0.58.0'
 end
 
 group :unit do
   gem 'chef', chef_version unless chef_version.nil?
-  gem 'chefspec'
-  gem 'should_not'
-  gem 'simplecov'
+  gem 'chefspec', '= 7.2.1'
+  gem 'should_not', '~> 1.1.0'
+  gem 'simplecov', '~> 0.16.1'
 end
 
 group :integration do

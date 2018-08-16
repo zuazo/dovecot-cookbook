@@ -35,7 +35,7 @@ describe 'dovecot::default', order: :random do
   end # each recipe
 
   xcontext 'with install from source (not yet implemented)' do
-    before { node.normal['dovecot']['install_from'] = 'source' }
+    before { node.override['dovecot']['install_from'] = 'source' }
 
     it 'includes dovecot::from_source recipe'
 
