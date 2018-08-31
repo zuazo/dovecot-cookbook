@@ -1,7 +1,3 @@
-# encoding: UTF-8
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 # More info at http://berkshelf.com/#the-berksfile
 
 source 'https://supermarket.chef.io'

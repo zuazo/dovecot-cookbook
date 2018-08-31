@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot
 # Attributes:: conf_10_ssl
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
@@ -21,26 +19,22 @@
 
 # conf.d/10-ssl.conf
 
-default['dovecot']['conf']['ssl'] = \
-  if node['platform_family'] == 'suse' && node['platform_version'].to_i < 13
-    false
-  end
-
 case node['platform_family']
 when 'rhel', 'fedora'
   default['dovecot']['conf']['ssl_cert'] = '</etc/pki/dovecot/certs/dovecot.pem'
-  default['dovecot']['conf']['ssl_key'] =
-    '</etc/pki/dovecot/private/dovecot.pem'
+  default['dovecot']['conf']['ssl_key'] = '</etc/pki/dovecot/private/dovecot.pem'
 when 'debian'
   case node['platform']
   when 'ubuntu'
-    if node['platform_version'].to_f >= 15.10
-      default['dovecot']['conf']['ssl_cert'] = nil
-      default['dovecot']['conf']['ssl_key'] = nil
+    if node['platform_version'].to_f >= 18.04
+      default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/private/dovecot.pem'
+      default['dovecot']['conf']['ssl_key'] = '</etc/dovecot/private/dovecot.key'
+    elsif node['platform_version'].to_f >= 15.10
+      default['dovecot']['conf']['ssl_cert'] = '</etc/ssl/certs/ssl-cert-snakeoil.pem'
+      default['dovecot']['conf']['ssl_key'] = '</etc/ssl/private/ssl-cert-snakeoil.key'
     elsif node['platform_version'].to_f >= 14.04
       default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/dovecot.pem'
-      default['dovecot']['conf']['ssl_key'] =
-        '</etc/dovecot/private/dovecot.pem'
+      default['dovecot']['conf']['ssl_key'] = '</etc/dovecot/private/dovecot.pem'
     else
       default['dovecot']['conf']['ssl_cert'] = '</etc/ssl/certs/dovecot.pem'
       default['dovecot']['conf']['ssl_key'] = '</etc/ssl/private/dovecot.pem'
@@ -52,10 +46,11 @@ when 'debian'
       default['dovecot']['conf']['ssl_key'] = nil
     else
       default['dovecot']['conf']['ssl_cert'] = '</etc/dovecot/dovecot.pem'
-      default['dovecot']['conf']['ssl_key'] =
-        '</etc/dovecot/private/dovecot.pem'
+      default['dovecot']['conf']['ssl_key'] = '</etc/dovecot/private/dovecot.pem'
     end
   end
+when 'suse'
+  default['dovecot']['conf']['ssl'] = true if node['platform_version'].to_i < 13
 else
   default['dovecot']['conf']['ssl_cert'] = nil
   default['dovecot']['conf']['ssl_key'] = nil

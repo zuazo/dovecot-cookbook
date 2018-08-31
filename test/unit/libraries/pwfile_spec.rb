@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2017 Xabier de Zuazo
 # License:: Apache License, Version 2.0
@@ -44,7 +42,7 @@ describe DovecotCookbook::Pwfile, order: :random do
 
     it 'reads the file creating it if it does not exist' do
       allow(::File).to receive(:open)
-        .with(path, File::RDONLY | File::CREAT, 0640).and_yield(pwfile)
+        .with(path, File::RDONLY | File::CREAT, 0o0640).and_yield(pwfile)
       subject.passfile_read(path)
     end
 
@@ -70,7 +68,7 @@ describe DovecotCookbook::Pwfile, order: :random do
 
       it 'creates the file' do
         expect(::File).to receive(:open)
-          .with(path, File::RDONLY | File::CREAT, 0640).once.and_yield(pwfile)
+          .with(path, File::RDONLY | File::CREAT, 0o0640).once.and_yield(pwfile)
         subject.passfile_read(path)
       end
     end
@@ -79,8 +77,8 @@ describe DovecotCookbook::Pwfile, order: :random do
       let(:contents) { data_file('password') }
       let(:parsed) do
         {
-          'user1' => %w(pass1 uid1 gid1 gecos1 homedir1 sh1 ex1),
-          'user2' => %w(pass2 uid2 gid2 gecos2 homedir2 sh2 ex2)
+          'user1' => %w[pass1 uid1 gid1 gecos1 homedir1 sh1 ex1],
+          'user2' => %w[pass2 uid2 gid2 gecos2 homedir2 sh2 ex2]
         }
       end
 
@@ -163,23 +161,25 @@ describe DovecotCookbook::Pwfile, order: :random do
     end
     let(:databag_users) do
       {
-        'user1' => %w(pass1 uid1 gid1 gecos1 homedir1 sh1 ex1),
-        'user2' => %w(pass2 uid2 gid2 gecos2 homedir2 sh2 ex2)
+        'user1' => %w[pass1 uid1 gid1 gecos1 homedir1 sh1 ex1],
+        'user2' => %w[pass2 uid2 gid2 gecos2 homedir2 sh2 ex2]
       }
     end
     let(:current_users) do
       {
-        'user1' => [enc_pass1] + %w(uid1 gid1 gecos1 homedir1 sh1 ex1),
-        'user2' => [enc_pass2] + %w(uid2 gid2 gecos2 homedir2 sh2 ex2)
+        'user1' => [enc_pass1] + %w[uid1 gid1 gecos1 homedir1 sh1 ex1],
+        'user2' => [enc_pass2] + %w[uid2 gid2 gecos2 homedir2 sh2 ex2]
       }
     end
     let(:pwfile_exists) { true }
     let(:prev_updated) { false }
     let(:credentials) { [] }
     before do
-      allow(subject).to receive(:shell_out).with(/doveadm pw -t/)
+      allow(subject).to receive(:shell_out)
+        .with(/doveadm pw -t/)
         .and_return(pwtest_false_shell_out)
-      allow(subject).to receive(:shell_out).with(/doveadm pw -s/)
+      allow(subject).to receive(:shell_out)
+        .with(/doveadm pw -s/)
         .and_return(pwgen1_shell_out, pwgen2_shell_out)
     end
 
@@ -197,15 +197,16 @@ describe DovecotCookbook::Pwfile, order: :random do
         )
       expect(credentials).to eq(
         [
-          %w(user1 encrypted_password_1 uid1 gid1 gecos1 homedir1 sh1 ex1),
-          %w(user2 encrypted_password_2 uid2 gid2 gecos2 homedir2 sh2 ex2)
+          %w[user1 encrypted_password_1 uid1 gid1 gecos1 homedir1 sh1 ex1],
+          %w[user2 encrypted_password_2 uid2 gid2 gecos2 homedir2 sh2 ex2]
         ]
       )
     end
 
     describe 'when the first password needs to be updated' do
       before do
-        allow(subject).to receive(:shell_out).with(/doveadm pw -t/)
+        allow(subject).to receive(:shell_out)
+          .with(/doveadm pw -t/)
           .and_return(pwtest_false_shell_out, pwtest_true_shell_out)
       end
 
@@ -227,7 +228,8 @@ describe DovecotCookbook::Pwfile, order: :random do
 
     describe 'when the last password needs to be updated' do
       before do
-        allow(subject).to receive(:shell_out).with(/doveadm pw -t/)
+        allow(subject).to receive(:shell_out)
+          .with(/doveadm pw -t/)
           .and_return(pwtest_true_shell_out, pwtest_false_shell_out)
       end
 
@@ -249,7 +251,8 @@ describe DovecotCookbook::Pwfile, order: :random do
 
     describe 'when no password needs to be updated' do
       before do
-        allow(subject).to receive(:shell_out).with(/doveadm pw -t/)
+        allow(subject).to receive(:shell_out)
+          .with(/doveadm pw -t/)
           .and_return(pwtest_true_shell_out, pwtest_true_shell_out)
       end
 
@@ -279,7 +282,8 @@ describe DovecotCookbook::Pwfile, order: :random do
       end
 
       it 'tests the passwords' do
-        expect(subject).to receive(:shell_out).with(/doveadm pw -t/).twice
+        expect(subject).to receive(:shell_out)
+          .with(/doveadm pw -t/).twice
           .and_return(pwtest_false_shell_out)
         subject.compile_users(
           databag_users, current_users, pwfile_exists, prev_updated, credentials
@@ -309,7 +313,8 @@ describe DovecotCookbook::Pwfile, order: :random do
 
       describe 'when a password needs to be updated' do
         before do
-          allow(subject).to receive(:shell_out).with(/doveadm pw -t/)
+          allow(subject).to receive(:shell_out)
+            .with(/doveadm pw -t/)
             .and_return(pwtest_true_shell_out, pwtest_false_shell_out)
         end
 
@@ -325,7 +330,8 @@ describe DovecotCookbook::Pwfile, order: :random do
 
       describe 'when no password needs to be updated' do
         before do
-          allow(subject).to receive(:shell_out).with(/doveadm pw -t/)
+          allow(subject).to receive(:shell_out)
+            .with(/doveadm pw -t/)
             .and_return(pwtest_true_shell_out, pwtest_true_shell_out)
         end
 
@@ -345,7 +351,8 @@ describe DovecotCookbook::Pwfile, order: :random do
 
       describe 'when a password needs to be updated' do
         before do
-          allow(subject).to receive(:shell_out).with(/doveadm pw -t/)
+          allow(subject).to receive(:shell_out)
+            .with(/doveadm pw -t/)
             .and_return(pwtest_true_shell_out, pwtest_false_shell_out)
         end
 
@@ -361,7 +368,8 @@ describe DovecotCookbook::Pwfile, order: :random do
 
       describe 'when no password needs to be updated' do
         before do
-          allow(subject).to receive(:shell_out).with(/doveadm pw -t/)
+          allow(subject).to receive(:shell_out)
+            .with(/doveadm pw -t/)
             .and_return(pwtest_true_shell_out, pwtest_true_shell_out)
         end
 

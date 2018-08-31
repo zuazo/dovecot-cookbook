@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot_test
 # Recipe:: default
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
@@ -23,13 +21,10 @@ include_recipe 'dovecot'
 
 ruby_block 'ohai plugin tests' do
   block do
-    unless node['dovecot']['version'].is_a?(String)
-      raise 'Ohai plugin cannot get dovecot version.'
-    end
-    unless node['dovecot']['build-options'].is_a?(Hash) &&
-           !node['dovecot']['build-options'].empty?
-      raise 'Ohai plugin cannot get dovecot build options.'
-    end
+    raise 'Ohai plugin cannot get dovecot version.' unless
+        node['dovecot']['version'].is_a?(String)
+    raise 'Ohai plugin cannot get dovecot build options.' unless
+        node['dovecot']['build-options'].is_a?(Hash) && !node['dovecot']['build-options'].empty?
   end
 end
 

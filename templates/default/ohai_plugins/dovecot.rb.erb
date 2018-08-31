@@ -1,7 +1,7 @@
 #
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 #
-# Copyright 2013, Onddo Labs, Sl.
+# Copyright 2014, Onddo Labs, Sl.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,40 +16,38 @@
 # limitations under the License.
 #
 
-provides 'dovecot'
-provides 'dovecot/version'
+Ohai.plugin(:Dovecot) do
+  ENABLE_BUILD_OPTIONS = <%= @enable_build_options.eql?(true).to_s %>
 
-def build_option_key(str)
-  str.downcase.tr(' ', '-')
-end
+  provides 'dovecot', 'dovecot/version'
+  provides 'dovecot/build-options' if ENABLE_BUILD_OPTIONS
 
-def parse_build_options_hash(build_options)
-  Hash[build_options.split(/ +/).map do |value|
-    value.index('=').nil? ? [value, true] : value.split('=', 2)
-  end]
-end
+  def init_dovecot
+    dovecot Mash.new
+    dovecot['version'] = nil
+    dovecot['build-options'] = {} if ENABLE_BUILD_OPTIONS
+    dovecot
+  end
 
-def parse_build_options_array(build_options)
-  build_options.split(/ +/)
-end
+  def build_option_key(str)
+    str.downcase.tr(' ', '-')
+  end
 
-dovecot Mash.new unless dovecot
-dovecot['version'] = nil unless dovecot['version']
+  def parse_build_options_hash(build_options)
+    Hash[build_options.split(/ +/).map do |value|
+      value.index('=').nil? ? [value, true] : value.split('=', 2)
+    end]
+  end
 
-status, stdout, _stderr =
-  run_command(no_status_check: true, command: 'dovecot --version')
-dovecot['version'] = stdout.split("\n")[0] if status == 0
+  def parse_build_options_array(build_options)
+    build_options.split(/ +/)
+  end
 
-<% if @enable_build_options -%>
+  def collect_version(stdout)
+    dovecot['version'] = stdout.split("\n")[0]
+  end
 
-provides 'dovecot/build-options'
-
-dovecot['build-options'] = {} unless dovecot['build-options']
-
-status, stdout, _stderr =
-  run_command(no_status_check: true, command: 'dovecot --build-options')
-if status == 0
-  stdout.split("\n").each do |line|
+  def collect_build_options_line(line)
     case line
     when /^Build options: *(.+)/
       dovecot['build-options']
@@ -59,6 +57,19 @@ if status == 0
         parse_build_options_array(Regexp.last_match[2])
     end
   end
-end
 
-<% end -%>
+  def collect_build_options(stdout)
+    stdout.each_line { |line| collect_build_options_line(line) }
+  end
+
+  collect_data do
+    init_dovecot
+    so = shell_out('dovecot --version')
+    collect_version(so.stdout) if so.exitstatus == 0
+
+    if ENABLE_BUILD_OPTIONS
+      so_bo = shell_out('dovecot --build-options')
+      collect_build_options(so_bo.stdout) if so_bo.exitstatus == 0
+    end
+  end
+end

@@ -3,22 +3,42 @@ driver:
   name: docker
   use_sudo: false
 
+provisioner:
+  name: chef_zero
+  data_bags_path: ./test/data_bags
+
 # If you add new platforms below, include them in the .travis.yml file matrix
 platforms:
-- name: centos-6
-- name: centos-7
-- name: debian-7
+- name: centos-6.7
+# Does not have full/proper systemd installed
+# fails with:
+# STDERR: Failed to get D-Bus connection: Operation not permitted
+# STDERR: Failed to connect to bus: No such file or directory
+# STDERR: System has not been booted with systemd as init system (PID 1). Can't operate
+# - name: centos-7.4
+# - name: opensuse-leap-42
+# - name: fedora-28
+- name: debian-7.11
   run_list: recipe[apt]
-- name: debian-8
-  run_list: recipe[apt]
-- name: oraclelinux-6
-  driver_config:
-    platform: rhel
-- name: ubuntu-16.04
+- name: debian-9.4
   run_list: recipe[apt]
 
-# Non-official images with systemd
-- name: scientific-6.6
-  driver_config:
-    image: ringo/scientific:6.6
-    platform: rhel
+suites:
+- name: default
+  run_list:
+  - recipe[dovecot_test]
+- name: ldap
+  run_list:
+  - recipe[dovecot_test::ldap]
+- name: attributes
+  run_list:
+  - recipe[dovecot_test::attributes]
+- name: create_pwfile
+  run_list:
+  - recipe[dovecot_test::create_pwfile]
+  excludes:
+  # old versions of Dovecot does not support default_field_values
+  - centos-6.7
+  # by default does not have 'snakeoil' self-signed cert and key
+  - debian-9.4
+  

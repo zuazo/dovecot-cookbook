@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Cookbook Name:: dovecot
 # Attributes:: conf_10_mail
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
@@ -39,7 +37,6 @@ default['dovecot']['conf']['mail_nfs_storage'] = nil
 default['dovecot']['conf']['mail_nfs_index'] = nil
 default['dovecot']['conf']['lock_method'] = nil
 default['dovecot']['conf']['mail_temp_dir'] = nil
-default['dovecot']['conf']['first_valid_uid'] = nil
 default['dovecot']['conf']['last_valid_uid'] = nil
 default['dovecot']['conf']['first_valid_gid'] = nil
 default['dovecot']['conf']['last_valid_gid'] = nil
@@ -74,3 +71,8 @@ default['dovecot']['conf']['mdbox_preallocate_space'] = nil
 default['dovecot']['conf']['mail_attachment_min_size'] = nil
 default['dovecot']['conf']['mail_attachment_fs'] = nil
 default['dovecot']['conf']['mail_attachment_hash'] = nil
+
+# grep SYS_UID_MAX /etc/login.defs
+# SuSE == 499
+# others == 999
+default['dovecot']['conf']['first_valid_uid'] = 480 if node['platform_family'] == 'suse'

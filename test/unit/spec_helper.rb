@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2014 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
@@ -48,8 +46,8 @@ RSpec.configure do |config|
   config.color = true
   config.formatter = :documentation
   config.tty = true
-  config.platform = 'ubuntu'
-  config.version = '12.04'
+  config.platform = 'centos'
+  config.version = '7.5'
 end
 
 at_exit { ChefSpec::Coverage.report! }
