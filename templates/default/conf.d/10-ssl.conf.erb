@@ -56,6 +56,7 @@
 # auth_ssl_username_from_cert=yes.
 <%= DovecotCookbook::Conf.attribute(@conf, 'ssl_cert_username_field', 'commonName') %>
 
+<% if node['dovecot']['version'] < '2.3' -%>
 # How often to regenerate the SSL parameters file. Generation is quite CPU
 # intensive operation. The value is in hours, 0 disables regeneration
 # entirely.
@@ -68,7 +69,17 @@
 <%= DovecotCookbook::Conf.attribute(@conf, 'ssl_protocols', '!SSLv2') %>
 
 # SSL ciphers to use
-<%= DovecotCookbook::Conf.attribute(@conf, 'ssl_cipher_list', 'ALL:!LOW:!SSLv2:!EXP:!aNULL') %>
+<%= DovecotCookbook::Conf.attribute(@conf, 'ssl_cipher_list', 'ALL:!LOW:!EXPORT:!aNULL:!SSLv2') %>
+<% else %>
+# DH parameters file to use
+<%= DovecotCookbook::Conf.attribute(@conf, 'ssl_dh', '/etc/dovecot/dh.pem') %>
+
+# Minimum SSL protocol version to use
+<%= DovecotCookbook::Conf.attribute(@conf, 'ssl_min_protocol', 'TLSv1.2') %>
+
+# SSL ciphers to use
+<%= DovecotCookbook::Conf.attribute(@conf, 'ssl_cipher_list', 'ALL:!LOW:!EXPORT:!aNULL:!kRSA:!SRP:!kDHd:!DSS:!eNULL:!DES:!3DES:!MD5:!PSK:!RC4:!ADH:!DH@STRENGTH') %>
+<% end -%>
 
 # Prefer the server's order of ciphers over client's.
 <%= DovecotCookbook::Conf.attribute(@conf, 'ssl_prefer_server_ciphers', false) %>

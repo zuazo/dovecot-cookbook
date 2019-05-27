@@ -303,9 +303,11 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['ssl_client_ca_file']`        | *nil*        | File for trusted SSL CA certificates. These are used only when Dovecot needs to act as an SSL client.
 | `node['dovecot']['conf']['ssl_verify_client_cert']`    | *nil*        | Request client to send a certificate.
 | `node['dovecot']['conf']['ssl_cert_username_field']`   | *nil*        | Which field from certificate to use for username.
-| `node['dovecot']['conf']['ssl_parameters_regenerate']` | *nil*        | How often to regenerate the SSL parameters file.
-| `node['dovecot']['conf']['ssl_dh_parameters_length']`  | *nil*        | DH parameters length to use.
-| `node['dovecot']['conf']['ssl_protocols']`             | *nil*        | SSL protocols to use.
+| `node['dovecot']['conf']['ssl_parameters_regenerate']` | *nil*        | How often to regenerate the SSL parameters file (Dovecot < 2.3).
+| `node['dovecot']['conf']['ssl_dh_parameters_length']`  | *nil*        | DH parameters length to use (Dovecot < 2.3).
+| `node['dovecot']['conf']['ssl_protocols']`             | *nil*        | SSL protocols to use (Dovecot < 2.3).
+| `node['dovecot']['conf']['ssl_dh']`                    | *nil*        | DH parameters file to use (Dovecot >= 2.3).
+| `node['dovecot']['conf']['ssl_min_protocol']`          | *nil*        | Minimum SSL protocol version to use (Dovecot >= 2.3).
 | `node['dovecot']['conf']['ssl_cipher_list']`           | *nil*        | SSL ciphers to use.
 | `node['dovecot']['conf']['ssl_prefer_server_ciphers']` | *nil*        | Prefer the server's order of ciphers over client's.
 | `node['dovecot']['conf']['ssl_crypto_device']`         | *nil*        | SSL crypto device to use, for valid values run `$ openssl engine`.
