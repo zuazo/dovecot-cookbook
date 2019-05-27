@@ -10,8 +10,9 @@ driver:
 provisioner:
   name: chef_zero
   data_bags_path: ./test/data_bags
-  # client_rb:
-  #   treat_deprecation_warnings_as_errors: true # WiP on some depends
+  client_rb:
+    chef_license: accept
+    # treat_deprecation_warnings_as_errors: true # WiP on some depends
 
 platforms:
 - name: centos-6.7
