@@ -65,6 +65,7 @@ node['dovecot']['conf_files'].each do |type, conf_files|
         services: node['dovecot']['services'].to_hash,
         plugins: node['dovecot']['plugins'].to_hash,
         namespaces: node['dovecot']['namespaces'],
+        metrics: node['dovecot']['metrics'],
         conf: node['dovecot']['conf']
       )
       if DovecotCookbook::Conf.require?(type, node['dovecot'])

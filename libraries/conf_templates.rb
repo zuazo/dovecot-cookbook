@@ -83,6 +83,32 @@ namespace <%= @dovecot_conf.name(@ns['name']) %> {
 EOT
                   .freeze unless defined?(Conf::Templates::NAMESPACE)
 
+      METRICS = <<-EOT
+<% @metrics.each do |metric| %>
+metric <%= @dovecot_conf.name(metric['name']) %> {
+  event_name = <%= @dovecot_conf.name(metric['event_name']) %>
+<% if metric['source_location'].is_a?(String) -%>
+  source_location = @dovecot_conf.value(metric['source_location'])
+<% end -%>
+<% if metric['categories'].is_a?(Array) -%>
+  categories = @dovecot_conf.value(metric['categories'])
+<% end -%>
+<% if metric['fields'].is_a?(Array) -%>
+  fields = @dovecot_conf.value(metric['fields'])
+<% end -%>
+<% if metric['filter'].is_a?(Hash) -%>
+  filter {
+  <% metric['filter'].each do |key, value| %>
+    <%= key %> = <%= @dovecot_conf.value(value) %>
+  <% end -%>
+  }
+}
+<% end -%>
+
+<% end -%>
+EOT
+                .freeze unless defined?(Conf::Templates::METRICS)
+
       PROTOCOL = <<-EOT
 protocol <%= @dovecot_conf.name(@name) %> {
   <% @conf.sort.each do |key, value| -%>

@@ -52,6 +52,7 @@ Table of Contents
   * [Authentication Database Examples](#authentication-database-examples)
   * [Dictionary Quota SQL Example](#dictionary-quota-sql-example)
   * [Namespaces Example](#namespaces-example)
+  * [Metrics Example](#metrics-example)
   * [Plugins Examples](#plugins-examples)
     * [Mail Log Plugin Example](#mail-log-plugin-example)
     * [Sieve Plugin Example](#sieve-plugin-example)
@@ -129,7 +130,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['namespaces']`                   | `[]`                       | Dovecot Namespaces as an array of hashes ([see the example below](#namespaces-example)).
 | `node['dovecot']['plugins']`                      | *calculated*               | Dovecot Plugins configuration as a hash of hashes ([see the examples below](#plugins-examples)). Supported plugins: mail_log, acl and quota.
 | `node['dovecot']['protocols']`                    | `{}`                       | Dovecot Protocols configuration as a hash of hashes ([see the example below](#protocols-example)). Supported protocols: lda, imap, lmtp, sieve and pop3.
-| `node['dovecot']['services']`                     | `{}`                       | Dovecot Services configuration as a hash of hashes ([see the examples below](#service-examples)). Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login managesieve, quota-status, quota-warning, stats, and doveadm.
+| `node['dovecot']['services']`                     | `{}`                       | Dovecot Services configuration as a hash of hashes ([see the examples below](#service-examples)). Supported services: anvil, director, imap-login, pop3-login, lmtp, imap, pop3, auth, auth-worker, dict, tcpwrap, managesieve-login managesieve, quota-status, quota-warning, doveadm, stats, and old-stats (if Dovecot > 2.3).
 | `node['dovecot']['conf']['mail_plugins']`         | `[]`                       | Dovecot default enabled mail_plugins.
 | `node['dovecot']['ohai_plugin']['build-options']` | `true`                     | Whether to enable reading build options inside ohai plugin. Can be disabled to be lighter.
 | `node['dovecot']['databag_name']`              | `dovecot`                  | The databag to use.
@@ -693,6 +694,39 @@ node.default['dovecot']['namespaces'] = [
       'virtual/Flagged' => {
         'special_use' => '\All'
       }
+    }
+  }
+]
+```
+
+## Metrics Example
+
+The `['metrics']` attribute is an array, which should contain hash values.
+
+```ruby
+node.default['dovecot']['metrics'] = [
+  {
+    'name' => 'imap_select_no',
+    'event_name' => 'imap_command_finished',
+    'filter' => {
+      'name' => 'SELECT',
+      'tagged_reply_state' => 'NO'
+    }
+  },
+  {
+    'name' => 'imap_select_no_notfound',
+    'event_name' => 'imap_command_finished',
+    'filter' => {
+      'name' => 'SELECT',
+      'tagged_reply' => 'NO*Mailbox doesn\'t exist:*O'
+    }
+  },
+  {
+    'name' => 'storage_http_gets',
+    'event_name' => 'http_request_finished',
+    'categories' => %w[storage],
+    'filter' => {
+      'method' => 'get'
     }
   }
 ]

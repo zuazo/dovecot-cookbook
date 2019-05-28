@@ -162,3 +162,7 @@ service dict {
 <% if @services['stats'].kind_of?(Hash) and @services['stats'].length > 0 -%>
 <%=  DovecotCookbook::Conf.service('stats', @services['stats']) %>
 <% end -%>
+
+<% if @services['old-stats'].kind_of?(Hash) and @services['old-stats'].length > 0 -%>
+<%=  DovecotCookbook::Conf.service('old-stats', @services['old-stats']) %>
+<% end -%>

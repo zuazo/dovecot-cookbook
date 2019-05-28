@@ -71,6 +71,11 @@ module DovecotCookbook
       evaluate_template(template, ns: ns)
     end
 
+    def self.metrics(metrics)
+      template = DovecotCookbook::Conf::Templates::METRICS
+      evaluate_template(template, metrics: metrics)
+    end
+
     def self.protocol(name, conf)
       template = DovecotCookbook::Conf::Templates::PROTOCOL
       evaluate_template(template, name: name, conf: conf)

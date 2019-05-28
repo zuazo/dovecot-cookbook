@@ -167,4 +167,31 @@ node.default['dovecot']['services']['imap-login'] =
     'vsz_limit' => '64M'
   }
 
+node.default['dovecot']['metrics'] = [
+  {
+    'name' => 'imap_select_no',
+    'event_name' => 'imap_command_finished',
+    'filter' => {
+      'name' => 'SELECT',
+      'tagged_reply_state' => 'NO'
+    }
+  },
+  {
+    'name' => 'imap_select_no_notfound',
+    'event_name' => 'imap_command_finished',
+    'filter' => {
+      'name' => 'SELECT',
+      'tagged_reply' => 'NO*Mailbox doesn\'t exist:*O'
+    }
+  },
+  {
+    'name' => 'storage_http_gets',
+    'event_name' => 'http_request_finished',
+    'categories' => %w[storage],
+    'filter' => {
+      'method' => 'get'
+    }
+  }
+]
+
 include_recipe 'dovecot_test'
