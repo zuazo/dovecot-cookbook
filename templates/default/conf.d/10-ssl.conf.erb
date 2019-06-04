@@ -41,9 +41,10 @@
 <%= DovecotCookbook::Conf.attribute(@conf, 'ssl_require_crl', true) %>
 
 # Directory and/or file for trusted SSL CA certificates. These are used only
-# when Dovecot needs to act as an SSL client (e.g. imapc backend). The
-# directory is usually /etc/ssl/certs in Debian-based systems and the file is
-# /etc/pki/tls/cert.pem in RedHat-based systems.
+# when Dovecot needs to act as an SSL client (e.g. imapc backend or
+# submission service). The directory is usually /etc/pki/dovecot/certs in
+# Debian-based systems and the file is /etc/pki/tls/cert.pem in
+# RedHat-based systems.
 <%= DovecotCookbook::Conf.attribute(@conf, 'ssl_client_ca_dir') %>
 <%= DovecotCookbook::Conf.attribute(@conf, 'ssl_client_ca_file') %>
 
@@ -56,21 +57,6 @@
 # auth_ssl_username_from_cert=yes.
 <%= DovecotCookbook::Conf.attribute(@conf, 'ssl_cert_username_field', 'commonName') %>
 
-<% if node['dovecot']['version'] < '2.3' -%>
-# How often to regenerate the SSL parameters file. Generation is quite CPU
-# intensive operation. The value is in hours, 0 disables regeneration
-# entirely.
-<%= DovecotCookbook::Conf.attribute(@conf, 'ssl_parameters_regenerate', 168) %>
-
-# DH parameters length to use.
-<%= DovecotCookbook::Conf.attribute(@conf, 'ssl_dh_parameters_length', 1024) %>
-
-# SSL protocols to use
-<%= DovecotCookbook::Conf.attribute(@conf, 'ssl_protocols', '!SSLv2') %>
-
-# SSL ciphers to use
-<%= DovecotCookbook::Conf.attribute(@conf, 'ssl_cipher_list', 'ALL:!LOW:!EXPORT:!aNULL:!SSLv2') %>
-<% else %>
 # DH parameters file to use
 <%= DovecotCookbook::Conf.attribute(@conf, 'ssl_dh', '/etc/dovecot/dh.pem') %>
 
@@ -79,7 +65,6 @@
 
 # SSL ciphers to use
 <%= DovecotCookbook::Conf.attribute(@conf, 'ssl_cipher_list', 'ALL:!LOW:!EXPORT:!aNULL:!kRSA:!SRP:!kDHd:!DSS:!eNULL:!DES:!3DES:!MD5:!PSK:!RC4:!ADH:!DH@STRENGTH') %>
-<% end -%>
 
 # Prefer the server's order of ciphers over client's.
 <%= DovecotCookbook::Conf.attribute(@conf, 'ssl_prefer_server_ciphers', false) %>

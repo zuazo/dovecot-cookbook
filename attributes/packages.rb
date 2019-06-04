@@ -24,6 +24,7 @@ when 'rhel', 'fedora'
   default['dovecot']['packages']['pop3'] = [] # included inside core
   default['dovecot']['packages']['lmtp'] = [] # included inside core
   default['dovecot']['packages']['sieve'] = %w[dovecot-pigeonhole]
+  default['dovecot']['packages']['submission'] = [] # included inside core
   default['dovecot']['packages']['ldap'] = [] # included inside core
   default['dovecot']['packages']['sqlite'] = [] # included inside core
   default['dovecot']['packages']['mysql'] = %w[dovecot-mysql]
@@ -54,6 +55,7 @@ else # when 'debian'
   default['dovecot']['packages']['pop3'] = %w[dovecot-pop3d]
   default['dovecot']['packages']['lmtp'] = %w[dovecot-lmtpd]
   default['dovecot']['packages']['sieve'] = %w[dovecot-sieve dovecot-managesieved]
+  default['dovecot']['packages']['submission'] = %w[dovecot-submissiond]
   default['dovecot']['packages']['ldap'] = %w[dovecot-ldap]
   default['dovecot']['packages']['sqlite'] = %w[dovecot-sqlite]
   default['dovecot']['packages']['mysql'] = %w[dovecot-mysql]

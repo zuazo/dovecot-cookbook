@@ -125,6 +125,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf_files']['pop3']`           | `['conf.d/20-pop3.conf']`  | Dovecot POP3 configuration files list.
 | `node['dovecot']['conf_files']['lmtp']`           | `['conf.d/20-lmtp.conf']`  | Dovecot LMTP configuration files list.
 | `node['dovecot']['conf_files']['sieve']`          | *calculated*               | Dovecot Sieve configuration files list.
+| `node['dovecot']['conf_files']['submission']`     | *calculated*               | Dovecot Submission configuration files list.
 | `node['dovecot']['conf_files']['ldap']`           | *calculated*               | Dovecot LDAP configuration files list.
 | `node['dovecot']['auth']`                         | `{}`                       | Dovecot Authentication Databases as a hash of hashes ([see the examples below](#authentication-database-examples)). Supported authdbs: checkpassword, deny, ldap, master, passwdfile, sql, system and vpopmail.
 | `node['dovecot']['namespaces']`                   | `[]`                       | Dovecot Namespaces as an array of hashes ([see the example below](#namespaces-example)).
@@ -428,17 +429,18 @@ Also used by Replication/sync of dovecot.
 
 These attributes below contain the default required distribution packages for the supported platforms. But you are free to create your own to support other platforms. Keep in mind that all are put inside a subkey (`type`). This `node['dovecot']['packages'][type]` attribute is then used together with the `node['dovecot']['conf_files'][type]` attribute to generate the configuration files.
 
-| Attribute                               | Default      | Description                    |
-|:----------------------------------------|:-------------|:-------------------------------|
-| `node['dovecot']['packages']['core']`   | *calculated* | Dovecot core package names array.
-| `node['dovecot']['packages']['imap']`   | *calculated* | Dovecot IMAP package names array.
-| `node['dovecot']['packages']['pop3']`   | *calculated* | Dovecot POP3 package names array.
-| `node['dovecot']['packages']['lmtp']`   | *calculated* | Dovecot LMTP package names array.
-| `node['dovecot']['packages']['sieve']`  | *calculated* | Dovecot Sieve package names array.
-| `node['dovecot']['packages']['ldap']`   | *calculated* | Dovecot LDAP package names array.
-| `node['dovecot']['packages']['sqlite']` | *calculated* | Dovecot SQLite package names array.
-| `node['dovecot']['packages']['mysql']`  | *calculated* | Dovecot MySQL package names array.
-| `node['dovecot']['packages']['pgsql']`  | *calculated* | Dovecot PostgreSQL package names array.
+| Attribute                                   | Default      | Description                    |
+|:--------------------------------------------|:-------------|:-------------------------------|
+| `node['dovecot']['packages']['core']`       | *calculated* | Dovecot core package names array.
+| `node['dovecot']['packages']['imap']`       | *calculated* | Dovecot IMAP package names array.
+| `node['dovecot']['packages']['pop3']`       | *calculated* | Dovecot POP3 package names array.
+| `node['dovecot']['packages']['lmtp']`       | *calculated* | Dovecot LMTP package names array.
+| `node['dovecot']['packages']['sieve']`      | *calculated* | Dovecot Sieve package names array.
+| `node['dovecot']['packages']['submission']` | *calculated* | Dovecot Submission package names array.
+| `node['dovecot']['packages']['ldap']`       | *calculated* | Dovecot LDAP package names array.
+| `node['dovecot']['packages']['sqlite']`     | *calculated* | Dovecot SQLite package names array.
+| `node['dovecot']['packages']['mysql']`      | *calculated* | Dovecot MySQL package names array.
+| `node['dovecot']['packages']['pgsql']`      | *calculated* | Dovecot PostgreSQL package names array.
 
 ## Distribution Service Configuration
 
@@ -774,7 +776,7 @@ node.default['dovecot']['plugins']['stats'] = {
 
 Protocol attribute values should be of type hash.
 
-Supported protocols are the following: `lda`, `imap`, `lmtp`, `sieve` and `pop3`.
+Supported protocols are the following: `lda`, `lmtp`, `imap`, `pop3`, `sieve`, `submission`.
 
 ```ruby
 node.default['dovecot']['protocols']['lda'] = {
@@ -794,7 +796,7 @@ The `['services']` attribute is a hash. Each service attribute should be a hash.
 
 Inside this `listeners` key, you should name each listener with the format *PROTOCOL:NAME*. Allowed protocols are `fifo`, `unix` and `inet`.
 
-Supported services are the following: `anvil`, `director`, `imap-login`, `pop3-login`, `lmtp`, `imap`, `pop3`, `auth`, `auth-worker`, `dict`, `tcpwrap`, `managesieve-login`, `managesieve`, `aggregator`, `replicator`, `config`.
+Supported services are the following: `anvil`, `director`, `imap-login`, `pop3-login`, `lmtp`, `imap`, `pop3`, `auth`, `auth-worker`, `dict`, `tcpwrap`, `managesieve-login`, `managesieve`, `aggregator`, `replicator`, `config`, `submission`, `submission-login`.
 
 ### Director Service Example
 

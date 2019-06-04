@@ -94,7 +94,7 @@ module DovecotCookbook
     def self.require?(req, conf)
       case req
       when 'core' then true
-      when 'imap', 'pop3', 'lmtp' then Conf::Require.protocol?(req, conf)
+      when 'imap', 'pop3', 'lmtp', 'submission' then Conf::Require.protocol?(req, conf)
       when 'sieve' then Conf::Require.plugin?('sieve', conf)
       when 'ldap' then Conf::Require.ldap?(conf['conf'])
       when 'sqlite', 'mysql', 'pgsql' then Conf::Require.db?(req, conf['conf'])

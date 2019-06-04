@@ -72,6 +72,9 @@ default['dovecot']['conf_files']['sieve'] = %w[
   conf.d/20-managesieve.conf
   conf.d/90-sieve.conf
 ]
+default['dovecot']['conf_files']['submission'] = %w[
+  conf.d/20-submission.conf
+]
 default['dovecot']['conf_files']['ldap'] = %w[
   dovecot-ldap.conf.ext
   conf.d/auth-ldap.conf.ext
