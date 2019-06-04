@@ -17,6 +17,17 @@
 # limitations under the License.
 #
 
+case node['platform_family']
+when 'rhel', 'fedora'
+  if node['platform_version'].to_f > 7.0
+    systemd_service_drop_in 'dovecot' do
+      override 'dovecot.service'
+      service_read_write_directories '/home'
+      notifies :restart, 'service[dovecot]'
+    end
+  end
+end
+
 include_recipe 'dovecot'
 
 ruby_block 'ohai plugin tests' do

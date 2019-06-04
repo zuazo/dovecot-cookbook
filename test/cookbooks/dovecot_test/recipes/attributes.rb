@@ -139,6 +139,7 @@ node.default['dovecot']['plugins']['sieve'] =
 # protocols.rb
 
 node.default['dovecot']['protocols']['imap'] = {}
+node.default['dovecot']['protocols']['submission'] = {}
 node.default['dovecot']['protocols']['lda'] =
   { 'mail_plugins' => %w[$mail_plugins] }
 
@@ -148,7 +149,8 @@ node.default['dovecot']['services']['director']['listeners'] =
   [
     { 'unix:login/director' => { 'mode' => '0666' } },
     { 'fifo:login/proxy-notify' => { 'mode' => '0666' } },
-    { 'unix:director-userdb' => { 'mode' => '0666' } }
+    { 'unix:director-userdb' => { 'mode' => '0666' } },
+    { 'inet:director-doveadm' => { 'port' => '9091' } }
   ]
 if node['platform'] != 'centos' # Avoid SELinux error in CentOS
   node.default['dovecot']['services']['director']['listeners'][0]['inet'] =
@@ -165,5 +167,32 @@ node.default['dovecot']['services']['imap-login'] =
     'process_min_avail' => 0,
     'vsz_limit' => '64M'
   }
+
+node.default['dovecot']['metrics'] = [
+  {
+    'name' => 'imap_select_no',
+    'event_name' => 'imap_command_finished',
+    'filter' => {
+      'name' => 'SELECT',
+      'tagged_reply_state' => 'NO'
+    }
+  },
+  {
+    'name' => 'imap_select_no_notfound',
+    'event_name' => 'imap_command_finished',
+    'filter' => {
+      'name' => 'SELECT',
+      'tagged_reply' => 'NO*Mailbox doesn\'t exist:*O'
+    }
+  },
+  {
+    'name' => 'storage_http_gets',
+    'event_name' => 'http_request_finished',
+    'categories' => %w[storage],
+    'filter' => {
+      'method' => 'get'
+    }
+  }
+]
 
 include_recipe 'dovecot_test'

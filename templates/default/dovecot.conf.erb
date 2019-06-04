@@ -26,7 +26,7 @@
 <% unless @protocols.nil? -%>
 protocols = <%= DovecotCookbook::Conf.protocols(@protocols) %>
 <% else -%>
-#protocols = imap pop3 lmtp
+#protocols = imap pop3 lmtp submission
 <% end -%>
 
 # A comma separated list of IPs or hosts where to listen in for connections. 

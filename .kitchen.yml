@@ -10,8 +10,9 @@ driver:
 provisioner:
   name: chef_zero
   data_bags_path: ./test/data_bags
-  # client_rb:
-  #   treat_deprecation_warnings_as_errors: true # WiP on some depends
+  client_rb:
+    chef_license: accept
+    # treat_deprecation_warnings_as_errors: true # WiP on some depends
 
 platforms:
 - name: centos-6.7
@@ -22,17 +23,15 @@ platforms:
 - name: fedora-28
 - name: oracle-6.9
 - name: oracle-7.4
-- name: debian-7.11
+- name: debian-8.11
+  driver:
+    box: debian/jessie64
+    box_version: 8.11.0
   run_list: recipe[apt]
-- name: debian-8.9
-  run_list: recipe[apt]
-- name: debian-8.10
-  run_list: recipe[apt]
-- name: debian-9.2
-  run_list: recipe[apt]
-- name: debian-9.3
-  run_list: recipe[apt]
-- name: debian-9.4
+- name: debian-9.9
+  driver:
+    box: debian/stretch64
+    box_version: 9.9.0
   run_list: recipe[apt]
 - name: ubuntu-14.04
   run_list: recipe[apt]
@@ -47,6 +46,12 @@ suites:
   run_list:
   - recipe[dovecot_test]
 - name: ldap
+  provisioner:
+    name: chef_zero
+    require_chef_omnibus: 12.22.5 # https://github.com/RiotGamesCookbooks/ldap-cookbook/issues/5
+    data_bags_path: ./test/data_bags
+    client_rb:
+      chef_license: accept
   run_list:
   - recipe[dovecot_test::ldap]
   excludes:
@@ -65,8 +70,5 @@ suites:
   - centos-6.7
   - oracle-6.9
   # by default does not have 'snakeoil' self-signed cert and key
-  - debian-8.9
-  - debian-8.10
-  - debian-9.2
-  - debian-9.3
-  - debian-9.4
+  - debian-8.11
+  - debian-9.9

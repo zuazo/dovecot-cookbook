@@ -59,6 +59,16 @@ service pop3-login {
 }
 <% end -%>
 
+<% if @services['submission-login'].kind_of?(Hash) and @services['submission-login'].length > 0 -%>
+<%=  DovecotCookbook::Conf.service('submission-login', @services['submission-login']) %>
+<% else -%>
+service submission-login {
+  inet_listener submission {
+    #port = 587
+  }
+}
+<% end -%>
+
 <% if @services['lmtp'].kind_of?(Hash) and @services['lmtp'].length > 0 -%>
 <%=  DovecotCookbook::Conf.service('lmtp', @services['lmtp']) %>
 <% else -%>
@@ -94,6 +104,15 @@ service imap {
 <% else -%>
 service pop3 {
   # Max. number of POP3 processes (connections)
+  #process_limit = 1024
+}
+<% end -%>
+
+<% if @services['submission'].kind_of?(Hash) and @services['submission'].length > 0 -%>
+<%=  DovecotCookbook::Conf.service('submission', @services['submission']) %>
+<% else -%>
+service submission {
+  # Max. number of SMTP Submission processes (connections)
   #process_limit = 1024
 }
 <% end -%>
@@ -161,4 +180,8 @@ service dict {
 
 <% if @services['stats'].kind_of?(Hash) and @services['stats'].length > 0 -%>
 <%=  DovecotCookbook::Conf.service('stats', @services['stats']) %>
+<% end -%>
+
+<% if @services['old-stats'].kind_of?(Hash) and @services['old-stats'].length > 0 -%>
+<%=  DovecotCookbook::Conf.service('old-stats', @services['old-stats']) %>
 <% end -%>

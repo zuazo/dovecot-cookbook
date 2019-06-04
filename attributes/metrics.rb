@@ -1,6 +1,7 @@
-# Cookbook Name:: dovecot_test
+# Cookbook Name:: dovecot
+# Attributes:: default
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL.
+# Copyright:: Copyright (c) 2013-2019 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,18 +17,4 @@
 # limitations under the License.
 #
 
-name 'dovecot_test'
-maintainer 'Xabier de Zuazo'
-maintainer_email 'xabier@zuazo.org'
-license 'Apache 2.0'
-description 'This cookbook is used with test-kitchen to test the parent, '\
-            'dovecot cookbook'
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '0.1.0'
-
-depends 'dovecot'
-depends 'ldap'
-depends 'netstat' # Required to run integration tests with Docker
-depends 'openldap'
-depends 'ssl_certificate'
-depends 'systemd'
+default['dovecot']['metrics'] = []
