@@ -119,4 +119,15 @@ node.default['dovecot']['conf']['ldap']['dn'] = ldap_credentials['bind_dn']
 node.default['dovecot']['conf']['ldap']['dnpass'] = ldap_credentials['password']
 node.default['dovecot']['conf']['ldap']['base'] = node['openldap']['basedn']
 
+case node['platform_family']
+when 'rhel', 'fedora'
+  if node['platform_version'].to_f > 7.0
+    systemd_service_drop_in 'dovecot' do
+      override 'dovecot.service'
+      service_protect_system false
+      notifies :restart, 'service[dovecot]'
+    end
+  end
+end
+
 include_recipe 'dovecot_test'
