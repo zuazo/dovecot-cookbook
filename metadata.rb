@@ -34,7 +34,7 @@ chef_version '>= 12' if respond_to?(:chef_version)
 
 supports 'amazon'
 supports 'centos', '>= 6.7'
-supports 'debian', '>= 7.11'
+supports 'debian', '>= 8.11'
 supports 'fedora', '>= 26.0'
 supports 'opensuse', '>= 42.0'
 supports 'oracle', '>= 6.9'
