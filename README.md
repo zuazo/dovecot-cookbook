@@ -353,6 +353,7 @@ Also used by Replication/sync of dovecot.
 
 | Attribute                                                | Default | Description                    |
 |:---------------------------------------------------------|:--------|:-------------------------------|
+| `node['dovecot']['conf']['lmtp_add_received_header']`    | *nil*   | Add "Received:" header to mails delivered.
 | `node['dovecot']['conf']['lmtp_proxy']`                  | *nil*   | Support proxying to other LMTP/SMTP servers by performing passdb lookups.
 | `node['dovecot']['conf']['lmtp_save_to_detail_mailbox']` | *nil*   | When recipient address includes the detail (e.g. user+detail), try to save the mail to the detail mailbox.
 | `node['dovecot']['conf']['lmtp_rcpt_check_quota']`       | *nil*   | Verify quota before replying to RCPT TO. This adds a small overhead.

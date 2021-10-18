@@ -4,6 +4,9 @@
 ## LMTP specific settings
 ##
 
+# Add "Received:" header to mails delivered.
+<%= DovecotCookbook::Conf.attribute(@conf, 'lmtp_add_received_header', true) %>
+
 # Support proxying to other LMTP/SMTP servers by performing passdb lookups.
 <%= DovecotCookbook::Conf.attribute(@conf, 'lmtp_proxy', false) %>
 
