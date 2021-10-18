@@ -20,6 +20,7 @@
 
 # conf.d/20-lmtp.conf
 
+default['dovecot']['conf']['lmtp_add_received_header'] = nil
 default['dovecot']['conf']['lmtp_proxy'] = nil
 default['dovecot']['conf']['lmtp_save_to_detail_mailbox'] = nil
 default['dovecot']['conf']['lmtp_rcpt_check_quota'] = nil
