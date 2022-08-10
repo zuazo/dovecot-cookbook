@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe 'dovecot::ohai_plugin'
 include_recipe 'dovecot::user'
 include_recipe "dovecot::from_#{node['dovecot']['install_from']}"
 include_recipe 'dovecot::conf_files'

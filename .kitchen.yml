@@ -10,15 +10,11 @@ driver:
 provisioner:
   name: chef_zero
   data_bags_path: ./test/data_bags
-  client_rb:
-    chef_license: accept
-    # treat_deprecation_warnings_as_errors: true # WiP on some depends
+  product_name: cinc
+  product_version: 17
 
 platforms:
-- name: centos-6.7
-- name: centos-7.2
-- name: centos-7.4
-- name: centos-7.5
+- name: centos-7
 - name: fedora-26
 - name: fedora-28
 - name: oracle-6.9
@@ -46,12 +42,6 @@ suites:
   run_list:
   - recipe[dovecot_test]
 - name: ldap
-  provisioner:
-    name: chef_zero
-    require_chef_omnibus: 12.22.5 # https://github.com/RiotGamesCookbooks/ldap-cookbook/issues/5
-    data_bags_path: ./test/data_bags
-    client_rb:
-      chef_license: accept
   run_list:
   - recipe[dovecot_test::ldap]
   excludes:
