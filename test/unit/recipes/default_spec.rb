@@ -23,7 +23,6 @@ describe 'dovecot::default', order: :random do
   let(:node) { chef_runner.node }
 
   %w[
-    dovecot::ohai_plugin
     dovecot::user
     dovecot::from_package
     dovecot::conf_files
