@@ -64,6 +64,12 @@
 # DH parameters length to use.
 <%= DovecotCookbook::Conf.attribute(@conf, 'ssl_dh_parameters_length', 1024) %>
 
+# SSL DH parameters
+# Generate new params with `openssl dhparam -out /etc/dovecot/dh.pem 4096`
+# Or migrate from old ssl-parameters.dat file with the command dovecot
+# gives on startup when ssl_dh is unset.
+<%= DovecotCookbook::Conf.attribute(@conf, 'ssl_dh', '</usr/share/dovecot/dh.pem') %>
+
 # SSL protocols to use
 <%= DovecotCookbook::Conf.attribute(@conf, 'ssl_protocols', '!SSLv2') %>
 
