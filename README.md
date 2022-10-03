@@ -304,6 +304,7 @@ To see a more complete description of the attributes, go to the [Dovecot wiki2 c
 | `node['dovecot']['conf']['ssl_verify_client_cert']`    | *nil*        | Request client to send a certificate.
 | `node['dovecot']['conf']['ssl_cert_username_field']`   | *nil*        | Which field from certificate to use for username.
 | `node['dovecot']['conf']['ssl_parameters_regenerate']` | *nil*        | How often to regenerate the SSL parameters file.
+| `node['dovecot']['conf']['ssl_dh']`                    | *nil*        | DH parameters to use. Generate new params with `openssl dhparam -out /etc/dovecot/dh.pem 4096`
 | `node['dovecot']['conf']['ssl_dh_parameters_length']`  | *nil*        | DH parameters length to use.
 | `node['dovecot']['conf']['ssl_protocols']`             | *nil*        | SSL protocols to use.
 | `node['dovecot']['conf']['ssl_cipher_list']`           | *nil*        | SSL ciphers to use.

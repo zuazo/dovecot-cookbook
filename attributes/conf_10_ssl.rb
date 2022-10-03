@@ -64,6 +64,7 @@ default['dovecot']['conf']['ssl_verify_client_cert'] = nil
 default['dovecot']['conf']['ssl_cert_username_field'] = nil
 default['dovecot']['conf']['ssl_parameters_regenerate'] = nil
 default['dovecot']['conf']['ssl_dh_parameters_length'] = nil
+default['dovecot']['conf']['ssl_dh'] = nil
 default['dovecot']['conf']['ssl_protocols'] = nil
 default['dovecot']['conf']['ssl_cipher_list'] = nil
 default['dovecot']['conf']['ssl_prefer_server_ciphers'] = nil
