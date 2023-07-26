@@ -25,7 +25,7 @@ description <<-EOH
 Installs and configures Dovecot, open source IMAP and POP3 email server.
 EOH
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '3.3.0' # WiP
+version '3.3.1' # WiP
 
 source_url "https://github.com/zuazo/#{name}-cookbook" if respond_to?(:source_url)
 issues_url "https://github.com/zuazo/#{name}-cookbook/issues" if respond_to?(:issues_url)
@@ -41,13 +41,13 @@ supports 'oracle', '>= 6.9'
 supports 'ubuntu', '>= 14.04'
 
 # TODO: remove this as it will be deprecated in Chef 15
-depends 'ohai'
+#depends 'ohai'
 
 recipe 'dovecot::default', 'Installs and configures Dovecot.'
 recipe 'dovecot::user', 'Creates the dovecot system user.'
 recipe 'dovecot::conf_files', 'Generates all the configuration files.'
-recipe 'dovecot::ohai_plugin',
-       'Provides an Ohai plugin for reading dovecot install information.'
+#recipe 'dovecot::ohai_plugin',
+#       'Provides an Ohai plugin for reading dovecot install information.'
 recipe 'dovecot::from_package', 'Installs the required packages.'
 recipe 'dovecot::service', 'Configures the Dovecot service.'
 recipe 'dovecot::create_pwfile', 'Creates a userdb password file from databag.'
